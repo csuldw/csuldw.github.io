@@ -5,7 +5,7 @@
   <subtitle><![CDATA[悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-07-23T02:29:24.333Z</updated>
+  <updated>2015-07-23T02:29:24.000Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://csuldw.github.io/2015/07/18/2015-07-18-a%20precision%20and%20recall/"/>
     <id>http://csuldw.github.io/2015/07/18/2015-07-18-a precision and recall/</id>
     <published>2015-07-18T04:30:00.000Z</published>
-    <updated>2015-07-23T02:29:24.333Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 
@@ -95,7 +95,7 @@
     <link href="http://csuldw.github.io/2015/07/13/2015-07-13-10%20keys%20to%20successful%20machine%20learning%20for%20developers/"/>
     <id>http://csuldw.github.io/2015/07/13/2015-07-13-10 keys to successful machine learning for developers/</id>
     <published>2015-07-13T13:53:12.000Z</published>
-    <updated>2015-07-23T02:29:24.375Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 <p>在提供发现埋藏数据深层的模式的能力上，机器学习有着潜在的能力使得应用程序更加的强大并且更能响应用户的需求。精心调校好的算法能够从巨大的并且互不相同的数据源中提取价值，同时没有人类思考和分析的限制。对于开发者而言，机器学习为应用业务的关键分析提供了希望，从而实现从改善客户体验到提供产品推荐上升至超个性化内容服务的任何应用程序。<br><a id="more"></a><br>像Amazon和Micorosoft这样的云供应商提供云功能的机器学习解决方案，承诺为开发者提供一个简单的方法，使得机器学习的能力能够融入到他们的应用程序当中，这也算是最近的头条新闻了。承诺似乎很好，但开发者还需谨慎。</p>
@@ -148,7 +148,7 @@
     <link href="http://csuldw.github.io/2015/07/07/2015-07-07-PDB/"/>
     <id>http://csuldw.github.io/2015/07/07/2015-07-07-PDB/</id>
     <published>2015-07-07T15:23:23.000Z</published>
-    <updated>2015-07-23T02:29:24.460Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<p>以下代码为个人原创，python实现，是处理PDB文件的部分常用代码，仅供参考！</p>
 <h3 id="1-下载PDB文件">1.下载PDB文件</h3><p>下面是一个下载PDB文件的函数，传入的参数是一个写有pdb名字的namefile文件，函数的核心部分是三个系统命令，先通过wget下载，然后解压，最后替换名字。</p>
 <a id="more"></a>
@@ -197,7 +197,7 @@
     <link href="http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/"/>
     <id>http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/</id>
     <published>2015-07-05T14:53:12.000Z</published>
-    <updated>2015-07-23T02:29:24.423Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<p><strong>本章内容</strong></p>
 <ul>
 <li>组合相似的分类器来提高分类性能</li>
@@ -304,7 +304,7 @@
     <link href="http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/"/>
     <id>http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/</id>
     <published>2015-06-04T13:53:12.000Z</published>
-    <updated>2015-07-23T02:29:24.497Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据用户平时的搜索或者是购买情况来生成的。如果是蛮力搜索的话代价太高了，所以Apriori就出现了，就是为了解决这类问题的。</p>
 <a id="more"></a>
 <p><strong>内容纲要</strong></p>
@@ -383,7 +383,7 @@
     <link href="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/"/>
     <id>http://csuldw.github.io/2015/06/03/2015-06-03-K-means/</id>
     <published>2015-06-03T04:30:00.000Z</published>
-    <updated>2015-07-23T02:29:24.536Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>
 <a id="more"></a>
 <p><strong>算法的目的：</strong> 使各个样本与所在类均值的<strong>误差平方和达到最小</strong>（这也是评价K-means算法最后聚类效果的评价标准）</p>
@@ -433,7 +433,7 @@
     <link href="http://csuldw.github.io/2015/05/28/2015-05-28-NB/"/>
     <id>http://csuldw.github.io/2015/05/28/2015-05-28-NB/</id>
     <published>2015-05-28T04:59:00.000Z</published>
-    <updated>2015-07-23T02:29:24.569Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong>前面提到的K最近邻算法和决策树算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。</p>
 <a id="more"></a>
 <h3 id="基于贝叶斯决策理论的分类方法之朴素贝叶斯"><strong>基于贝叶斯决策理论的分类方法之朴素贝叶斯</strong></h3><ul>
@@ -497,7 +497,7 @@
     <link href="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/"/>
     <id>http://csuldw.github.io/2015/05/21/2015-05-21-KNN/</id>
     <published>2015-05-21T12:34:00.000Z</published>
-    <updated>2015-07-23T02:29:24.603Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
 <a id="more"></a>
 <h3 id="1-K最近邻分类器原理"><strong>1.K最近邻分类器原理</strong></h3><p>首先给出一张图，根据这张图来理解最近邻分类器，如下：</p>
@@ -557,7 +557,7 @@
     <link href="http://csuldw.github.io/2015/05/08/2015-05-08-decision%20tree/"/>
     <id>http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/</id>
     <published>2015-05-08T13:53:12.000Z</published>
-    <updated>2015-07-23T02:29:24.635Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优越于大的决策树。</strong></p>
 <h2 id="分类引文"><strong>分类引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即supervised learning。</p>
 <ul>
@@ -614,7 +614,7 @@
     <link href="http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/"/>
     <id>http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/</id>
     <published>2015-03-26T07:14:54.000Z</published>
-    <updated>2015-07-23T02:29:24.294Z</updated>
+    <updated>2015-07-23T02:29:24.000Z</updated>
     <content type="html"><![CDATA[<h2 id="序">序</h2><p>本文我将讲述一下 SublimeLinter 的安装过程。<br>其组件 jshint 的安装与使用。<br>其组件 csslint 的安装与使用。<br>我将基于 <a href="http://sublimetext.com/3" target="_blank" rel="external">Sublime Text 3</a> 来安装。<br>使用 Sublime Text 2 的用户阅读本文是没有帮助的。   </p>
 <p>SublimeLinter 是 Sublime 的插件，它的作用是检查代码语法是否有错误，并提示。习惯了 IDE 下写代码的人一定需要一款在 Sublime 上类似的语法检查工具。下面我们开始。   </p>
 <a id="more"></a>
