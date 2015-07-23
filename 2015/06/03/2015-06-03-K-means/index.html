@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习算法--K-means聚类 | 刘帝伟-技术博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习算法--K-means聚类">
+<meta property="og:url" content="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/index.html">
+<meta property="og:site_name" content="刘帝伟-技术博客">
+<meta property="og:description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。">
+<meta property="og:updated_time" content="2015-07-23T02:29:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习算法--K-means聚类">
+<meta name="twitter:description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。">
+  
+    <link rel="alternative" href="/atom.xml" title="刘帝伟-技术博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0b8e8ee87e4708173f00d9048c309301";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/assets/blogImg/devin.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">刘帝伟</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">爱上一匹野马，可我的家里没有草原。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/csuldw" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/liudiwei210" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BioInfo-Python/" style="font-size: 10px;">BioInfo Python</a> <a href="/tags/Machine-Learning-Python/" style="font-size: 11.67px;">Machine-Learning Python</a> <a href="/tags/Machine-Learning-python/" style="font-size: 15px;">Machine-Learning python</a> <a href="/tags/SublimeLinter/" style="font-size: 10px;">SublimeLinter</a> <a href="/tags/chrome/" style="font-size: 10px;">chrome</a> <a href="/tags/coffeescript/" style="font-size: 11.67px;">coffeescript</a> <a href="/tags/css/" style="font-size: 13.33px;">css</a> <a href="/tags/css3/" style="font-size: 11.67px;">css3</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/tags/html5/" style="font-size: 16.67px;">html5</a> <a href="/tags/js/" style="font-size: 18.33px;">js</a> <a href="/tags/machine-learning/" style="font-size: 10px;">machine-learning</a> <a href="/tags/machine-learning-CV-AI/" style="font-size: 10px;">machine-learning CV AI</a> <a href="/tags/octopress/" style="font-size: 11.67px;">octopress</a> <a href="/tags/web/" style="font-size: 18.33px;">web</a> <a href="/tags/主题/" style="font-size: 13.33px;">主题</a> <a href="/tags/产品/" style="font-size: 11.67px;">产品</a> <a href="/tags/前端/" style="font-size: 11.67px;">前端</a> <a href="/tags/安全/" style="font-size: 10px;">安全</a> <a href="/tags/工具/" style="font-size: 11.67px;">工具</a> <a href="/tags/性能/" style="font-size: 10px;">性能</a> <a href="/tags/杂谈/" style="font-size: 11.67px;">杂谈</a> <a href="/tags/模式/" style="font-size: 10px;">模式</a> <a href="/tags/浏览器/" style="font-size: 11.67px;">浏览器</a> <a href="/tags/游戏/" style="font-size: 10px;">游戏</a> <a href="/tags/生活/" style="font-size: 16.67px;">生活</a> <a href="/tags/经验/" style="font-size: 10px;">经验</a> <a href="/tags/药别停/" style="font-size: 11.67px;">药别停</a> <a href="/tags/设计/" style="font-size: 11.67px;">设计</a> <a href="/tags/随笔/" style="font-size: 20px;">随笔</a> <a href="/tags/黑科技/" style="font-size: 10px;">黑科技</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">中南大学在读硕士，关注机器学习，数据挖掘和生物信息</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">刘帝伟</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/assets/blogImg/devin.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">刘帝伟</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">爱上一匹野马，可我的家里没有草原。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/csuldw" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/liudiwei210" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-2015-06-03-K-means" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/03/2015-06-03-K-means/" class="article-date">
+  	<time datetime="2015-06-03T04:30:00.000Z" itemprop="datePublished">Jun 3</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      机器学习算法--K-means聚类
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning-python/">Machine-Learning python</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Machine-Learning-python/">Machine-Learning python</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>
+<a id="more"></a>
+<p><strong>算法的目的：</strong> 使各个样本与所在类均值的<strong>误差平方和达到最小</strong>（这也是评价K-means算法最后聚类效果的评价标准）</p>
+<center><strong>K-均值聚类</strong></center>
+
+<ul>
+<li>优点：容易实现</li>
+<li>缺点：可能收敛到局部最小值，在大规模数据上收敛较慢</li>
+<li>适合数据类型：数值型数据</li>
+</ul>
+<h3 id="伪代码"><strong>伪代码</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建k个点作为起始质心（经常随机选择）</span></span><br><span class="line"><span class="comment">#当任意一个点的蔟分配结果发生变化时</span></span><br><span class="line">	<span class="comment">#对数据集中的每个数据点</span></span><br><span class="line">		<span class="comment">#对每个质心</span></span><br><span class="line">			<span class="comment">#计算质心到数据点之间的距离</span></span><br><span class="line">		<span class="comment">#将数据点分配到距其最近的蔟</span></span><br><span class="line">	<span class="comment">#对每个蔟，计算蔟中所有点的均值并将均值作为质心</span></span><br></pre></td></tr></table></figure>
+<h3 id="代码实现"><strong>代码实现</strong></h3><p>因为我们用到的是数值类型的数据，这里编写一个加载数据集的函数，返回值是一个矩阵形式。<br>下面代码应写在一个py文件里，我这里写在kMeans.py文件中。</p>
+<p>文件的头部引入numpy<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure></p>
+<p><strong>数据集加载代码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载数据集文件，没有返回类标号的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName)</span>:</span></span><br><span class="line">    dataMat = []</span><br><span class="line">    openfile = open(fileName)    </span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> openfile.readlines():</span><br><span class="line">        curLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">        floatLine = map(float,curLine)</span><br><span class="line">        dataMat.append(floatLine)</span><br><span class="line">    <span class="keyword">return</span> dataMat</span><br></pre></td></tr></table></figure>
+<p>因为在k均值算法中要计算点到质心的距离，所以这里将距离计算写成一个函数，计算欧几里得距离公式：</p>
+<p>$$d=\sqrt{(x_2-x_1)^2+…+(z_2-z_1)^2}$$</p>
+<p><strong>函数代码如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算两个向量的欧氏距离</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distEclud</span><span class="params">(vecA,vecB)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> sqrt(sum(power(vecA-vecB,<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+<p><strong>接下来初始化k个蔟的质心函数centroid</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 传入的数据时numpy的矩阵格式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randCent</span><span class="params">(dataMat, k)</span>:</span></span><br><span class="line">    n = shape(dataMat)[<span class="number">1</span>]</span><br><span class="line">    centroids = mat(zeros((k,n)))  </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        minJ = min(dataMat[:,j]) <span class="comment"># 找出矩阵dataMat第j列最小值</span></span><br><span class="line">        rangeJ = float(max(dataMat[:,j]) - minJ) <span class="comment">#计算第j列最大值和最小值的差</span></span><br><span class="line">        <span class="comment">#赋予一个随机质心，它的值在整个数据集的边界之内</span></span><br><span class="line">        centroids[:,j] = minJ + rangeJ * random.rand(k,<span class="number">1</span>) </span><br><span class="line">    <span class="keyword">return</span> centroids <span class="comment">#返回一个随机的质心矩阵</span></span><br></pre></td></tr></table></figure>
+<p><strong>K-means算法</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#k-均值算法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kMeans</span><span class="params">(dataMat,k,distE = distEclud , createCent=randCent)</span>:</span></span><br><span class="line">    m = shape(dataMat)[<span class="number">0</span>]    <span class="comment"># 获得行数m</span></span><br><span class="line">    clusterAssment = mat(zeros((m,<span class="number">2</span>))) <span class="comment"># 初试化一个矩阵，用来记录簇索引和存储误差                               </span></span><br><span class="line">    centroids = createCent(dataMat,k) <span class="comment"># 随机的得到一个质心矩阵蔟</span></span><br><span class="line">    clusterChanged = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> clusterChanged:</span><br><span class="line">        clusterChanged = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):    <span class="comment">#对每个数据点寻找最近的质心</span></span><br><span class="line">            minDist = inf; minIndex = -<span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(k): <span class="comment"># 遍历质心蔟，寻找最近的质心    </span></span><br><span class="line">                distJ1 = distE(centroids[j,:],dataMat[i,:]) <span class="comment">#计算数据点和质心的欧式距离</span></span><br><span class="line">                <span class="keyword">if</span> distJ1 &lt; minDist: </span><br><span class="line">                    minDist = distJ1; minIndex = j</span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i,<span class="number">0</span>] != minIndex:</span><br><span class="line">                clusterChanged = <span class="keyword">True</span></span><br><span class="line">            clusterAssment[i,:] = minIndex,minDist**<span class="number">2</span></span><br><span class="line">        <span class="keyword">print</span> centroids</span><br><span class="line">        <span class="keyword">for</span> cent <span class="keyword">in</span> range(k):    <span class="comment">#更新质心的位置</span></span><br><span class="line">            ptsInClust = dataMat[nonzero(clusterAssment[:,<span class="number">0</span>].A==cent)[<span class="number">0</span>]]    </span><br><span class="line">            centroids[cent,:] = mean(ptsInClust, axis=<span class="number">0</span>) </span><br><span class="line">    <span class="keyword">return</span> centroids, clusterAssment</span><br></pre></td></tr></table></figure>
+<p><strong>测试：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataMat = <span class="function"><span class="title">mat</span><span class="params">(loadDataSet(<span class="string">'testSet.txt'</span>)</span></span>)</span><br><span class="line"><span class="function"><span class="title">kMeans</span><span class="params">(dataMat,<span class="number">4</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>输出结果：</strong></p>
+<p>===================</p>
+<p>[[-3.66087851  2.30869657]<br> [ 3.24377288  3.04700412]<br> [ 2.52577861 -3.12485493]<br> [-2.79672694  3.19201596]]<br>[[-3.78710372 -1.66790611]<br> [ 2.6265299   3.10868015]<br> [ 1.62908469 -2.92689085]<br> [-2.18799937  3.01824781]]<br>[[-3.53973889 -2.89384326]<br> [ 2.6265299   3.10868015]<br> [ 2.65077367 -2.79019029]<br> [-2.46154315  2.78737555]]</p>
+<p>===================</p>
+<p>上面的结果给出了四个质心。可以看出，经过3次迭代之后K-均值算法收敛。质心会保存在第一个返回值中，第二个是每个点的簇分布情况。</p>
+<p><strong>附件：</strong></p>
+<p>上面测试的数据集为：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">1<span class="class">.658985</span>	4<span class="class">.285136</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.453687</span>	3<span class="class">.424321</span></span><br><span class="line">4<span class="class">.838138</span>	<span class="tag">-1</span><span class="class">.151539</span></span><br><span class="line"><span class="tag">-5</span><span class="class">.379713</span>	<span class="tag">-3</span><span class="class">.362104</span></span><br><span class="line">0<span class="class">.972564</span>	2<span class="class">.924086</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.567919</span>	1<span class="class">.531611</span></span><br><span class="line">0<span class="class">.450614</span>	<span class="tag">-3</span><span class="class">.302219</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.487105</span>	<span class="tag">-1</span><span class="class">.724432</span></span><br><span class="line">2<span class="class">.668759</span>	1<span class="class">.594842</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.156485</span>	3<span class="class">.191137</span></span><br><span class="line">3<span class="class">.165506</span>	<span class="tag">-3</span><span class="class">.999838</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.786837</span>	<span class="tag">-3</span><span class="class">.099354</span></span><br><span class="line">4<span class="class">.208187</span>	2<span class="class">.984927</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.123337</span>	2<span class="class">.943366</span></span><br><span class="line">0<span class="class">.704199</span>	<span class="tag">-0</span><span class="class">.479481</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.392370</span>	<span class="tag">-3</span><span class="class">.963704</span></span><br><span class="line">2<span class="class">.831667</span>	1<span class="class">.574018</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.790153</span>	3<span class="class">.343144</span></span><br><span class="line">2<span class="class">.943496</span>	<span class="tag">-3</span><span class="class">.357075</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.195883</span>	<span class="tag">-2</span><span class="class">.283926</span></span><br><span class="line">2<span class="class">.336445</span>	2<span class="class">.875106</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.786345</span>	2<span class="class">.554248</span></span><br><span class="line">2<span class="class">.190101</span>	<span class="tag">-1</span><span class="class">.906020</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.403367</span>	<span class="tag">-2</span><span class="class">.778288</span></span><br><span class="line">1<span class="class">.778124</span>	3<span class="class">.880832</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.688346</span>	2<span class="class">.230267</span></span><br><span class="line">2<span class="class">.592976</span>	<span class="tag">-2</span><span class="class">.054368</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.007257</span>	<span class="tag">-3</span><span class="class">.207066</span></span><br><span class="line">2<span class="class">.257734</span>	3<span class="class">.387564</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.679011</span>	0<span class="class">.785119</span></span><br><span class="line">0<span class="class">.939512</span>	<span class="tag">-4</span><span class="class">.023563</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.674424</span>	<span class="tag">-2</span><span class="class">.261084</span></span><br><span class="line">2<span class="class">.046259</span>	2<span class="class">.735279</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.189470</span>	1<span class="class">.780269</span></span><br><span class="line">4<span class="class">.372646</span>	<span class="tag">-0</span><span class="class">.822248</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.579316</span>	<span class="tag">-3</span><span class="class">.497576</span></span><br><span class="line">1<span class="class">.889034</span>	5<span class="class">.190400</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.798747</span>	2<span class="class">.185588</span></span><br><span class="line">2<span class="class">.836520</span>	<span class="tag">-2</span><span class="class">.658556</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.837877</span>	<span class="tag">-3</span><span class="class">.253815</span></span><br><span class="line">2<span class="class">.096701</span>	3<span class="class">.886007</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.709034</span>	2<span class="class">.923887</span></span><br><span class="line">3<span class="class">.367037</span>	<span class="tag">-3</span><span class="class">.184789</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.121479</span>	<span class="tag">-4</span><span class="class">.232586</span></span><br><span class="line">2<span class="class">.329546</span>	3<span class="class">.179764</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.284816</span>	3<span class="class">.273099</span></span><br><span class="line">3<span class="class">.091414</span>	<span class="tag">-3</span><span class="class">.815232</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.762093</span>	<span class="tag">-2</span><span class="class">.432191</span></span><br><span class="line">3<span class="class">.542056</span>	2<span class="class">.778832</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.736822</span>	4<span class="class">.241041</span></span><br><span class="line">2<span class="class">.127073</span>	<span class="tag">-2</span><span class="class">.983680</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.323818</span>	<span class="tag">-3</span><span class="class">.938116</span></span><br><span class="line">3<span class="class">.792121</span>	5<span class="class">.135768</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.786473</span>	3<span class="class">.358547</span></span><br><span class="line">2<span class="class">.624081</span>	<span class="tag">-3</span><span class="class">.260715</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.009299</span>	<span class="tag">-2</span><span class="class">.978115</span></span><br><span class="line">2<span class="class">.493525</span>	1<span class="class">.963710</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.513661</span>	2<span class="class">.642162</span></span><br><span class="line">1<span class="class">.864375</span>	<span class="tag">-3</span><span class="class">.176309</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.171184</span>	<span class="tag">-3</span><span class="class">.572452</span></span><br><span class="line">2<span class="class">.894220</span>	2<span class="class">.489128</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.562539</span>	2<span class="class">.884438</span></span><br><span class="line">3<span class="class">.491078</span>	<span class="tag">-3</span><span class="class">.947487</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.565729</span>	<span class="tag">-2</span><span class="class">.012114</span></span><br><span class="line">3<span class="class">.332948</span>	3<span class="class">.983102</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.616805</span>	3<span class="class">.573188</span></span><br><span class="line">2<span class="class">.280615</span>	<span class="tag">-2</span><span class="class">.559444</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.651229</span>	<span class="tag">-3</span><span class="class">.103198</span></span><br><span class="line">2<span class="class">.321395</span>	3<span class="class">.154987</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.685703</span>	2<span class="class">.939697</span></span><br><span class="line">3<span class="class">.031012</span>	<span class="tag">-3</span><span class="class">.620252</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.599622</span>	<span class="tag">-2</span><span class="class">.185829</span></span><br><span class="line">4<span class="class">.196223</span>	1<span class="class">.126677</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.133863</span>	3<span class="class">.093686</span></span><br><span class="line">4<span class="class">.668892</span>	<span class="tag">-2</span><span class="class">.562705</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.793241</span>	<span class="tag">-2</span><span class="class">.149706</span></span><br><span class="line">2<span class="class">.884105</span>	3<span class="class">.043438</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.967647</span>	2<span class="class">.848696</span></span><br><span class="line">4<span class="class">.479332</span>	<span class="tag">-1</span><span class="class">.764772</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.905566</span>	<span class="tag">-2</span><span class="class">.911070</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/04/2015-06-04-Apriori/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          机器学习算法-Apriori关联分析
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/28/2015-05-28-NB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">机器学习算法-朴素贝叶斯Python实现</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="2015-06-03-K-means" data-title="机器学习算法--K-means聚类" data-url="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"csuldw"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 刘帝伟
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: undefined,
+		animate: undefined,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: undefined
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+  </div>
+</body>
+</html>
