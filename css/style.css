@@ -472,7 +472,7 @@ a {
   text-align: center;
   margin: 0.67em 0;
   font-family: Roboto, "Roboto", serif;
-  font-size: 30px;
+  font-size: 24px;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
   -ms-transition: 0.3s;
@@ -523,7 +523,7 @@ a {
   text-align: center;
   color: #999;
   font-size: 14px;
-  line-height: 25px;
+  line-height: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -536,7 +536,7 @@ a {
   cursor: pointer;
   text-transform: uppercase;
   float: none;
-  height: 150px;
+  height: 130px;
   margin-left: -12px;
   text-align: center;
   display: -webkit-box;
@@ -555,7 +555,8 @@ a {
   position: relative;
   width: 100%;
   overflow: hidden;
-  min-height: 500px;
+  min-height: 300px;
+  margin-top: -10px;
   font-size: 14px;
 }
 #header .switch-area .switch-wrap {
