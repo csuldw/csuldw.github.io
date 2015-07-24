@@ -5,7 +5,7 @@
   <subtitle><![CDATA[悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-07-24T14:43:37.050Z</updated>
+  <updated>2015-07-24T14:46:32.354Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title><![CDATA[机器学习-组合算法总结]]></title>
-    <link href="http://csuldw.github.io/2015/07/22/2015-07-23%20machine%20learning%20/"/>
-    <id>http://csuldw.github.io/2015/07/22/2015-07-23 machine learning /</id>
-    <published>2015-07-22T04:53:00.000Z</published>
-    <updated>2015-07-24T14:43:37.050Z</updated>
+    <link href="http://csuldw.github.io/2015/07/23/2015-07-23%20machine%20learning%20/"/>
+    <id>http://csuldw.github.io/2015/07/23/2015-07-23 machine learning /</id>
+    <published>2015-07-23T04:53:00.000Z</published>
+    <updated>2015-07-24T14:46:32.354Z</updated>
     <content type="html"><![CDATA[<p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
 <blockquote>
 <p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="external">WinPython_2.7</a></p>
