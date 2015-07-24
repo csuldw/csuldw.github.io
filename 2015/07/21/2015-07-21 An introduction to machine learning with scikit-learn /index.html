@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习scikit-learn入门教程 | 刘帝伟-技术博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html
+章节内容
+在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。
+机器学习：问题设置通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习scikit-learn入门教程">
+<meta property="og:url" content="http://csuldw.github.io/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /index.html">
+<meta property="og:site_name" content="刘帝伟-技术博客">
+<meta property="og:description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html
+章节内容
+在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。
+机器学习：问题设置通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据）">
+<meta property="og:updated_time" content="2015-07-24T01:15:36.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习scikit-learn入门教程">
+<meta name="twitter:description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html
+章节内容
+在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。
+机器学习：问题设置通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据）">
+  
+    <link rel="alternative" href="/atom.xml" title="刘帝伟-技术博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0b8e8ee87e4708173f00d9048c309301";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/blogImg/face.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">刘帝伟</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">悄悄是别离的笙箫，沉默是今晚的康桥。</p>
+		
+
+		
+			<div class="switch-btn switch-new">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">存档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/csuldw" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/liudiwei210" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BioInfo-Python/" style="font-size: 10px;">BioInfo Python</a> <a href="/tags/Machine-Learning-Python/" style="font-size: 15px;">Machine-Learning Python</a> <a href="/tags/Machine-Learning-python/" style="font-size: 20px;">Machine-Learning python</a> <a href="/tags/SublimeLinter/" style="font-size: 10px;">SublimeLinter</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine-learning</a> <a href="/tags/machine-learning-CV-AI/" style="font-size: 10px;">machine-learning CV AI</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">中南大学在读硕士，关注机器学习，数据挖掘和生物信息</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">刘帝伟</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/assets/blogImg/face.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">刘帝伟</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">悄悄是别离的笙箫，沉默是今晚的康桥。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">存档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/csuldw" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/liudiwei210" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-2015-07-21 An introduction to machine learning with scikit-learn " class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /" class="article-date">
+  	<time datetime="2015-07-21T13:31:00.000Z" itemprop="datePublished">Jul 21</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      机器学习scikit-learn入门教程
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/machine-learning/">machine-learning</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/machine-learning/">machine-learning</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
+<p><strong>章节内容</strong></p>
+<p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
+<h2 id="机器学习：问题设置"><strong>机器学习：问题设置</strong></h2><p>通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据），那么它就拥有了多个特征。<br><a id="more"></a><br>我们可以把学习问题划分为几个大的来别：</p>
+<ul>
+<li>监督学习: 在监督学习中，这些数据自带了我们想要预测的附加属性（<a href="http://scikit-learn.github.io/dev/supervised_learning.html#supervised-learning" target="_blank" rel="external">scikit-learn监督学习链接</a>），这个问题包括：<ul>
+<li>分类：样本属于属于两类或者多类，我们想从已经被标记的数据中来预测未知数据的类别。一个分类问题的例子就是手写字识别。这个例子的目的是从有些的类别中识别出输入向量的类别。对于分类的另一种想法是作为监督学习的一种分离的表格(不是连续的)，在这个表格中，一个是被限制的类别数量，而且对于每个类别都有N个样例被提供；一个是尝试用正确的类别或者类来标记他们。</li>
+<li>回归：如果期望的输出是由一个或者更多的连续的变量组成，那么就叫做回归。回归问题的例子将通过一条鲑鱼的年龄和重量预测它的长度。</li>
+</ul>
+</li>
+<li>无监督学习：在无监督学习里面，训练数据是由一组没有任何类别标签值的一系列输入向量组成。这种问题的目的是可能可以在这些数据里发现相似的样例组，这些相似的样例被称作聚类。或者在输入空间里决定数据分布，称之为密度估算；或者将数据从高维空间映射到二维或三维空间中，称之为数据可视化问题。（<a href="http://scikit-learn.github.io/dev/unsupervised_learning.html#unsupervised-learning" target="_blank" rel="external">无监督学习链接</a>）</li>
+</ul>
+<p><strong>训练集和测试集</strong></p>
+<p>机器学习是关于学习数据集的一些属性然后将它们应用到新的数据上。这就是为什么在机器学习中评价一个算法的通常惯例是把数据集切分为两个数据集，其中一个叫做训练集，用来学习数据的属性；另一个叫做测试集，在测试集上测试那些属性。</p>
+<h2 id="加载样本数据集"><strong>加载样本数据集</strong></h2><p>scikit-learn带有一些标准的数据集，例如用于分类的<a href="http://en.wikipedia.org/wiki/Iris_flower_data_set" target="_blank" rel="external">iris</a>和<a href="http://archive.ics.uci.edu/ml/datasets/Pen-Based+Recognition+of+Handwritten+Digits" target="_blank" rel="external">digit</a>数据集和用于回归的<a href="http://archive.ics.uci.edu/ml/datasets/Housing" target="_blank" rel="external"> boston house prices dataset </a>.</p>
+<p>下面，我们打开Python编译器，然后载入<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;</span><br></pre></td></tr></table></figure></p>
+<p>$ python</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from sklearn import datasets<br>iris = datasets.load_iris()<br>digits = datasets.load_digits()<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">数据集是一个类似字典的对象，包含所有的数据和一些和数据有关的元数据。数据存储在<span class="code">```</span>.data<span class="code">```</span>中，是个<span class="code">```</span>n<span class="emphasis">_samples,n_</span>features<span class="code">```</span>的数组。在监督问题的情况下，一个或多个类别变量存储在.target成员中。更多有关的不同数据集的细节可以在[<span class="link_label">dedicated section</span>](<span class="link_url">http://scikit-learn.github.io/dev/datasets/index.html#datasets</span>)查找。</span><br><span class="line"></span><br><span class="line">例如，在digits数据集情况下，<span class="code">```</span>digits.data <span class="code">```</span>提供了可用于分类数字样本。</span><br></pre></td></tr></table></figure></p>
+<p>print(digits.data)<br>[[  0.   0.   5. …,   0.   0.   0.]<br> [  0.   0.   0. …,  10.   0.   0.]<br> [  0.   0.   0. …,  16.   9.   0.]<br> …,<br> [  0.   0.   1. …,   6.   0.   0.]<br> [  0.   0.   2. …,  12.   0.   0.]<br> [  0.   0.  10. …,  12.   1.   0.]]<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">并且<span class="escape">``</span><span class="escape">`d</span>igits.target<span class="escape">``</span><span class="escape">`给</span>出了digit数据集的真实结果，这些数字是和我们正在学习的每个数字图像相关的数字。</span><br></pre></td></tr></table></figure></p>
+<p>digits.target<br>array([0, 1, 2, …, 8, 9, 8])<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>数组的形状<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">数据总是一些2D数组，```shape(n_samples,n_features)```,尽管原始数据也许有一个不同的形状，就这个digits而言，每一个原始样例是一个shape(8,8)的图像，并且能被访问使用:</span><br></pre></td></tr></table></figure></p>
+<p>digits.images[0]<br>array([[  0.,   0.,   5.,  13.,   9.,   1.,   0.,   0.],<br>       [  0.,   0.,  13.,  15.,  10.,  15.,   5.,   0.],<br>       [  0.,   3.,  15.,   2.,   0.,  11.,   8.,   0.],<br>       [  0.,   4.,  12.,   0.,   0.,   8.,   8.,   0.],<br>       [  0.,   5.,   8.,   0.,   0.,   9.,   8.,   0.],<br>       [  0.,   4.,  11.,   0.,   1.,  12.,   7.,   0.],<br>       [  0.,   2.,  14.,   5.,  10.,  12.,   0.,   0.],<br>       [  0.,   0.,   6.,  13.,  10.,   0.,   0.,   0.]])<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[<span class="link_label">simple example on this dataset </span>](<span class="link_url">http://scikit-learn.github.io/dev/auto_examples/classification/plot_digits_classification.html#example-classification-plot-digits-classification-py</span>)这个数据集表明了在scikit-learn中怎样从原始问题开始着手制作数据。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="header">## **学习和预测**</span></span><br><span class="line"></span><br><span class="line">在digits数据集中，给定一幅手写数字的数字图像，任务是预测结果。我们给定的样本有10种类别（是数字0到9），基于此我们建立一个估计方法能够预测我们没有见过的样本属于哪一类。</span><br><span class="line"></span><br><span class="line">在scikit-learn中，用于分类的估计模型是一个实现了fit(x,y)方法和predict(T)方法的Python对象。</span><br><span class="line"><span class="code">    </span></span><br><span class="line">估计模型的例子是在实现了[<span class="link_label">support vector classification支持向量机</span>](<span class="link_url">http://en.wikipedia.org/wiki/Support_vector_machine</span>)的类 sklearn.svm.SVC。估计模型的构造函数带有模型参数，但是目前，我们将估计模型当做一个黑盒子。</span><br></pre></td></tr></table></figure></p>
+<p>from sklearn import svm<br>clf = svm.SVC(gamma=0.001, C=100.)<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="strong">**选择模型参数**</span></span><br><span class="line"><span class="code">	</span></span><br><span class="line">在这个例子中，我们这设定了gamma值。可以通过使用[<span class="link_label">网格搜索</span>](<span class="link_url">http://scikit-learn.github.io/dev/modules/grid_search.html#grid-search</span>)和[<span class="link_label">交叉验证</span>](<span class="link_url">http://scikit-learn.github.io/dev/modules/cross_validation.html#cross-validation</span>)自动的找出最好的参数值</span><br><span class="line"></span><br><span class="line">我们把我们的评估模型命名为clf，作为一个分类器，它现在必须拟合这个模型，也就是它必须从这个模型学习。我们通过将数据集传递给fit函数完成。作为训练集，除了最后一个样本，我们选择其余的所有样本。通过python语句<span class="code">```</span>[:-1]<span class="code">```</span>选择样本，这条语句将从digits.data中产生一个除了最后一个样本的新数组。</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>clf.fit(digits.data[:-1], digits.target[:-1])<br>SVC(C=100.0, cache_size=200, class_weight=None, coef0=0.0, degree=3,<br>  gamma=0.001, kernel=’rbf’, max_iter=-1, probability=False,<br>  random_state=None, shrinking=True, tol=0.001, verbose=False)<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">现在，我们可以预测新值，尤其是我们可以问分类器在digits数据集中的用来训练分类器时没有使用的最后一个数据是数字几：</span><br><span class="line"></span><br><span class="line">相应的图像如下所示:</span><br><span class="line"><span class="xml"><span class="tag">&lt;<span class="title">center</span>&gt;</span></span></span><br><span class="line">![<span class="link_label">这里写图片描述</span>](<span class="link_url">http://img.blog.csdn.net/20150720185355481</span>)</span><br><span class="line"><span class="xml"><span class="tag">&lt;/<span class="title">center</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line">正如你看到的，这是一个具有挑战性的任务：图象的分辨率很低。你认同这个分类器吗？</span><br><span class="line"></span><br><span class="line">一个完整的分类问题实例可以通过下面的链接下载，用来作为你运行并且学习的例子 [<span class="link_label">Recognizing hand-written digits</span>](<span class="link_url">http://scikit-learn.github.io/dev/auto_examples/classification/plot_digits_classification.html#example-classification-plot-digits-classification-py</span>)</span><br><span class="line"></span><br><span class="line"><span class="header">## **模型持久化**</span></span><br><span class="line"></span><br><span class="line">可以通过使用python的built-in持久化模型在scikit中保存一个模型，命名[<span class="link_label">pickle</span>](<span class="link_url">http://docs.python.org/library/pickle.html</span>):</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from sklearn import svm<br>from sklearn import datasets<br>clf = svm.SVC()<br>iris = datasets.load_iris()<br>X, y = iris.data, iris.target<br>clf.fit(X, y)<br>SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,<br>  decision_function_shape=None, degree=3, gamma=’auto’, kernel=’rbf’,<br>  max_iter=-1, probability=False, random_state=None, shrinking=True,<br>  tol=0.001, verbose=False)</p>
+<p>import pickle<br>s = pickle.dumps(clf)<br>clf2 = pickle.loads(s)<br>clf2.predict(X[0])<br>array([0])<br>y[0]<br>0<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">在scikit的特别情况下，使用joblib替换<span class="function"><span class="title">pickle</span><span class="params">(joblib.dump &amp; joblib.load)</span></span>会更有趣,它在大数据上是更有效的，但是仅仅只能存入的是字典而不是字符串。</span><br></pre></td></tr></table></figure></p>
+<p>from sklearn.externals import joblib<br>joblib.dump(clf, ‘filename.pkl’)<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">然后你就可以读取上面的pickled模型使用了（通常是在其它的Python程序中）：</span><br></pre></td></tr></table></figure></p>
+<p>clf = joblib.load(‘filename.pkl’)<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">## **惯例**</span></span><br><span class="line"></span><br><span class="line">scikit-learn估计量有一些特定的规则是的分类器更具有预测性</span><br><span class="line"></span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>Type casting 类型转换<span class="keyword">*</span><span class="keyword">*</span></span><br><span class="line"></span><br><span class="line">除非特别指定，否则输入格式是```float64</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import numpy as np</span><br><span class="line">&gt;&gt;&gt; from sklearn import random_projection</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; rng = np<span class="class">.random</span><span class="class">.RandomState</span>(<span class="number">0</span>)</span><br><span class="line">&gt;&gt;&gt; X = rng.<span class="function"><span class="title">rand</span><span class="params">(<span class="number">10</span>, <span class="number">2000</span>)</span></span></span><br><span class="line">&gt;&gt;&gt; X = np.<span class="function"><span class="title">array</span><span class="params">(X, dtype=<span class="string">'float32'</span>)</span></span></span><br><span class="line">&gt;&gt;&gt; X<span class="class">.dtype</span></span><br><span class="line"><span class="function"><span class="title">dtype</span><span class="params">(<span class="string">'float32'</span>)</span></span></span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; transformer = random_projection.<span class="function"><span class="title">GaussianRandomProjection</span><span class="params">()</span></span></span><br><span class="line">&gt;&gt;&gt; X_new = transformer.<span class="function"><span class="title">fit_transform</span><span class="params">(X)</span></span></span><br><span class="line">&gt;&gt;&gt; X_new<span class="class">.dtype</span></span><br><span class="line"><span class="function"><span class="title">dtype</span><span class="params">(<span class="string">'float64'</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#22238;&#24402;&#30340;&#36755;&#20986;&#20540;&#26159;```float64```&#65292;&#20998;&#31867;&#30340;&#20063;&#26159;&#65306;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>from sklearn import datasets<br>from sklearn.svm import SVC<br>iris = datasets.load_iris()<br>clf = SVC()<br>clf.fit(iris.data, iris.target)<br>SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,<br>  decision_function_shape=None, degree=3, gamma=’auto’, kernel=’rbf’,<br>  max_iter=-1, probability=False, random_state=None, shrinking=True,<br>  tol=0.001, verbose=False)</p>
+<p>list(clf.predict(iris.data[:3]))<br>[0, 0, 0]</p>
+<p>clf.fit(iris.data, iris.target_names[iris.target])<br>SVC(C=1.0, cache_size=200, class_weight=None, coef0=0.0,<br>  decision_function_shape=None, degree=3, gamma=’auto’, kernel=’rbf’,<br>  max_iter=-1, probability=False, random_state=None, shrinking=True,<br>  tol=0.001, verbose=False)</p>
+<p>list(clf.predict(iris.data[:3]))<br>[‘setosa’, ‘setosa’, ‘setosa’]<br>```</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>这里，第一次<code>predict()</code>返回的是一个整数数组，因为在拟合中用到了<code>iris.target</code>（一个整数数组），第二个<code>predict</code>返回的是一个字符串数组，因为用来拟合的是<code>iris.target_names</code>。</p>
+<h2 id="Supplementary">Supplementary</h2><p>推介一个好用的python IDE：</p>
+<blockquote>
+<p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="external">WinPython_2.7</a></p>
+</blockquote>
+<hr>
+<p><br></p>
+<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://weibo.com/liudiwei210" target="_blank" rel="external">拾毅者 </a>新浪微博</strong></center><br><br></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/07/18/2015-07-18-a precision and recall/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<ul class="ds-recent-visitors" data-num-items="20" data-avatar-size="44.5" ></ul>
+	<div class="ds-thread" data-thread-key="2015-07-21 An introduction to machine learning with scikit-learn " data-title="机器学习scikit-learn入门教程" data-url="http://csuldw.github.io/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"csuldw"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 刘帝伟
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
