@@ -5,7 +5,7 @@
   <subtitle><![CDATA[悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-07-24T02:11:05.534Z</updated>
+  <updated>2015-07-24T04:31:38.624Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[机器学习scikit-learn入门教程]]></title>
+    <title><![CDATA[机器学习scikit-learn入门教程（译）]]></title>
     <link href="http://csuldw.github.io/2015/07/21/2015-07-21%20An%20introduction%20to%20machine%20learning%20with%20scikit-learn%20/"/>
     <id>http://csuldw.github.io/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /</id>
     <published>2015-07-21T13:31:00.000Z</published>
-    <updated>2015-07-24T02:11:05.534Z</updated>
+    <updated>2015-07-24T04:31:38.624Z</updated>
     <content type="html"><![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
 <p><strong>章节内容</strong></p>
 <p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
