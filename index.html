@@ -180,6 +180,65 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-2015-07-28 crossvalidation" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/28/2015-07-28 crossvalidation/" class="article-date">
+  	<time datetime="2015-07-28T07:40:00.000Z" itemprop="datePublished">Jul 28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/28/2015-07-28 crossvalidation/">机器学习-CrossValidation交叉验证详解</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>版权声明：本文为原创文章，转载请注明来源。</p>
+<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。</p>
+<h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
+<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对<br>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+	</div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/07/28/2015-07-28 crossvalidation/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-2015-07-23 machine learning tips" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -581,62 +640,6 @@
       
         <p class="article-more-link">
           <a  href="/2015/07/05/2015-07-12-Adaboost/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-2015-06-04-Apriori" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/06/04/2015-06-04-Apriori/" class="article-date">
-  	<time datetime="2015-06-04T13:53:12.000Z" itemprop="datePublished">Jun 4</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/04/2015-06-04-Apriori/">机器学习算法-Apriori关联分析</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>引文：</strong> 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据用户平时的搜索或者是购买情况来生成的。如果是蛮力搜索的话代价太高了，所以Apriori就出现了，就是为了解决这类问题的。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Machine-Learning/">Machine Learning</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
-	</div>
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/06/04/2015-06-04-Apriori/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
