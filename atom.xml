@@ -5,7 +5,7 @@
   <subtitle><![CDATA[悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-07-28T11:53:57.955Z</updated>
+  <updated>2015-08-05T01:09:45.291Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[机器学习-CrossValidation交叉验证详解]]></title>
+    <title><![CDATA[机器学习-CrossValidation交叉验证Python实现]]></title>
     <link href="http://csuldw.github.io/2015/07/28/2015-07-28%20crossvalidation/"/>
     <id>http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/</id>
     <published>2015-07-28T07:40:00.000Z</published>
-    <updated>2015-07-28T11:53:57.955Z</updated>
+    <updated>2015-08-05T01:09:45.291Z</updated>
     <content type="html"><![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
 <h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。</p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
@@ -112,11 +112,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[机器学习-学习小记]]></title>
+    <title><![CDATA[机器学习-sklean库的交叉验证]]></title>
     <link href="http://csuldw.github.io/2015/07/23/2015-07-23%20machine%20learning%20tips/"/>
     <id>http://csuldw.github.io/2015/07/23/2015-07-23 machine learning tips/</id>
     <published>2015-07-23T04:53:00.000Z</published>
-    <updated>2015-07-24T14:57:00.625Z</updated>
+    <updated>2015-08-05T01:09:45.323Z</updated>
     <content type="html"><![CDATA[<p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
 <blockquote>
 <p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="external">WinPython_2.7</a></p>
@@ -179,8 +179,8 @@
   
   <entry>
     <title><![CDATA[机器学习-组合算法总结]]></title>
-    <link href="http://csuldw.github.io/2015/07/22/2015-07-22%20%20assemble/"/>
-    <id>http://csuldw.github.io/2015/07/22/2015-07-22  assemble/</id>
+    <link href="http://csuldw.github.io/2015/07/22/2015-07-22%20%20ensemble/"/>
+    <id>http://csuldw.github.io/2015/07/22/2015-07-22  ensemble/</id>
     <published>2015-07-21T22:53:00.000Z</published>
     <updated>2015-07-24T15:01:18.710Z</updated>
     <content type="html"><![CDATA[<h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
@@ -871,48 +871,60 @@
     <link href="http://csuldw.github.io/2015/05/08/2015-05-08-decision%20tree/"/>
     <id>http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/</id>
     <published>2015-05-08T13:53:12.000Z</published>
-    <updated>2015-07-24T01:59:51.301Z</updated>
-    <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优越于大的决策树。</strong></p>
-<h2 id="分类引文"><strong>分类引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即supervised learning。</p>
+    <updated>2015-08-05T01:09:45.346Z</updated>
+    <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
+<h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>
 <li>分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。</li>
-<li>在第二阶段，使用模型进行分类。首先评估分类器的预测准确率。这个过程要尽量的减少<strong>过分拟合</strong>。（为什么是尽量减少而不是避免呢，因为过拟合是避免不了的，再好的模型都会有过拟合的情况）</li>
+<li>在第二阶段，使用模型进行分类。首先评估分类器的预测准确率。这个过程要尽量的减少<strong>过拟合</strong>。（为什么是尽量减少而不是避免呢，因为过拟合一般是避免不了的，再好的模型也会有过拟合的情况）。</li>
 </ul>
 <a id="more"></a>
-<h2 id="1_决策树归纳"><strong>1 决策树归纳</strong></h2><p> 决策树归纳是从有类标号的训练元组中学习决策树。常用的决策树算法有ID3，C4.5和CART。它们都是采用贪心（即非回溯的）方法，其中决策树自顶向下递归的分治方法构造。</p>
+<h2 id="1_决策树归纳"><strong>1 决策树归纳</strong></h2><p> 决策树归纳是从有类标号的训练元组中学习决策树。常用的决策树算法有ID3，C4.5和CART。它们都是采用贪心（即非回溯的）方法，其中决策树自顶向下递归的分治方法构造。其中划分属性的方法各不相同，ID3使用的是信息增益，C4.5使用的是信息增益率，而CART使用的是Gini基尼指数。下面来简单介绍下决策树的理论知识。内容包含熵、信息增益、信息增益率以及Gini指数的计算公式。</p>
 <h2 id="2_基本原理"><strong>2 基本原理</strong></h2><h3 id="2-1_算法优点"><strong>2.1 算法优点</strong></h3><p> 决策树算法的优点如下：<br>（1）分类精度高；<br>（2）成的模式简单；<br>（3）对噪声数据有很好的健壮性。<br>因而是目前应用最为广泛的归纳推理算法之一，在数据挖掘中受到研究者的广泛关注。</p>
-<h3 id="2-2_算法一般流程"><strong>2.2 算法一般流程</strong></h3><p>（1）收集数据：任意方法和途径。<br>（2）准备数据：书构造算法只适用于标称型数据，因此数据必须离散化。<br>（3）分析数据：构造树完成后，检查图形是否符合预测。<br>（4）训练算法：决策树的数据构造。<br>（5）测试算法：一般将决策树用于分类，可以用错误率衡量，而错误率使用经验率计算。<br>（6）使用算法：决策树可以用于任何监督学习算法。</p>
+<h3 id="2-2_算法一般流程"><strong>2.2 算法一般流程</strong></h3><p>（1）收集数据：任意方法和途径。<br>（2）准备数据：书构造算法只适用于标称型数据，因此数据必须离散化。<br>（3）分析数据：构造树完成后，检查图形是否符合预测。<br>（4）训练算法：决策树的数据构造。<br>（5）测试算法：一般将决策树用于分类，可以用错误率衡量，而错误率使用经验率计算。<br>（6）使用算法：决策树可以用于任何监督学习算法。  </p>
 <h3 id="2-3_实例"><strong>2.3 实例</strong></h3><p><strong>信息增益和熵（克劳德.香农提出）</strong></p>
-<h4 id="1-使用信息增益进行决策树归纳"><strong>1.使用信息增益进行决策树归纳</strong></h4><p><strong>信息增益度量属性选择</strong><br><strong>熵的计算公式</strong></p>
-<p>熵定义为信息增益的期望值。对$D$中的元组分类所需要的期望信息由下列公式给出：</p>
-<p>$$entropy=Info(D)=-∑_i^{n}p_ilog_2(p_i)$$</p>
-<p>$$p_i是D中任意元组属于类C_i非零概率。$$</p>
+<h4 id="1-使用信息增益进行决策树归纳"><strong>1.使用信息增益进行决策树归纳</strong></h4><p><strong>信息增益度量属性选择</strong></p>
+<p><strong>熵的计算公式</strong></p>
+<p>熵定义为信息增益的期望值。对D中的元组分类所需要的期望信息由下列公式给出：</p>
+<p>$$entropy=Info(D)=-∑_i^{n}p_ilog_2(p_i)，p_i是D中任意元组属于类C_i非零概率。$$</p>
+<p>熵越大，说明系统越混乱，携带的信息就越少。熵越小，说明系统越有序，携带的信息就越多。</p>
+<p><strong>ID3划分特征使用的就是信息增益IG.</strong></p>
 <p><strong>信息增益计算公式</strong></p>
-<p>$$Info_A(D)=∑_j\dfrac{|D_j|}{|D|}\times Info(D_j)$$</p>
-<p>$$项\dfrac{|D_i|}{|D|}充当第j个分区的权重。$$</p>
+<p>$$Info_A(D)=∑_j\dfrac{|D_j|}{|D|}\times Info(D_j)，项\dfrac{|D_i|}{|D|}充当第j个分区的权重$$</p>
 <p><strong>需要的期望信息越小，分区的纯度越高。</strong></p>
 <p>下面是<strong>训练元组数据D</strong></p>
 <p><img src="http://img.blog.csdn.net/20150513110022176" alt="这里写图片描述"><br>在这里</p>
-<p>$$Info(D)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$</p>
+<p>$$Info_{age}(D)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$</p>
 <p>因此这种划分的信息增益</p>
 <p>$$Gain(age)=Info(D)-Info_age(D)=0.940-0.964=0.246位$$</p>
 <p>类似的可以计算出：</p>
 <p>$$ Grain(income)=0.029位，<br>Grain(student)=0.151位，Grain(credit_rating)=0.048位 $$</p>
-<p>由于age在属性中具有最高的信息增益，所以它被选作分裂属性。<br>下面再进行递归计算信息增益，在此就不展示了。</p>
-<h4 id="2-使用增益率计算"><strong>2.使用增益率计算</strong></h4><p><strong>分裂信息计算公式：</strong></p>
+<p>由于age在属性中具有最高的信息增益，所以它被选作分裂特征。下面再进行递归计算信息增益，在此就不展示了。</p>
+<h4 id="2-使用增益率计算"><strong>2.使用增益率计算</strong></h4><p><strong>ID3使用的是信息增益，C4.5使用的是信息增益率。</strong></p>
+<p>C4.5算法继承了ID3算法的优点，并在以下几方面对ID3算法进行了改进：<br>1) 用信息增益率来选择属性，克服了用信息增益选择属性时偏向选择取值多的属性的不足；<br>2) 在树构造过程中进行剪枝；<br>3) 能够完成对连续属性的离散化处理；<br>4) 能够对不完整数据进行处理。  </p>
+<p>C4.5算法有如下优点：产生的分类规则易于理解，准确率较高。其缺点是：在构造树的过程中，需要对数据集进行多次的顺序扫描和排序，因而导致算法的低效。此外，C4.5只适合于能够驻留于内存的数据集，当训练集大得无法在内存容纳时程序无法运行。</p>
+<p>另外，无论是ID3还是C4.5最好在小数据集上使用，决策树分类一般只试用于小数据。当属性取值很多时最好选择C4.5算法，ID3得出的效果会非常差。</p>
+<p><strong>分裂信息计算公式：</strong></p>
 <p>$$SplitInfo_A(D)=-∑\dfrac{|D_j|}{|D|}\times log_2(\dfrac{|D_j|}{|D|})$$</p>
 <p>增益率定义为：</p>
 <p>$$GrainRate(A)=\dfrac{Grain(A)}{SplitInfo_A(D)}$$</p>
-<p>选择具有最大增益率的属性作为分裂属性。</p>
-<h4 id="3-基尼指数计算"><strong>3.基尼指数计算</strong></h4><p>$$Gini(D)=1-∑p^{2}_i$$</p>
-<p>$$其中，p_i是D中元组数以C_i类的概率，对m个类计算和。$$</p>
+<p>选择具有最大增益率的特征作为分裂特征。</p>
+<h4 id="3-基尼指数Gini_index"><strong>3.基尼指数Gini index</strong></h4><p>基尼指数才CART中使用，Gini index度量数据分区或训练元组集D的不纯度。计算方式：</p>
+<p>$$Gini(D)=1-∑p^{2}_i，其中，p_i是D中元组数以C_i类的概率，对m个类计算和。$$</p>
+<hr>
+<p>决策树算法步骤：<br><img src="file:///F:/3-CSU/Academic/Machine Leaning/学习笔记/assets/decision tree algorithm.png" alt=""></p>
+<h2 id="学习推介">学习推介</h2><p>Andrew W. Moore PPT <a href="http://www.autonlab.org/tutorials/dtree18.pdf" target="_blank" rel="external">dtree</a><br>决策树Python实现，单独成文，网址：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="external">决策树实现</a><br>Wikipedia维基百科-<a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank" rel="external">Decision Tree决策树</a></p>
+<h2 id="Reference">Reference</h2><p>[1]数据挖掘概念与技术 Third Edition,韩家伟.<br>[2]机器学习实战 ,Peter Harrington.  </p>
+<hr>
+<p><br></p>
+<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优越于大的决策树。</strong></p>
-<h2 id="分类引文"><strong>分类引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即supervised learning。</p>
+    <![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
+<h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>
 <li>分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。</li>
-<li>在第二阶段，使用模型进行分类。首先评估分类器的预测准确率。这个过程要尽量的减少<strong>过分拟合</strong>。（为什么是尽量减少而不是避免呢，因为过拟合是避免不了的，再好的模型都会有过拟合的情况）</li>
+<li>在第二阶段，使用模型进行分类。首先评估分类器的预测准确率。这个过程要尽量的减少<strong>过拟合</strong>。（为什么是尽量减少而不是避免呢，因为过拟合一般是避免不了的，再好的模型也会有过拟合的情况）。</li>
 </ul>]]>
     
     </summary>
