@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>机器学习资料整理 | 刘帝伟-技术博客</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习资料整理">
+<meta property="og:url" content="http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/index.html">
+<meta property="og:site_name" content="刘帝伟-技术博客">
+<meta property="og:description" content="学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧">
+<meta property="og:image" content="http://img.blog.csdn.net/20150918075645450">
+<meta property="og:updated_time" content="2015-09-26T02:43:15.915Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习资料整理">
+<meta name="twitter:description" content="学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧">
+  
+    <link rel="alternative" href="/atom.xml" title="刘帝伟-技术博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?0b8e8ee87e4708173f00d9048c309301";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/assets/blogImg/face.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">刘帝伟</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">悄悄是别离的笙箫，沉默是今晚的康桥。</p>
+		
+
+		
+			<div class="switch-btn switch-new">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">存档</a></li>
+				        
+							<li><a href="/about">关于</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/csuldw" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/liudiwei210" title="weibo">weibo</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AI/" style="font-size: 10px;">AI</a> <a href="/tags/BioInfo/" style="font-size: 10px;">BioInfo</a> <a href="/tags/CV/" style="font-size: 10px;">CV</a> <a href="/tags/Machine-Learning/" style="font-size: 20px;">Machine Learning</a> <a href="/tags/Python/" style="font-size: 15px;">Python</a> <a href="/tags/SublimeLinter/" style="font-size: 10px;">SublimeLinter</a> <a href="/tags/机器学习/" style="font-size: 10px;">机器学习</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">中南大学在读硕士，关注机器学习，数据挖掘和生物信息</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">刘帝伟</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/assets/blogImg/face.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">刘帝伟</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">悄悄是别离的笙箫，沉默是今晚的康桥。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">存档</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/csuldw" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/liudiwei210" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-2015-09-23 Machine learning materials" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/09/23/2015-09-23 Machine learning materials/" class="article-date">
+  	<time datetime="2015-09-23T14:22:22.000Z" itemprop="datePublished">Sep 23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      机器学习资料整理
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+	</div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
+<p>下面来做个资料整理吧。</p>
+<h2 id="书籍推荐"><strong>书籍推荐</strong></h2><p>机器学习的书籍很多，下面推荐几本本人用过而且觉得还不错的书籍。优于机器学习是一门跨领域的学科，所以在书籍上并非全是机器学习的书籍:</p>
+<ul>
+<li>1.《机器学习实战》<strong>Machine Learning in Action [美] Peter Harington 著</strong>。该书贯穿了10个最受欢迎的机器学习算法，提供了案例研究问题并用Python代码实例来解决。我本人比较喜欢这本书，因为里面的代码给了我很大的帮助，自己在学习机器学习算法的时候，理论上很多东西不太理解透，通过该书实践之后，在算法层面又有了进一步的提高。</li>
+<li>2.《统计学习方法》 李航著。该书比较详细地介绍了算法的原理，只从理论层面来研究算法。通过这本书和《机器学习实战》两本书相结合，一本讲理论，一本着手实践，加在一起会有事半功倍的效果。</li>
+<li>3.《数据挖掘概念与技术》 韩家炜著。该书介绍了数据挖掘的常用技术，比较详实，但本人觉得不太适合初学者，当时自己初学的时候看的就是这本书，结果最后很多地方理解的不是很好，后来通过《统计学习方法》和算法实践之后，再回头看《数据挖掘概念与技术》，感觉就轻松多了。</li>
+<li>4.《数学之美》 吴军著。本书可以当做业余书籍来看，可以在无聊的时候看看，不过里面讲的东西还是挺有用的。</li>
+<li>5.《Python科学计算》该书可以当做Python编程参考书籍，但前提是你喜欢使用Python，并爱上了它，不然这本书还是蛮贵的，我自己也是通过“研究生自由探索项目”才买的这本书，因为可以报销嘛。</li>
+</ul>
+<h2 id="学习工具"><strong>学习工具</strong></h2><p>机器学习的tools很多，这里只列出几个参考工具。<a id="more"></a></p>
+<ul>
+<li><a href="http://scikit-learn.org/stable/user_guide.html" target="_blank" rel="external">Scikit-learn</a>.基于Python语言的<a href="http://scikit-learn.org/stable/user_guide.html" target="_blank" rel="external">scikit-learn</a>库，里面涵盖了分类、聚类、回归的大部分算法，并且有常用的评估指标以及预处理数据的方法，是一个不错的学习库，强力推荐。附一篇博文：<a href="http://www.erogol.com/broad-view-machine-learning-libraries/" target="_blank" rel="external">SOME USEFUL MACHINE LEARNING LIBRARIES</a>.</li>
+<li><a href="http://www.r-project.org/" target="_blank" rel="external">R</a>语言，语言就是一门工具，R语言现在在商业界是用的最多的，在统计方面功能强大，而且也有封装好的算法库可以直接使用。附：<a href="https://cran.r-project.org/doc/contrib/Liu-R-refcard.pdf" target="_blank" rel="external">R语言参考卡片</a>.</li>
+<li><a href="http://www.cs.waikato.ac.nz/ml/weka/" target="_blank" rel="external">Weka</a>，是一个基于java开发的数据挖掘工具，可以尝试一下。它为用户提供了一系列据挖掘API、命令行和图形化用户接口。你可以准备数据、可视化、建立分类、进行回归分析、建立聚类模型，同时可以通过第三方插件执行其他算法。除了WEKA之外， <a href="http://mahout.apache.org/" target="_blank" rel="external">Mahout</a>是Hadoop中为机器学习提供的一个很好的JAVA框架，你可以自行学习。如果你是机器学习和大数据学习的新手，那么坚持学习WEKA，并且全心全意地学习一个库。</li>
+<li>Matlab，里面有很多的工具包，不过本人不怎么用过。参考：<a href="http://www.cad.zju.edu.cn/home/dengcai/Data/data.html" target="_blank" rel="external">Matlab Codes and Datasets for Feature Learning</a>和<a href="http://cn.mathworks.com/products/statistics/" target="_blank" rel="external">Statistics and Machine Learning Toolbox</a>。此外matlab中的<a href="http://www.gnu.org/software/octave/" target="_blank" rel="external">Octave</a>可以很方便地解决线性和非线性问题，比如机器学习算法底层涉及的问题。如果你有工程背景，那么你可以由此入手。</li>
+<li><a href="https://bigml.com/" target="_blank" rel="external">BigML</a>:可能你并不想进行编程工作。你完全可以不通过代码，来使用 WEKA那样的工具。你通过使用BigMLS的服务来进行更加深入的工作。BigML通过Web页面，提供了机器学习的接口，因此你可以通过浏览器来建立模型。</li>
+</ul>
+<p>下面给出一个比较图，具体想要学什么，还需自己抉择。</p>
+<center><br><img src="http://img.blog.csdn.net/20150918075645450" alt="这里写图片描述"><br></center>
+
+
+<h2 id="学习视频"><strong>学习视频</strong></h2><p>由于本人比较崇拜Andrew Ng，所以关于视频，首先推荐的便是Andrew Ng的斯坦福大学的机器学习课程。这套视频在网上有两个网址，国外和国内的都有，全程英语教学，内容很好，有时间建议你去听听：</p>
+<ul>
+<li>一个是国外的Coursera公开课，该课程在机器学习领域很火，是很多入门学者的首选。地址：<a href="https://www.coursera.org/；讲义地址：[Stanford" target="_blank" rel="external">https://www.coursera.org/；讲义地址：[Stanford</a> CS229 course下载讲义和笔记](<a href="http://cs229.stanford.edu/)；" target="_blank" rel="external">http://cs229.stanford.edu/)；</a></li>
+<li>一个是国内的网易公开课，链接地址：<a href="http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html。" target="_blank" rel="external">http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html。</a></li>
+</ul>
+<p>下面是一个机器学习视频库，由加州理工学院（Caltech）出品。</p>
+<ul>
+<li>机器学习视频库，地址：<a href="http://work.caltech.edu/library/" target="_blank" rel="external">http://work.caltech.edu/library/</a></li>
+</ul>
+<p>其它的视频库</p>
+<ul>
+<li><a href="http://videolectures.net/Top/Computer_Science/Machine_Learning/" target="_blank" rel="external">Machine Learning Category on VideoLectures</a>，这个网站的视频比较多。你可以找出比较感兴趣的资源，然后深入学习。</li>
+</ul>
+<font color="#008B00">机器学习最近在国内比较火，许多培训机构都相应的开了该门课程，如果想要听中文教程的，可以去网上搜索下，这里就不给培训机构打广告了。</font>
+
+<h2 id="博客和文章推荐"><strong>博客和文章推荐</strong></h2><p>大牛们的博客，会让你感到兴奋，让你觉得你不是一个人在奋斗，让你时刻记住你的前方已经有很多的学者正在等着你，你要加油。他们的经验会让我们少走些冤枉路，能让我们在他们的基础上进一步理解。下面推荐几个我所知道的或者说我了解到的几位牛人博客和几篇文章：</p>
+<ul>
+<li><strong>pluskid</strong>，真名张弛原，一位技术大牛，毕业于浙江大学，后来出国深造。他的博文质量非常高，深入浅出，其SVM三层境界的讲解让人茅塞顿开，应该给了很多人启发吧，很值得学习。现在的博客网址：<a href="http://pluskid.org/about.html" target="_blank" rel="external">Chiyuan Zhang</a>，原博客网址：<a href="http://blog.pluskid.org/" target="_blank" rel="external">Chiyuan Zhang</a></li>
+<li><strong>Rachel Zhang</strong>，真名张睿卿，很有气质的一位软妹纸，目前是百度深度学习实验室研发工程师，在CSDN中的博客人气绝对屈指可数，算是IT界的一位女中豪杰。博客网址：<a href="http://blog.csdn.net/abcjennifer" target="_blank" rel="external">CSDN博客-Rachel Zhang</a></li>
+<li><strong>July</strong>，对算法研究独具一格，目前是七月在线科技创始人兼CEO。博客网址：<a href="http://blog.csdn.net/v_JULY_v" target="_blank" rel="external">July</a></li>
+<li><strong>Jason</strong>，一位国外机器学习爱好者，其博客内容详实，多篇文章被国内机器学习者翻译。博客网址：<a href="http://machinelearningmastery.com/blog/" target="_blank" rel="external">http://machinelearningmastery.com/blog/</a></li>
+<li>一个国外很好的机器学习博客，里面介绍了详细的算法知识，很全面，从感知机、神经网络、决策树、SVM、Adaboost到随机森林、Deep Learning.网址：<a href="http://www.erogol.com/machine-learning/" target="_blank" rel="external">A Blog From a Human-engineer-being</a></li>
+<li>一篇涵盖许多机器学习资料的文章：<a href="http://www.open-open.com/lib/view/open1428112201271.html" target="_blank" rel="external">机器学习(Machine Learning)&amp;深度学习(Deep Learning)资料</a></li>
+<li><strong>Edwin Chen</strong>    ，机器学习爱好者，博客内容涵盖数学、机器学习和数据科学。分享其中一篇博文：<a href="http://blog.echen.me/2011/04/27/choosing-a-machine-learning-classifier/" target="_blank" rel="external">Choosing a Machine Learning Classifier</a>    </li>
+<li>一篇以前的博文：<a href="http://conductrics.com/data-science-resources/" target="_blank" rel="external">A List of Data Science and Machine Learning Resources</a>，有时间好好阅读阅读，对你绝对有帮助。</li>
+<li><a href="http://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" target="_blank" rel="external">A Few Useful Things to Know about Machine Learning</a>,一篇很有帮助的机器学习文章，里面包括了特征选择与模型的简化。</li>
+<li><a href="http://www.cs.cmu.edu/~tom/pubs/MachineLearning.pdf" target="_blank" rel="external">The Discipline of Machine Learning</a>机器学习规则。该文章比较老，2006年发布的，作者是Tom Mitchell，但很有参考价值，其中定义了机器学习的规则。Mitchell在说服CMU总裁为一个百年内都存在的问题建立一个独立的机器学习部门时，也用到了这本书中的观点。希望能对你也有所帮助。</li>
+<li>分享一个网站：<a href="http://www.jianshu.com/" target="_blank" rel="external">简书</a>。</li>
+</ul>
+<h2 id="国外网站"><strong>国外网站</strong></h2><p>如果你想搜索比较新颖的机器学习资料或是文章，可以到以下网站中搜索，里面不仅包括了机器学习的内容，还有许多其它相关领域内容，如数据科学和云计算等。</p>
+<ul>
+<li>InfoWord：<a href="http://www.infoworld.com/reviews/" target="_blank" rel="external">http://www.infoworld.com/reviews/</a></li>
+<li>Kdnuggets：<a href="http://www.kdnuggets.com" target="_blank" rel="external">http://www.kdnuggets.com</a></li>
+<li>Datasciencecentral：<a href="http://www.datasciencecentral.com/" target="_blank" rel="external">http://www.datasciencecentral.com/</a></li>
+<li>Datascienceplus：<a href="http://datascienceplus.com" target="_blank" rel="external">http://datascienceplus.com</a></li>
+</ul>
+<h2 id="数据科学竞赛"><strong>数据科学竞赛</strong></h2><p>关于数据分析的竞赛，国内国外都有，下面推荐几个比较火的竞赛网站 ：</p>
+<ul>
+<li>Kaggle比赛，网址：<a href="https://www.kaggle.com/" target="_blank" rel="external">https://www.kaggle.com/</a></li>
+<li>DataCastle比赛，网站：<a href="http://www.pkbigdata.com/" target="_blank" rel="external">http://www.pkbigdata.com/</a></li>
+<li>阿里大数据竞赛，目前没有消息了，2015年有个【2015天池大数据竞赛】</li>
+</ul>
+<h2 id="ML相关算法参考"><strong>ML相关算法参考</strong></h2><ul>
+<li>决策树-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="external">decision Tree（Python实现）</a></li>
+<li>SVM支持向量机-参考：<a href="http://blog.pluskid.org/?page_id=683" target="_blank" rel="external">pluskid支持向量机三重境界</a></li>
+<li>Adaboost-参考：<a href="http://www.csuldw.com/2015/07/05/2015-07-12-Adaboost/" target="_blank" rel="external">组合算法-Adaboost</a></li>
+<li>Random Forest-参考：<a href="http://www.cnblogs.com/wentingtu/archive/2011/12/22/2297405.html" target="_blank" rel="external">随机森林算法</a></li>
+<li>朴素贝叶斯算法-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/46120867" target="_blank" rel="external">Naive Bayes算法实现</a></li>
+<li>人工神经网络-参考：<a href="http://www.cnblogs.com/luxiaoxun/archive/2012/12/10/2811309.html" target="_blank" rel="external">http://www.cnblogs.com/luxiaoxun/archive/2012/12/10/2811309.html</a></li>
+<li>Apriori算法-参考地址：<a href="http://www.csuldw.com/2015/06/04/2015-06-04-Apriori/" target="_blank" rel="external">Apriori关联分析</a></li>
+<li>K最近邻算法-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/45896449" target="_blank" rel="external">KNN从原理到实现</a></li>
+<li>梯度树提升GTB算法-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/48085889" target="_blank" rel="external">Gradient Tree Boosting（或GBRT）</a></li>
+<li>K-means聚类-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/46343597" target="_blank" rel="external">K-means cluster</a></li>
+<li>组合算法总结-参考：<a href="http://www.csuldw.com/2015/07/22/2015-07-22%20%20ensemble/" target="_blank" rel="external">Ensemble算法总结</a></li>
+<li>EM期望最大算法-参考：<a href="http://blog.csdn.net/zouxy09/article/details/8537620" target="_blank" rel="external">EM算法</a></li>
+<li>Logistic回归-参考：<a href="http://blog.csdn.net/wangran51/article/details/8892923" target="_blank" rel="external">逻辑回归</a></li>
+<li>HMM隐马尔可夫模型，参考:<a href="http://blog.csdn.net/likelet/article/details/7056068" target="_blank" rel="external">HMM</a></li>
+<li>条件随机场，参考：<a href="http://www.tanghuangwhu.com/archives/162" target="_blank" rel="external">CRF</a></li>
+<li>随机森林和GBDT，参考：<a href="http://www.cnblogs.com/LeftNotEasy/archive/2011/03/07/1976562.html" target="_blank" rel="external">决策树模型组合之随机森林与GBDT</a></li>
+<li>特征选择和特征提取，参考：<a href="http://blog.csdn.net/lanbing510/article/details/40488787" target="_blank" rel="external">特征提取与特征选择</a></li>
+<li>梯度下降法，参考:<a href="http://blog.csdn.net/woxincd/article/details/7040944" target="_blank" rel="external">gradient descent</a></li>
+<li>牛顿法，参考：<a href="http://blog.csdn.net/luoleicn/article/details/6527049" target="_blank" rel="external">牛顿法</a></li>
+<li>线性判别分析，参考：<a href="http://www.cnblogs.com/jerrylead/archive/2011/04/21/2024384.html" target="_blank" rel="external">线性判别</a></li>
+<li>深度学习-<a href="http://www.cnblogs.com/xiaowanyer/p/3701944.html" target="_blank" rel="external">深度学习概述：从感知机到深度网络</a></li>
+</ul>
+<h2 id="个人译文"><strong>个人译文</strong></h2><p>下面是本人在CSDN云计算栏目发布的翻译文章，如有翻译不准确的地方，还望多多包涵，希望能给大家带来点帮助，译文列表如下：</p>
+<ul>
+<li>2015-09-14 <a href="http://www.csdn.net/article/2015-09-14/2825693" target="_blank" rel="external">LSTM实现详解</a></li>
+<li>2015-09-10 <a href="http://www.csdn.net/article/2015-09-08/2825646" target="_blank" rel="external">从零实现来理解机器学习算法：书籍推荐及障碍的克服</a></li>
+<li>2015-08-31  <a href="http://www.csdn.net/article/2015-08-27/2825551" target="_blank" rel="external">机器学习开发者的现代化路径：不需要从统计学微积分开始</a></li>
+<li>2015-08-27 <a href="http://www.csdn.net/article/2015-08-27/2825549" target="_blank" rel="external">基于Python的卷积神经网络和特征提取</a></li>
+<li>2015-08-20 <a href="http://www.csdn.net/article/2015-08-19/2825492" target="_blank" rel="external">你应该掌握的七种回归技术</a></li>
+<li>2015-08-11 <a href="http://www.csdn.net/article/2015-08-10/2825430" target="_blank" rel="external">机器学习API Top 10：AT&amp;T Speech、IBM Watson和Google Prediction</a></li>
+<li>2015-08-09 <a href="http://www.csdn.net/article/2015-08-07/2825415" target="_blank" rel="external">使用GPU和Theano加速深度学习</a></li>
+<li>2015-08-03 <a href="http://www.csdn.net/article/2015-08-01/2825362" target="_blank" rel="external">从Theano到Lasagne：基于Python的深度学习的框架和库</a></li>
+<li>2015-07-15 <a href="http://www.csdn.net/article/2015-07-13/2825188" target="_blank" rel="external">Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事</a></li>
+<li>2015-07-13 <a href="http://www.csdn.net/article/2015-07-13/2825187" target="_blank" rel="external">开发者成功使用机器学习的十大诀窍</a></li>
+</ul>
+<p>下面是相关译者的译文，仅供参考：</p>
+<ul>
+<li>2015-09-16 <a href="http://www.csdn.net/article/2015-09-15/2825714" target="_blank" rel="external">各种编程语言的深度学习库整理</a></li>
+<li>2015-09-11 <a href="http://www.csdn.net/article/2015-09-08/2825647" target="_blank" rel="external">机器学习温和指南</a></li>
+<li>2015-09-10 <a href="http://www.csdn.net/article/2015-09-10/2825668" target="_blank" rel="external">关于数据科学，书上不曾提及的三点经验</a></li>
+<li>2015-08-12 <a href="http://www.csdn.net/article/2015-08-07/2825416" target="_blank" rel="external">特征工程 vs. 特征提取：比赛开始！</a></li>
+</ul>
+<hr>
+<font color="#CD3333">从这些牛人的博客中，你能学到很多。慢慢地你会体会到，不是你一个人在战斗，还有很多人，所以你不用害怕孤独。</font>
+
+<p>最后，关于机器学习资料的整理，先到此为止吧，如果你有什么好的资料，欢迎在评论中给出推荐或网址链接。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/07/28/2015-07-28 crossvalidation/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">机器学习-CrossValidation交叉验证Python实现</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<ul class="ds-recent-visitors" data-num-items="20" data-avatar-size="44.5" ></ul>
+	<div class="ds-thread" data-thread-key="2015-09-23 Machine learning materials" data-title="机器学习资料整理" data-url="http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"csuldw"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 刘帝伟
+    	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
