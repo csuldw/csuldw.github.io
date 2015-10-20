@@ -750,10 +750,12 @@ body {
 }
 .header {
   border: 1px solid #ececec;
-  z-index: 9999;
+  z-index: 999;
+  position: relative;
 }
 .header-inner {
   position: relative;
+  z-index: 8888;
 }
 .site-meta {
   margin: 0;
@@ -824,6 +826,7 @@ body {
     padding: 0 10px;
     clear: both;
     border-top: 1px solid #ddd;
+    z-index: 9999;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
@@ -1024,7 +1027,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #3c8f08;
+  background: #f78bb0;
 }
 .sidebar-nav {
   margin: 0;
@@ -1376,6 +1379,7 @@ body {
 }
 .posts-collapse {
   margin-left: 55px;
+  border-left: 1px solid #ececec;
 }
 @media (max-width: 767px) {
   .posts-collapse {
@@ -1848,6 +1852,7 @@ body {
   padding: 40px 30px 40px 30px;
   border: 1px solid #eaecee;
   margin: 40px 0 0px 0;
+  position: relative;
 }
 .use-motion .archive {
   opacity: 1;
@@ -1865,7 +1870,7 @@ body {
 }
 .page-archive .posts-collapse {
   position: relative;
-  border-left: 2px solid #ececec;
+  border-left: 1px solid #ececec;
 }
 .page-archive .posts-collapse::after {
   top: 20px;
