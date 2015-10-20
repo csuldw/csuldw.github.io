@@ -56,7 +56,7 @@
 <meta property="og:description" content="Introduction决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。
 模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、">
 <meta property="og:image" content="http://csuldw.github.io/file:///C:/Users/liudiwei/Desktop/QQ截图20150829104337.png">
-<meta property="og:updated_time" content="2015-10-20T14:14:50.082Z">
+<meta property="og:updated_time" content="2015-10-20T14:26:37.043Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Gradient tree boosting">
 <meta name="twitter:description" content="Introduction决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。
@@ -245,6 +245,7 @@
       
         <span itemprop="articleBody"><h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
 <p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。</p>
+<a id="more"></a>
 <h2 id="Gradient_Tree_Boosting"><strong>Gradient Tree Boosting</strong></h2><p>梯度树提升（Gradient Tree Boosting）是一种组合算法，也叫做梯度提升回归树（gradient boosting regression tree），它的基分类器是决策树，既可以用来回归，也可以用作分类。在分类性能上，能够和随机森林媲美，甚至在有的数据集上表现的有过之而无不及。如今，Gradient Tree Boosting模型已经广泛的运用在Web搜索排行榜以及生态学上。在阿里内部也用的比较多，所以值得我们去花点时间认真学习。</p>
 <p>根据scikit-learn官网的介绍，GBRT的优势有：</p>
 <ul>
