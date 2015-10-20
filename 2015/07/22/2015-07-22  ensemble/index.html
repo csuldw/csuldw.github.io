@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="D.W's - 个人博客">
 <meta property="og:description" content="组合模型下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.
 1.BootstrapingBootstraping: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统">
-<meta property="og:updated_time" content="2015-07-24T15:01:18.000Z">
+<meta property="og:updated_time" content="2015-10-20T05:12:17.792Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习-组合算法总结">
 <meta name="twitter:description" content="组合模型下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.
@@ -241,7 +241,7 @@
 <p>bagging：bootstrap aggregating的缩写。让该学习算法训练多轮，每轮的训练集由从初始的训练集中随机取出的n个训练样本组成，某个初始训练样本在某轮训练集中可以出现多次或根本不出现，训练之后可得到一个预测函数序列</p>
 <p>$$h_1，⋯ ⋯h_n$$ </p>
 <p>最终的预测函数H对分类问题采用<strong>投票方式</strong>，对回归问题采用<strong>简单平均方法</strong>对新示例进行判别。</p>
-<p>$$[训练R个分类器f_i，分类器之间其他相同就是参数不同。其中f_i是通过从训练集合中(N篇文档)随机取(取后放回)N次文档构成的训练集合训练得到的。对于新文档d，用这R个分类器去分类，得到的最多的那个类别作为d的最终类别。]$$</p>
+<p>[训练R个分类器f_i，分类器之间其他相同就是参数不同。其中f_i是通过从训练集合中(N篇文档)随机取(取后放回)N次文档构成的训练集合训练得到的。对于新文档d，用这R个分类器去分类，得到的最多的那个类别作为d的最终类别。]</p>
 <p>使用scikit-learn测试bagging方法</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> BaggingClassifier</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsClassifier</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>bagging = BaggingClassifier(KNeighborsClassifier(),</span><br><span class="line"><span class="prompt">... </span>                            max_samples=<span class="number">0.5</span>, max_features=<span class="number">0.5</span>)</span><br></pre></td></tr></table></figure>
 <hr>
