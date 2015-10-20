@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning,Python," />
+  <meta name="keywords" content="机器学习," />
 
 
 
@@ -47,30 +47,20 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
-引文数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。
-
-分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。
-在第二阶段，使用模型进行分类。首先评估分类器的预测准确率">
+<meta name="description" content="Introduction决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。
+模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习算法-决策树理论">
-<meta property="og:url" content="http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/index.html">
+<meta property="og:title" content="Gradient tree boosting">
+<meta property="og:url" content="http://csuldw.github.io/2015/09/23/2015-08-29 GBDT/index.html">
 <meta property="og:site_name" content="D.W's - 个人博客">
-<meta property="og:description" content="用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
-引文数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。
-
-分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。
-在第二阶段，使用模型进行分类。首先评估分类器的预测准确率">
-<meta property="og:image" content="http://img.blog.csdn.net/20150513110022176">
-<meta property="og:image" content="http://csuldw.github.io/file:///F:/3-CSU/Academic/Machine Leaning/学习笔记/assets/decision tree algorithm.png">
-<meta property="og:updated_time" content="2015-08-05T01:09:45.000Z">
+<meta property="og:description" content="Introduction决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。
+模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、">
+<meta property="og:image" content="http://csuldw.github.io/file:///C:/Users/liudiwei/Desktop/QQ截图20150829104337.png">
+<meta property="og:updated_time" content="2015-10-20T14:14:50.082Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习算法-决策树理论">
-<meta name="twitter:description" content="用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
-引文数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。
-
-分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。
-在第二阶段，使用模型进行分类。首先评估分类器的预测准确率">
+<meta name="twitter:title" content="Gradient tree boosting">
+<meta name="twitter:description" content="Introduction决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。
+模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -82,7 +72,7 @@
 
 
 
-  <title> 机器学习算法-决策树理论 | D.W's - 个人博客 </title>
+  <title> Gradient tree boosting | D.W's - 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -198,7 +188,7 @@
             
             
               
-                机器学习算法-决策树理论
+                Gradient tree boosting
               
             
           </h1>
@@ -207,19 +197,34 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-05-08T21:53:12+08:00" content="2015-05-08">
-              2015-05-08
+            <time itemprop="dateCreated" datetime="2015-09-23T22:22:22+08:00" content="2015-09-23">
+              2015-09-23
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/08/2015-05-08-decision tree/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/08/2015-05-08-decision tree/" itemprop="commentsCount"></span>
+                <a href="/2015/09/23/2015-08-29 GBDT/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/09/23/2015-08-29 GBDT/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -238,49 +243,48 @@
       
 
       
-        <span itemprop="articleBody"><p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
-<h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
+        <span itemprop="articleBody"><h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
+<p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。</p>
+<h2 id="Gradient_Tree_Boosting"><strong>Gradient Tree Boosting</strong></h2><p>梯度树提升（Gradient Tree Boosting）是一种组合算法，也叫做梯度提升回归树（gradient boosting regression tree），它的基分类器是决策树，既可以用来回归，也可以用作分类。在分类性能上，能够和随机森林媲美，甚至在有的数据集上表现的有过之而无不及。如今，Gradient Tree Boosting模型已经广泛的运用在Web搜索排行榜以及生态学上。在阿里内部也用的比较多，所以值得我们去花点时间认真学习。</p>
+<p>根据scikit-learn官网的介绍，GBRT的优势有：</p>
 <ul>
-<li>分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。</li>
-<li>在第二阶段，使用模型进行分类。首先评估分类器的预测准确率。这个过程要尽量的减少<strong>过拟合</strong>。（为什么是尽量减少而不是避免呢，因为过拟合一般是避免不了的，再好的模型也会有过拟合的情况）。</li>
+<li>自然而然地处理混合类型的数据</li>
+<li>预测能力强</li>
+<li>在输出空间对于异常值的鲁棒性强（通过强大的损失函数）</li>
 </ul>
-<a id="more"></a>
-<h2 id="1_决策树归纳"><strong>1 决策树归纳</strong></h2><p> 决策树归纳是从有类标号的训练元组中学习决策树。常用的决策树算法有ID3，C4.5和CART。它们都是采用贪心（即非回溯的）方法，其中决策树自顶向下递归的分治方法构造。其中划分属性的方法各不相同，ID3使用的是信息增益，C4.5使用的是信息增益率，而CART使用的是Gini基尼指数。下面来简单介绍下决策树的理论知识。内容包含熵、信息增益、信息增益率以及Gini指数的计算公式。</p>
-<h2 id="2_基本原理"><strong>2 基本原理</strong></h2><h3 id="2-1_算法优点"><strong>2.1 算法优点</strong></h3><p> 决策树算法的优点如下：<br>（1）分类精度高；<br>（2）成的模式简单；<br>（3）对噪声数据有很好的健壮性。<br>因而是目前应用最为广泛的归纳推理算法之一，在数据挖掘中受到研究者的广泛关注。</p>
-<h3 id="2-2_算法一般流程"><strong>2.2 算法一般流程</strong></h3><p>（1）收集数据：任意方法和途径。<br>（2）准备数据：书构造算法只适用于标称型数据，因此数据必须离散化。<br>（3）分析数据：构造树完成后，检查图形是否符合预测。<br>（4）训练算法：决策树的数据构造。<br>（5）测试算法：一般将决策树用于分类，可以用错误率衡量，而错误率使用经验率计算。<br>（6）使用算法：决策树可以用于任何监督学习算法。  </p>
-<h3 id="2-3_实例"><strong>2.3 实例</strong></h3><p><strong>信息增益和熵（克劳德.香农提出）</strong></p>
-<h4 id="1-使用信息增益进行决策树归纳"><strong>1.使用信息增益进行决策树归纳</strong></h4><p><strong>信息增益度量属性选择</strong></p>
-<p><strong>熵的计算公式</strong></p>
-<p>熵定义为信息增益的期望值。对D中的元组分类所需要的期望信息由下列公式给出：</p>
-<p>$$entropy=Info(D)=-∑_i^{n}p_ilog_2(p_i)，p_i是D中任意元组属于类C_i非零概率。$$</p>
-<p>熵越大，说明系统越混乱，携带的信息就越少。熵越小，说明系统越有序，携带的信息就越多。</p>
-<p><strong>ID3划分特征使用的就是信息增益IG.</strong></p>
-<p><strong>信息增益计算公式</strong></p>
-<p>$$Info_A(D)=∑_j\dfrac{|D_j|}{|D|}\times Info(D_j)，项\dfrac{|D_i|}{|D|}充当第j个分区的权重$$</p>
-<p><strong>需要的期望信息越小，分区的纯度越高。</strong></p>
-<p>下面是<strong>训练元组数据D</strong></p>
-<p><img src="http://img.blog.csdn.net/20150513110022176" alt="这里写图片描述"><br>在这里</p>
-<p>$$Info_{age}(D)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$</p>
-<p>因此这种划分的信息增益</p>
-<p>$$Gain(age)=Info(D)-Info_age(D)=0.940-0.964=0.246位$$</p>
-<p>类似的可以计算出：</p>
-<p>$$ Grain(income)=0.029位，<br>Grain(student)=0.151位，Grain(credit_rating)=0.048位 $$</p>
-<p>由于age在属性中具有最高的信息增益，所以它被选作分裂特征。下面再进行递归计算信息增益，在此就不展示了。</p>
-<h4 id="2-使用增益率计算"><strong>2.使用增益率计算</strong></h4><p><strong>ID3使用的是信息增益，C4.5使用的是信息增益率。</strong></p>
-<p>C4.5算法继承了ID3算法的优点，并在以下几方面对ID3算法进行了改进：<br>1) 用信息增益率来选择属性，克服了用信息增益选择属性时偏向选择取值多的属性的不足；<br>2) 在树构造过程中进行剪枝；<br>3) 能够完成对连续属性的离散化处理；<br>4) 能够对不完整数据进行处理。  </p>
-<p>C4.5算法有如下优点：产生的分类规则易于理解，准确率较高。其缺点是：在构造树的过程中，需要对数据集进行多次的顺序扫描和排序，因而导致算法的低效。此外，C4.5只适合于能够驻留于内存的数据集，当训练集大得无法在内存容纳时程序无法运行。</p>
-<p>另外，无论是ID3还是C4.5最好在小数据集上使用，决策树分类一般只试用于小数据。当属性取值很多时最好选择C4.5算法，ID3得出的效果会非常差。</p>
-<p><strong>分裂信息计算公式：</strong></p>
-<p>$$SplitInfo_A(D)=-∑\dfrac{|D_j|}{|D|}\times log_2(\dfrac{|D_j|}{|D|})$$</p>
-<p>增益率定义为：</p>
-<p>$$GrainRate(A)=\dfrac{Grain(A)}{SplitInfo_A(D)}$$</p>
-<p>选择具有最大增益率的特征作为分裂特征。</p>
-<h4 id="3-基尼指数Gini_index"><strong>3.基尼指数Gini index</strong></h4><p>基尼指数才CART中使用，Gini index度量数据分区或训练元组集D的不纯度。计算方式：</p>
-<p>$$Gini(D)=1-∑p^{2}_i，其中，p_i是D中元组数以C_i类的概率，对m个类计算和。$$</p>
+<p>然而，GBRT也有劣势：</p>
+<ul>
+<li>可扩展性方面，由于提升的时序性，不能进行并行处理</li>
+</ul>
+<p>尽管如此，由于GTB的表现性能很好，所以它仍然受广大业界人士的青睐。下面来介绍下梯度提升树的算法原理。</p>
+<h3 id="GTB算法"><strong>GTB算法</strong></h3><p>梯度提升（gradient boosting）算法最初是FreidMan在2000年提出来的，其核心就在于，每棵树是从先前所有树的残差中来学习。利用的是当前模型中损失函数的负梯度值</p>
+<p>$$ r<em>{mi} = - \Bigg [ \frac {\partial L(y_i, f (x_i))}{\partial f (x_i)}\Bigg ] </em>{f (x) = f _{m-1}(x)}$$</p>
+<p>作为提升树算法中的残差的近似值，进而拟合一棵回归（分类）树。</p>
+<p>梯度提升属于Boost算法的一种，也可以说是Boost算法的一种改进，原始的Boost算法是在算法开始时，为每一个样本赋上一个相等的权重值，也就是说，最开始的时候，大家都是一样重要的。在每一次训练中得到的模型，会使得数据点的估计有所差异，所以在每一步结束后，我们需要对权重值进行处理，而处理的方式就是通过增加错分类点的权重，同时减少错分类点的权重，这样使得某些点如果老是被分错，那么就会被“严重关注”，也就被赋上一个很高的权重。然后等进行了N次迭代（由用户指定），将会得到N个简单的基分类器（basic learner），最后将它们组合起来，可以对它们进行加权（错误率越大的基分类器权重值越小，错误率越小的基分类器权重值越大）、或者让它们进行投票等得到一个最终的模型。</p>
+<p>Gradient Boost与传统的Boost有着很大的区别，它的每一次计算都是为了减少上一次的残差(residual)，而为了减少这些残差，可以在残差减少的梯度(Gradient)方向上建立一个新模型。所以说，在Gradient Boost中，每个新模型的建立是为了使得先前模型残差往梯度方向减少，与传统的Boost算法对正确、错误的样本进行加权有着极大的区别。</p>
+<h4 id="梯度提升算法（以回归为例）"><strong>梯度提升算法（以回归为例）</strong></h4><p>对于给定的输入：训练数据集T={(x1,y1),(x2,y2),…,(xn,yn)},损失函数L(y,f(x));<br>输出结果：一棵回归树$\tilde{f}(x)$</p>
 <hr>
-<p>决策树算法步骤：<br><img src="file:///F:/3-CSU/Academic/Machine Leaning/学习笔记/assets/decision tree algorithm.png" alt=""></p>
-<h2 id="学习推介">学习推介</h2><p>Andrew W. Moore PPT <a href="http://www.autonlab.org/tutorials/dtree18.pdf" target="_blank" rel="external">dtree</a><br>决策树Python实现，单独成文，网址：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="external">决策树实现</a><br>Wikipedia维基百科-<a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank" rel="external">Decision Tree决策树</a></p>
-<h2 id="Reference">Reference</h2><p>[1]数据挖掘概念与技术 Third Edition,韩家伟.<br>[2]机器学习实战 ,Peter Harrington.  </p>
+<p>（1）首先初始化$$f<em>0(x)=arg min_c \sum</em>{i=1}^{N}L(y_i, c)$$</p>
+<p>估计一个使损失函数极小化的常数值，此时它只有一个节点的树；<br>（2）迭代的建立M棵提升树<br>for m=1 to M:（第一层循环）<br>for i=1 to N：（第二层循环） 计算损失函数的负梯度在当前模型的值，并将它作为残差的估计值。</p>
+<p>$$ r<em>{mi} = - \Bigg [ \frac {\partial L(y_i, f (x_i))}{\partial f (x_i)}\Bigg ] </em>{f (x) = f _{m-1}(x)}$$</p>
+<p>对于$r<em>{mi}$拟合一棵回归树，得到第m棵树的叶节点区域$R</em>{mj}$,j=1,2,…,J</p>
+<p>for j=1 to J：（第二层循环）,计算：</p>
+<p>$$c<em>{mj} = arg min_c \sum</em>{x<em>i\epsilon R</em>{mj}}L(y<em>i,f</em>{m-1}(x_i)+c)$$</p>
+<p>利用线性搜索估计叶节点区域的值，使损失函数极小化；</p>
+<p>然后，更新$f<em>{m}(x) = f</em>{m-1}(x) + \sum<em>{j=1}^Jc</em>{mj}I(x \epsilon R_{mj})$</p>
+<p>（3）最后得到的$f_{m}(x)$就是我们最终的模型</p>
+<p>$$\tilde{f}(x)=f<em>M(x)=\sum</em>{m=1}^M\sum<em>{j=1}^Jc</em>{mj}I(x \epsilon R_{mj})$$</p>
+<hr>
+<h4 id="使用scikit-learn中的GTB"><strong>使用scikit-learn中的GTB</strong></h4><p>在scikit-learn中对GTB算法有了很好的封装，对于分类可以选择的损失函数有逻辑回归和指数函数，对于回归的损失函数相对比较多，有最小二乘法、最小绝对偏差函数、huber以及分位数等。具体描述参考下面的图片：<br><img src="file:///C:/Users/liudiwei/Desktop/QQ截图20150829104337.png" alt=""></p>
+<p>下面是sklearn中的一个分类原例：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; from sklearn.datasets import make_hastie_10_2</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; from sklearn.ensemble import <span class="constant">GradientBoostingClassifier</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="constant">X</span>, y = make_hastie_10_2(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="constant">X_train</span>, <span class="constant">X_test</span> = <span class="constant">X</span>[<span class="symbol">:</span><span class="number">2000</span>], <span class="constant">X</span>[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; y_train, y_test = y[<span class="symbol">:</span><span class="number">2000</span>], y[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; clf = <span class="constant">GradientBoostingClassifier</span>(n_estimators=<span class="number">100</span>, learning_rate=<span class="number">1.0</span>,</span><br><span class="line">...     max_depth=<span class="number">1</span>, random_state=<span class="number">0</span>).fit(<span class="constant">X_train</span>, y_train)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; clf.score(<span class="constant">X_test</span>, y_test)                 </span><br><span class="line"><span class="number">0</span>.<span class="number">913</span>...</span><br></pre></td></tr></table></figure>
+<p>其中n_estimators表示弱分类器的个数，learning_rate表示学习率，max_depth表示最大的深度等。GTB的参数比较多，在实际应用中需要自己去调整合适的参数。</p>
+<h2 id="基于决策树的组合算法比较"><strong>基于决策树的组合算法比较</strong></h2><p>基于决策树的组合算法常用的有三个，分别是Adaboost、RandomFrest以及本文的GBRT。</p>
+<p>Adaboost是通过迭代的学习每一个基分类器，每次迭代中，把上一次错分类的数据权值增大，正确分类的数据权值减小，然后将基分类器的线性组合作为一个强分类器，同时给分类误差率较小的基本分类器以大的权值，给分类误差率较大的基分类器以小的权重值。Adaboost使用的是自适应的方法，其中概率分布式变化的，关注的是难分类的样本。详细内容请参考我之前的文章：<a href="http://blog.csdn.net/dream_angel_z/article/details/46764845" target="_blank" rel="external">机器学习算法-Adaboost</a>。</p>
+<p>随机森林RandomForest算法，与adaboost有错区别，可以说一种改进的装袋组合算法。随机森林则(randomForest)，不仅对样本进行抽样，还对变量进行抽样。它通过随机的方式建立一个森林，森林里面有许多棵决策树，并且每一棵树之间是没有联系的。在得到森林之后，当有一个新的输入样本进来的时候，就让森林中的每一棵决策树分别对其进行判断，看这个样本应该属于哪一类（就分类算法而言），然后看看哪一类选择最多，就预测这个样本为该类。在建立每一棵决策树的过程中，有两点需要注意，即<strong>采样</strong>与<strong>完全分裂</strong>。首先是两个随机采样的过程，RF对输入的数据要进行行采样和列采样。对于行采样，是采用有放回的方式，也就是在采样得到的样本集合中，可能有重复的样本。假设输入样本为N个，那么采样的样本也为N个。这样使得在训练的时候，每一棵树的输入样本都不是全部的样本，使得相对不容易出现over-fitting过拟合。然后进行列采样，从M个feature特征中，选择m个(m &lt;&lt; M)。之后就是对采样之后的数据使用<strong>完全分裂</strong>的方式建立出决策树，这样决策树的某一个叶子节点要么是无法继续分裂的，要么里面的所有样本的都是指向的同一个类别。一般很多的决策树算法都一个重要的步骤-<strong>剪枝</strong>，但是这里不这样干，由于之前的两个随机采样的过程保证了随机性，所以就算不剪枝，也不会出现over-fitting。按照这种算法得到的随机森林中的每一棵决策树都是非常弱的，但当它们组合在一起的时候，就相当厉害了。随机森林就好比是：每一棵决策树就是一个精通于某一领域的专家（因为我们从M个feature中选择m个让每一棵决策树进行学习），这样在随机森林中就有了很多个精通不同领域的专家，对一个新的问题（新的输入数据），可以用不同的角度去看待它，最终由各个专家，投票得到结果。随机森林的分类准确率可以与adaboost媲美。它对噪声数据更加鲁棒，运行速度比adaboost也快得多。</p>
+<p>对于梯度提升树，它的每一次计算都是为了减少上一次的残差(residual)，而为了减少这些残差，可以在残差减少的梯度(Gradient)方向上建立一个新模型。这与adaboost和随机森林有很大的区别。</p>
+<h3 id="References">References</h3><p>[1] Introduction to Data Mining 数据挖掘概论. Pang-Ning Tan Michael Steinbach Vipin Kumar著<br>[2] 统计学习方法 李航 著<br>[3] scikit-learn官网组合算法 <a href="http://scikit-learn.org/stable/modules/ensemble.html#gradient-boosting" target="_blank" rel="external">点击这里</a></p>
+<p>参考文章： <a href="http://www.cnblogs.com/LeftNotEasy/archive/2011/03/07/1976562.html" target="_blank" rel="external">随机森林与GBDT</a></p>
 <hr>
 <p><br></p>
 <p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
@@ -292,9 +296,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
-          
-            <a href="/tags/Python/" rel="tag">#Python</a>
+            <a href="/tags/机器学习/" rel="tag">#机器学习</a>
           
         </div>
       
@@ -303,16 +305,16 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/21/2015-05-21-KNN/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 机器学习算法-K最近邻从原理到实现
+              <a href="/2015/10/20/new article/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/03/26/2015-03-26-sublimeLinter/" rel="next">
-                代码校验工具 SublimeLinter 的安装与使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/09/23/2015-09-23 Machine learning materials/" rel="next">
+                机器学习资料整理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -328,10 +330,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/05/08/2015-05-08-decision tree/"
-     data-title="机器学习算法-决策树理论"
+        <div class="ds-share flat" data-thread-key="2015/09/23/2015-08-29 GBDT/"
+     data-title="Gradient tree boosting"
      data-content=""
-     data-url="http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/">
+     data-url="http://csuldw.github.io/2015/09/23/2015-08-29 GBDT/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -357,8 +359,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/05/08/2015-05-08-decision tree/"
-                   data-title="机器学习算法-决策树理论" data-url="http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/">
+              <div class="ds-thread" data-thread-key="2015/09/23/2015-08-29 GBDT/"
+                   data-title="Gradient tree boosting" data-url="http://csuldw.github.io/2015/09/23/2015-08-29 GBDT/">
               </div>
             
           </div>
@@ -475,7 +477,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引文"><span class="nav-number">1.</span> <span class="nav-text">引文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1_决策树归纳"><span class="nav-number">2.</span> <span class="nav-text">1 决策树归纳</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2_基本原理"><span class="nav-number">3.</span> <span class="nav-text">2 基本原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1_算法优点"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 算法优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2_算法一般流程"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 算法一般流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3_实例"><span class="nav-number">3.3.</span> <span class="nav-text">2.3 实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-使用信息增益进行决策树归纳"><span class="nav-number">3.3.1.</span> <span class="nav-text">1.使用信息增益进行决策树归纳</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-使用增益率计算"><span class="nav-number">3.3.2.</span> <span class="nav-text">2.使用增益率计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-基尼指数Gini_index"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.基尼指数Gini index</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习推介"><span class="nav-number">4.</span> <span class="nav-text">学习推介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradient_Tree_Boosting"><span class="nav-number">2.</span> <span class="nav-text">Gradient Tree Boosting</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GTB算法"><span class="nav-number">2.1.</span> <span class="nav-text">GTB算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#梯度提升算法（以回归为例）"><span class="nav-number">2.1.1.</span> <span class="nav-text">梯度提升算法（以回归为例）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用scikit-learn中的GTB"><span class="nav-number">2.1.2.</span> <span class="nav-text">使用scikit-learn中的GTB</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于决策树的组合算法比较"><span class="nav-number">3.</span> <span class="nav-text">基于决策树的组合算法比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">3.1.</span> <span class="nav-text">References</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
