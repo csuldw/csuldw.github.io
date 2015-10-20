@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   
-  <title><![CDATA[刘帝伟-技术博客]]></title>
+  <title><![CDATA[D.W's - 技术博客]]></title>
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-10-19T11:50:34.311Z</updated>
+  <updated>2015-10-20T02:02:22.808Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -17,11 +17,11 @@
   
   <entry>
     <title></title>
-    <link href="http://csuldw.github.io/2015/10/19/new%20article/"/>
-    <id>http://csuldw.github.io/2015/10/19/new article/</id>
-    <published>2015-10-19T11:50:34.311Z</published>
-    <updated>2015-10-19T11:50:34.311Z</updated>
-    <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="/assets/images/34.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="/assets/images/35.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="/assets/images/38.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="/assets/images/37.jpg" alt=""></div></div></div></div>]]></content>
+    <link href="http://csuldw.github.io/2015/10/20/new%20article/"/>
+    <id>http://csuldw.github.io/2015/10/20/new article/</id>
+    <published>2015-10-20T02:02:22.808Z</published>
+    <updated>2015-10-20T02:02:22.808Z</updated>
+    <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="/assets/images/0.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="/assets/images/1.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="/assets/images/2.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="/assets/images/8.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="/assets/images/3.jpg" alt=""></div></div></div></div>]]></content>
     <summary type="html">
     <![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="widt]]>
     </summary>
