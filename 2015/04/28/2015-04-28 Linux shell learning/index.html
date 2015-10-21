@@ -63,7 +63,7 @@
 1[root@master test]# ./factorial 5
 120
 注意：如果有多个参数，每">
-<meta property="og:updated_time" content="2015-10-21T13:32:08.455Z">
+<meta property="og:updated_time" content="2015-10-21T13:35:00.072Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux学习-shell脚本编程基础之处理用户输入">
 <meta name="twitter:description" content="1.运行带参数的程序$0表示程序名，$1表示第一个参数，$2表示第二个参数，一次类推，直到第九个参数$9
@@ -279,7 +279,8 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">test</span>]<span class="comment"># sh mulem 33 3</span></span><br></pre></td></tr></table></figure>
 <p>99</p>
 <h1 id="3-参数计数">3.参数计数</h1><p>可以通过$#来统计参数的个数。</p>
-<p>可以通过<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;# 4.&#33719;&#24471;&#25152;&#26377;&#25968;&#25454;&#10;&#10;$*&#21644;$@&#21464;&#37327;&#25552;&#20379;&#20102;&#23545;&#25152;&#26377;&#21442;&#25968;&#30340;&#24555;&#36895;&#35775;&#38382;&#12290;</span><br></pre></td></tr></table></figure></p>
+<p>可以通过</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;&#26469;&#33719;&#24471;&#26368;&#21518;&#19968;&#20010;&#21629;&#20196;&#34892;&#21442;&#25968;&#21464;&#37327;,&#25110;&#32773;&#26159;params=$#,&#28982;&#21518;&#29992;$params&#33719;&#24471;&#20063;&#21487;&#20197;&#12290;&#10;&#10;# 4.&#33719;&#24471;&#25152;&#26377;&#25968;&#25454;&#10;&#10;$*&#21644;$@&#21464;&#37327;&#25552;&#20379;&#20102;&#23545;&#25152;&#26377;&#21442;&#25968;&#30340;&#24555;&#36895;&#35775;&#38382;&#12290;</span><br></pre></td></tr></table></figure>
 <p>[root@master test]# vi test11<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">输入：</span><br></pre></td></tr></table></figure></p>
 <h1 id="!/bin/sh">!/bin/sh</h1><h1 id="testing_$*_and_$@">testing $* and $@</h1><p>echo “Using the \$<em> method:$</em>“<br>echo “Using the \$@ method:$@”<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">测试：</span><br></pre></td></tr></table></figure></p>
 <p>[root@master test]# ./test11 rich jjds fds qaa dsdd<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">输出：</span><br></pre></td></tr></table></figure></p>
