@@ -174,6 +174,7 @@ $(document).ready(function () {
   };
 
   var motionMiddleWares = {
+	  
     logo: function (integrator) {
       var sequence = [];
       var $brand = $('.brand');
@@ -181,13 +182,13 @@ $(document).ready(function () {
       var $subtitle = $('.site-subtitle');
       var $logoLineTop = $('.logo-line-before i');
       var $logoLineBottom = $('.logo-line-after i');
-
+	  
       $brand.size() > 0 && sequence.push({
         e: $brand,
         p: {opacity: 1},
         o: {duration: 100}
       });
-
+	  
       isMist() && hasElement([$logoLineTop, $logoLineBottom]) &&
       sequence.push(
         getMistLineSettings($logoLineTop, "100%"),
@@ -247,6 +248,20 @@ $(document).ready(function () {
           integrator.next();
         }
       });
+	  $('.archive').velocity('transition.slideDownIn', {
+        display: null,
+		stagger: 150,
+        complete: function () {
+          integrator.next();
+        }
+      });
+	  $('.post').velocity('transition.slideDownIn', {
+        display: null,
+		stagger: 500,
+        complete: function () {
+          integrator.next();
+        }
+      });
     },
 
     postList: function (integrator) {
@@ -258,6 +273,25 @@ $(document).ready(function () {
       function postMotion () {
         var postMotionOptions = window.postMotionOptions || {
             stagger: 300,
+            drag: true
+          };
+        postMotionOptions.complete = function () {
+          integrator.next();
+        };
+
+        $post.velocity('transition.slideDownIn', postMotionOptions);
+      }
+    },
+	
+	contentList: function (integrator) {
+      var $post = $('.archive');
+      var hasPost = $post.size() > 0;
+
+      hasPost ? postMotion() : integrator.next();
+
+      function postMotion () {
+        var postMotionOptions = window.postMotionOptions || {
+            stagger: 200,
             drag: true
           };
         postMotionOptions.complete = function () {
@@ -286,8 +320,8 @@ $(document).ready(function () {
     .add(motionMiddleWares.logo)
     .add(motionMiddleWares.menu)
     .add(motionMiddleWares.sidebarToggle)
-    .add(motionMiddleWares.backToTop)
-    .add(motionMiddleWares.postList);
+	//.add(motionMiddleWares.postList)
+    .add(motionMiddleWares.backToTop);
 
   window.motionIntegrator = motionIntegrator;
 });
