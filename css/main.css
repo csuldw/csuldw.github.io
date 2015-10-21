@@ -1027,7 +1027,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff65bb;
+  background: #629d98;
 }
 .sidebar-nav {
   margin: 0;
@@ -1851,7 +1851,7 @@ body {
   BACKGROUND-COLOR: #fff;
   padding: 40px 30px 40px 30px;
   border: 1px solid #eaecee;
-  margin: 40px 0 0px 0;
+  margin: 0 0 40px 0;
   position: relative;
 }
 .use-motion .archive {
