@@ -1131,7 +1131,7 @@
     <link href="http://csuldw.github.io/2015/05/09/2015-05-09%20Linux-CentOS%20vsftpd/"/>
     <id>http://csuldw.github.io/2015/05/09/2015-05-09 Linux-CentOS vsftpd/</id>
     <published>2015-05-09T13:53:12.000Z</published>
-    <updated>2015-10-21T12:47:38.997Z</updated>
+    <updated>2015-10-21T12:57:48.531Z</updated>
     <content type="html"><![CDATA[<p><strong>坏境：</strong> CentOS 7.0</p>
 <p>闲话不多少了，直接切入正题吧。</p>
 <h3 id="第一步：安装vsftpd，在终端运行">第一步：安装vsftpd，在终端运行</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> vsftpd</span><br></pre></td></tr></table></figure>
@@ -1167,7 +1167,7 @@
     
       <category term="Linux" scheme="http://csuldw.github.io/tags/Linux/"/>
     
-      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
+      <category term="Linux" scheme="http://csuldw.github.io/categories/Linux/"/>
     
   </entry>
   
