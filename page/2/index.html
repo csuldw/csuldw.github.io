@@ -675,7 +675,7 @@
             
             
               
-                <a class="post-title-link" href="/2015/05/08/2015-05-08-decision tree/" itemprop="url">
+                <a class="post-title-link" href="/2015/05/08/2015-05-08 decision tree/" itemprop="url">
                   机器学习算法-决策树理论
                 </a>
               
@@ -712,8 +712,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/08/2015-05-08-decision tree/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/08/2015-05-08-decision tree/" itemprop="commentsCount"></span>
+                <a href="/2015/05/08/2015-05-08 decision tree/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/08/2015-05-08 decision tree/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -740,7 +740,110 @@
 <li>在第二阶段，使用模型进行分类。首先评估分类器的预测准确率。这个过程要尽量的减少<strong>过拟合</strong>。（为什么是尽量减少而不是避免呢，因为过拟合一般是避免不了的，再好的模型也会有过拟合的情况）。</li>
 </ul>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/08/2015-05-08-decision tree/#more" rel="contents">
+            <a class="btn" href="/2015/05/08/2015-05-08 decision tree/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/04/28/2015-04-28 Linux shell learning/" itemprop="url">
+                  Linux学习-shell脚本编程基础之处理用户输入
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-04-28T20:53:12+08:00" content="2015-04-28">
+              2015-04-28
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/04/28/2015-04-28 Linux shell learning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/2015-04-28 Linux shell learning/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h1 id="1-运行带参数的程序">1.运行带参数的程序</h1><p>$0表示程序名，$1表示第一个参数，$2表示第二个参数，一次类推，直到第九个参数$9</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi factorial</span></span><br><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line">f=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span>((i=<span class="number">1</span>;i&lt;=<span class="variable">$1</span>;i++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        f=$[ <span class="variable">$f</span> * <span class="variable">$i</span>]</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$f</span></span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">test</span>]<span class="comment"># ./factorial 5</span></span><br></pre></td></tr></table></figure>
+<p>120</p>
+<p>注意：如果有多个参数，每个参数必须有个空格，如果一个参数里面带空格，必须用单引号或双引号括起来。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/28/2015-04-28 Linux shell learning/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -902,7 +1005,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">20</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

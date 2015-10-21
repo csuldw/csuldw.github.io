@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Linux," />
+  <meta name="keywords" content="Linux,Shell," />
 
 
 
@@ -47,31 +47,31 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="坏境： CentOS 7.0
-闲话不多少了，直接切入正题吧。
-第一步：安装vsftpd，在终端运行1yum -y install vsftpd
-测试是否安装成功1service vsftpd start
-如果提示：1Starting vsftpd for vsftpd:    [ok]
-表示成功。">
+<meta name="description" content="1.运行带参数的程序$0表示程序名，$1表示第一个参数，$2表示第二个参数，一次类推，直到第九个参数$9
+12345678# vi factorial#!/bin/shf=1for((i=1;i&amp;lt;=$1;i++))do        f=$[ $f * $i]doneecho $f
+测试：
+1[root@master test]# ./factorial 5
+120
+注意：如果有多个参数，每">
 <meta property="og:type" content="article">
-<meta property="og:title" content="CentOS下vsftpd安装与配置">
-<meta property="og:url" content="http://csuldw.github.io/2015/05/09/2015-05-09 Linux-CentOS vsftpd/index.html">
+<meta property="og:title" content="Linux学习-shell脚本编程基础之处理用户输入">
+<meta property="og:url" content="http://csuldw.github.io/2015/04/28/2015-04-28 Linux shell learning/index.html">
 <meta property="og:site_name" content="D.W's - 个人博客">
-<meta property="og:description" content="坏境： CentOS 7.0
-闲话不多少了，直接切入正题吧。
-第一步：安装vsftpd，在终端运行1yum -y install vsftpd
-测试是否安装成功1service vsftpd start
-如果提示：1Starting vsftpd for vsftpd:    [ok]
-表示成功。">
-<meta property="og:updated_time" content="2015-10-21T12:57:48.531Z">
+<meta property="og:description" content="1.运行带参数的程序$0表示程序名，$1表示第一个参数，$2表示第二个参数，一次类推，直到第九个参数$9
+12345678# vi factorial#!/bin/shf=1for((i=1;i&amp;lt;=$1;i++))do        f=$[ $f * $i]doneecho $f
+测试：
+1[root@master test]# ./factorial 5
+120
+注意：如果有多个参数，每">
+<meta property="og:updated_time" content="2015-10-21T13:06:31.216Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CentOS下vsftpd安装与配置">
-<meta name="twitter:description" content="坏境： CentOS 7.0
-闲话不多少了，直接切入正题吧。
-第一步：安装vsftpd，在终端运行1yum -y install vsftpd
-测试是否安装成功1service vsftpd start
-如果提示：1Starting vsftpd for vsftpd:    [ok]
-表示成功。">
+<meta name="twitter:title" content="Linux学习-shell脚本编程基础之处理用户输入">
+<meta name="twitter:description" content="1.运行带参数的程序$0表示程序名，$1表示第一个参数，$2表示第二个参数，一次类推，直到第九个参数$9
+12345678# vi factorial#!/bin/shf=1for((i=1;i&amp;lt;=$1;i++))do        f=$[ $f * $i]doneecho $f
+测试：
+1[root@master test]# ./factorial 5
+120
+注意：如果有多个参数，每">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -83,7 +83,7 @@
 
 
 
-  <title> CentOS下vsftpd安装与配置 | D.W's - 个人博客 </title>
+  <title> Linux学习-shell脚本编程基础之处理用户输入 | D.W's - 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -209,7 +209,7 @@
             
             
               
-                CentOS下vsftpd安装与配置
+                Linux学习-shell脚本编程基础之处理用户输入
               
             
           </h1>
@@ -218,8 +218,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-05-09T21:53:12+08:00" content="2015-05-09">
-              2015-05-09
+            <time itemprop="dateCreated" datetime="2015-04-28T20:53:12+08:00" content="2015-04-28">
+              2015-04-28
             </time>
           </span>
 
@@ -244,8 +244,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/09/2015-05-09 Linux-CentOS vsftpd/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/09/2015-05-09 Linux-CentOS vsftpd/" itemprop="commentsCount"></span>
+                <a href="/2015/04/28/2015-04-28 Linux shell learning/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/28/2015-04-28 Linux shell learning/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -264,28 +264,36 @@
       
 
       
-        <span itemprop="articleBody"><p><strong>坏境：</strong> CentOS 7.0</p>
-<p>闲话不多少了，直接切入正题吧。</p>
-<h3 id="第一步：安装vsftpd，在终端运行">第一步：安装vsftpd，在终端运行</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> vsftpd</span><br></pre></td></tr></table></figure>
-<p>测试是否安装成功<br><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">service</span> vsftpd <span class="literal">start</span></span><br></pre></td></tr></table></figure></p>
-<p>如果提示：<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Starting vsftpd <span class="keyword">for</span> <span class="string">vsftpd:</span>    [ok]</span><br></pre></td></tr></table></figure></p>
-<p>表示成功。<br><a id="more"></a></p>
-<h3 id="第二步：编辑vsftpd的配置文件">第二步：编辑vsftpd的配置文件</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/vsftpd/vsftpd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>清空文件, 然后添加如下内容:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">listen=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">background=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">anonymous_enable=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">local_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">write_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">local_umask=<span class="value"><span class="number">022</span> </span></span></span><br><span class="line"><span class="setting">anon_upload_enable=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">anon_mkdir_write_enable=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">dirmessage_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">xferlog_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">connect_from_port_20=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">chown_uploads=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">xferlog_file=<span class="value">/var/log/vsftpd.log </span></span></span><br><span class="line"><span class="setting">xferlog_std_format=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">async_abor_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">ascii_upload_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">ascii_download_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">ftpd_banner=<span class="value">Welcome to hao32 FTP servers </span></span></span><br><span class="line"><span class="setting">pam_service_name=<span class="value">vsftpd </span></span></span><br><span class="line"><span class="setting">chroot_local_user=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">chroot_list_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">chroot_list_file=<span class="value">/etc/vsftpd/vsftpd.chroot_list</span></span></span><br></pre></td></tr></table></figure></p>
-<h3 id="第三步：终端运行下面命令">第三步：终端运行下面命令</h3><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch /etc/vsftpd/vsftpd.chroot_list </span><br><span class="line"><span class="keyword">service</span> vsftpd <span class="literal">start</span></span><br></pre></td></tr></table></figure>
-<p>如果出现下面这句话：</p>
-<p><strong>Starting vsftpd for vsftpd: [ OK ]</strong></p>
-<p>则表示成功，如果不行则用这个语句:<br><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/etc/</span>rc.d<span class="regexp">/init.d/</span>xinetd restart</span><br></pre></td></tr></table></figure></p>
-<h3 id="第四步：添加ftp用户"><strong>第四步：添加ftp用户</strong></h3><p>ftp默认我们使用系统用户, 现在我们来添加用户csuldw, 指向目录<figure class="highlight"><figcaption><span>权限是```nologin```, 就是没给shell权限, 不影响ftp的。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;useradd csuldw -d /home/csuldw -s /sbin/nologin</span><br></pre></td></tr></table></figure></p>
-<p>如果显示:<br><del>useradd: warning: the home directory already exists.<br>Not copying any file from skel directory into it.</del></p>
-<p>不用理会, 只是告诉你, 你指向的目录已经存在, 这不影响<br>设置目录及其文件的属组, 你也可以使用别的分组方式，如下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R csuldw<span class="class">.csuldw</span> /home/csuldw</span><br></pre></td></tr></table></figure></p>
-<p>设置一下用户csuldw的密码, 自己设置就可以了，命令如下：<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">passwd</span> csuldw</span><br></pre></td></tr></table></figure></p>
-<p>把用户csuldw加到<figure class="highlight"><figcaption><span>这样用户就可以正常登陆并且不能跳出自己的目录</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">```&#10;echo &#39;csuldw&#39; &#62;&#62; /etc/vsftpd/vsftpd.chroot_list &#10;service vsftpd restart</span><br></pre></td></tr></table></figure></p>
-<h3 id="第五步:测试"><strong>第五步:测试</strong></h3><p>配置完毕! 测试登陆吧</p>
-<p><strong>ftp主机</strong>: 服务器IP地址   如输入：<figure class="highlight"><figcaption><span>192.168.0.1```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**ftp&#29992;&#25143;**: csuldw&#10;**ftp&#23494;&#30721;**: &#20320;&#33258;&#24049;&#21018;&#25165;&#35774;&#32622;&#30340;&#10;&#10;&#27880;&#24847;&#65306;&#36827;&#34892;FTP&#25805;&#20316;&#26102;&#65292;&#26368;&#22909;&#25226;&#38450;&#28779;&#22681;&#32473;&#20851;&#38381;&#20102;</span><br></pre></td></tr></table></figure></p>
-<p>service iptables stop<br><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">默认情况下，是不允许<span class="literal">root</span>账户上传的。</span><br><span class="line">实现<span class="literal">root</span> 权限上传：</span><br></pre></td></tr></table></figure></p>
-<p>vi /etc/vsftpd/user_list  #root注释掉<br>vi /etc/vsftpd/ftpusers  #root注释掉<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">客户端软件上传时报错：</span><br><span class="line"></span><br><span class="line">~~553 Could not create file.~~</span><br><span class="line"></span><br><span class="line">原因：无权限写导致。</span><br><span class="line"><span class="keyword">*</span><span class="keyword">*</span>解决：<span class="keyword">*</span><span class="keyword">*</span></span><br></pre></td></tr></table></figure></p>
-<p>chmod 777 /var/ftp/pub<br>```</p>
+        <span itemprop="articleBody"><h1 id="1-运行带参数的程序">1.运行带参数的程序</h1><p>$0表示程序名，$1表示第一个参数，$2表示第二个参数，一次类推，直到第九个参数$9</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi factorial</span></span><br><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line">f=<span class="number">1</span></span><br><span class="line"><span class="keyword">for</span>((i=<span class="number">1</span>;i&lt;=<span class="variable">$1</span>;i++))</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">        f=$[ <span class="variable">$f</span> * <span class="variable">$i</span>]</span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$f</span></span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">test</span>]<span class="comment"># ./factorial 5</span></span><br></pre></td></tr></table></figure>
+<p>120</p>
+<p>注意：如果有多个参数，每个参数必须有个空格，如果一个参数里面带空格，必须用单引号或双引号括起来。</p>
+<a id="more"></a>
+<h1 id="2-读取程序名">2.读取程序名</h1><p>编写基于所用的脚本名而执行不同功能的脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># vi addem</span></span><br><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line">name=`basename <span class="variable">$0</span>`</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$name</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$name</span> = <span class="string">"addem"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> $[<span class="variable">$1</span>+<span class="variable">$2</span>]</span><br><span class="line"><span class="keyword">elif</span> [ <span class="variable">$name</span> = <span class="string">"mulem"</span> ]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">        <span class="built_in">echo</span> $[ <span class="variable">$1</span> * <span class="variable">$2</span>]</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment"># cp addem mulem</span></span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">test</span>]<span class="comment"># sh addem 3 4</span></span><br></pre></td></tr></table></figure>
+<p>7</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">test</span>]<span class="comment"># sh mulem 33 3</span></span><br></pre></td></tr></table></figure>
+<p>99</p>
+<h1 id="3-参数计数">3.参数计数</h1><p>可以通过 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#21487;&#20197;&#36890;&#36807; ```$&#123;!#&#125;``` &#26469;&#33719;&#24471;&#26368;&#21518;&#19968;&#20010;&#21629;&#20196;&#34892;&#21442;&#25968;&#21464;&#37327;,&#25110;&#32773;&#26159;```params=$#```,&#28982;&#21518;&#29992;```$params``` &#33719;&#24471;&#20063;&#21487;&#20197;&#12290;&#10;&#10;# 4.&#33719;&#24471;&#25152;&#26377;&#25968;&#25454;&#10;&#10;```$*```&#21644;```$@```&#21464;&#37327;&#25552;&#20379;&#20102;&#23545;&#25152;&#26377;&#21442;&#25968;&#30340;&#24555;&#36895;&#35775;&#38382;&#12290;</span><br></pre></td></tr></table></figure></p>
+<p>[root@master test]# vi test11<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br></pre></td></tr></table></figure></p>
+<h1 id="!/bin/sh">!/bin/sh</h1><h1 id="testing_$*_and_$@">testing $* and $@</h1><p>echo “Using the \$<em> method:$</em>“<br>echo “Using the \$@ method:$@”<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">测试：</span><br></pre></td></tr></table></figure></p>
+<p>[root@master test]# ./test11 rich jjds fds qaa dsdd<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">输出：</span><br></pre></td></tr></table></figure></p>
+<p>Using the $* method:rich jjds fds qaa dsdd<br>Using the $@ method:rich jjds fds qaa dsdd<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">`$*`</span><span class="string">``</span>:存储的数据相当于单个单词；</span><br><span class="line"><span class="string">``</span><span class="string">`$@`</span><span class="string">``</span>:存储的数据相当于多个独立的单词。</span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.shift移动变量</span></span><br><span class="line"></span><br><span class="line">使用<span class="keyword">shift</span>可以把参数都向前移动一位，<span class="variable">$1</span>会被移调，最后<span class="variable">$#</span>的大小会减掉<span class="number">1</span></span><br><span class="line">使用<span class="keyword">shift</span> <span class="number">2</span> 表示一次移动两位</span><br><span class="line">判断带入的参数是否不为空：<span class="keyword">if</span> [ -n <span class="variable">$1</span> ] 表示判断<span class="variable">$1</span>是否为空</span><br><span class="line"></span><br><span class="line"><span class="comment"># 6.查找选项</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="vi_test12">vi test12</h1><h1 id="!/bin/sh-1">!/bin/sh</h1><h1 id="extracting_command_line_options_as_parameters">extracting command line options as parameters</h1><p>while [ -n “$1” ]<br>do<br>        case “$1” in<br>        -a) echo “-a option” ;;<br>        -b) echo “-b option” ;;<br>        -c) echo “-c option” ;;<br>        *) echo “$1 is not an option” ;;<br>        esac<br>        shift<br>done<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">测试：</span><br></pre></td></tr></table></figure></p>
+<p>[root@master test]# ./test12 -a<br>-a option<br>[root@master test]# ./test12 c<br>c is not an option<br>[root@master test]#<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># 7.getopt命令和getopts命令</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 8.获得用户输入</span></span><br><span class="line"></span><br><span class="line">```           </span><br><span class="line"><span class="comment"># vi test13</span></span><br><span class="line"><span class="shebang">#!/bin/sh</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"please enter you name:"</span></span><br><span class="line"><span class="built_in">read</span> name</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"hello <span class="variable">$name</span> ,where come to here"</span></span><br></pre></td></tr></table></figure></p>
+<p>测试：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">test</span>]<span class="comment"># ./test13</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">please enter you <span class="property">name</span>:</span><br><span class="line">haha</span><br><span class="line">hello haha ,<span class="keyword">where</span> come <span class="keyword">to</span> here</span><br></pre></td></tr></table></figure>
+<p>可以在<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#10;</span><br></pre></td></tr></table></figure></p>
+<p>read –p “please entry you age:” age<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">还可以使用-t设置计时器</span><br></pre></td></tr></table></figure></p>
+<p>read –t 5 –p “please entry you age:” age<br><figure class="highlight autohotkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">其它参数：</span><br><span class="line"></span><br><span class="line"><span class="escape">``</span><span class="escape">`-</span>s<span class="escape">``</span><span class="escape">`隐</span>式方式读取，数据会被显示，只是<span class="escape">``</span><span class="escape">`r</span>ead<span class="escape">``</span><span class="escape">`命</span>令会将文本颜色设置成跟背景色一样；</span><br><span class="line"></span><br><span class="line"># <span class="number">9</span>.从文件中读取数据</span><br></pre></td></tr></table></figure></p>
+<h1 id="vi_test15">vi test15</h1><h1 id="!/bin/sh-2">!/bin/sh</h1><p>count=1<br>cat test | while read line<br>do<br>        echo “Line $count: $line”<br>        count=$[$count + 1]<br>done<br>echo “finish file!”<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">测试</span><br></pre></td></tr></table></figure></p>
+<p>[root@master test]# ./test15<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>Line 1: #!/bin/sh<br>Line 2: if date<br>Line 3: then<br>Line 4: echo “it worked!”<br>Line 5: fi<br>Line 6: echo “this is a test file”<br>Line 7: echo “this is a test file”<br>finish file!<br>```</p>
 </span>
       
     </div>
@@ -296,6 +304,8 @@
           
             <a href="/tags/Linux/" rel="tag">#Linux</a>
           
+            <a href="/tags/Shell/" rel="tag">#Shell</a>
+          
         </div>
       
 
@@ -303,16 +313,16 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/21/2015-05-21-KNN/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 机器学习算法-K最近邻从原理到实现
+              <a href="/2015/05/08/2015-05-08 decision tree/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 机器学习算法-决策树理论
               </a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/08/2015-05-08 decision tree/" rel="next">
-                机器学习算法-决策树理论 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/03/26/2015-03-26-sublimeLinter/" rel="next">
+                代码校验工具 SublimeLinter 的安装与使用 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -328,10 +338,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/05/09/2015-05-09 Linux-CentOS vsftpd/"
-     data-title="CentOS下vsftpd安装与配置"
+        <div class="ds-share flat" data-thread-key="2015/04/28/2015-04-28 Linux shell learning/"
+     data-title="Linux学习-shell脚本编程基础之处理用户输入"
      data-content=""
-     data-url="http://csuldw.github.io/2015/05/09/2015-05-09 Linux-CentOS vsftpd/">
+     data-url="http://csuldw.github.io/2015/04/28/2015-04-28 Linux shell learning/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -357,8 +367,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/05/09/2015-05-09 Linux-CentOS vsftpd/"
-                   data-title="CentOS下vsftpd安装与配置" data-url="http://csuldw.github.io/2015/05/09/2015-05-09 Linux-CentOS vsftpd/">
+              <div class="ds-thread" data-thread-key="2015/04/28/2015-04-28 Linux shell learning/"
+                   data-title="Linux学习-shell脚本编程基础之处理用户输入" data-url="http://csuldw.github.io/2015/04/28/2015-04-28 Linux shell learning/">
               </div>
             
           </div>
@@ -475,7 +485,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：安装vsftpd，在终端运行"><span class="nav-number">1.</span> <span class="nav-text">第一步：安装vsftpd，在终端运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步：编辑vsftpd的配置文件"><span class="nav-number">2.</span> <span class="nav-text">第二步：编辑vsftpd的配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步：终端运行下面命令"><span class="nav-number">3.</span> <span class="nav-text">第三步：终端运行下面命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步：添加ftp用户"><span class="nav-number">4.</span> <span class="nav-text">第四步：添加ftp用户</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第五步:测试"><span class="nav-number">5.</span> <span class="nav-text">第五步:测试</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-运行带参数的程序"><span class="nav-number">1.</span> <span class="nav-text">1.运行带参数的程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-读取程序名"><span class="nav-number">2.</span> <span class="nav-text">2.读取程序名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-参数计数"><span class="nav-number">3.</span> <span class="nav-text">3.参数计数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#!/bin/sh"><span class="nav-number">4.</span> <span class="nav-text">!/bin/sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#testing_$*_and_$@"><span class="nav-number">5.</span> <span class="nav-text">testing $* and $@</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi_test12"><span class="nav-number">6.</span> <span class="nav-text">vi test12</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#!/bin/sh-1"><span class="nav-number">7.</span> <span class="nav-text">!/bin/sh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#extracting_command_line_options_as_parameters"><span class="nav-number">8.</span> <span class="nav-text">extracting command line options as parameters</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vi_test15"><span class="nav-number">9.</span> <span class="nav-text">vi test15</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#!/bin/sh-2"><span class="nav-number">10.</span> <span class="nav-text">!/bin/sh</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
