@@ -30,10 +30,10 @@
   
   <entry>
     <title><![CDATA[Windows下使用git push命令的无密码设置]]></title>
-    <link href="http://csuldw.github.io/2015/10/22/2015-10-22%20Windows%20git%20push%20no%20password/"/>
-    <id>http://csuldw.github.io/2015/10/22/2015-10-22 Windows git push no password/</id>
-    <published>2015-10-22T08:45:44.000Z</published>
-    <updated>2015-10-22T08:49:41.164Z</updated>
+    <link href="http://csuldw.github.io/2015/10/21/2015-10-21%20Windows%20git%20push%20no%20password/"/>
+    <id>http://csuldw.github.io/2015/10/21/2015-10-21 Windows git push no password/</id>
+    <published>2015-10-21T08:45:44.000Z</published>
+    <updated>2015-10-22T08:54:03.152Z</updated>
     <content type="html"><![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
