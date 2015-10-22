@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-10-21T09:20:17.056Z</updated>
+  <updated>2015-10-22T01:40:30.445Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title></title>
-    <link href="http://csuldw.github.io/2015/10/21/new%20article/"/>
-    <id>http://csuldw.github.io/2015/10/21/new article/</id>
-    <published>2015-10-21T09:20:17.056Z</published>
-    <updated>2015-10-21T09:20:17.056Z</updated>
+    <link href="http://csuldw.github.io/2015/10/22/new%20article/"/>
+    <id>http://csuldw.github.io/2015/10/22/new article/</id>
+    <published>2015-10-22T01:40:30.445Z</published>
+    <updated>2015-10-22T01:40:30.445Z</updated>
     <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww4.sinaimg.cn/large/637f3c58gw1ex7h81y2nqj234g0s04qr.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div>]]></content>
     <summary type="html">
     <![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="widt]]>
@@ -29,11 +29,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[机器学习资料整理]]></title>
+    <title><![CDATA[机器学习-个人资料整理]]></title>
     <link href="http://csuldw.github.io/2015/09/23/2015-09-23%20Machine%20learning%20materials/"/>
     <id>http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/</id>
     <published>2015-09-23T14:22:22.000Z</published>
-    <updated>2015-10-20T23:27:01.817Z</updated>
+    <updated>2015-10-22T01:44:35.569Z</updated>
     <content type="html"><![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>
 <a id="more"></a>
@@ -153,21 +153,48 @@
     
     </summary>
     
-      <category term="机器学习" scheme="http://csuldw.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
     
       <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
     
   </entry>
   
   <entry>
-    <title><![CDATA[Gradient tree boosting]]></title>
-    <link href="http://csuldw.github.io/2015/08/29/2015-08-29%20GBDT/"/>
-    <id>http://csuldw.github.io/2015/08/29/2015-08-29 GBDT/</id>
-    <published>2015-08-29T14:22:22.000Z</published>
-    <updated>2015-10-21T09:17:47.949Z</updated>
+    <title><![CDATA[2015年8月总结]]></title>
+    <link href="http://csuldw.github.io/2015/08/29/2015-08-29%20Summary/"/>
+    <id>http://csuldw.github.io/2015/08/29/2015-08-29 Summary/</id>
+    <published>2015-08-29T02:54:00.000Z</published>
+    <updated>2015-10-22T01:44:54.356Z</updated>
+    <content type="html"><![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
+<p>下面来总结一下自已这几个月的学习成长吧。<br><a id="more"></a><br>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
+<p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
+<p>从今年四月中旬开始，看paper，学习ML（DM）算法，然后跑实验，到现在大概整整四个月时间吧。能够写出一篇论文，确实不容易。期间也遇到了许多问题，比如自己做的数据没别人的好，数据正负样本不均衡、实验效果不理想等等，不过从中确实学到了很多的东西。现在，自己独立跑实验基本没有多大问题，至少自己能用Python实现常见的算法以及对文件的一些操作，唯一感觉会出问题的当属数据集这块。因为自己构造数据集，有些奇异点处理的不好，然后直接影响了最后模型的好坏。</p>
+<p>五月上旬基本上玩过去了，五月下旬各类机器学习书籍接连到手，然后开始学习《机器学习实践》这本书，全书是用Python实现的代码，因为有源码参考，所以很容易理解，很适合算法学习入门。由于之前学习过数据挖掘算法的理论知识，所以这本书不到半个月就把相应的知识点理解的差不多了。关于算法理论，清华大学出版社李航的《统计学习方法》确实不错，全书纯理论知识，分析独特，通俗易懂，很全面，适合想深入研究算法的人。这本书我还没完全看完，接下来可以好好学习下。</p>
+<p>六月，上旬的时候，在Leetcode上面刷了一个星期的算法题，做了60几个题目，后来感觉还是做实验重要，然后就接着去做数据了。数据处理期间，碰到了一些专业性问题，尤其是在计算结合位点的时候，导师当时也不在，而我对于生物上的一些专业知识不是很了解，所以进度卡住了一个星期左右。还有就是在计算一个特征的时候，停留了好几天。不过还好，六月底，数据的每个特征算是做出来了，但当时喉咙开始发炎了，然后又引起感冒，整个日子都不好过，整个人也都不好了。</p>
+<p>到了七月，开始整理自己的数据集，跑实验，然后从分析结果。这段时间碰到的问题也让人抓狂。首先是数据集不均衡，跑出来的效果很差，很不理想。不过这个问题还是比较容易解决，最常用的就是抽样了，下抽样还是上抽样就看结果好不好了。最后我选择的是下抽样，构造新的平衡数据，但是最后跑出来的效果不理想，使用别人的方法，跑出来的效果比别人差了将近8个百分点，这显然不合逻辑。到了七月下旬的时候，没办法了，还是使用别人的数据集吧。然后接着在别人数据集的基础上，加特征，构造新的数据集，然后使用不同算法来跑实验，比较效果等。最后得到的效果和别人的差不多，但是相对于另外一篇论文，似乎要差点。因为该论文没有说明自己的结果是在独立测试上的结果还是交叉验证得到的结果。所以，继续跑实验吧。</p>
+<p>八月的第一个星期，实验总算做出来了，最后比较了下，效果提升不多，因为本来原来的实验就做的比较好了，AUC达到了0.923，确实难以超越。接下来就开始赶paper，没日没夜的赶呀，终于在8月中旬将paper赶出来了。对于APBC2016能不能中，30%的接受率，就看运气了，因为整篇论文的效果确实不是很明显。</p>
+<p>总的来说，整个实验下来，学到了不少东西。以前是看中文论文容易，看英文paper难，现在感觉是看英文paper明显简单了，而写paper困难了。接下来好好努力，加油学英语、学算法、学理论、做实验吧，其他的事情都是浮云。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
+<p>下面来总结一下自已这几个月的学习成长吧。<br>]]>
+    
+    </summary>
+    
+      <category term="总结" scheme="http://csuldw.github.io/tags/%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="总结" scheme="http://csuldw.github.io/categories/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Gradient Tree Boosting]]></title>
+    <link href="http://csuldw.github.io/2015/08/19/2015-08-19%20GBDT/"/>
+    <id>http://csuldw.github.io/2015/08/19/2015-08-19 GBDT/</id>
+    <published>2015-08-19T02:54:00.000Z</published>
+    <updated>2015-10-22T01:34:04.812Z</updated>
     <content type="html"><![CDATA[<h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
-<p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。</p>
-<a id="more"></a>
+<p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。<br><a id="more"></a></p>
 <h2 id="Gradient_Tree_Boosting"><strong>Gradient Tree Boosting</strong></h2><p>梯度树提升（Gradient Tree Boosting）是一种组合算法，也叫做梯度提升回归树（gradient boosting regression tree），它的基分类器是决策树，既可以用来回归，也可以用作分类。在分类性能上，能够和随机森林媲美，甚至在有的数据集上表现的有过之而无不及。如今，Gradient Tree Boosting模型已经广泛的运用在Web搜索排行榜以及生态学上。在阿里内部也用的比较多，所以值得我们去花点时间认真学习。</p>
 <p>根据scikit-learn官网的介绍，GBRT的优势有：</p>
 <ul>
@@ -214,45 +241,13 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
-<p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。</p>]]>
+<p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。<br>]]>
     
     </summary>
     
-      <category term="机器学习" scheme="http://csuldw.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
+      <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
     
       <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[2015年8月总结]]></title>
-    <link href="http://csuldw.github.io/2015/08/16/2015-08-16%20Summary/"/>
-    <id>http://csuldw.github.io/2015/08/16/2015-08-16 Summary/</id>
-    <published>2015-08-16T02:54:00.000Z</published>
-    <updated>2015-10-20T23:27:19.856Z</updated>
-    <content type="html"><![CDATA[<p>有时候，总想写点什么，可又不知道从何开始。每当要表达一些东西的时候，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
-<p>下面来总结一下自已这几个月的学习成长吧。</p>
-<p>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
-<p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
-<a id="more"></a>
-<p>从今年四月中旬开始，看paper，学习ML（DM）算法，然后跑实验，到现在大概整整四个月时间吧。能够写出一篇论文，确实不容易。期间也遇到了许多问题，比如自己做的数据没别人的好，数据正负样本不均衡、实验效果不理想等等，不过从中确实学到了很多的东西。现在，自己独立跑实验基本没有多大问题，至少自己能用Python实现常见的算法以及对文件的一些操作，唯一感觉会出问题的当属数据集这块。因为自己构造数据集，有些奇异点处理的不好，然后直接影响了最后模型的好坏。</p>
-<p>五月上旬基本上玩过去了，五月下旬各类机器学习书籍接连到手，然后开始学习《机器学习实践》这本书，全书是用Python实现的代码，因为有源码参考，所以很容易理解，很适合算法学习入门。由于之前学习过数据挖掘算法的理论知识，所以这本书不到半个月就把相应的知识点理解的差不多了。关于算法理论，清华大学出版社李航的《统计学习方法》确实不错，全书纯理论知识，分析独特，通俗易懂，很全面，适合想深入研究算法的人。这本书我还没完全看完，接下来可以好好学习下。</p>
-<p>六月，上旬的时候，在Leetcode上面刷了一个星期的算法题，做了60几个题目，后来感觉还是做实验重要，然后就接着去做数据了。数据处理期间，碰到了一些专业性问题，尤其是在计算结合位点的时候，导师当时也不在，而我对于生物上的一些专业知识不是很了解，所以进度卡住了一个星期左右。还有就是在计算一个特征的时候，停留了好几天。不过还好，六月底，数据的每个特征算是做出来了，但当时喉咙开始发炎了，然后又引起感冒，整个日子都不好过，整个人也都不好了。</p>
-<p>到了七月，开始整理自己的数据集，跑实验，然后从分析结果。这段时间碰到的问题也让人抓狂。首先是数据集不均衡，跑出来的效果很差，很不理想。不过这个问题还是比较容易解决，最常用的就是抽样了，下抽样还是上抽样就看结果好不好了。最后我选择的是下抽样，构造新的平衡数据，但是最后跑出来的效果不理想，使用别人的方法，跑出来的效果比别人差了将近8个百分点，这显然不合逻辑。到了七月下旬的时候，没办法了，还是使用别人的数据集吧。然后接着在别人数据集的基础上，加特征，构造新的数据集，然后使用不同算法来跑实验，比较效果等。最后得到的效果和别人的差不多，但是相对于另外一篇论文，似乎要差点。因为该论文没有说明自己的结果是在独立测试上的结果还是交叉验证得到的结果。所以，继续跑实验吧。</p>
-<p>八月的第一个星期，实验总算做出来了，最后比较了下，效果提升不多，因为本来原来的实验就做的比较好了，AUC达到了0.923，确实难以超越。接下来就开始赶paper，没日没夜的赶呀，终于在8月中旬将paper赶出来了。对于APBC2016能不能中，30%的接受率，就看运气了，因为整篇论文的效果确实不是很明显。</p>
-<p>总的来说，整个实验下来，学到了不少东西。以前是看中文论文容易，看英文paper难，现在感觉是看英文paper明显简单了，而写paper困难了。接下来好好努力，加油学英语、学算法、学理论、做实验吧，其他的事情都是浮云。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>有时候，总想写点什么，可又不知道从何开始。每当要表达一些东西的时候，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
-<p>下面来总结一下自已这几个月的学习成长吧。</p>
-<p>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
-<p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>]]>
-    
-    </summary>
-    
-      <category term="总结" scheme="http://csuldw.github.io/tags/%E6%80%BB%E7%BB%93/"/>
-    
-      <category term="总结" scheme="http://csuldw.github.io/categories/%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   
@@ -261,11 +256,11 @@
     <link href="http://csuldw.github.io/2015/07/28/2015-07-28%20crossvalidation/"/>
     <id>http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/</id>
     <published>2015-07-28T07:40:00.000Z</published>
-    <updated>2015-10-20T23:27:28.301Z</updated>
+    <updated>2015-10-22T01:47:10.981Z</updated>
     <content type="html"><![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
-<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。</p>
+<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
-<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对<br><a id="more"></a></p>
+<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对</p>
 <h3 id="1-3_常见的交叉验证形式："><strong>1.3 常见的交叉验证形式</strong>：</h3><p><strong>Holdout 验证</strong></p>
 <blockquote>
 <p>方法：将原始数据随机分为两组,一组做为训练集,一组做为验证集,利用训练集训练分类器,然后利用验证集验证模型,记录最后的分类准确率为此Hold-OutMethod下分类器的性能指标.。Hold-OutMethod相对于K-fold Cross Validation 又称Double cross-validation ，或相对K-CV称 2-fold cross-validation(2-CV)</p>
@@ -340,9 +335,7 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
-<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。</p>
-<h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
-<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对<br>]]>
+<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br>]]>
     
     </summary>
     
@@ -427,13 +420,12 @@
     <link href="http://csuldw.github.io/2015/07/22/2015-07-22%20%20ensemble/"/>
     <id>http://csuldw.github.io/2015/07/22/2015-07-22  ensemble/</id>
     <published>2015-07-21T22:53:00.000Z</published>
-    <updated>2015-10-20T23:27:37.968Z</updated>
+    <updated>2015-10-22T01:46:14.806Z</updated>
     <content type="html"><![CDATA[<h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
-<h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：  </p>
+<h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br> <a id="more"></a></p>
 <blockquote>
 <p>（1）采用重抽样技术从原始样本中抽取一定数量（自己给定）的样本，此过程允许重复抽样。<br>（2）根据抽出的样本计算给定的统计量T。<br>（3）重复上述N次（一般大于1000），得到N个统计量T。<br>（4）计算上述N个统计量T的样本方差，得到统计量的方差。 </p>
 </blockquote>
- <a id="more"></a>
 <p>应该说Bootstrap是现代统计学较为流行的一种统计方法，在小样本时效果很好。通过方差的估计可以构造置信区间等，其运用范围得到进一步延伸。</p>
 <hr>
 <h3 id="2-装袋bagging"><strong>2.装袋bagging</strong></h3><p>装袋算法相当于多个专家投票表决，对于多次测试，每个样本返回的是多次预测结果较多的那个。</p>
@@ -481,10 +473,7 @@
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
-<h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：  </p>
-<blockquote>
-<p>（1）采用重抽样技术从原始样本中抽取一定数量（自己给定）的样本，此过程允许重复抽样。<br>（2）根据抽出的样本计算给定的统计量T。<br>（3）重复上述N次（一般大于1000），得到N个统计量T。<br>（4）计算上述N个统计量T的样本方差，得到统计量的方差。 </p>
-</blockquote>]]>
+<h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br>]]>
     
     </summary>
     
@@ -1127,71 +1116,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[CentOS下vsftpd安装与配置]]></title>
-    <link href="http://csuldw.github.io/2015/05/09/2015-05-09%20Linux-CentOS%20vsftpd/"/>
-    <id>http://csuldw.github.io/2015/05/09/2015-05-09 Linux-CentOS vsftpd/</id>
-    <published>2015-05-09T13:53:12.000Z</published>
-    <updated>2015-10-21T13:17:48.206Z</updated>
-    <content type="html"><![CDATA[<p><strong>坏境：</strong> CentOS 7.0</p>
-<p>闲话不多少了，直接切入正题吧。</p>
-<h3 id="第一步：安装vsftpd，在终端运行">第一步：安装vsftpd，在终端运行</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> vsftpd</span><br></pre></td></tr></table></figure>
-<p>测试是否安装成功</p>
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">service</span> vsftpd <span class="literal">start</span></span><br></pre></td></tr></table></figure>
-<p>如果提示：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Starting vsftpd <span class="keyword">for</span> <span class="string">vsftpd:</span>    [ok]</span><br></pre></td></tr></table></figure>
-<p>表示成功。<br><a id="more"></a></p>
-<h3 id="第二步：编辑vsftpd的配置文件">第二步：编辑vsftpd的配置文件</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">vi</span> /etc/vsftpd/vsftpd.<span class="keyword">conf</span></span><br></pre></td></tr></table></figure>
-<p>清空文件, 然后添加如下内容:</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="setting">listen=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">background=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">anonymous_enable=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">local_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">write_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">local_umask=<span class="value"><span class="number">022</span> </span></span></span><br><span class="line"><span class="setting">anon_upload_enable=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">anon_mkdir_write_enable=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">dirmessage_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">xferlog_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">connect_from_port_20=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">chown_uploads=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">xferlog_file=<span class="value">/var/log/vsftpd.log </span></span></span><br><span class="line"><span class="setting">xferlog_std_format=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">async_abor_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">ascii_upload_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">ascii_download_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">ftpd_banner=<span class="value">Welcome to hao32 FTP servers </span></span></span><br><span class="line"><span class="setting">pam_service_name=<span class="value">vsftpd </span></span></span><br><span class="line"><span class="setting">chroot_local_user=<span class="value"><span class="keyword">NO</span> </span></span></span><br><span class="line"><span class="setting">chroot_list_enable=<span class="value"><span class="keyword">YES</span> </span></span></span><br><span class="line"><span class="setting">chroot_list_file=<span class="value">/etc/vsftpd/vsftpd.chroot_list</span></span></span><br></pre></td></tr></table></figure>
-<h3 id="第三步：终端运行下面命令">第三步：终端运行下面命令</h3><figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">touch /etc/vsftpd/vsftpd.chroot_list </span><br><span class="line"><span class="keyword">service</span> vsftpd <span class="literal">start</span></span><br></pre></td></tr></table></figure>
-<p>如果出现下面这句话：</p>
-<p><strong>Starting vsftpd for vsftpd: [ OK ]</strong></p>
-<p>则表示成功，如果不行则用这个语句:</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/etc/</span>rc.d<span class="regexp">/init.d/</span>xinetd restart</span><br></pre></td></tr></table></figure>
-<h3 id="第四步：添加ftp用户"><strong>第四步：添加ftp用户</strong></h3><p>ftp默认我们使用系统用户, 现在我们来添加用户csuldw, 指向目录/home/csuldw, 权限是nologin, 就是没给shell权限, 不影响ftp的。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">useradd csuldw <span class="operator">-d</span> /home/csuldw <span class="operator">-s</span> /sbin/nologin</span><br></pre></td></tr></table></figure>
-<p>如果显示:</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~~useradd: warning: <span class="operator">the</span> home <span class="built_in">directory</span> already exists.</span><br><span class="line">Not copying <span class="keyword">any</span> <span class="built_in">file</span> <span class="built_in">from</span> skel <span class="built_in">directory</span> <span class="keyword">into</span> <span class="keyword">it</span>.~~</span><br></pre></td></tr></table></figure>
-<p>不用理会, 只是告诉你, 你指向的目录已经存在, 这不影响<br>设置目录及其文件的属组, 你也可以使用别的分组方式，如下：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chown -R csuldw<span class="class">.csuldw</span> /home/csuldw</span><br></pre></td></tr></table></figure>
-<p>设置一下用户csuldw的密码, 自己设置就可以了，命令如下：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">passwd</span> csuldw</span><br></pre></td></tr></table></figure>
-<p>把用户csuldw加到/etc/vsftpd/vsftpd.chroot_list里, 这样用户就可以正常登陆并且不能跳出自己的目录</p>
-<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">echo <span class="string">'csuldw'</span> <span class="prompt">&gt;&gt; </span>/etc/vsftpd/vsftpd.chroot_list </span><br><span class="line">service vsftpd restart</span><br></pre></td></tr></table></figure>
-<h3 id="第五步:测试"><strong>第五步:测试</strong></h3><p>配置完毕! 测试登陆吧</p>
-<p><strong>ftp主机</strong>: 服务器IP地址   如输入：ftp 192.168.0.1<br><strong>ftp用户</strong>: csuldw<br><strong>ftp密码</strong>: 你自己刚才设置的</p>
-<p>注意：进行FTP操作时，最好把防火墙给关闭了</p>
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">service</span> iptables <span class="literal">stop</span></span><br></pre></td></tr></table></figure>
-<p>默认情况下，是不允许root账户上传的。<br>实现root 权限上传：</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">vi</span> /etc/vsftpd/user_list  <span class="comment">#root注释掉</span></span><br><span class="line">vi /etc/vsftpd/ftpusers  <span class="comment">#root注释掉</span></span><br></pre></td></tr></table></figure>
-<p>客户端软件上传时报错：</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~~<span class="number">553</span> Could <span class="operator">not</span> <span class="built_in">create</span> <span class="built_in">file</span>.~~</span><br></pre></td></tr></table></figure>
-<p>原因：无权限写导致。<br><strong>解决：</strong></p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod <span class="number">777</span> /<span class="keyword">var</span>/ftp/pub</span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[<p><strong>坏境：</strong> CentOS 7.0</p>
-<p>闲话不多少了，直接切入正题吧。</p>
-<h3 id="第一步：安装vsftpd，在终端运行">第一步：安装vsftpd，在终端运行</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> vsftpd</span><br></pre></td></tr></table></figure>
-<p>测试是否安装成功</p>
-<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">service</span> vsftpd <span class="literal">start</span></span><br></pre></td></tr></table></figure>
-<p>如果提示：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Starting vsftpd <span class="keyword">for</span> <span class="string">vsftpd:</span>    [ok]</span><br></pre></td></tr></table></figure>
-<p>表示成功。<br>]]>
-    
-    </summary>
-    
-      <category term="Linux" scheme="http://csuldw.github.io/tags/Linux/"/>
-    
-      <category term="Linux" scheme="http://csuldw.github.io/categories/Linux/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[机器学习算法-决策树理论]]></title>
-    <link href="http://csuldw.github.io/2015/05/08/2015-05-08%20decision%20tree/"/>
-    <id>http://csuldw.github.io/2015/05/08/2015-05-08 decision tree/</id>
+    <link href="http://csuldw.github.io/2015/05/08/2015-05-08-decision%20tree/"/>
+    <id>http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/</id>
     <published>2015-05-08T13:53:12.000Z</published>
-    <updated>2015-10-20T23:42:19.471Z</updated>
+    <updated>2015-10-22T01:29:41.632Z</updated>
     <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
 <h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>

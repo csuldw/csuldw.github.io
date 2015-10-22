@@ -198,7 +198,7 @@
         
           <span itemprop="articleBody">
             
-              <a href="/2015/10/21/new article/"><div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww4.sinaimg.cn/large/637f3c58gw1ex7h81y2nqj234g0s04qr.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div></a>
+              <a href="/2015/10/22/new article/"><div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww4.sinaimg.cn/large/637f3c58gw1ex7h81y2nqj234g0s04qr.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 50%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 50%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div></a>
             
           </span>
         
@@ -236,7 +236,7 @@
             
               
                 <a class="post-title-link" href="/2015/09/23/2015-09-23 Machine learning materials/" itemprop="url">
-                  机器学习资料整理
+                  机器学习-个人资料整理
                 </a>
               
             
@@ -334,8 +334,8 @@
             
             
               
-                <a class="post-title-link" href="/2015/08/29/2015-08-29 GBDT/" itemprop="url">
-                  Gradient tree boosting
+                <a class="post-title-link" href="/2015/08/29/2015-08-29 Summary/" itemprop="url">
+                  2015年8月总结
                 </a>
               
             
@@ -345,7 +345,7 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-08-29T22:22:22+08:00" content="2015-08-29">
+            <time itemprop="dateCreated" datetime="2015-08-29T10:54:00+08:00" content="2015-08-29">
               2015-08-29
             </time>
           </span>
@@ -355,8 +355,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
+                  <a href="/categories/总结/" itemprop="url" rel="index">
+                    <span itemprop="name">总结</span>
                   </a>
                 </span>
 
@@ -371,8 +371,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/29/2015-08-29 GBDT/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/29/2015-08-29 GBDT/" itemprop="commentsCount"></span>
+                <a href="/2015/08/29/2015-08-29 Summary/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/29/2015-08-29 Summary/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -392,10 +392,10 @@
 
       
         
-          <h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
-<p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。</p>
+          <p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
+<p>下面来总结一下自已这几个月的学习成长吧。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/29/2015-08-29 GBDT/#more" rel="contents">
+            <a class="btn" href="/2015/08/29/2015-08-29 Summary/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -433,8 +433,8 @@
             
             
               
-                <a class="post-title-link" href="/2015/08/16/2015-08-16 Summary/" itemprop="url">
-                  2015年8月总结
+                <a class="post-title-link" href="/2015/08/19/2015-08-19 GBDT/" itemprop="url">
+                  Gradient Tree Boosting
                 </a>
               
             
@@ -444,8 +444,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-08-16T10:54:00+08:00" content="2015-08-16">
-              2015-08-16
+            <time itemprop="dateCreated" datetime="2015-08-19T10:54:00+08:00" content="2015-08-19">
+              2015-08-19
             </time>
           </span>
 
@@ -454,8 +454,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/总结/" itemprop="url" rel="index">
-                    <span itemprop="name">总结</span>
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
                   </a>
                 </span>
 
@@ -470,8 +470,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/08/16/2015-08-16 Summary/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/16/2015-08-16 Summary/" itemprop="commentsCount"></span>
+                <a href="/2015/08/19/2015-08-19 GBDT/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/19/2015-08-19 GBDT/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -491,12 +491,10 @@
 
       
         
-          <p>有时候，总想写点什么，可又不知道从何开始。每当要表达一些东西的时候，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
-<p>下面来总结一下自已这几个月的学习成长吧。</p>
-<p>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
-<p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
+          <h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
+<p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。<br>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/16/2015-08-16 Summary/#more" rel="contents">
+            <a class="btn" href="/2015/08/19/2015-08-19 GBDT/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -593,9 +591,7 @@
       
         
           <p>版权声明：本文为原创文章，转载请注明来源。</p>
-<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。</p>
-<h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
-<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对<br>
+<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/28/2015-07-28 crossvalidation/#more" rel="contents">
               阅读全文 &raquo;
@@ -798,10 +794,7 @@
       
         
           <h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
-<h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：  </p>
-<blockquote>
-<p>（1）采用重抽样技术从原始样本中抽取一定数量（自己给定）的样本，此过程允许重复抽样。<br>（2）根据抽出的样本计算给定的统计量T。<br>（3）重复上述N次（一般大于1000），得到N个统计量T。<br>（4）计算上述N个统计量T的样本方差，得到统计量的方差。 </p>
-</blockquote>
+<h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/22/2015-07-22  ensemble/#more" rel="contents">
               阅读全文 &raquo;
@@ -1356,7 +1349,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

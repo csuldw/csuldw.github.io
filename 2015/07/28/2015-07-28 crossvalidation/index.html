@@ -55,7 +55,7 @@
 <meta property="og:site_name" content="D.W's - 个人博客">
 <meta property="og:description" content="版权声明：本文为原创文章，转载请注明来源。
 1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方">
-<meta property="og:updated_time" content="2015-10-20T23:27:28.301Z">
+<meta property="og:updated_time" content="2015-10-22T01:47:10.981Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习-CrossValidation交叉验证Python实现">
 <meta name="twitter:description" content="版权声明：本文为原创文章，转载请注明来源。
@@ -253,9 +253,9 @@
 
       
         <span itemprop="articleBody"><p>版权声明：本文为原创文章，转载请注明来源。</p>
-<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。</p>
+<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
-<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对<br><a id="more"></a></p>
+<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对</p>
 <h3 id="1-3_常见的交叉验证形式："><strong>1.3 常见的交叉验证形式</strong>：</h3><p><strong>Holdout 验证</strong></p>
 <blockquote>
 <p>方法：将原始数据随机分为两组,一组做为训练集,一组做为验证集,利用训练集训练分类器,然后利用验证集验证模型,记录最后的分类准确率为此Hold-OutMethod下分类器的性能指标.。Hold-OutMethod相对于K-fold Cross Validation 又称Double cross-validation ，或相对K-CV称 2-fold cross-validation(2-CV)</p>
@@ -346,8 +346,8 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/16/2015-08-16 Summary/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 2015年8月总结
+              <a href="/2015/08/19/2015-08-19 GBDT/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Gradient Tree Boosting
               </a>
             
           </div>
@@ -443,7 +443,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">18</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
