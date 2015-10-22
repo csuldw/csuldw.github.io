@@ -1155,7 +1155,7 @@
     <link href="http://csuldw.github.io/2015/05/08/2015-05-08-decision%20tree/"/>
     <id>http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/</id>
     <published>2015-05-08T13:53:12.000Z</published>
-    <updated>2015-10-22T10:48:45.704Z</updated>
+    <updated>2015-10-22T10:50:18.287Z</updated>
     <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
 <h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>
@@ -1227,6 +1227,8 @@
       <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
     
       <category term="Python" scheme="http://csuldw.github.io/tags/Python/"/>
+    
+      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
     
   </entry>
   
