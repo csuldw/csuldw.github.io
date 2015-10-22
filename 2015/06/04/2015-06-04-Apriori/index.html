@@ -55,7 +55,7 @@
 <meta property="og:description" content="引文： 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据">
 <meta property="og:image" content="http://img.blog.csdn.net/20150604094036589">
 <meta property="og:image" content="http://img.blog.csdn.net/20150604094213762">
-<meta property="og:updated_time" content="2015-10-20T23:41:46.076Z">
+<meta property="og:updated_time" content="2015-10-22T07:32:59.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-Apriori关联分析">
 <meta name="twitter:description" content="引文： 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据">
@@ -275,6 +275,10 @@
 <h3 id="1_关联分析"><strong>1 关联分析</strong></h3><p>说到关联分析，顾名思义的就可以联想到，所谓关联就是两个东西之间存在的某种联系。关联分析最有名的例子是“尿布和啤酒”，以前在美国西部的一家连锁店，店家发现男人们在周四购买尿布后还会购买啤酒。于是他便得出一个推理，尿布和啤酒存在某种关联。但是具体怎么来评判呢？</p>
 <p>那么，这里用的是支持度和可信度来评判!</p>
 <p>一个项集的支持度（support）被定义为数据集中包含该数据集的记录所占的比例。可信度或置信度（confidence）是正对一条关联规则来定义的，比如{尿布}-&gt;{啤酒}，这条规则的可信度定义为“支持度{尿布，啤酒}/支持度{尿布}”</p>
+<p>比如有规则X=&gt;Y，它的<strong>支持度</strong>可以计算为包含X和Y所有商品的交易量相对所有交易量的比例（也就是X和Y同时出现一次交易的概率）。<strong>可信度</strong>定义为包含X和Y所有物品的交易量相对仅包含X的交易量的比值，也就是说可信度对应给定X时的条件概率。</p>
+<p>计算公式如下：</p>
+<p>$$支持度=\frac{交易量包含X和Y}{交易量}$$</p>
+<p>$$可信度=\frac{交易量包含X和Y}{交易量包含X}$$</p>
 <p>支持度和可信度使用来量化关联分析是否成功的方法。下面使用apriori算法来实现这一理论。</p>
 <h3 id="2_Apriori理论"><strong>2 Apriori理论</strong></h3><p><strong>算法的一般过程：</strong></p>
 <ul>
