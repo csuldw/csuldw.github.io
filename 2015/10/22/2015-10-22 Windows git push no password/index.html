@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Machine Learning,Python," />
+  <meta name="keywords" content="GitHub," />
 
 
 
@@ -47,21 +47,23 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
+<meta name="description" content="在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。
+1.添加环境变量首先在系统变量中添加一个环境变量HOME，内容为
+1HOME%USERPROFILE%">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习算法-K最近邻从原理到实现">
-<meta property="og:url" content="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/index.html">
+<meta property="og:title" content="Windows下使用git push命令的无密码设置">
+<meta property="og:url" content="http://csuldw.github.io/2015/10/22/2015-10-22 Windows git push no password/index.html">
 <meta property="og:site_name" content="D.W's - 个人博客">
-<meta property="og:description" content="引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
-<meta property="og:image" content="http://img.blog.csdn.net/20150521201557111">
-<meta property="og:image" content="http://img.blog.csdn.net/20150521203027253">
-<meta property="og:image" content="http://img.blog.csdn.net/20150521203212596">
-<meta property="og:image" content="http://img.blog.csdn.net/20150524192410343">
-<meta property="og:image" content="http://img.blog.csdn.net/20150524192640924">
-<meta property="og:updated_time" content="2015-10-20T23:42:12.861Z">
+<meta property="og:description" content="在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。
+1.添加环境变量首先在系统变量中添加一个环境变量HOME，内容为
+1HOME%USERPROFILE%">
+<meta property="og:image" content="http://img.blog.csdn.net/20151022164013576">
+<meta property="og:updated_time" content="2015-10-22T08:48:01.565Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习算法-K最近邻从原理到实现">
-<meta name="twitter:description" content="引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
+<meta name="twitter:title" content="Windows下使用git push命令的无密码设置">
+<meta name="twitter:description" content="在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。
+1.添加环境变量首先在系统变量中添加一个环境变量HOME，内容为
+1HOME%USERPROFILE%">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -73,7 +75,7 @@
 
 
 
-  <title> 机器学习算法-K最近邻从原理到实现 | D.W's - 个人博客 </title>
+  <title> Windows下使用git push命令的无密码设置 | D.W's - 个人博客 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -199,7 +201,7 @@
             
             
               
-                机器学习算法-K最近邻从原理到实现
+                Windows下使用git push命令的无密码设置
               
             
           </h1>
@@ -208,8 +210,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-05-21T20:34:00+08:00" content="2015-05-21">
-              2015-05-21
+            <time itemprop="dateCreated" datetime="2015-10-22T16:45:44+08:00" content="2015-10-22">
+              2015-10-22
             </time>
           </span>
 
@@ -218,8 +220,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
                   </a>
                 </span>
 
@@ -234,8 +236,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/21/2015-05-21-KNN/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/21/2015-05-21-KNN/" itemprop="commentsCount"></span>
+                <a href="/2015/10/22/2015-10-22 Windows git push no password/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/10/22/2015-10-22 Windows git push no password/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -254,49 +256,17 @@
       
 
       
-        <span itemprop="articleBody"><p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
+        <span itemprop="articleBody"><p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
+<h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
+<center><br><img src="http://img.blog.csdn.net/20151022164013576" alt="这里写图片描述"><br></center>
+
 <a id="more"></a>
-<h3 id="1-K最近邻分类器原理"><strong>1.K最近邻分类器原理</strong></h3><p>首先给出一张图，根据这张图来理解最近邻分类器，如下：</p>
-<center><img src="http://img.blog.csdn.net/20150521201557111" alt="这里写图片描述"><br></center>
-
-<p>根据上图所示，有两类不同的样本数据，分别用<strong>蓝色的小正方形</strong>和<strong>红色的小三角形</strong>表示，而图正中间的那个<strong>绿色的圆</strong>所标示的数据则是待分类的数据。也就是说，现在， 我们不知道中间那个绿色的数据是从属于哪一类（蓝色小正方形or红色小三角形），下面，我们就要解决这个问题：给这个绿色的圆分类。</p>
-<p>　　我们常说，物以类聚，人以群分，判别一个人是一个什么样品质特征的人，常常可以从他or她身边的朋友入手，所谓观其友，而识其人。我们不是要判别上图中那个绿色的圆是属于哪一类数据么，好说，从它的邻居下手。但一次性看多少个邻居呢？从上图中，你还能看到：</p>
-<ul>
-<li>如果K=3，绿色圆点的最近的3个邻居是2个红色小三角形和1个蓝色小正方形，少数从属于多数，基于统计的方法，判定绿色的这个待分类点属于红色的三角形一类。</li>
-<li>如果K=5，绿色圆点的最近的5个邻居是2个红色三角形和3个蓝色的正方形，还是少数从属于多数，基于统计的方法，判定绿色的这个待分类点属于蓝色的正方形一类。</li>
-</ul>
-<p>于此我们看到，当无法判定当前待分类点是从属于已知分类中的哪一类时，我们可以依据统计学的理论看它所处的位置特征，衡量它周围邻居的权重，而把它归为(或分配)到权重更大的那一类。这就是K近邻算法的核心思想。</p>
-<p>KNN算法中，所选择的邻居都是已经正确分类的对象。该方法在定类决策上只依据最邻近的一个或者几个样本的类别来决定待分样本所属的类别。</p>
-<p>KNN 算法本身简单有效，它是一种 lazy-learning 算法，分类器不需要使用训练集进行训练，训练时间复杂度为0。KNN 分类的计算复杂度和训练集中的文档数目成正比，也就是说，如果训练集中文档总数为 n，那么 KNN 的分类时间复杂度为O(n)。</p>
-<p>前面的例子中强调了选择合适的K值的重要性。如果太小，则最近邻分类器容易受到训练数据的噪声而产生的过分拟合的影响；相反，如果K太大，最近分类器可能会误会分类测试样例，因为最近邻列表中可能包含远离其近邻的数据点。（如下图所示）</p>
-<center><img src="http://img.blog.csdn.net/20150521203027253" alt="这里写图片描述"><br><br><strong>K较大时的最近邻分类</strong><br><br></center>
-
-
-<p>可见，K值的选取还是非常关键。</p>
-<hr>
-<h3 id="2-算法"><strong>2.算法</strong></h3><p>算法步骤如下所示：</p>
-<center><img src="http://img.blog.csdn.net/20150521203212596" alt="这里写图片描述"></center>
-
-<p>对每个测试样例$z = (x’,y’)$，算法计算它和所有训练样例$（x,y）属于D$之间的距离（或相似度），以确定其最近邻列表$D_z$。如果训练样例的数目很大，那么这种计算的开销就会很大。不过，可以使索引技术降低为测试样例找最近邻是的计算量。</p>
-<p>一旦得到最近邻列表，测试样例就可以根据最近邻的多数类进行分类，使用多数表决方法。</p>
-<hr>
-<h3 id="3-K最邻近算法实现（Python）"><strong>3.K最邻近算法实现（Python）</strong></h3><p>KNN.py</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> operator</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KNN</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">createDataset</span><span class="params">(self)</span>:</span></span><br><span class="line">        group = array([[<span class="number">1.0</span>,<span class="number">1.1</span>],[<span class="number">1.0</span>,<span class="number">1.0</span>],[<span class="number">0</span>,<span class="number">0</span>],[<span class="number">0</span>,<span class="number">0.1</span>]])</span><br><span class="line">        labels = [<span class="string">'A'</span>,<span class="string">'A'</span>,<span class="string">'B'</span>,<span class="string">'B'</span>]</span><br><span class="line">        <span class="keyword">return</span> group,labels</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">KnnClassify</span><span class="params">(self,testX,trainX,labels,K)</span>:</span></span><br><span class="line">        [N,M]=trainX.shape</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#calculate the distance between testX and other training samples</span></span><br><span class="line">        difference = tile(testX,(N,<span class="number">1</span>)) - trainX <span class="comment"># tile for array and repeat for matrix in Python, == repmat in Matlab</span></span><br><span class="line">        difference = difference ** <span class="number">2</span> <span class="comment"># take pow(difference,2)</span></span><br><span class="line">        distance = difference.sum(<span class="number">1</span>) <span class="comment"># take the sum of difference from all dimensions</span></span><br><span class="line">        distance = distance ** <span class="number">0.5</span></span><br><span class="line">        sortdiffidx = distance.argsort()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># find the k nearest neighbours</span></span><br><span class="line">        vote = &#123;&#125; <span class="comment">#create the dictionary</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(K):</span><br><span class="line">            ith_label = labels[sortdiffidx[i]];</span><br><span class="line">            vote[ith_label] = vote.get(ith_label,<span class="number">0</span>)+<span class="number">1</span> <span class="comment">#get(ith_label,0) : if dictionary 'vote' exist key 'ith_label', return vote[ith_label]; else return 0</span></span><br><span class="line">        sortedvote = sorted(vote.iteritems(),key = <span class="keyword">lambda</span> x:x[<span class="number">1</span>], reverse = <span class="keyword">True</span>)</span><br><span class="line">        <span class="comment"># 'key = lambda x: x[1]' can be substituted by operator.itemgetter(1)</span></span><br><span class="line">        <span class="keyword">return</span> sortedvote[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">k = KNN() <span class="comment">#create KNN object</span></span><br><span class="line">group,labels = k.createDataset()</span><br><span class="line">cls = k.KnnClassify([<span class="number">0</span>,<span class="number">0</span>],group,labels,<span class="number">3</span>)</span><br><span class="line"><span class="keyword">print</span> cls</span><br></pre></td></tr></table></figure>
-<hr>
-<p>运行：</p>
-<ol>
-<li>在Python Shell 中可以运行KNN.py</li>
-</ol>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> os</span><br><span class="line">&gt;&gt;&gt;os.chdir(<span class="string">"/home/liudiwei/code/data_miningKNN/"</span>)</span><br><span class="line">&gt;&gt;&gt;execfile(<span class="string">"KNN.py"</span>)</span><br></pre></td></tr></table></figure>
-<p>输出:B<br>（B表示类别）</p>
-<p>2.或者terminal中直接运行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ python KNN.py</span><br></pre></td></tr></table></figure>
-<p>3.也可以不在KNN.py中写输出，而选择在Shell中获得结果，i.e.,</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> KNN</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>KNN.k.KnnClassify([<span class="number">0</span>,<span class="number">0</span>],KNN.group,KNN.labels,<span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="References"><strong>References</strong></h3><p>【1】Introduction to Data Mining <a href="http://vdisk.weibo.com/s/akTUdytgliZM8" target="_blank" rel="external">数据挖掘导论</a><br>【2】<a href="http://blog.csdn.net/abcjennifer/article/details/19757987" target="_blank" rel="external">Rachel Zhang-K近邻分类算法实现 in Python</a></p>
-<hr>
-<p>附件（两张自己的计算过程图）：</p>
-<center><img src="http://img.blog.csdn.net/20150524192410343" alt="这里写图片描述"><br><strong>图1 KNN算法核心部分</strong><br></center><br><center><br><img src="http://img.blog.csdn.net/20150524192640924" alt="这里写图片描述"><br><strong>图2 简易计算过程</strong><br></center><br>说明：上述图片仅供参考，看不懂就自己测试一组数据如[0,1]慢慢推导一下吧<br><br>———-<br><br><center><strong>本栏目机器学习算法持续更新中……</strong></center></span>
+<h2 id="2-新建配置文件">2.新建配置文件</h2><p>由于使用的是Windows，所以进入%HOME%目录（如我的:C:\Users\username），新建一个名为”_netrc”的文件，文件中内容格式如下：</p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">machine github.com</span><br><span class="line">login your-username</span><br><span class="line"><span class="literal">password</span> your-<span class="literal">password</span></span><br></pre></td></tr></table></figure>
+<p>接着，打开git bash后，输入git push 命令就无需再输入用户名和密码了。</p>
+<p>爽歪歪啦~</p>
+</span>
       
     </div>
 
@@ -304,9 +274,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
-          
-            <a href="/tags/Python/" rel="tag">#Python</a>
+            <a href="/tags/GitHub/" rel="tag">#GitHub</a>
           
         </div>
       
@@ -315,16 +283,12 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/28/2015-05-28-NB/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 机器学习算法-朴素贝叶斯Python实现
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/08/2015-05-08-decision tree/" rel="next">
-                机器学习算法-决策树理论 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/10/22/new article/" rel="next">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -340,10 +304,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/05/21/2015-05-21-KNN/"
-     data-title="机器学习算法-K最近邻从原理到实现"
+        <div class="ds-share flat" data-thread-key="2015/10/22/2015-10-22 Windows git push no password/"
+     data-title="Windows下使用git push命令的无密码设置"
      data-content=""
-     data-url="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/">
+     data-url="http://csuldw.github.io/2015/10/22/2015-10-22 Windows git push no password/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -369,8 +333,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/05/21/2015-05-21-KNN/"
-                   data-title="机器学习算法-K最近邻从原理到实现" data-url="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/">
+              <div class="ds-thread" data-thread-key="2015/10/22/2015-10-22 Windows git push no password/"
+                   data-title="Windows下使用git push命令的无密码设置" data-url="http://csuldw.github.io/2015/10/22/2015-10-22 Windows git push no password/">
               </div>
             
           </div>
@@ -487,7 +451,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-K最近邻分类器原理"><span class="nav-number">1.</span> <span class="nav-text">1.K最近邻分类器原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-算法"><span class="nav-number">2.</span> <span class="nav-text">2.算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-K最邻近算法实现（Python）"><span class="nav-number">3.</span> <span class="nav-text">3.K最邻近算法实现（Python）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-添加环境变量"><span class="nav-number">1.</span> <span class="nav-text">1.添加环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-新建配置文件"><span class="nav-number">2.</span> <span class="nav-text">2.新建配置文件</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

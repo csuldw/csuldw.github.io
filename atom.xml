@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-10-22T01:40:30.445Z</updated>
+  <updated>2015-10-22T08:48:01.565Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -14,6 +14,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Windows下使用git push命令的无密码设置]]></title>
+    <link href="http://csuldw.github.io/2015/10/22/2015-10-22%20Windows%20git%20push%20no%20password/"/>
+    <id>http://csuldw.github.io/2015/10/22/2015-10-22 Windows git push no password/</id>
+    <published>2015-10-22T08:45:44.000Z</published>
+    <updated>2015-10-22T08:48:01.565Z</updated>
+    <content type="html"><![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
+<h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
+<center><br><img src="http://img.blog.csdn.net/20151022164013576" alt="这里写图片描述"><br></center>
+
+<a id="more"></a>
+<h2 id="2-新建配置文件">2.新建配置文件</h2><p>由于使用的是Windows，所以进入%HOME%目录（如我的:C:\Users\username），新建一个名为”_netrc”的文件，文件中内容格式如下：</p>
+<figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">machine github.com</span><br><span class="line">login your-username</span><br><span class="line"><span class="literal">password</span> your-<span class="literal">password</span></span><br></pre></td></tr></table></figure>
+<p>接着，打开git bash后，输入git push 命令就无需再输入用户名和密码了。</p>
+<p>爽歪歪啦~</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
+<h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
+<center><br><img src="http://img.blog.csdn.net/20151022164013576" alt="这里写图片描述"><br></center>]]>
+    
+    </summary>
+    
+      <category term="GitHub" scheme="http://csuldw.github.io/tags/GitHub/"/>
+    
+      <category term="GitHub" scheme="http://csuldw.github.io/categories/GitHub/"/>
+    
+  </entry>
   
   <entry>
     <title></title>
