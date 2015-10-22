@@ -393,7 +393,7 @@ td {
 th,
 td {
   border-bottom: 3px solid #ddd;
-  border-right: 1px solid #eee;
+  border-right: 1px solid #333;
 }
 th {
   padding-bottom: 10px;
@@ -522,7 +522,7 @@ td {
 }
 .post code {
   word-break: break-all;
-  background: #eee;
+  background: #333;
   text-shadow: 0 1px #fff;
   padding: 0 0.3em;
 }
@@ -920,16 +920,15 @@ body {
   top: 0;
   bottom: 0;
   z-index: 1040;
-  box-shadow: inset 0 2px 6px #000;
-  background: #222;
   -webkit-transform: translateZ(0);
+  border-left: 1px solid #ddd;
 }
 .sidebar a {
   color: #999;
   border-bottom-color: #555;
 }
 .sidebar a:hover {
-  color: #eee;
+  color: #333;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .sidebar {
@@ -952,8 +951,8 @@ body {
   margin: 0 auto;
   max-width: 96px;
   height: auto;
-  border: 2px solid #333;
-  padding: 2px;
+  border: 2px solid #ccc;
+  padding: 1px;
 }
 .site-author-name {
   margin: 5px 0 0;
@@ -1027,7 +1026,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #629d98;
+  background: #bef;
 }
 .sidebar-nav {
   margin: 0;
@@ -1325,7 +1324,7 @@ body {
   margin-top: 60px;
   padding: 10px;
   white-space: nowrap;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #333;
 }
 .post-nav-item {
   display: inline-block;
@@ -1502,7 +1501,7 @@ body {
 .pagination .next,
 .pagination .page-number {
   border-bottom: 0;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #333;
   transition-property: border-color;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
@@ -1537,7 +1536,7 @@ body {
   .pagination .page-number {
     margin-bottom: 10px;
     border-top: 0;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #333;
   }
   .pagination .prev:hover,
   .pagination .next:hover,
