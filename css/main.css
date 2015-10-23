@@ -393,7 +393,7 @@ td {
 th,
 td {
   border-bottom: 3px solid #ddd;
-  border-right: 1px solid #eee;
+  border-right: 1px solid #333;
 }
 th {
   padding-bottom: 10px;
@@ -522,7 +522,7 @@ td {
 }
 .post code {
   word-break: break-all;
-  background: #eee;
+  background: #333;
   text-shadow: 0 1px #fff;
   padding: 0 0.3em;
 }
@@ -928,7 +928,7 @@ body {
   border-bottom-color: #555;
 }
 .sidebar a:hover {
-  color: #eee;
+  color: #333;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .sidebar {
@@ -1026,7 +1026,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #eb3655;
+  background: #552eff;
 }
 .sidebar-nav {
   margin: 0;
@@ -1324,7 +1324,7 @@ body {
   margin-top: 60px;
   padding: 10px;
   white-space: nowrap;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #333;
 }
 .post-nav-item {
   display: inline-block;
