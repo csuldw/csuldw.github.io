@@ -393,7 +393,7 @@ td {
 th,
 td {
   border-bottom: 3px solid #ddd;
-  border-right: 1px solid #333;
+  border-right: 1px solid #eee;
 }
 th {
   padding-bottom: 10px;
@@ -522,7 +522,7 @@ td {
 }
 .post code {
   word-break: break-all;
-  background: #333;
+  background: #eee;
   text-shadow: 0 1px #fff;
   padding: 0 0.3em;
 }
@@ -928,7 +928,7 @@ body {
   border-bottom-color: #555;
 }
 .sidebar a:hover {
-  color: #333;
+  color: #eee;
 }
 @media (min-width: 768px) and (max-width: 991px) {
   .sidebar {
@@ -1026,7 +1026,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #12ff13;
+  background: #eb3655;
 }
 .sidebar-nav {
   margin: 0;
@@ -1324,7 +1324,7 @@ body {
   margin-top: 60px;
   padding: 10px;
   white-space: nowrap;
-  border-top: 1px solid #333;
+  border-top: 1px solid #eee;
 }
 .post-nav-item {
   display: inline-block;
@@ -1471,10 +1471,10 @@ body {
   display: none;
 }
 .pagination {
-  margin: 27px 0 -36px;
+  margin: 27px 0 0px;
   text-align: center;
   border-top: 1px solid #eee;
-  padding-top: 20px;
+  padding-top: 0px;
 }
 .page-number-basic,
 .pagination .prev,
@@ -1501,7 +1501,7 @@ body {
 .pagination .next,
 .pagination .page-number {
   border-bottom: 0;
-  border-top: 1px solid #333;
+  border-top: 1px solid #eee;
   transition-property: border-color;
   transition-duration: 0.2s;
   transition-timing-function: ease-in-out;
@@ -1510,6 +1510,7 @@ body {
 .pagination .prev:hover,
 .pagination .next:hover,
 .pagination .page-number:hover {
+  border-top: 1px solid $333;
   border-top-color: #222;
 }
 .pagination .space {
@@ -1536,7 +1537,7 @@ body {
   .pagination .page-number {
     margin-bottom: 10px;
     border-top: 0;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #eee;
   }
   .pagination .prev:hover,
   .pagination .next:hover,
