@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-10-25T04:52:51.563Z</updated>
+  <updated>2015-10-22T11:26:44.329Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -14,6 +14,19 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://csuldw.github.io/2015/10/25/2015-10-24%20image%20article/"/>
+    <id>http://csuldw.github.io/2015/10/25/2015-10-24 image article/</id>
+    <published>2015-10-25T04:55:20.790Z</published>
+    <updated>2015-10-22T11:26:44.329Z</updated>
+    <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div>]]></content>
+    <summary type="html">
+    <![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="widt]]>
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[机器学习之特征工程]]></title>
@@ -146,19 +159,6 @@
       <category term="ML" scheme="http://csuldw.github.io/tags/ML/"/>
     
       <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title></title>
-    <link href="http://csuldw.github.io/2015/10/22/new%20article/"/>
-    <id>http://csuldw.github.io/2015/10/22/new article/</id>
-    <published>2015-10-22T11:26:44.329Z</published>
-    <updated>2015-10-22T11:26:44.329Z</updated>
-    <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div>]]></content>
-    <summary type="html">
-    <![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="widt]]>
-    </summary>
     
   </entry>
   
