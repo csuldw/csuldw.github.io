@@ -58,7 +58,8 @@
 本文是一篇关于特征工程的总结类文章，如有不足之处或理解有偏差的地方，还望大家多多指点。
 首先，给一张特征工程的思维导图：">
 <meta property="og:image" content="http://csuldw.github.io/assets/images/feature engineering.png">
-<meta property="og:updated_time" content="2015-10-25T04:52:51.563Z">
+<meta property="og:image" content="http://csuldw.github.io/assets/images/feature selection.png">
+<meta property="og:updated_time" content="2015-10-25T05:02:22.056Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习之特征工程">
 <meta name="twitter:description" content="在这个振奋人心的程序员节日里，我决定发一篇文章来纪念一下自己的6年程序员史。
@@ -309,6 +310,11 @@
 <p>Pearson相关系数的取值在0到1之间，如果你使用这个评价指标来计算所有特征和类别标号的相关性，那么得到这些相关性之后，你可以将它们从高到低进行排名，然后选择一个子集作为特征子集（比如top 10%），接着用这些特征进行训练，看看性能如何。此外，你还可以画出不同子集的一个精度图，根据绘制的图形来找出性能最好的一组特征。</p>
 <p>这就是特征工程的子问题之一——特征选择，它的目的是<font color="red"><strong>从特征集合中挑选一组最具统计意义的特征子集，从而达到降维的效果</strong></font>。</p>
 <p>做特征选择的原因是因为这些特征对于目标类别的作用并不是相等的，一些无关的数据需要删掉。做特征选择的方法有多种，上面提到的这种特征子集选择的方法属于filter（刷选器）方法，它主要侧重于单个特征跟目标变量的相关性。优点是计算时间上较高效,对于过拟合问题也具有较高的鲁棒性。缺点就是倾向于选择冗余的特征,因为他们不考虑特征之间的相关性,有可能某一个特征的分类能力很差，但是它和某些其它特征组合起来会得到不错的效果。另外做特征子集选取的方法还有wrapper（封装器）和Embeded(集成方法)。wrapper方法实质上是一个分类器，封装器用选取的特征子集对样本集进行分类，分类的精度作为衡量特征子集好坏的标准,经过比较选出最好的特征子集。常用的有逐步回归（Stepwise regression）、向前选择（Forward selection）和向后选择（Backward selection）。它的优点是考虑了特征与特征之间的关联性，缺点是：当观测数据较少时容易过拟合，而当特征数量较多时,计算时间又会增长。对于Embeded集成方法，它是学习器自身自主选择特征，如使用Regularization做特征选择，或者使用决策树思想，细节这里就不做介绍了。这里还提一下，在做实验的时候，我们有时候会用Random Forest和Gradient boosting做特征选择，本质上都是基于决策树来做的特征选择，只是细节上有些区别。</p>
+<p>综上所述，特征选择过程一般包括产生过程，评价函数，停止准则，验证过程，这4个部分。如下图所示：</p>
+<center><br><img src="/assets/images/feature selection.png" alt="feature selection"><br></center>
+
+
+<p>(1) <strong>产生过程( Generation Procedure )</strong>：产生过程是搜索特征子集的过程，负责为评价函数提供特征子集。搜索特征子集的过程有多种，将在2.2小节展开介绍。<br>(2) <strong>评价函数( Evaluation Function )</strong>：评价函数是评价一个特征子集好坏程度的一个准则。评价函数将在2.3小节展开介绍。<br>(3) <strong>停止准则( Stopping Criterion )</strong>：停止准则是与评价函数相关的，一般是一个阈值，当评价函数值达到这个阈值后就可停止搜索。<br>(4) <strong>验证过程( Validation Procedure )</strong> ：在验证数据集上验证选出来的特征子集的有效性。</p>
 <h3 id="3-2_特征提取"><strong>3.2 特征提取</strong></h3><p>特征提取的子问题之二——特征提取。</p>
 <p>原则上来讲，特征提取应该在特征选择之前。特征提取的对象是原始数据（raw data），它的目的是<font color="red"><strong>自动地构建新的特征，将原始特征转换为一组具有明显物理意义（Gabor、几何特征[角点、不变量]、纹理[LBP HOG]）或者统计意义或核的特征</strong></font>。比如通过变换特征取值来减少原始数据中某个特征的取值个数等。对于表格数据，你可以在你设计的特征矩阵上使用主要成分分析（Principal Component Analysis，PCA)来进行特征提取从而创建新的特征。对于图像数据，可能还包括了线或边缘检测。</p>
 <p>常用的方法有：</p>
