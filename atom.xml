@@ -773,7 +773,7 @@
     <link href="http://csuldw.github.io/2015/07/21/2015-07-21%20An%20introduction%20to%20machine%20learning%20with%20scikit-learn%20/"/>
     <id>http://csuldw.github.io/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /</id>
     <published>2015-07-21T13:31:00.000Z</published>
-    <updated>2015-10-20T23:27:43.587Z</updated>
+    <updated>2015-10-25T13:23:56.140Z</updated>
     <content type="html"><![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
 <p><strong>章节内容</strong></p>
 <p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
