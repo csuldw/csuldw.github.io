@@ -33,7 +33,7 @@
     <link href="http://csuldw.github.io/2015/10/25/2015-10-25%20scikit-learn%20preprocessing/"/>
     <id>http://csuldw.github.io/2015/10/25/2015-10-25 scikit-learn preprocessing/</id>
     <published>2015-10-25T02:24:00.000Z</published>
-    <updated>2015-10-25T12:57:34.079Z</updated>
+    <updated>2015-10-26T01:27:05.276Z</updated>
     <content type="html"><![CDATA[<p>本文主要是对照<a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing" target="_blank" rel="external">scikit-learn的preprocessing</a>章节结合代码简单的回顾下预处理技术的几种方法，主要包括标准化、数据最大最小缩放处理、正则化、特征二值化和数据缺失值处理。内容比较简单，仅供参考！</p>
 <p>首先来回顾一下下面要用到的基本知识。</p>
 <a id="more"></a>
@@ -122,7 +122,7 @@
 </ul>
 <hr>
 <p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">AirHax’s Notes</a><br><br></strong></center>
+<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">D.W’s Diary</a><br><br></strong></center>
 
 
 
@@ -147,7 +147,7 @@
     <link href="http://csuldw.github.io/2015/10/24/2015-10-24%20feature%20engineering/"/>
     <id>http://csuldw.github.io/2015/10/24/2015-10-24 feature engineering/</id>
     <published>2015-10-24T02:24:00.000Z</published>
-    <updated>2015-10-25T05:11:50.295Z</updated>
+    <updated>2015-10-26T01:27:15.785Z</updated>
     <content type="html"><![CDATA[<p>在这个振奋人心的程序员节日里，我决定认真地写一篇文章来纪念一下自己这长达六年程序员史。o(╯□╰)o</p>
 <p>本文是一篇关于特征工程的总结类文章，如有不足之处或理解有偏差的地方，还望多多指教。</p>
 <p>首先，给一张特征工程的思维导图吧：</p>
@@ -260,7 +260,7 @@
 </ul>
 <hr>
 <p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">AirHax Notes</a><br><br></strong></center>
+<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">D.W’s Diary</a><br><br></strong></center>
 
 
 
@@ -631,11 +631,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[机器学习-sklean库的交叉验证]]></title>
+    <title><![CDATA[scikit-klean交叉验证]]></title>
     <link href="http://csuldw.github.io/2015/07/23/2015-07-23%20machine%20learning%20tips/"/>
     <id>http://csuldw.github.io/2015/07/23/2015-07-23 machine learning tips/</id>
     <published>2015-07-23T04:53:00.000Z</published>
-    <updated>2015-10-20T23:27:33.705Z</updated>
+    <updated>2015-10-26T01:28:43.139Z</updated>
     <content type="html"><![CDATA[<p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
 <blockquote>
 <p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="external">WinPython_2.7</a></p>
@@ -773,7 +773,7 @@
     <link href="http://csuldw.github.io/2015/07/21/2015-07-21%20An%20introduction%20to%20machine%20learning%20with%20scikit-learn%20/"/>
     <id>http://csuldw.github.io/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /</id>
     <published>2015-07-21T13:31:00.000Z</published>
-    <updated>2015-10-25T13:23:56.140Z</updated>
+    <updated>2015-10-26T01:28:05.568Z</updated>
     <content type="html"><![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
 <p><strong>章节内容</strong></p>
 <p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
@@ -834,7 +834,7 @@
 </blockquote>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://weibo.com/liudiwei210" target="_blank" rel="external">拾毅者 </a>新浪微博</strong></center><br><br></p>
+<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">D.W’s Diary</a><br><br></strong></center>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
