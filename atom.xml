@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-10-29T13:00:11.763Z</updated>
+  <updated>2015-10-29T13:37:31.102Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="http://csuldw.github.io/2015/10/29/2015-10-29%20Python%20RegEx/"/>
     <id>http://csuldw.github.io/2015/10/29/2015-10-29 Python RegEx/</id>
     <published>2015-10-29T12:24:00.000Z</published>
-    <updated>2015-10-29T13:00:11.763Z</updated>
+    <updated>2015-10-29T13:37:31.102Z</updated>
     <content type="html"><![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
-<p><img src="/assets/images/20151029183224.png" alt=""></p>
+<p><img src="http://ww4.sinaimg.cn/large/637f3c58gw1exic0q7k4ej20cj055t9e.jpg" alt=""></p>
 <a id="more"></a>
 <p>从上图我们可以看出，正则表达式的大致匹配过程是：依次拿出表达式和文本中的字符比较，如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。如果表达式中有量词或边界，这个过程会稍微有一些不同，但也是很好理解的，来看看下面的这个正则表达式模式。</p>
 <table>
@@ -290,7 +290,7 @@ _csu.ldw@csu.edu.cn1
     <![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
-<p><img src="/assets/images/20151029183224.png" alt=""></p>]]>
+<p><img src="http://ww4.sinaimg.cn/large/637f3c58gw1exic0q7k4ej20cj055t9e.jpg" alt=""></p>]]>
     
     </summary>
     
@@ -1447,7 +1447,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/06/10/2015-06-10%20Python%20simulate%20command/"/>
     <id>http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/</id>
     <published>2015-06-10T11:24:00.000Z</published>
-    <updated>2015-10-29T13:18:30.728Z</updated>
+    <updated>2015-10-29T13:38:06.081Z</updated>
     <content type="html"><![CDATA[<p>模拟控制台命令</p>
 <p>写一个程序 lsrm 要求如下:</p>
 <pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
@@ -1463,7 +1463,7 @@ lsrm -<span class="keyword">ll</span>
 <center><br><img src="/assets/images/20151029094653.png" alt="output"><br></center>
 
 
-<p>注意：在寻找子目录的文件时，需将工作目切换到子目录，档子目录遍历完毕后，再前换到上一层目录<code>os.chdir(&quot;..&quot;)</code>.</p>
+<p>注意：在寻找子目录的文件时，需将工作目切换到子目录，档子目录遍历完毕后，再前换到上一层目录os.chdir(“..”).</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>模拟控制台命令</p>

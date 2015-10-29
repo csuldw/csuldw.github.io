@@ -55,8 +55,8 @@
 <meta property="og:site_name" content="D.W's Diary">
 <meta property="og:description" content="关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！
 正则表达式简介正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表">
-<meta property="og:image" content="http://csuldw.github.io/assets/images/20151029183224.png">
-<meta property="og:updated_time" content="2015-10-29T13:00:11.763Z">
+<meta property="og:image" content="http://ww4.sinaimg.cn/large/637f3c58gw1exic0q7k4ej20cj055t9e.jpg">
+<meta property="og:updated_time" content="2015-10-29T13:37:31.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-RegEx（正则表达式）">
 <meta name="twitter:description" content="关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！
@@ -266,7 +266,7 @@
         <span itemprop="articleBody"><p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
-<p><img src="/assets/images/20151029183224.png" alt=""></p>
+<p><img src="http://ww4.sinaimg.cn/large/637f3c58gw1exic0q7k4ej20cj055t9e.jpg" alt=""></p>
 <a id="more"></a>
 <p>从上图我们可以看出，正则表达式的大致匹配过程是：依次拿出表达式和文本中的字符比较，如果每一个字符都能匹配，则匹配成功；一旦有匹配不成功的字符则匹配失败。如果表达式中有量词或边界，这个过程会稍微有一些不同，但也是很好理解的，来看看下面的这个正则表达式模式。</p>
 <table>
