@@ -826,7 +826,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/28/2015-07-28%20crossvalidation/"/>
     <id>http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/</id>
     <published>2015-07-28T07:40:00.000Z</published>
-    <updated>2015-10-22T01:47:10.981Z</updated>
+    <updated>2015-10-29T13:08:28.478Z</updated>
     <content type="html"><![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
 <h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
@@ -910,8 +910,6 @@ _csu.ldw@csu.edu.cn1
     </summary>
     
       <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
-    
-      <category term="Python" scheme="http://csuldw.github.io/tags/Python/"/>
     
       <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
     
@@ -1578,11 +1576,11 @@ _csu.ldw@csu.edu.cn1
   </entry>
   
   <entry>
-    <title><![CDATA[scikit-learn训练模型的保存与恢复（sklearn）]]></title>
+    <title><![CDATA[sklearn训练模型的保存与恢复（Python）]]></title>
     <link href="http://csuldw.github.io/2015/05/31/2015-05-31%20scikit-learn%20training%20model's%20save%20and%20reused/"/>
     <id>http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/</id>
     <published>2015-05-31T12:52:00.000Z</published>
-    <updated>2015-10-29T13:05:36.433Z</updated>
+    <updated>2015-10-29T13:09:31.810Z</updated>
     <content type="html"><![CDATA[<p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
 <p>scikit-learn已经有了模型持久化的操作，导入joblib即可</p>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br></pre></td></tr></table></figure>
