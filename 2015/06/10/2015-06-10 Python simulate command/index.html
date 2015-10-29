@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Python,scikit-learn,函数计时器," />
+  <meta name="keywords" content="Python," />
 
 
 
@@ -47,22 +47,35 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
-scikit-learn已经有了模型持久化的操作，导入joblib即可
-1from sklearn.externals import joblib">
+<meta name="description" content="模拟控制台命令
+写一个程序 lsrm 要求如下:
+模拟linux的命令ls部分功能
+当使用命令
+lsrm -ll
+显示目录下所有 py 结尾的文件
+增加难度 (1.使用递归 显示所有目录里的 py 结尾文件)">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sklearn训练模型的保存与恢复（Python）">
-<meta property="og:url" content="http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/index.html">
+<meta property="og:title" content="Python模拟ls命令">
+<meta property="og:url" content="http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/index.html">
 <meta property="og:site_name" content="D.W's Diary">
-<meta property="og:description" content="在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
-scikit-learn已经有了模型持久化的操作，导入joblib即可
-1from sklearn.externals import joblib">
-<meta property="og:updated_time" content="2015-10-29T13:19:34.995Z">
+<meta property="og:description" content="模拟控制台命令
+写一个程序 lsrm 要求如下:
+模拟linux的命令ls部分功能
+当使用命令
+lsrm -ll
+显示目录下所有 py 结尾的文件
+增加难度 (1.使用递归 显示所有目录里的 py 结尾文件)">
+<meta property="og:image" content="http://csuldw.github.io/assets/images/20151029094653.png">
+<meta property="og:updated_time" content="2015-10-29T13:18:30.728Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sklearn训练模型的保存与恢复（Python）">
-<meta name="twitter:description" content="在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
-scikit-learn已经有了模型持久化的操作，导入joblib即可
-1from sklearn.externals import joblib">
+<meta name="twitter:title" content="Python模拟ls命令">
+<meta name="twitter:description" content="模拟控制台命令
+写一个程序 lsrm 要求如下:
+模拟linux的命令ls部分功能
+当使用命令
+lsrm -ll
+显示目录下所有 py 结尾的文件
+增加难度 (1.使用递归 显示所有目录里的 py 结尾文件)">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -74,7 +87,7 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
 
 
 
-  <title> sklearn训练模型的保存与恢复（Python） | D.W's Diary </title>
+  <title> Python模拟ls命令 | D.W's Diary </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -210,7 +223,7 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
             
             
               
-                sklearn训练模型的保存与恢复（Python）
+                Python模拟ls命令
               
             
           </h1>
@@ -219,8 +232,8 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-05-31T20:52:00+08:00" content="2015-05-31">
-              2015-05-31
+            <time itemprop="dateCreated" datetime="2015-06-10T19:24:00+08:00" content="2015-06-10">
+              2015-06-10
             </time>
           </span>
 
@@ -245,8 +258,8 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/31/2015-05-31 scikit-learn training model's save and reused/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/31/2015-05-31 scikit-learn training model's save and reused/" itemprop="commentsCount"></span>
+                <a href="/2015/06/10/2015-06-10 Python simulate command/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/10/2015-06-10 Python simulate command/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -265,20 +278,22 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
       
 
       
-        <span itemprop="articleBody"><p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
-<p>scikit-learn已经有了模型持久化的操作，导入joblib即可</p>
-<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="模型保存"><strong>模型保存</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>os.chdir(<span class="string">"workspace/model_save"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>X = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>]]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>y = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf = svm.SVC()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf.fit(X, y)  </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf.fit(train_X,train_y)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>joblib.dump(clf, <span class="string">"train_model.m"</span>)</span><br></pre></td></tr></table></figure>
-<p>通过joblib的dump可以将模型保存到本地，clf是训练的分类器</p>
-<h3 id="模型从本地调回"><strong>模型从本地调回</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf = joblib.load(<span class="string">"train_model.m"</span>)</span><br></pre></td></tr></table></figure>
-<p>通过joblib的load方法，加载保存的模型。</p>
-<p>然后就可以在测试集上测试了</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clf.<span class="function"><span class="title">predit</span><span class="params">(test_X，test_y)</span></span></span><br></pre></td></tr></table></figure>
+        <span itemprop="articleBody"><p>模拟控制台命令</p>
+<p>写一个程序 lsrm 要求如下:</p>
+<pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
+当使用命令
+lsrm -<span class="keyword">ll</span>
+显示目录下所有 <span class="keyword">py</span> 结尾的文件
+增加难度 (<span class="number">1</span>.使用递归 显示所有目录里的 <span class="keyword">py</span> 结尾文件)
+</code></pre><a id="more"></a>
 <hr>
-<p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">AirHax’s Notes</a><br><br></strong></center>
+<p>首先定义一个outputFile函数，参数只设置一个infile，表示的是文件名或者目录名，然后进行判断，如果是文件，而且以py结尾，则输出；否则，如果是目录，则循环遍历每个每个文件。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span><br><span class="line">Created on Wed Oct 28 19:25:20 2015</span><br><span class="line"></span><br><span class="line">@author: liudiwei</span><br><span class="line">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outputFile</span><span class="params">(infile)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> os.path.isdir(infile):</span><br><span class="line">        filelist = getFileList(infile)</span><br><span class="line">        <span class="keyword">for</span> eachfile <span class="keyword">in</span> filelist:</span><br><span class="line">            os.chdir(infile)</span><br><span class="line">            outputFile(eachfile)</span><br><span class="line">            os.chdir(<span class="string">".."</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">".py"</span> <span class="keyword">in</span> infile:</span><br><span class="line">            <span class="keyword">print</span> infile</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    filepath = <span class="string">r"F:\CSU\Academic\analysis\experiment\code"</span>; </span><br><span class="line">    filelist = getFileList(filepath)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        command = raw_input(<span class="string">'# '</span> )</span><br><span class="line">        <span class="keyword">if</span> command == <span class="string">'lsrm -ll'</span>:    </span><br><span class="line">            outputFile(filepath)</span><br><span class="line">        <span class="keyword">elif</span> command == <span class="string">"stop"</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>运行结果如下图所示：</p>
+<center><br><img src="/assets/images/20151029094653.png" alt="output"><br></center>
 
+
+<p>注意：在寻找子目录的文件时，需将工作目切换到子目录，档子目录遍历完毕后，再前换到上一层目录<code>os.chdir(&quot;..&quot;)</code>.</p>
 </span>
       
     </div>
@@ -289,10 +304,6 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
           
             <a href="/tags/Python/" rel="tag">#Python</a>
           
-            <a href="/tags/scikit-learn/" rel="tag">#scikit-learn</a>
-          
-            <a href="/tags/函数计时器/" rel="tag">#函数计时器</a>
-          
         </div>
       
 
@@ -300,16 +311,16 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/06/03/2015-06-03-K-means/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 机器学习算法--K-means聚类
+              <a href="/2015/07/05/2015-07-12-Adaboost/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 机器学习算法-Adaboost
               </a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/28/2015-05-28-NB/" rel="next">
-                机器学习算法-朴素贝叶斯Python实现 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/06/04/2015-06-04-Apriori/" rel="next">
+                机器学习算法-Apriori关联分析 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -325,10 +336,10 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/05/31/2015-05-31 scikit-learn training model's save and reused/"
-     data-title="sklearn训练模型的保存与恢复（Python）"
+        <div class="ds-share flat" data-thread-key="2015/06/10/2015-06-10 Python simulate command/"
+     data-title="Python模拟ls命令"
      data-content=""
-     data-url="http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/">
+     data-url="http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -354,8 +365,8 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/05/31/2015-05-31 scikit-learn training model's save and reused/"
-                   data-title="sklearn训练模型的保存与恢复（Python）" data-url="http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/">
+              <div class="ds-thread" data-thread-key="2015/06/10/2015-06-10 Python simulate command/"
+                   data-title="Python模拟ls命令" data-url="http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/">
               </div>
             
           </div>
@@ -472,7 +483,7 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型保存"><span class="nav-number">1.</span> <span class="nav-text">模型保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型从本地调回"><span class="nav-number">2.</span> <span class="nav-text">模型从本地调回</span></a></li></ol></div>
+              <p class="post-toc-empty">此文章未包含目录</p>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
