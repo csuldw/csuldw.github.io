@@ -604,7 +604,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/09/23/2015-09-23%20Machine%20learning%20materials/"/>
     <id>http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/</id>
     <published>2015-09-23T14:22:22.000Z</published>
-    <updated>2015-10-22T12:21:42.663Z</updated>
+    <updated>2015-11-01T00:52:36.871Z</updated>
     <content type="html"><![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>
 <a id="more"></a>
@@ -632,7 +632,7 @@ _csu.ldw@csu.edu.cn1
 <h2 id="学习视频"><strong>学习视频</strong></h2><p>由于本人比较崇拜Andrew Ng，所以关于视频，首先推荐的便是Andrew Ng的斯坦福大学的机器学习课程。这套视频在网上有两个网址，国外和国内的都有，全程英语教学，内容很好，有时间建议你去听听：</p>
 <ul>
 <li>一个是国外的Coursera公开课，该课程在机器学习领域很火，是很多入门学者的首选。地址：<a href="https://www.coursera.org/；讲义地址：[Stanford" target="_blank" rel="external">https://www.coursera.org/；讲义地址：[Stanford</a> CS229 course下载讲义和笔记](<a href="http://cs229.stanford.edu/)；" target="_blank" rel="external">http://cs229.stanford.edu/)；</a></li>
-<li>一个是国内的网易公开课，链接地址：<a href="http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html。" target="_blank" rel="external">http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html。</a></li>
+<li>一个是国内的网易公开课，链接地址：<a href="http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html" target="_blank" rel="external">http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html</a></li>
 </ul>
 <p>下面是一个机器学习视频库，由加州理工学院（Caltech）出品。</p>
 <ul>
