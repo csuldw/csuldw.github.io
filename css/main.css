@@ -949,10 +949,11 @@ body {
 .site-author-image {
   display: block;
   margin: 0 auto;
-  max-width: 96px;
+  max-width: 110px;
   height: auto;
   border: 2px solid #ccc;
   padding: 1px;
+  border-radius: 50%;
 }
 .site-author-name {
   margin: 5px 0 0;
@@ -1027,7 +1028,7 @@ body {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #2614ff;
+  background: #909297;
 }
 .sidebar-nav {
   margin: 0;
