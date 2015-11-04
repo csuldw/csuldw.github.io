@@ -70,7 +70,7 @@
     <link href="http://csuldw.github.io/2015/10/29/2015-10-29%20Python%20RegEx/"/>
     <id>http://csuldw.github.io/2015/10/29/2015-10-29 Python RegEx/</id>
     <published>2015-10-29T12:24:00.000Z</published>
-    <updated>2015-10-29T13:37:31.102Z</updated>
+    <updated>2015-11-04T03:02:00.928Z</updated>
     <content type="html"><![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
@@ -334,8 +334,7 @@ _csu.ldw@csu.edu.cn1
 <p>都不会匹配</p>
 <p>提示：合法邮箱的规则可能不够完善，这里就简单的匹配这三个规则吧！</p>
 <hr>
-<p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">D.W’s Diary</a><br><br></strong></center>]]></content>
+<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>]]></content>
     <summary type="html">
     <![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
@@ -370,7 +369,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/25/2015-10-25%20scikit-learn%20preprocessing/"/>
     <id>http://csuldw.github.io/2015/10/25/2015-10-25 scikit-learn preprocessing/</id>
     <published>2015-10-25T02:24:00.000Z</published>
-    <updated>2015-10-29T13:03:22.464Z</updated>
+    <updated>2015-11-04T03:02:09.879Z</updated>
     <content type="html"><![CDATA[<p>本文主要是对照<a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing" target="_blank" rel="external">scikit-learn的preprocessing</a>章节结合代码简单的回顾下预处理技术的几种方法，主要包括标准化、数据最大最小缩放处理、正则化、特征二值化和数据缺失值处理。内容比较简单，仅供参考！</p>
 <p>首先来回顾一下下面要用到的基本知识。</p>
 <a id="more"></a>
@@ -458,8 +457,7 @@ _csu.ldw@csu.edu.cn1
 <li><a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing" target="_blank" rel="external">Scikit-learn preprocessing</a>.</li>
 </ul>
 <hr>
-<p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">D.W’s Diary</a><br><br></strong></center>
+<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>
 
 
 
@@ -484,7 +482,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/24/2015-10-24%20feature%20engineering/"/>
     <id>http://csuldw.github.io/2015/10/24/2015-10-24 feature engineering/</id>
     <published>2015-10-24T02:24:00.000Z</published>
-    <updated>2015-10-29T13:03:36.052Z</updated>
+    <updated>2015-11-04T03:02:27.186Z</updated>
     <content type="html"><![CDATA[<p>在这个振奋人心的程序员节日里，我决定认真地写一篇文章来纪念一下自己这长达六年程序员史。o(╯□╰)o</p>
 <p>本文是一篇关于特征工程的总结类文章，如有不足之处或理解有偏差的地方，还望多多指教。</p>
 <p>首先，给一张特征工程的思维导图吧：</p>
@@ -596,8 +594,7 @@ _csu.ldw@csu.edu.cn1
 <li><a href="https://www.quora.com/How-valuable-do-you-think-feature-selection-is-in-machine-learning-Which-do-you-think-improves-accuracy-more-feature-selection-or-feature-engineering" target="_blank" rel="external">How valuable do you think feature selection is in machine learning? Which do you think improves accuracy more, feature selection or feature engineering?</a></li>
 </ul>
 <hr>
-<p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">D.W’s Diary</a><br><br></strong></center>
+<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>
 
 
 
@@ -623,7 +620,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/21/2015-10-21%20Windows%20git%20push%20no%20password/"/>
     <id>http://csuldw.github.io/2015/10/21/2015-10-21 Windows git push no password/</id>
     <published>2015-10-21T08:45:44.000Z</published>
-    <updated>2015-10-24T00:27:19.831Z</updated>
+    <updated>2015-11-04T03:02:41.537Z</updated>
     <content type="html"><![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
@@ -634,7 +631,8 @@ _csu.ldw@csu.edu.cn1
 <figure class="highlight puppet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">machine github.com</span><br><span class="line">login your-username</span><br><span class="line"><span class="literal">password</span> your-<span class="literal">password</span></span><br></pre></td></tr></table></figure>
 <p>接着，打开git bash后，输入git push 命令就无需再输入用户名和密码了。</p>
 <p>爽歪歪啦~</p>
-]]></content>
+<hr>
+<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>]]></content>
     <summary type="html">
     <![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
@@ -654,7 +652,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/09/23/2015-09-23%20Machine%20learning%20materials/"/>
     <id>http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/</id>
     <published>2015-09-23T14:22:22.000Z</published>
-    <updated>2015-11-01T00:52:36.871Z</updated>
+    <updated>2015-11-04T03:02:51.527Z</updated>
     <content type="html"><![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>
 <a id="more"></a>
@@ -766,7 +764,8 @@ _csu.ldw@csu.edu.cn1
 <font color="#CD3333">从这些牛人的博客中，你能学到很多。慢慢地你会体会到，不是你一个人在战斗，还有很多人，所以你不用害怕孤独。</font>
 
 <p>最后，关于机器学习资料的整理，先到此为止吧，如果你有什么好的资料，欢迎在评论中给出推荐或网址链接。</p>
-]]></content>
+<hr>
+<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>]]></content>
     <summary type="html">
     <![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>]]>
