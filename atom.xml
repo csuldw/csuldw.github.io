@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-04T03:04:34.668Z</updated>
+  <updated>2015-11-04T14:55:38.000Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -16,11 +16,24 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title></title>
+    <link href="http://csuldw.github.io/2015/11/05/2015-10-24%20image%20article/"/>
+    <id>http://csuldw.github.io/2015/11/05/2015-10-24 image article/</id>
+    <published>2015-11-05T00:58:51.863Z</published>
+    <updated>2015-11-04T14:55:38.000Z</updated>
+    <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div>]]></content>
+    <summary type="html">
+    <![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="widt]]>
+    </summary>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Add header and footer to some file]]></title>
     <link href="http://csuldw.github.io/2015/11/03/2015-11-03%20Add%20header%20and%20footer%20to%20some%20file/"/>
     <id>http://csuldw.github.io/2015/11/03/2015-11-03 Add header and footer to some file/</id>
     <published>2015-11-03T08:24:00.000Z</published>
-    <updated>2015-11-04T03:04:34.668Z</updated>
+    <updated>2015-11-05T13:21:33.101Z</updated>
     <content type="html"><![CDATA[<p>今天整理资料的时候，发现要在很多文件中的头部和尾部添加相同的文本，于是自己使用Python做了一个简单的文件拼接功能，也可以说是文件追加功能，给一个文件批量追加头尾内容，达到省事的效果，顺便还可以练习下Python。下面来介绍下这个功能的代码：</p>
 <p>现在有三个文件，如下：</p>
 <ul>
@@ -70,7 +83,7 @@
     <link href="http://csuldw.github.io/2015/10/29/2015-10-29%20Python%20RegEx/"/>
     <id>http://csuldw.github.io/2015/10/29/2015-10-29 Python RegEx/</id>
     <published>2015-10-29T12:24:00.000Z</published>
-    <updated>2015-11-04T03:04:47.768Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
@@ -352,24 +365,11 @@ _csu.ldw@csu.edu.cn1
   </entry>
   
   <entry>
-    <title></title>
-    <link href="http://csuldw.github.io/2015/10/25/2015-10-24%20image%20article/"/>
-    <id>http://csuldw.github.io/2015/10/25/2015-10-24 image article/</id>
-    <published>2015-10-25T12:27:51.133Z</published>
-    <updated>2015-10-25T12:27:51.133Z</updated>
-    <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div>]]></content>
-    <summary type="html">
-    <![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="widt]]>
-    </summary>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[scikit-learn Preprocessing]]></title>
     <link href="http://csuldw.github.io/2015/10/25/2015-10-25%20scikit-learn%20preprocessing/"/>
     <id>http://csuldw.github.io/2015/10/25/2015-10-25 scikit-learn preprocessing/</id>
     <published>2015-10-25T02:24:00.000Z</published>
-    <updated>2015-11-04T03:04:54.136Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>本文主要是对照<a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing" target="_blank" rel="external">scikit-learn的preprocessing</a>章节结合代码简单的回顾下预处理技术的几种方法，主要包括标准化、数据最大最小缩放处理、正则化、特征二值化和数据缺失值处理。内容比较简单，仅供参考！</p>
 <p>首先来回顾一下下面要用到的基本知识。</p>
 <a id="more"></a>
@@ -482,7 +482,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/24/2015-10-24%20feature%20engineering/"/>
     <id>http://csuldw.github.io/2015/10/24/2015-10-24 feature engineering/</id>
     <published>2015-10-24T02:24:00.000Z</published>
-    <updated>2015-11-04T03:02:27.186Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>在这个振奋人心的程序员节日里，我决定认真地写一篇文章来纪念一下自己这长达六年程序员史。o(╯□╰)o</p>
 <p>本文是一篇关于特征工程的总结类文章，如有不足之处或理解有偏差的地方，还望多多指教。</p>
 <p>首先，给一张特征工程的思维导图吧：</p>
@@ -620,7 +620,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/21/2015-10-21%20Windows%20git%20push%20no%20password/"/>
     <id>http://csuldw.github.io/2015/10/21/2015-10-21 Windows git push no password/</id>
     <published>2015-10-21T08:45:44.000Z</published>
-    <updated>2015-11-04T03:02:41.537Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
@@ -652,7 +652,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/09/23/2015-09-23%20Machine%20learning%20materials/"/>
     <id>http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/</id>
     <published>2015-09-23T14:22:22.000Z</published>
-    <updated>2015-11-04T03:02:51.527Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>
 <a id="more"></a>
@@ -783,7 +783,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/08/29/2015-08-29%20Summary/"/>
     <id>http://csuldw.github.io/2015/08/29/2015-08-29 Summary/</id>
     <published>2015-08-29T02:54:00.000Z</published>
-    <updated>2015-10-22T01:44:54.356Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
 <p>下面来总结一下自已这几个月的学习成长吧。<br><a id="more"></a><br>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
 <p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
@@ -811,7 +811,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/08/19/2015-08-19%20GBDT/"/>
     <id>http://csuldw.github.io/2015/08/19/2015-08-19 GBDT/</id>
     <published>2015-08-19T02:54:00.000Z</published>
-    <updated>2015-10-22T01:34:04.812Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
 <p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。<br><a id="more"></a></p>
 <h2 id="Gradient_Tree_Boosting"><strong>Gradient Tree Boosting</strong></h2><p>梯度树提升（Gradient Tree Boosting）是一种组合算法，也叫做梯度提升回归树（gradient boosting regression tree），它的基分类器是决策树，既可以用来回归，也可以用作分类。在分类性能上，能够和随机森林媲美，甚至在有的数据集上表现的有过之而无不及。如今，Gradient Tree Boosting模型已经广泛的运用在Web搜索排行榜以及生态学上。在阿里内部也用的比较多，所以值得我们去花点时间认真学习。</p>
@@ -875,7 +875,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/28/2015-07-28%20crossvalidation/"/>
     <id>http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/</id>
     <published>2015-07-28T07:40:00.000Z</published>
-    <updated>2015-10-29T13:08:28.478Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
 <h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
@@ -969,7 +969,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/23/2015-07-23%20machine%20learning%20tips/"/>
     <id>http://csuldw.github.io/2015/07/23/2015-07-23 machine learning tips/</id>
     <published>2015-07-23T04:53:00.000Z</published>
-    <updated>2015-10-29T13:06:50.291Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
 <blockquote>
 <p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="external">WinPython_2.7</a></p>
@@ -1035,7 +1035,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/22/2015-07-22%20%20ensemble/"/>
     <id>http://csuldw.github.io/2015/07/22/2015-07-22  ensemble/</id>
     <published>2015-07-21T22:53:00.000Z</published>
-    <updated>2015-10-29T13:06:43.722Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
 <h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br> <a id="more"></a></p>
 <blockquote>
@@ -1103,7 +1103,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/21/2015-07-21%20An%20introduction%20to%20machine%20learning%20with%20scikit-learn%20/"/>
     <id>http://csuldw.github.io/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /</id>
     <published>2015-07-21T13:31:00.000Z</published>
-    <updated>2015-10-26T01:28:05.568Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
 <p><strong>章节内容</strong></p>
 <p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
@@ -1185,7 +1185,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/18/2015-07-18-a%20precision%20and%20recall/"/>
     <id>http://csuldw.github.io/2015/07/18/2015-07-18-a precision and recall/</id>
     <published>2015-07-18T04:30:00.000Z</published>
-    <updated>2015-10-29T13:06:21.168Z</updated>
+    <updated>2015-11-04T14:55:38.000Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 
@@ -1260,7 +1260,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/16/2015-07-16%20Python%20timer/"/>
     <id>http://csuldw.github.io/2015/07/16/2015-07-16 Python timer/</id>
     <published>2015-07-16T12:24:25.000Z</published>
-    <updated>2015-10-25T13:13:10.036Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p>在实际开发中，往往想要计算一段代码运行多长时间，下面我将该功能写入到一个函数里面，只要在每个函数前面调用该函数即可，见下面代码：</p>
 <a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--------------------------------</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_timer</span><span class="params">(function)</span>:</span></span><br><span class="line">    <span class="decorator">@wraps(function)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">function_timer</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        t0 = time.time()</span><br><span class="line">        result = function(*args, **kwargs)</span><br><span class="line">        t1 = time.time()</span><br><span class="line">        os.system(<span class="string">" echo Total time running %s: %s seconds"</span> % (function.func_name, str(t1-t0)) + <span class="string">" &gt;&gt; timecount.log"</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> function_timer</span><br><span class="line"><span class="comment">#-----------------------------------</span></span><br></pre></td></tr></table></figure>
@@ -1285,7 +1285,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/13/2015-07-13-10%20keys%20to%20successful%20machine%20learning%20for%20developers/"/>
     <id>http://csuldw.github.io/2015/07/13/2015-07-13-10 keys to successful machine learning for developers/</id>
     <published>2015-07-13T13:53:12.000Z</published>
-    <updated>2015-07-24T01:53:30.000Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 <p>在提供发现埋藏数据深层的模式的能力上，机器学习有着潜在的能力使得应用程序更加的强大并且更能响应用户的需求。精心调校好的算法能够从巨大的并且互不相同的数据源中提取价值，同时没有人类思考和分析的限制。对于开发者而言，机器学习为应用业务的关键分析提供了希望，从而实现从改善客户体验到提供产品推荐上升至超个性化内容服务的任何应用程序。<br><a id="more"></a><br>像Amazon和Micorosoft这样的云供应商提供云功能的机器学习解决方案，承诺为开发者提供一个简单的方法，使得机器学习的能力能够融入到他们的应用程序当中，这也算是最近的头条新闻了。承诺似乎很好，但开发者还需谨慎。</p>
@@ -1340,7 +1340,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/07/2015-07-07-PDB/"/>
     <id>http://csuldw.github.io/2015/07/07/2015-07-07-PDB/</id>
     <published>2015-07-07T15:23:23.000Z</published>
-    <updated>2015-10-29T13:05:58.976Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p>以下代码为个人原创，python实现，是处理PDB文件的部分常用代码，仅供参考！</p>
 <h3 id="1-下载PDB文件">1.下载PDB文件</h3><p>下面是一个下载PDB文件的函数，传入的参数是一个写有pdb名字的namefile文件，函数的核心部分是三个系统命令，先通过wget下载，然后解压，最后替换名字。</p>
 <a id="more"></a>
@@ -1389,7 +1389,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/"/>
     <id>http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/</id>
     <published>2015-07-05T14:53:12.000Z</published>
-    <updated>2015-10-29T13:06:03.803Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p><strong>本章内容</strong></p>
 <ul>
 <li>组合相似的分类器来提高分类性能</li>
@@ -1496,7 +1496,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/06/10/2015-06-10%20Python%20simulate%20command/"/>
     <id>http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/</id>
     <published>2015-06-10T11:24:00.000Z</published>
-    <updated>2015-10-29T13:38:06.081Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p>模拟控制台命令</p>
 <p>写一个程序 lsrm 要求如下:</p>
 <pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
@@ -1537,7 +1537,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/"/>
     <id>http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/</id>
     <published>2015-06-04T13:53:12.000Z</published>
-    <updated>2015-10-29T13:05:49.025Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据用户平时的搜索或者是购买情况来生成的。如果是蛮力搜索的话代价太高了，所以Apriori就出现了，就是为了解决这类问题的。</p>
 <a id="more"></a>
 <p><strong>内容纲要</strong></p>
@@ -1620,7 +1620,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/"/>
     <id>http://csuldw.github.io/2015/06/03/2015-06-03-K-means/</id>
     <published>2015-06-03T04:30:00.000Z</published>
-    <updated>2015-10-29T13:05:41.391Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>
 <a id="more"></a>
 <p><strong>算法的目的：</strong> 使各个样本与所在类均值的<strong>误差平方和达到最小</strong>（这也是评价K-means算法最后聚类效果的评价标准）</p>
@@ -1670,7 +1670,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/31/2015-05-31%20scikit-learn%20training%20model's%20save%20and%20reused/"/>
     <id>http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/</id>
     <published>2015-05-31T12:52:00.000Z</published>
-    <updated>2015-10-30T00:46:34.394Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
 <p>scikit-learn已经有了模型持久化的操作，导入joblib即可</p>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br></pre></td></tr></table></figure>
@@ -1706,7 +1706,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/28/2015-05-28-NB/"/>
     <id>http://csuldw.github.io/2015/05/28/2015-05-28-NB/</id>
     <published>2015-05-28T04:59:00.000Z</published>
-    <updated>2015-10-29T13:05:27.162Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong>前面提到的K最近邻算法和决策树算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。<br>categories: ML<br><a id="more"></a></p>
 <h3 id="基于贝叶斯决策理论的分类方法之朴素贝叶斯"><strong>基于贝叶斯决策理论的分类方法之朴素贝叶斯</strong></h3><ul>
 <li>优点：在数据较少的情况下仍然有效，可以处理多类别问题</li>
@@ -1767,7 +1767,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/"/>
     <id>http://csuldw.github.io/2015/05/21/2015-05-21-KNN/</id>
     <published>2015-05-21T12:34:00.000Z</published>
-    <updated>2015-10-29T13:05:18.791Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
 <a id="more"></a>
 <h3 id="1-K最近邻分类器原理"><strong>1.K最近邻分类器原理</strong></h3><p>首先给出一张图，根据这张图来理解最近邻分类器，如下：</p>
@@ -1827,7 +1827,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/08/2015-05-08-decision%20tree/"/>
     <id>http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/</id>
     <published>2015-05-08T13:53:12.000Z</published>
-    <updated>2015-10-29T13:05:02.256Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
 <h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>
@@ -1907,7 +1907,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/"/>
     <id>http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/</id>
     <published>2015-04-15T05:14:54.000Z</published>
-    <updated>2015-10-22T12:31:21.168Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<h2 id="如何使用搜索引擎">如何使用搜索引擎</h2><p>其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用<strong>英文</strong>在 <a href="http://www.google.com" target="_blank" rel="external">Google</a> 或者 <a href="http://cn.bing.com/" target="_blank" rel="external">Bing</a> 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   </p>
 <p>搜索 fork sync，就可以看到 GitHub 自己的帮助文档 <a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="external">Syncing a fork</a> 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with an upstream repository, you must <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="external">configure a remote that points to the upstream repository</a> in Git.<br>根据这两篇文章，问题迎刃而解！ </p>
 <a id="more"></a>
@@ -1995,7 +1995,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/"/>
     <id>http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/</id>
     <published>2015-03-26T07:14:54.000Z</published>
-    <updated>2015-10-26T04:00:46.610Z</updated>
+    <updated>2015-11-04T14:55:37.000Z</updated>
     <content type="html"><![CDATA[<h2 id="序">序</h2><p>本文我将讲述一下 SublimeLinter 的安装过程。<br>其组件 jshint 的安装与使用。<br>其组件 csslint 的安装与使用。<br>我将基于 <a href="http://sublimetext.com/3" target="_blank" rel="external">Sublime Text 3</a> 来安装。<br>使用 Sublime Text 2 的用户阅读本文是没有帮助的。   </p>
 <p>SublimeLinter 是 Sublime 的插件，它的作用是检查代码语法是否有错误，并提示。习惯了 IDE 下写代码的人一定需要一款在 Sublime 上类似的语法检查工具。下面我们开始。   </p>
 <a id="more"></a>
