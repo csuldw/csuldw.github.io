@@ -511,6 +511,7 @@ td {
   font-size: 13px;
   color: #4d4d4c;
   line-height: 1.6;
+  border: #ced0d4 1px solid;
 }
 .post .highlight .gutter pre,
 .post .gist .gist-file .gist-data .line-numbers {
