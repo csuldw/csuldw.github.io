@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-15T13:57:06.430Z</updated>
+  <updated>2015-11-15T15:25:32.311Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[机器学习-数据归一化方法]]></title>
+    <title><![CDATA[Machine Learning-Normalization]]></title>
     <link href="http://csuldw.github.io/2015/11/15/2015-11-15%20normalization/"/>
     <id>http://csuldw.github.io/2015/11/15/2015-11-15 normalization/</id>
     <published>2015-11-15T02:24:00.000Z</published>
-    <updated>2015-11-15T13:57:06.430Z</updated>
+    <updated>2015-11-15T15:25:32.311Z</updated>
     <content type="html"><![CDATA[<p>本文主要介绍两种基本的数据归一化方法。</p>
 <ul>
 <li>min-max标准化（Min-Max Normalization）</li>
@@ -76,33 +76,18 @@
     
     </summary>
     
-      <category term="ML" scheme="http://csuldw.github.io/tags/ML/"/>
-    
-      <category term="归一化" scheme="http://csuldw.github.io/tags/%E5%BD%92%E4%B8%80%E5%8C%96/"/>
+      <category term="normalization" scheme="http://csuldw.github.io/tags/normalization/"/>
     
       <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
     
   </entry>
   
   <entry>
-    <title></title>
-    <link href="http://csuldw.github.io/2015/11/05/2015-11-05%20photo%20show%201/"/>
-    <id>http://csuldw.github.io/2015/11/05/2015-11-05 photo show 1/</id>
-    <published>2015-11-05T13:56:39.911Z</published>
-    <updated>2015-11-05T13:54:59.147Z</updated>
-    <content type="html"><![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="width: 100%;"><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ex7h85txfoj22s01kab29.jpg" alt=""></div></div><div class="group-picture-row"><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h89fy8vj22gw1e0qv5.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww1.sinaimg.cn/large/637f3c58gw1ex7h8mjhd2j21hc0u0e81.jpg" alt=""></div><div class="group-picture-column" style="width: 33.333333333333336%;"><img src="http://ww2.sinaimg.cn/large/637f3c58gw1ex7h8hxw10j23341qgqv8.jpg" alt=""></div></div></div></div>]]></content>
-    <summary type="html">
-    <![CDATA[<div class="group-picture"><div class="group-picture-container"><div class="group-picture-row"><div class="group-picture-column" style="widt]]>
-    </summary>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[Add header and footer to some file]]></title>
-    <link href="http://csuldw.github.io/2015/11/04/2015-11-03%20Add%20header%20and%20footer%20to%20some%20file/"/>
-    <id>http://csuldw.github.io/2015/11/04/2015-11-03 Add header and footer to some file/</id>
-    <published>2015-11-04T08:24:00.000Z</published>
-    <updated>2015-11-15T14:01:00.178Z</updated>
+    <link href="http://csuldw.github.io/2015/11/03/2015-11-03%20Add%20header%20and%20footer%20to%20some%20file/"/>
+    <id>http://csuldw.github.io/2015/11/03/2015-11-03 Add header and footer to some file/</id>
+    <published>2015-11-03T08:24:00.000Z</published>
+    <updated>2015-11-15T15:17:10.910Z</updated>
     <content type="html"><![CDATA[<p>今天整理资料的时候，发现要在很多文件中的头部和尾部添加相同的文本，于是自己使用Python做了一个简单的文件拼接功能，也可以说是文件追加功能，给一个文件批量追加头尾内容，达到省事的效果，顺便还可以练习下Python。下面来介绍下这个功能的代码：</p>
 <p>现在有三个文件，如下：</p>
 <ul>
