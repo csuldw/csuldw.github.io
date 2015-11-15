@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-15T13:24:20.811Z</updated>
+  <updated>2015-11-15T13:57:06.430Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title><![CDATA[机器学习-数据归一化方法]]></title>
-    <link href="http://csuldw.github.io/2015/11/15/2015-11-15%20Normalization/"/>
-    <id>http://csuldw.github.io/2015/11/15/2015-11-15 Normalization/</id>
+    <link href="http://csuldw.github.io/2015/11/15/2015-11-15%20normalization/"/>
+    <id>http://csuldw.github.io/2015/11/15/2015-11-15 normalization/</id>
     <published>2015-11-15T02:24:00.000Z</published>
-    <updated>2015-11-15T13:24:20.811Z</updated>
+    <updated>2015-11-15T13:57:06.430Z</updated>
     <content type="html"><![CDATA[<p>本文主要介绍两种基本的数据归一化方法。</p>
 <ul>
 <li>min-max标准化（Min-Max Normalization）</li>
@@ -99,10 +99,10 @@
   
   <entry>
     <title><![CDATA[Add header and footer to some file]]></title>
-    <link href="http://csuldw.github.io/2015/11/03/2015-11-03%20Add%20header%20and%20footer%20to%20some%20file/"/>
-    <id>http://csuldw.github.io/2015/11/03/2015-11-03 Add header and footer to some file/</id>
-    <published>2015-11-03T08:24:00.000Z</published>
-    <updated>2015-11-05T13:21:33.101Z</updated>
+    <link href="http://csuldw.github.io/2015/11/04/2015-11-03%20Add%20header%20and%20footer%20to%20some%20file/"/>
+    <id>http://csuldw.github.io/2015/11/04/2015-11-03 Add header and footer to some file/</id>
+    <published>2015-11-04T08:24:00.000Z</published>
+    <updated>2015-11-15T14:01:00.178Z</updated>
     <content type="html"><![CDATA[<p>今天整理资料的时候，发现要在很多文件中的头部和尾部添加相同的文本，于是自己使用Python做了一个简单的文件拼接功能，也可以说是文件追加功能，给一个文件批量追加头尾内容，达到省事的效果，顺便还可以练习下Python。下面来介绍下这个功能的代码：</p>
 <p>现在有三个文件，如下：</p>
 <ul>
