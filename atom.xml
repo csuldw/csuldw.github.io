@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-05T13:54:59.147Z</updated>
+  <updated>2015-11-15T13:24:20.811Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -14,6 +14,75 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[机器学习-数据归一化方法]]></title>
+    <link href="http://csuldw.github.io/2015/11/15/2015-11-15%20Normalization/"/>
+    <id>http://csuldw.github.io/2015/11/15/2015-11-15 Normalization/</id>
+    <published>2015-11-15T02:24:00.000Z</published>
+    <updated>2015-11-15T13:24:20.811Z</updated>
+    <content type="html"><![CDATA[<p>本文主要介绍两种基本的数据归一化方法。</p>
+<ul>
+<li>min-max标准化（Min-Max Normalization）</li>
+<li>Z-score标准化方法</li>
+</ul>
+<p>归一化方法有两种形式，一种是把数变为（0，1）之间的小数，一种是把有量纲表达式变为无量纲表达式。</p>
+<a id="more"></a>
+<p>数据标准化（归一化）处理是数据挖掘的一项基础工作，不同评价指标往往具有不同的量纲和量纲单位，这样的情况会影响到数据分析的结果，为了消除指标之间的量纲影响，需要进行数据标准化处理，以解决数据指标之间的可比性。原始数据经过数据标准化处理后，各指标处于同一数量级，适合进行综合对比评价。</p>
+<p>下面是归一化和没有归一化的比较：</p>
+<p>没有经过归一化，寻找最优解过程如下：</p>
+<p><img src="/assets/images/2015111501.png" alt="2015111501"></p>
+<p>经过归一化，把各个特征的尺度控制在相同的范围内：</p>
+<p><img src="/assets/images/2015111502.png" alt="2015111502"></p>
+<p>从经验上说，归一化是让不同维度之间的特征在数值上有一定比较性，可以大大提高分类器的准确性。</p>
+<p>以下是两种常用的归一化方法：</p>
+<h2 id="1-min-max标准化（Min-Max_Normalization）">1.min-max标准化（Min-Max Normalization）</h2><p>也称为离差标准化，是对原始数据的线性变换，使结果值映射到[0 - 1]之间。转换函数如下：</p>
+<p>$$x^{*}=\frac{x-x_{min}}{x_{max}-x_{min}}$$</p>
+<p>x_min表示样本数据的最小值，x_max表示样本数据的最大值。</p>
+<p><strong>Python代码实现：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">Normalization</span><span class="params">(x)</span></span>:</span><br><span class="line">	return [(<span class="function"><span class="title">float</span><span class="params">(i)</span></span>-<span class="function"><span class="title">min</span><span class="params">(x)</span></span>)/<span class="function"><span class="title">float</span><span class="params">(max(x)</span></span>-<span class="function"><span class="title">min</span><span class="params">(x)</span></span>) <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x]</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">7</span>]</span><br><span class="line">b=<span class="function"><span class="title">Normalization</span><span class="params">(x)</span></span></span><br></pre></td></tr></table></figure>
+<p>Output：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0.0, <span class="number">0.166666666</span><span class="number">66666666</span>, 0.0, 0.5, <span class="number">0.33333333</span><span class="number">33333333</span>, <span class="number">0.166666666</span><span class="number">66666666</span>, <span class="number">0.66666666</span><span class="number">66666666</span>, <span class="number">0.83333333</span><span class="number">33333334</span>, <span class="number">0.166666666</span><span class="number">66666666</span>, 1.0]</span><br></pre></td></tr></table></figure>
+<p>如果想要将数据映射到[-1,1]，则将公式换成：</p>
+<p>$$x^{*}=\frac{x-x_{mean}}{x_{max}-x_{min}}$$</p>
+<p>x_mean表示数据的均值</p>
+<p><strong>Python代码实现：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">def <span class="function"><span class="title">Normalization2</span><span class="params">(x)</span></span>:</span><br><span class="line">	return [(<span class="function"><span class="title">float</span><span class="params">(i)</span></span>-np.<span class="function"><span class="title">mean</span><span class="params">(x)</span></span>)/(<span class="function"><span class="title">max</span><span class="params">(x)</span></span>-<span class="function"><span class="title">min</span><span class="params">(x)</span></span>) <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x]</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">7</span>]</span><br><span class="line">b=<span class="function"><span class="title">Normalization2</span><span class="params">(x)</span></span></span><br></pre></td></tr></table></figure>
+<p>Output：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[-<span class="number">0.38333333</span><span class="number">33333333</span>, -<span class="number">0.216666666</span><span class="number">66666665</span>, -<span class="number">0.38333333</span><span class="number">33333333</span>, <span class="number">0.116666666</span><span class="number">6666667</span>, -<span class="number">0.04999999</span><span class="number">9999999968</span>, -<span class="number">0.216666666</span><span class="number">66666665</span>, <span class="number">0.28333333</span><span class="number">333333338</span>, <span class="number">0.45000000</span><span class="number">000000001</span>, -<span class="number">0.216666666</span><span class="number">66666665</span>, <span class="number">0.61666666</span><span class="number">66666667</span>]</span><br></pre></td></tr></table></figure>
+<p>注意：上面的Normalization是处理单个列表的。</p>
+<h2 id="2-z-score标准化方法">2.z-score标准化方法</h2><p>这种方法给予原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。经过处理的数据符合标准正态分布，即均值为0，标准差为1，转化函数为：</p>
+<p>$$x^{*}=\frac{x-\mu}{\sigma}$$</p>
+<p>其中，μ表示所有样本数据的均值，σ表示所有样本的标准差。</p>
+<p><strong>Python代码实现：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">def <span class="function"><span class="title">z_score</span><span class="params">(x)</span></span>:</span><br><span class="line">    x_mean=np.<span class="function"><span class="title">mean</span><span class="params">(x)</span></span></span><br><span class="line">    s2=<span class="function"><span class="title">sum</span><span class="params">([(i-np.mean(x)</span></span>)*(i-np.<span class="function"><span class="title">mean</span><span class="params">(x)</span></span>) <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x])/<span class="function"><span class="title">len</span><span class="params">(x)</span></span></span><br><span class="line">    return [(i-x_mean)/s2 <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x]</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">7</span>]</span><br><span class="line">print <span class="function"><span class="title">z_score</span><span class="params">(x)</span></span></span><br></pre></td></tr></table></figure>
+<p>Output:</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[-<span class="number">0.57356608</span><span class="number">478802995</span>, -<span class="number">0.324189526</span><span class="number">18453861</span>, -<span class="number">0.57356608</span><span class="number">478802995</span>, <span class="number">0.174563591</span><span class="number">02244395</span>, -<span class="number">0.07481296</span><span class="number">7581047343</span>, -<span class="number">0.324189526</span><span class="number">18453861</span>, <span class="number">0.423940149</span><span class="number">62593524</span>, <span class="number">0.67331670</span><span class="number">822942646</span>, -<span class="number">0.324189526</span><span class="number">18453861</span>, <span class="number">0.92269326</span><span class="number">683291775</span>]</span><br></pre></td></tr></table></figure>
+<hr>
+<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  CSDN博客： <a href="http://blog.csdn.net/dream_angel_z" target="_black">【Dream_Angel_Z】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>]]></content>
+    <summary type="html">
+    <![CDATA[<p>本文主要介绍两种基本的数据归一化方法。</p>
+<ul>
+<li>min-max标准化（Min-Max Normalization）</li>
+<li>Z-score标准化方法</li>
+</ul>
+<p>归一化方法有两种形式，一种是把数变为（0，1）之间的小数，一种是把有量纲表达式变为无量纲表达式。</p>]]>
+    
+    </summary>
+    
+      <category term="ML" scheme="http://csuldw.github.io/tags/ML/"/>
+    
+      <category term="归一化" scheme="http://csuldw.github.io/tags/%E5%BD%92%E4%B8%80%E5%8C%96/"/>
+    
+      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
+    
+  </entry>
   
   <entry>
     <title></title>

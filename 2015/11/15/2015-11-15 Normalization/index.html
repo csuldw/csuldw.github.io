@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="Python,函数计时器," />
+  <meta name="keywords" content="ML,归一化," />
 
 
 
@@ -47,16 +47,33 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="在实际开发中，往往想要计算一段代码运行多长时间，下面我将该功能写入到一个函数里面，只要在每个函数前面调用该函数即可，见下面代码：">
+<meta name="description" content="本文主要介绍两种基本的数据归一化方法。
+
+min-max标准化（Min-Max Normalization）
+Z-score标准化方法
+
+归一化方法有两种形式，一种是把数变为（0，1）之间的小数，一种是把有量纲表达式变为无量纲表达式。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一个简单的Python函数运行时间计时器">
-<meta property="og:url" content="http://csuldw.github.io/2015/07/16/2015-07-16 Python timer/index.html">
+<meta property="og:title" content="机器学习-数据归一化方法">
+<meta property="og:url" content="http://csuldw.github.io/2015/11/15/2015-11-15 Normalization/index.html">
 <meta property="og:site_name" content="D.W's Diaries">
-<meta property="og:description" content="在实际开发中，往往想要计算一段代码运行多长时间，下面我将该功能写入到一个函数里面，只要在每个函数前面调用该函数即可，见下面代码：">
-<meta property="og:updated_time" content="2015-11-04T14:55:37.000Z">
+<meta property="og:description" content="本文主要介绍两种基本的数据归一化方法。
+
+min-max标准化（Min-Max Normalization）
+Z-score标准化方法
+
+归一化方法有两种形式，一种是把数变为（0，1）之间的小数，一种是把有量纲表达式变为无量纲表达式。">
+<meta property="og:image" content="http://csuldw.github.io/assets/images/2015111501.png">
+<meta property="og:image" content="http://csuldw.github.io/assets/images/2015111502.png">
+<meta property="og:updated_time" content="2015-11-15T13:24:20.811Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一个简单的Python函数运行时间计时器">
-<meta name="twitter:description" content="在实际开发中，往往想要计算一段代码运行多长时间，下面我将该功能写入到一个函数里面，只要在每个函数前面调用该函数即可，见下面代码：">
+<meta name="twitter:title" content="机器学习-数据归一化方法">
+<meta name="twitter:description" content="本文主要介绍两种基本的数据归一化方法。
+
+min-max标准化（Min-Max Normalization）
+Z-score标准化方法
+
+归一化方法有两种形式，一种是把数变为（0，1）之间的小数，一种是把有量纲表达式变为无量纲表达式。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -68,7 +85,7 @@
 
 
 
-  <title> 一个简单的Python函数运行时间计时器 | D.W's Diaries </title>
+  <title> 机器学习-数据归一化方法 | D.W's Diaries </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -204,7 +221,7 @@
             
             
               
-                一个简单的Python函数运行时间计时器
+                机器学习-数据归一化方法
               
             
           </h1>
@@ -213,8 +230,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-07-16T20:24:25+08:00" content="2015-07-16">
-              2015-07-16
+            <time itemprop="dateCreated" datetime="2015-11-15T10:24:00+08:00" content="2015-11-15">
+              2015-11-15
             </time>
           </span>
 
@@ -223,8 +240,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Python/" itemprop="url" rel="index">
-                    <span itemprop="name">Python</span>
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
                   </a>
                 </span>
 
@@ -239,8 +256,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/07/16/2015-07-16 Python timer/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/16/2015-07-16 Python timer/" itemprop="commentsCount"></span>
+                <a href="/2015/11/15/2015-11-15 Normalization/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/15/2015-11-15 Normalization/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -259,12 +276,51 @@
       
 
       
-        <span itemprop="articleBody"><p>在实际开发中，往往想要计算一段代码运行多长时间，下面我将该功能写入到一个函数里面，只要在每个函数前面调用该函数即可，见下面代码：</p>
+        <span itemprop="articleBody"><p>本文主要介绍两种基本的数据归一化方法。</p>
+<ul>
+<li>min-max标准化（Min-Max Normalization）</li>
+<li>Z-score标准化方法</li>
+</ul>
+<p>归一化方法有两种形式，一种是把数变为（0，1）之间的小数，一种是把有量纲表达式变为无量纲表达式。</p>
 <a id="more"></a>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--------------------------------</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_timer</span><span class="params">(function)</span>:</span></span><br><span class="line">    <span class="decorator">@wraps(function)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">function_timer</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        t0 = time.time()</span><br><span class="line">        result = function(*args, **kwargs)</span><br><span class="line">        t1 = time.time()</span><br><span class="line">        os.system(<span class="string">" echo Total time running %s: %s seconds"</span> % (function.func_name, str(t1-t0)) + <span class="string">" &gt;&gt; timecount.log"</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> function_timer</span><br><span class="line"><span class="comment">#-----------------------------------</span></span><br></pre></td></tr></table></figure>
-<p>说明：<font color="green"><strong>一个记时器，只要在函数前面写上@fun_timer即可</strong></font>.</p>
+<p>数据标准化（归一化）处理是数据挖掘的一项基础工作，不同评价指标往往具有不同的量纲和量纲单位，这样的情况会影响到数据分析的结果，为了消除指标之间的量纲影响，需要进行数据标准化处理，以解决数据指标之间的可比性。原始数据经过数据标准化处理后，各指标处于同一数量级，适合进行综合对比评价。</p>
+<p>下面是归一化和没有归一化的比较：</p>
+<p>没有经过归一化，寻找最优解过程如下：</p>
+<p><img src="/assets/images/2015111501.png" alt="2015111501"></p>
+<p>经过归一化，把各个特征的尺度控制在相同的范围内：</p>
+<p><img src="/assets/images/2015111502.png" alt="2015111502"></p>
+<p>从经验上说，归一化是让不同维度之间的特征在数值上有一定比较性，可以大大提高分类器的准确性。</p>
+<p>以下是两种常用的归一化方法：</p>
+<h2 id="1-min-max标准化（Min-Max_Normalization）">1.min-max标准化（Min-Max Normalization）</h2><p>也称为离差标准化，是对原始数据的线性变换，使结果值映射到[0 - 1]之间。转换函数如下：</p>
+<p>$$x^{*}=\frac{x-x_{min}}{x_{max}-x_{min}}$$</p>
+<p>x_min表示样本数据的最小值，x_max表示样本数据的最大值。</p>
+<p><strong>Python代码实现：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">def <span class="function"><span class="title">Normalization</span><span class="params">(x)</span></span>:</span><br><span class="line">	return [(<span class="function"><span class="title">float</span><span class="params">(i)</span></span>-<span class="function"><span class="title">min</span><span class="params">(x)</span></span>)/<span class="function"><span class="title">float</span><span class="params">(max(x)</span></span>-<span class="function"><span class="title">min</span><span class="params">(x)</span></span>) <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x]</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">7</span>]</span><br><span class="line">b=<span class="function"><span class="title">Normalization</span><span class="params">(x)</span></span></span><br></pre></td></tr></table></figure>
+<p>Output：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[0.0, <span class="number">0.166666666</span><span class="number">66666666</span>, 0.0, 0.5, <span class="number">0.33333333</span><span class="number">33333333</span>, <span class="number">0.166666666</span><span class="number">66666666</span>, <span class="number">0.66666666</span><span class="number">66666666</span>, <span class="number">0.83333333</span><span class="number">33333334</span>, <span class="number">0.166666666</span><span class="number">66666666</span>, 1.0]</span><br></pre></td></tr></table></figure>
+<p>如果想要将数据映射到[-1,1]，则将公式换成：</p>
+<p>$$x^{*}=\frac{x-x_{mean}}{x_{max}-x_{min}}$$</p>
+<p>x_mean表示数据的均值</p>
+<p><strong>Python代码实现：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">def <span class="function"><span class="title">Normalization2</span><span class="params">(x)</span></span>:</span><br><span class="line">	return [(<span class="function"><span class="title">float</span><span class="params">(i)</span></span>-np.<span class="function"><span class="title">mean</span><span class="params">(x)</span></span>)/(<span class="function"><span class="title">max</span><span class="params">(x)</span></span>-<span class="function"><span class="title">min</span><span class="params">(x)</span></span>) <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x]</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">7</span>]</span><br><span class="line">b=<span class="function"><span class="title">Normalization2</span><span class="params">(x)</span></span></span><br></pre></td></tr></table></figure>
+<p>Output：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[-<span class="number">0.38333333</span><span class="number">33333333</span>, -<span class="number">0.216666666</span><span class="number">66666665</span>, -<span class="number">0.38333333</span><span class="number">33333333</span>, <span class="number">0.116666666</span><span class="number">6666667</span>, -<span class="number">0.04999999</span><span class="number">9999999968</span>, -<span class="number">0.216666666</span><span class="number">66666665</span>, <span class="number">0.28333333</span><span class="number">333333338</span>, <span class="number">0.45000000</span><span class="number">000000001</span>, -<span class="number">0.216666666</span><span class="number">66666665</span>, <span class="number">0.61666666</span><span class="number">66666667</span>]</span><br></pre></td></tr></table></figure>
+<p>注意：上面的Normalization是处理单个列表的。</p>
+<h2 id="2-z-score标准化方法">2.z-score标准化方法</h2><p>这种方法给予原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。经过处理的数据符合标准正态分布，即均值为0，标准差为1，转化函数为：</p>
+<p>$$x^{*}=\frac{x-\mu}{\sigma}$$</p>
+<p>其中，μ表示所有样本数据的均值，σ表示所有样本的标准差。</p>
+<p><strong>Python代码实现：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import numpy as np</span><br><span class="line">def <span class="function"><span class="title">z_score</span><span class="params">(x)</span></span>:</span><br><span class="line">    x_mean=np.<span class="function"><span class="title">mean</span><span class="params">(x)</span></span></span><br><span class="line">    s2=<span class="function"><span class="title">sum</span><span class="params">([(i-np.mean(x)</span></span>)*(i-np.<span class="function"><span class="title">mean</span><span class="params">(x)</span></span>) <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x])/<span class="function"><span class="title">len</span><span class="params">(x)</span></span></span><br><span class="line">    return [(i-x_mean)/s2 <span class="keyword">for</span> <span class="tag">i</span> <span class="keyword">in</span> x]</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">x=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">4</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>,<span class="number">7</span>]</span><br><span class="line">print <span class="function"><span class="title">z_score</span><span class="params">(x)</span></span></span><br></pre></td></tr></table></figure>
+<p>Output:</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[-<span class="number">0.57356608</span><span class="number">478802995</span>, -<span class="number">0.324189526</span><span class="number">18453861</span>, -<span class="number">0.57356608</span><span class="number">478802995</span>, <span class="number">0.174563591</span><span class="number">02244395</span>, -<span class="number">0.07481296</span><span class="number">7581047343</span>, -<span class="number">0.324189526</span><span class="number">18453861</span>, <span class="number">0.423940149</span><span class="number">62593524</span>, <span class="number">0.67331670</span><span class="number">822942646</span>, -<span class="number">0.324189526</span><span class="number">18453861</span>, <span class="number">0.92269326</span><span class="number">683291775</span>]</span><br></pre></td></tr></table></figure>
 <hr>
-</span>
+<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  CSDN博客： <a href="http://blog.csdn.net/dream_angel_z" target="_black">【Dream_Angel_Z】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center></span>
       
     </div>
 
@@ -272,9 +328,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag">#Python</a>
+            <a href="/tags/ML/" rel="tag">#ML</a>
           
-            <a href="/tags/函数计时器/" rel="tag">#函数计时器</a>
+            <a href="/tags/归一化/" rel="tag">#归一化</a>
           
         </div>
       
@@ -283,16 +339,12 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/07/18/2015-07-18-a precision and recall/" rel="prev">
-                <i class="fa fa-chevron-left"></i> Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/13/2015-07-13-10 keys to successful machine learning for developers/" rel="next">
-                开发者成功使用机器学习的十大诀窍(译) <i class="fa fa-chevron-right"></i>
+              <a href="/2015/11/05/2015-11-05 photo show 1/" rel="next">
+                 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -308,10 +360,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/07/16/2015-07-16 Python timer/"
-     data-title="一个简单的Python函数运行时间计时器"
+        <div class="ds-share flat" data-thread-key="2015/11/15/2015-11-15 Normalization/"
+     data-title="机器学习-数据归一化方法"
      data-content=""
-     data-url="http://csuldw.github.io/2015/07/16/2015-07-16 Python timer/">
+     data-url="http://csuldw.github.io/2015/11/15/2015-11-15 Normalization/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -337,8 +389,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/07/16/2015-07-16 Python timer/"
-                   data-title="一个简单的Python函数运行时间计时器" data-url="http://csuldw.github.io/2015/07/16/2015-07-16 Python timer/">
+              <div class="ds-thread" data-thread-key="2015/11/15/2015-11-15 Normalization/"
+                   data-title="机器学习-数据归一化方法" data-url="http://csuldw.github.io/2015/11/15/2015-11-15 Normalization/">
               </div>
             
           </div>
@@ -455,7 +507,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-min-max标准化（Min-Max_Normalization）"><span class="nav-number">1.</span> <span class="nav-text">1.min-max标准化（Min-Max Normalization）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-z-score标准化方法"><span class="nav-number">2.</span> <span class="nav-text">2.z-score标准化方法</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
