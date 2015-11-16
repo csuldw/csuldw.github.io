@@ -523,7 +523,7 @@ td {
 }
 .post code {
   word-break: break-all;
-  background: #333;
+  background: #f7f7f7;
   text-shadow: 0 1px #fff;
   padding: 0 0.3em;
 }

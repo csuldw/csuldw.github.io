@@ -65,7 +65,7 @@ download.py文件
 
 download.py文件
 12345678910111213141516#/usr/bin/python# -*- coding: utf-8 -*-import o">
-<meta property="og:updated_time" content="2015-11-16T13:58:50.567Z">
+<meta property="og:updated_time" content="2015-11-16T14:51:18.696Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Download PDB file with wget command">
 <meta name="twitter:description" content="在Linux服务器下，使用wget命令下载PDB文件，即蛋白质文件。
@@ -277,9 +277,9 @@ download.py文件
       
 
       
-        <span itemprop="articleBody"><p>在Linux服务器下，使用wget命令下载PDB文件，即蛋白质文件。</p>
+        <span itemprop="articleBody"><p>在Linux服务器下，使用<code>wget</code>命令下载PDB文件，即蛋白质文件。</p>
 <ul>
-<li>输入文件格式：一个存有protein chain的单独文件，每行的格式为：1A34A</li>
+<li>输入文件格式：一个存有<code>protein chain</code>的单独文件，每行的格式为：<code>1A34A</code></li>
 <li>输出文件：多个蛋白质文件，买一行下载一个蛋白质，格式：1A34.pdb</li>
 </ul>
 <p>download.py文件</p>
@@ -289,10 +289,23 @@ download.py文件
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python download<span class="class">.py</span> ../filepath</span><br></pre></td></tr></table></figure>
 <p>其中<code>filepath</code>表示的是一个存有多行，每行表示一个蛋白链的单独文件。</p>
 <p>Top10格式如下：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1A12A</span><br><span class="line">1BCH1</span><br><span class="line">1BF6A</span><br><span class="line">1BYPA</span><br><span class="line">1C7JA</span><br><span class="line">1CHMA</span><br><span class="line">1CMNA</span><br><span class="line">1CUHA</span><br><span class="line">1CZYA</span><br><span class="line">1D7EA</span><br></pre></td></tr></table></figure>
-<p>最后的输出文件Top5：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>A12<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>BCH<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>BF6<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>BYP<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>C7J.pdb</span><br></pre></td></tr></table></figure>
-<hr>
+<pre><code>1A12A
+1BCH1
+1BF6A
+1BYPA
+1C7JA
+1CHMA
+1CMNA
+1CUHA
+1CZYA
+1D7EA
+</code></pre><p>最后的输出文件Top5：</p>
+<pre><code><span class="number">1</span>A12<span class="class">.pdb</span>
+<span class="number">1</span>BCH<span class="class">.pdb</span>
+<span class="number">1</span>BF6<span class="class">.pdb</span>
+<span class="number">1</span>BYP<span class="class">.pdb</span>
+<span class="number">1</span>C7J.pdb
+</code></pre><hr>
 <center><strong><br>此文乃原创博文，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  CSDN博客： <a href="http://blog.csdn.net/dream_angel_z" target="_black">【Dream_Angel_Z】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center></span>
       
     </div>
