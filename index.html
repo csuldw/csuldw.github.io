@@ -205,6 +205,119 @@
             
             
               
+                <a class="post-title-link" href="/2015/11/16/2015-11-16 Download PDB file with wget command/" itemprop="url">
+                  Download PDB file with wget command
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-11-16T10:24:00+08:00" content="2015-11-16">
+              2015-11-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/BioMed/" itemprop="url" rel="index">
+                    <span itemprop="name">BioMed</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/16/2015-11-16 Download PDB file with wget command/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/16/2015-11-16 Download PDB file with wget command/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <span itemprop="articleBody">
+            
+              <p>在Linux服务器下，使用wget命令下载PDB文件，即蛋白质文件。</p>
+<ul>
+<li>输入文件格式：一个存有protein chain的单独文件，每行的格式为：1A34A</li>
+<li>输出文件：多个蛋白质文件，买一行下载一个蛋白质，格式：1A34.pdb</li>
+</ul>
+<p>download.py文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/usr/bin/python</span></span><br><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">downloadPDB</span><span class="params">(namefile)</span>:</span></span><br><span class="line">    inputfile = open(namefile,<span class="string">'r'</span>)</span><br><span class="line">    <span class="keyword">for</span> eachline <span class="keyword">in</span> inputfile:</span><br><span class="line">        pdbname = eachline.lower().strip()[<span class="number">0</span>:<span class="number">4</span>]</span><br><span class="line">        os.system(<span class="string">"wget http://ftp.wwpdb.org/pub/pdb/data/structures/all/pdb/pdb"</span> + pdbname + <span class="string">".ent.gz"</span>)</span><br><span class="line">        os.system(<span class="string">"gzip -d pdb"</span> + pdbname + <span class="string">'.ent.gz'</span>)</span><br><span class="line">        os.system(<span class="string">"mv pdb"</span> + pdbname + <span class="string">".ent "</span> + pdbname.upper() + <span class="string">'.pdb'</span>)</span><br><span class="line">    inputfile.close()</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    chainfile = os.sys.argv[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">print</span> chainfile</span><br><span class="line">    os.chdir(<span class="string">"."</span>)</span><br><span class="line">    proteinList = downloadPDB(chainfile)</span><br></pre></td></tr></table></figure>
+<p>命令解释：首先打开文件，然后逐行读取蛋白链，根据蛋白链的前四个字符，得到蛋白质的名字，然后使用<code>wget</code>命令下载<code>.ent.gz</code>文件，最后使用<code>gzip</code>解压文件即可。</p>
+<p>命令行输入：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python download<span class="class">.py</span> ../filepath</span><br></pre></td></tr></table></figure>
+<p>其中<code>filepath</code>表示的是一个存有多行，每行表示一个蛋白链的单独文件。</p>
+<p>Top10格式如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">1A12A</span><br><span class="line">1BCH1</span><br><span class="line">1BF6A</span><br><span class="line">1BYPA</span><br><span class="line">1C7JA</span><br><span class="line">1CHMA</span><br><span class="line">1CMNA</span><br><span class="line">1CUHA</span><br><span class="line">1CZYA</span><br><span class="line">1D7EA</span><br></pre></td></tr></table></figure>
+<p>最后的输出文件Top5：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>A12<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>BCH<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>BF6<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>BYP<span class="class">.pdb</span></span><br><span class="line"><span class="number">1</span>C7J.pdb</span><br></pre></td></tr></table></figure>
+<hr>
+<center><strong><br>此文乃原创博文，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  CSDN博客： <a href="http://blog.csdn.net/dream_angel_z" target="_black">【Dream_Angel_Z】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>
+            
+          </span>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2015/11/15/2015-11-15 normalization/" itemprop="url">
                   Machine Learning-Normalization
                 </a>
@@ -1299,105 +1412,6 @@
 
 
     
-      
-
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                <a class="post-title-link" href="/2015/07/22/2015-07-22  ensemble/" itemprop="url">
-                  机器学习-组合算法总结
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-07-22T06:53:00+08:00" content="2015-07-22">
-              2015-07-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/22/2015-07-22  ensemble/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/22/2015-07-22  ensemble/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
-<h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/22/2015-07-22  ensemble/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1439,7 +1453,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">27</span>
+              <span class="site-state-item-count">28</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1453,7 +1467,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-count">17</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
