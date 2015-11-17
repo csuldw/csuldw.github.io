@@ -36,7 +36,7 @@
 
 
 
-  <meta name="keywords" content="GitHub," />
+  <meta name="keywords" content="BioMed," />
 
 
 
@@ -47,19 +47,19 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="如何使用搜索引擎其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用英文在 Google 或者 Bing 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   
-搜索 fork sync，就可以看到 GitHub 自己的帮助文档 Syncing a fork 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with">
+<meta name="description" content="问题描述在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。
+问题转换与实现首先，将问题转化成一个数学问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git-同步一个fork">
-<meta property="og:url" content="http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/index.html">
+<meta property="og:title" content="Compute complement: B=U-A">
+<meta property="og:url" content="http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/index.html">
 <meta property="og:site_name" content="D.W's Diaries">
-<meta property="og:description" content="如何使用搜索引擎其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用英文在 Google 或者 Bing 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   
-搜索 fork sync，就可以看到 GitHub 自己的帮助文档 Syncing a fork 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with">
-<meta property="og:updated_time" content="2015-11-04T14:55:37.000Z">
+<meta property="og:description" content="问题描述在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。
+问题转换与实现首先，将问题转化成一个数学问题。">
+<meta property="og:updated_time" content="2015-11-17T07:48:00.483Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Git-同步一个fork">
-<meta name="twitter:description" content="如何使用搜索引擎其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用英文在 Google 或者 Bing 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   
-搜索 fork sync，就可以看到 GitHub 自己的帮助文档 Syncing a fork 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with">
+<meta name="twitter:title" content="Compute complement: B=U-A">
+<meta name="twitter:description" content="问题描述在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。
+问题转换与实现首先，将问题转化成一个数学问题。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -71,7 +71,7 @@
 
 
 
-  <title> Git-同步一个fork | D.W's Diaries </title>
+  <title> Compute complement: B=U-A | D.W's Diaries </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -207,7 +207,7 @@
             
             
               
-                Git-同步一个fork
+                Compute complement: B=U-A
               
             
           </h1>
@@ -216,8 +216,8 @@
         <div class="post-meta">
           <span class="post-time">
             发表于
-            <time itemprop="dateCreated" datetime="2015-04-15T13:14:54+08:00" content="2015-04-15">
-              2015-04-15
+            <time itemprop="dateCreated" datetime="2015-11-17T15:11:00+08:00" content="2015-11-17">
+              2015-11-17
             </time>
           </span>
 
@@ -226,8 +226,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/GitHub/" itemprop="url" rel="index">
-                    <span itemprop="name">GitHub</span>
+                  <a href="/categories/BioMed/" itemprop="url" rel="index">
+                    <span itemprop="name">BioMed</span>
                   </a>
                 </span>
 
@@ -242,8 +242,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/15/2015-04-12-Syncing-a-fork/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/15/2015-04-12-Syncing-a-fork/" itemprop="commentsCount"></span>
+                <a href="/2015/11/17/2015-11-17 B=U-A/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/17/2015-11-17 B=U-A/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -262,76 +262,34 @@
       
 
       
-        <span itemprop="articleBody"><h2 id="如何使用搜索引擎">如何使用搜索引擎</h2><p>其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用<strong>英文</strong>在 <a href="http://www.google.com" target="_blank" rel="external">Google</a> 或者 <a href="http://cn.bing.com/" target="_blank" rel="external">Bing</a> 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   </p>
-<p>搜索 fork sync，就可以看到 GitHub 自己的帮助文档 <a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="external">Syncing a fork</a> 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with an upstream repository, you must <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="external">configure a remote that points to the upstream repository</a> in Git.<br>根据这两篇文章，问题迎刃而解！ </p>
+        <span itemprop="articleBody"><h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
+<h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>
 <a id="more"></a>
-<hr>
-<h2 id="具体方法">具体方法</h2><hr>
-<h3 id="Configuring_a_remote_for_a_fork">Configuring a remote for a fork</h3><ul>
-<li><p>给 fork 配置一个 remote   </p>
-</li>
-<li><p>主要使用 <code>git remote -v</code> 查看远程状态。   </p>
-</li>
-</ul>
-<pre><code>git remote -v
-# origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
-# origin  https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
-</code></pre>
-
+<p>问题转化：原论文提及的数据集（一个大集合U），现在下载到的只是一个子集合A，目的是求出U中不包含A的子集合（补集）：<code>B=U-A</code>.</p>
+<p>最终转化为：根据集合U和子集A，计算A的补集B=U-A.</p>
+<p>参数：</p>
 <ul>
-<li>添加一个将被同步给 fork 远程的上游仓库      </li>
+<li>file1：大集合文件U</li>
+<li>file2: 下载后的一个子集合A</li>
+<li>outfile：输出文件</li>
 </ul>
-<pre><code>git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
-</code></pre>
-
-
-<ul>
-<li>再次查看状态确认是否配置成功。   </li>
-</ul>
-<pre><code>git remote -v
-# origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (fetch)
-# origin    https://github.com/YOUR_USERNAME/YOUR_FORK.git (push)
-# upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (fetch)
-# upstream  https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git (push)
-</code></pre>
-
-<hr>
-<h3 id="Syncing_a_fork">Syncing a fork</h3><ul>
-<li>从上游仓库 fetch 分支和提交点，传送到本地，并会被存储在一个本地分支 upstream/master<br><code>git fetch upstream</code>    </li>
-</ul>
-<pre><code>git fetch upstream
-# remote: Counting objects: 75, done.
-# remote: Compressing objects: 100% (53/53), done.
-# remote: Total 62 (delta 27), reused 44 (delta 9)
-# Unpacking objects: 100% (62/62), done.
-# From https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY
-#  * [new branch]      master     -> upstream/master
-</code></pre>
-
-<ul>
-<li>切换到本地主分支(如果不在的话)<br><code>git checkout master</code>    </li>
-</ul>
-<pre><code>git checkout master
-# Switched to branch 'master'
-</code></pre>
-
-<ul>
-<li>把 upstream/master 分支合并到本地 master 上，这样就完成了同步，并且不会丢掉本地修改的内容。<br><code>git merge upstream/master</code>      </li>
-</ul>
-<pre><code>git merge upstream/master
-# Updating a422352..5fdff0f
-# Fast-forward
-#  README                    |    9 -------
-#  README.md                 |    7 ++++++
-#  2 files changed, 7 insertions(+), 9 deletions(-)
-#  delete mode 100644 README
-#  create mode 100644 README.md
-</code></pre>
-
-<ul>
-<li>如果想更新到 GitHub 的 fork 上，直接 <code>git push origin master</code> 就好了。</li>
-</ul>
-</span>
+<p>代码如下：</p>
+<p>compareTwoFile.py</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#/usr/bin/python</span><br><span class="line">#_*_ coding: utf-<span class="number">8</span> _*_</span><br><span class="line">import os</span><br><span class="line">def <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span>:</span><br><span class="line">    with <span class="function"><span class="title">open</span><span class="params">(outfile,<span class="string">'w'</span>)</span></span> as fo: </span><br><span class="line">        fw = []</span><br><span class="line">        with <span class="function"><span class="title">open</span><span class="params">(file1,<span class="string">'r'</span>)</span></span> as fr1:</span><br><span class="line">            fr1_con = [each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr1.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>] </span><br><span class="line">            with <span class="function"><span class="title">open</span><span class="params">(file2,<span class="string">'r'</span>)</span></span> as fr2:</span><br><span class="line">                fr2_con =[each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr2.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>]</span><br><span class="line">                <span class="keyword">for</span> eachline <span class="keyword">in</span> fr1_con:</span><br><span class="line">                    <span class="keyword">if</span> eachline not <span class="keyword">in</span> fr2_con:</span><br><span class="line">                        fw.<span class="function"><span class="title">append</span><span class="params">(eachline)</span></span></span><br><span class="line">        fo.<span class="function"><span class="title">write</span><span class="params">(<span class="string">''</span>.join(fw)</span></span>)</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>: </span><br><span class="line">    file1 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">1</span>]</span><br><span class="line">    file2 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">2</span>]</span><br><span class="line">    outfile = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">3</span>]</span><br><span class="line">    <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span></span><br></pre></td></tr></table></figure>
+<p>Test sample:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python compareTwoFile.py \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/train_set.protein  \</span><br><span class="line">/i</span>fs<span class="regexp">/home/</span>liudiwei<span class="regexp">/DNA_BP/</span>_data<span class="regexp">/Exp_DBPI/</span>pdb_trainset.txt \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/compare.result</span></span><br></pre></td></tr></table></figure>
+<p>file1和file2的top10格式：</p>
+<pre><code>1A02
+1A0A
+1A3Q
+1A53
+1A8E
+1A8P
+1A8Y
+1AAC    
+1ABE
+1AC5
+</code></pre></span>
       
     </div>
 
@@ -339,7 +297,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/GitHub/" rel="tag">#GitHub</a>
+            <a href="/tags/BioMed/" rel="tag">#BioMed</a>
           
         </div>
       
@@ -348,16 +306,12 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/08/2015-05-08-decision tree/" rel="prev">
-                <i class="fa fa-chevron-left"></i> 机器学习算法-决策树理论
-              </a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/03/26/2015-03-26-sublimeLinter/" rel="next">
-                代码校验工具 SublimeLinter 的安装与使用 <i class="fa fa-chevron-right"></i>
+              <a href="/2015/11/16/2015-11-16 Download PDB file with wget command/" rel="next">
+                Download PDB file with wget command <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -373,10 +327,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/04/15/2015-04-12-Syncing-a-fork/"
-     data-title="Git-同步一个fork"
+        <div class="ds-share flat" data-thread-key="2015/11/17/2015-11-17 B=U-A/"
+     data-title="Compute complement: B=U-A"
      data-content=""
-     data-url="http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/">
+     data-url="http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -402,8 +356,8 @@
         
           <div class="comments" id="comments">
             
-              <div class="ds-thread" data-thread-key="2015/04/15/2015-04-12-Syncing-a-fork/"
-                   data-title="Git-同步一个fork" data-url="http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/">
+              <div class="ds-thread" data-thread-key="2015/11/17/2015-11-17 B=U-A/"
+                   data-title="Compute complement: B=U-A" data-url="http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/">
               </div>
             
           </div>
@@ -520,7 +474,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使用搜索引擎"><span class="nav-number">1.</span> <span class="nav-text">如何使用搜索引擎</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#具体方法"><span class="nav-number">2.</span> <span class="nav-text">具体方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Configuring_a_remote_for_a_fork"><span class="nav-number">2.1.</span> <span class="nav-text">Configuring a remote for a fork</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Syncing_a_fork"><span class="nav-number">2.2.</span> <span class="nav-text">Syncing a fork</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题转换与实现"><span class="nav-number">2.</span> <span class="nav-text">问题转换与实现</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

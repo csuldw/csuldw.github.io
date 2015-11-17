@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-17T02:32:47.085Z</updated>
+  <updated>2015-11-17T07:48:00.483Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Compute complement: B=U-A]]></title>
+    <link href="http://csuldw.github.io/2015/11/17/2015-11-17%20B=U-A/"/>
+    <id>http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/</id>
+    <published>2015-11-17T07:11:00.000Z</published>
+    <updated>2015-11-17T07:48:00.483Z</updated>
+    <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
+<h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>
+<a id="more"></a>
+<p>问题转化：原论文提及的数据集（一个大集合U），现在下载到的只是一个子集合A，目的是求出U中不包含A的子集合（补集）：<code>B=U-A</code>.</p>
+<p>最终转化为：根据集合U和子集A，计算A的补集B=U-A.</p>
+<p>参数：</p>
+<ul>
+<li>file1：大集合文件U</li>
+<li>file2: 下载后的一个子集合A</li>
+<li>outfile：输出文件</li>
+</ul>
+<p>代码如下：</p>
+<p>compareTwoFile.py</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#/usr/bin/python</span><br><span class="line">#_*_ coding: utf-<span class="number">8</span> _*_</span><br><span class="line">import os</span><br><span class="line">def <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span>:</span><br><span class="line">    with <span class="function"><span class="title">open</span><span class="params">(outfile,<span class="string">'w'</span>)</span></span> as fo: </span><br><span class="line">        fw = []</span><br><span class="line">        with <span class="function"><span class="title">open</span><span class="params">(file1,<span class="string">'r'</span>)</span></span> as fr1:</span><br><span class="line">            fr1_con = [each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr1.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>] </span><br><span class="line">            with <span class="function"><span class="title">open</span><span class="params">(file2,<span class="string">'r'</span>)</span></span> as fr2:</span><br><span class="line">                fr2_con =[each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr2.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>]</span><br><span class="line">                <span class="keyword">for</span> eachline <span class="keyword">in</span> fr1_con:</span><br><span class="line">                    <span class="keyword">if</span> eachline not <span class="keyword">in</span> fr2_con:</span><br><span class="line">                        fw.<span class="function"><span class="title">append</span><span class="params">(eachline)</span></span></span><br><span class="line">        fo.<span class="function"><span class="title">write</span><span class="params">(<span class="string">''</span>.join(fw)</span></span>)</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>: </span><br><span class="line">    file1 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">1</span>]</span><br><span class="line">    file2 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">2</span>]</span><br><span class="line">    outfile = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">3</span>]</span><br><span class="line">    <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span></span><br></pre></td></tr></table></figure>
+<p>Test sample:</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python compareTwoFile.py \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/train_set.protein  \</span><br><span class="line">/i</span>fs<span class="regexp">/home/</span>liudiwei<span class="regexp">/DNA_BP/</span>_data<span class="regexp">/Exp_DBPI/</span>pdb_trainset.txt \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/compare.result</span></span><br></pre></td></tr></table></figure>
+<p>file1和file2的top10格式：</p>
+<pre><code>1A02
+1A0A
+1A3Q
+1A53
+1A8E
+1A8P
+1A8Y
+1AAC    
+1ABE
+1AC5
+</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
+<h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>]]>
+    
+    </summary>
+    
+      <category term="BioMed" scheme="http://csuldw.github.io/tags/BioMed/"/>
+    
+      <category term="BioMed" scheme="http://csuldw.github.io/categories/BioMed/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Download PDB file with wget command]]></title>

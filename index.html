@@ -205,6 +205,105 @@
             
             
               
+                <a class="post-title-link" href="/2015/11/17/2015-11-17 B=U-A/" itemprop="url">
+                  Compute complement: B=U-A
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-11-17T15:11:00+08:00" content="2015-11-17">
+              2015-11-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/BioMed/" itemprop="url" rel="index">
+                    <span itemprop="name">BioMed</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/11/17/2015-11-17 B=U-A/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/17/2015-11-17 B=U-A/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
+<h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/11/17/2015-11-17 B=U-A/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2015/11/16/2015-11-16 Download PDB file with wget command/" itemprop="url">
                   Download PDB file with wget command
                 </a>
@@ -1296,110 +1395,6 @@
 
 
     
-      
-
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                <a class="post-title-link" href="/2015/07/23/2015-07-23 machine learning tips/" itemprop="url">
-                  scikit-klean交叉验证
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            发表于
-            <time itemprop="dateCreated" datetime="2015-07-23T12:53:00+08:00" content="2015-07-23">
-              2015-07-23
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp; 分类于
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2015/07/23/2015-07-23 machine learning tips/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/23/2015-07-23 machine learning tips/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
-<blockquote>
-<p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/">WinPython_2.7</a></p>
-</blockquote>
-<p>传统的F-measure或平衡的F-score (F1 score)是精度和召回的调和平均值：</p>
-<p>$$F_1 = 2\dfrac{precision * recall}{precision + recall}$$</p>
-<h3 id="1-Cross_Validation_（交叉验证）"><strong>1.Cross Validation （交叉验证）</strong></h3><p>cross validation大概的意思是：对于原始数据我们要将其一部分分为train_data，一部分分为test_data。train_data用于训练，test_data用于测试准确率。在test_data上测试的结果叫做validation_error。将一个算法作用于一个原始数据，我们不可能只做出随机的划分一次train和test_data，然后得到一个validation_error，就作为衡量这个算法好坏的标准。因为这样存在偶然性。我们必须好多次的随机的划分train_data和test_data，分别在其上面算出各自的validation_error。这样就有一组validation_error，根据这一组validation_error，就可以较好的准确的衡量算法的好坏。<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/23/2015-07-23 machine learning tips/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1441,7 +1436,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
