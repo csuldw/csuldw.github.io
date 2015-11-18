@@ -90,7 +90,7 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     <link href="http://csuldw.github.io/2015/11/17/2015-11-17%20B=U-A/"/>
     <id>http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/</id>
     <published>2015-11-17T07:11:00.000Z</published>
-    <updated>2015-11-18T15:59:45.359Z</updated>
+    <updated>2015-11-18T16:00:50.205Z</updated>
     <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
 <h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>
 <a id="more"></a>
@@ -126,6 +126,8 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     </summary>
     
       <category term="BioInfo" scheme="http://csuldw.github.io/tags/BioInfo/"/>
+    
+      <category term="Python" scheme="http://csuldw.github.io/tags/Python/"/>
     
       <category term="BioInfo" scheme="http://csuldw.github.io/categories/BioInfo/"/>
     
