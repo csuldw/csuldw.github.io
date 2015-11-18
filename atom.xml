@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-18T15:43:57.663Z</updated>
+  <updated>2015-11-18T15:59:33.359Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://csuldw.github.io/2015/11/18/2015-11-18%20ExpNotes%5B1%5D-Extract%20protein%20sequences%20from%20a%20fasta%20file/"/>
     <id>http://csuldw.github.io/2015/11/18/2015-11-18 ExpNotes[1]-Extract protein sequences from a fasta file/</id>
     <published>2015-11-18T04:24:00.000Z</published>
-    <updated>2015-11-18T15:43:57.663Z</updated>
+    <updated>2015-11-18T15:59:33.359Z</updated>
     <content type="html"><![CDATA[<p><strong>提示：以下内容乃个人实验笔记！</strong></p>
 <h3 id="功能描述">功能描述</h3><p>从格式化后的dssp文件<code>DSSP</code>（单一文件）中提取序列信息，要求输出的序列不含有<code>X</code>残基，并且序列最短长度<code>minlen</code>可人为指定，一般设置为<code>40</code>。</p>
 <a id="more"></a>
@@ -79,9 +79,9 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     
     </summary>
     
-      <category term="BioMed" scheme="http://csuldw.github.io/tags/BioMed/"/>
+      <category term="BioInfo" scheme="http://csuldw.github.io/tags/BioInfo/"/>
     
-      <category term="BioMed" scheme="http://csuldw.github.io/categories/BioMed/"/>
+      <category term="BioInfo" scheme="http://csuldw.github.io/categories/BioInfo/"/>
     
   </entry>
   
@@ -90,7 +90,7 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     <link href="http://csuldw.github.io/2015/11/17/2015-11-17%20B=U-A/"/>
     <id>http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/</id>
     <published>2015-11-17T07:11:00.000Z</published>
-    <updated>2015-11-18T15:09:35.828Z</updated>
+    <updated>2015-11-18T15:59:45.359Z</updated>
     <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
 <h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>
 <a id="more"></a>
@@ -125,9 +125,9 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     
     </summary>
     
-      <category term="BioMed" scheme="http://csuldw.github.io/tags/BioMed/"/>
+      <category term="BioInfo" scheme="http://csuldw.github.io/tags/BioInfo/"/>
     
-      <category term="BioMed" scheme="http://csuldw.github.io/categories/BioMed/"/>
+      <category term="BioInfo" scheme="http://csuldw.github.io/categories/BioInfo/"/>
     
   </entry>
   
@@ -136,7 +136,7 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     <link href="http://csuldw.github.io/2015/11/16/2015-11-16%20Download%20PDB%20file%20with%20wget%20command/"/>
     <id>http://csuldw.github.io/2015/11/16/2015-11-16 Download PDB file with wget command/</id>
     <published>2015-11-16T02:24:00.000Z</published>
-    <updated>2015-11-18T15:09:48.828Z</updated>
+    <updated>2015-11-18T15:59:55.320Z</updated>
     <content type="html"><![CDATA[<p>在Linux服务器下，使用<code>wget</code>命令下载PDB文件，即蛋白质文件。</p>
 <ul>
 <li>输入文件格式：一个存有<code>protein chain</code>的单独文件，每行的格式为：<code>1A34A</code></li>
@@ -175,9 +175,9 @@ download.py文件</li>
     
     </summary>
     
-      <category term="BioMed" scheme="http://csuldw.github.io/tags/BioMed/"/>
+      <category term="BioInfo" scheme="http://csuldw.github.io/tags/BioInfo/"/>
     
-      <category term="BioMed" scheme="http://csuldw.github.io/categories/BioMed/"/>
+      <category term="BioInfo" scheme="http://csuldw.github.io/categories/BioInfo/"/>
     
   </entry>
   
@@ -1560,7 +1560,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/07/2015-07-07-PDB/"/>
     <id>http://csuldw.github.io/2015/07/07/2015-07-07-PDB/</id>
     <published>2015-07-07T15:23:23.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-18T15:59:21.259Z</updated>
     <content type="html"><![CDATA[<p>以下代码为个人原创，python实现，是处理PDB文件的部分常用代码，仅供参考！</p>
 <h3 id="1-下载PDB文件">1.下载PDB文件</h3><p>下面是一个下载PDB文件的函数，传入的参数是一个写有pdb名字的namefile文件，函数的核心部分是三个系统命令，先通过wget下载，然后解压，最后替换名字。</p>
 <a id="more"></a>
@@ -1600,7 +1600,7 @@ _csu.ldw@csu.edu.cn1
     
       <category term="BioInfo" scheme="http://csuldw.github.io/tags/BioInfo/"/>
     
-      <category term="BioMed" scheme="http://csuldw.github.io/categories/BioMed/"/>
+      <category term="BioInfo" scheme="http://csuldw.github.io/categories/BioInfo/"/>
     
   </entry>
   
