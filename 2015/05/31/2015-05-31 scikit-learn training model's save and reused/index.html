@@ -47,20 +47,20 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
+<meta name="description" content="描述在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
 scikit-learn已经有了模型持久化的操作，导入joblib即可
 1from sklearn.externals import joblib">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sklearn训练模型的保存与恢复（Python）">
 <meta property="og:url" content="http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/index.html">
 <meta property="og:site_name" content="D.W's Diaries">
-<meta property="og:description" content="在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
+<meta property="og:description" content="描述在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
 scikit-learn已经有了模型持久化的操作，导入joblib即可
 1from sklearn.externals import joblib">
-<meta property="og:updated_time" content="2015-11-04T14:55:37.000Z">
+<meta property="og:updated_time" content="2015-11-19T01:21:23.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sklearn训练模型的保存与恢复（Python）">
-<meta name="twitter:description" content="在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
+<meta name="twitter:description" content="描述在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。
 scikit-learn已经有了模型持久化的操作，导入joblib即可
 1from sklearn.externals import joblib">
 
@@ -265,10 +265,11 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
       
 
       
-        <span itemprop="articleBody"><p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
+        <span itemprop="articleBody"><h2 id="描述">描述</h2><p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
 <p>scikit-learn已经有了模型持久化的操作，导入joblib即可</p>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+<hr>
 <h3 id="模型保存"><strong>模型保存</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>os.chdir(<span class="string">"workspace/model_save"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>X = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>]]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>y = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf = svm.SVC()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf.fit(X, y)  </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf.fit(train_X,train_y)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>joblib.dump(clf, <span class="string">"train_model.m"</span>)</span><br></pre></td></tr></table></figure>
 <p>通过joblib的dump可以将模型保存到本地，clf是训练的分类器</p>
 <h3 id="模型从本地调回"><strong>模型从本地调回</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf = joblib.load(<span class="string">"train_model.m"</span>)</span><br></pre></td></tr></table></figure>
@@ -277,8 +278,6 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clf.<span class="function"><span class="title">predit</span><span class="params">(test_X，test_y)</span></span></span><br></pre></td></tr></table></figure>
 <hr>
 <p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">AirHax’s Notes</a><br><br></strong></center>
-
 </span>
       
     </div>
@@ -470,7 +469,7 @@ scikit-learn已经有了模型持久化的操作，导入joblib即可
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型保存"><span class="nav-number">1.</span> <span class="nav-text">模型保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型从本地调回"><span class="nav-number">2.</span> <span class="nav-text">模型从本地调回</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#描述"><span class="nav-number">1.</span> <span class="nav-text">描述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#模型保存"><span class="nav-number">1.1.</span> <span class="nav-text">模型保存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型从本地调回"><span class="nav-number">1.2.</span> <span class="nav-text">模型从本地调回</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

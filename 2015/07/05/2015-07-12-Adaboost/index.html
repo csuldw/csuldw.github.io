@@ -48,7 +48,6 @@
 
 
 <meta name="description" content="本章内容
-
 组合相似的分类器来提高分类性能
 应用AdaBoost算法
 处理非均衡分类问题
@@ -59,17 +58,15 @@
 <meta property="og:url" content="http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/index.html">
 <meta property="og:site_name" content="D.W's Diaries">
 <meta property="og:description" content="本章内容
-
 组合相似的分类器来提高分类性能
 应用AdaBoost算法
 处理非均衡分类问题
 
 主题：利用AdaBoost元算法提高分类性能">
-<meta property="og:updated_time" content="2015-11-04T14:55:37.000Z">
+<meta property="og:updated_time" content="2015-11-19T01:19:48.745Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-Adaboost">
 <meta name="twitter:description" content="本章内容
-
 组合相似的分类器来提高分类性能
 应用AdaBoost算法
 处理非均衡分类问题
@@ -277,13 +274,12 @@
       
 
       
-        <span itemprop="articleBody"><p><strong>本章内容</strong></p>
-<ul>
+        <span itemprop="articleBody"><h2 id="本章内容"><strong>本章内容</strong></h2><ul>
 <li>组合相似的分类器来提高分类性能</li>
 <li>应用AdaBoost算法</li>
 <li>处理非均衡分类问题</li>
 </ul>
-<p><strong>主题：</strong>利用AdaBoost元算法提高分类性能</p>
+<h2 id="主题："><strong>主题：</strong></h2><p><strong>利用AdaBoost元算法提高分类性能</strong></p>
 <a id="more"></a>
 <h3 id="1-基于数据集多重抽样的分类器">1.基于数据集多重抽样的分类器</h3><table>
 <thead>
@@ -359,7 +355,6 @@
 <h3 id="References">References</h3><p>【1】Machine Learning in Action 机器学习实战 第七章</p>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
 </span>
       
     </div>
@@ -549,7 +544,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基于数据集多重抽样的分类器"><span class="nav-number">1.</span> <span class="nav-text">1.基于数据集多重抽样的分类器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-训练算法：基于错误提升分类器的性能"><span class="nav-number">2.</span> <span class="nav-text">2.训练算法：基于错误提升分类器的性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-基于单层决策树构建若分类器"><span class="nav-number">3.</span> <span class="nav-text">3.基于单层决策树构建若分类器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-AdaBoost算法的实现"><span class="nav-number">4.</span> <span class="nav-text">4.AdaBoost算法的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-测试算法"><span class="nav-number">5.</span> <span class="nav-text">5.测试算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-绘制ROC曲线"><span class="nav-number">6.</span> <span class="nav-text">6.绘制ROC曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">7.</span> <span class="nav-text">References</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#本章内容"><span class="nav-number">1.</span> <span class="nav-text">本章内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主题："><span class="nav-number">2.</span> <span class="nav-text">主题：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-基于数据集多重抽样的分类器"><span class="nav-number">2.1.</span> <span class="nav-text">1.基于数据集多重抽样的分类器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-训练算法：基于错误提升分类器的性能"><span class="nav-number">2.2.</span> <span class="nav-text">2.训练算法：基于错误提升分类器的性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-基于单层决策树构建若分类器"><span class="nav-number">2.3.</span> <span class="nav-text">3.基于单层决策树构建若分类器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-AdaBoost算法的实现"><span class="nav-number">2.4.</span> <span class="nav-text">4.AdaBoost算法的实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-测试算法"><span class="nav-number">2.5.</span> <span class="nav-text">5.测试算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-绘制ROC曲线"><span class="nav-number">2.6.</span> <span class="nav-text">6.绘制ROC曲线</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">2.7.</span> <span class="nav-text">References</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>

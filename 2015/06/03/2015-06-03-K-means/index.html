@@ -53,7 +53,7 @@
 <meta property="og:url" content="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/index.html">
 <meta property="og:site_name" content="D.W's Diaries">
 <meta property="og:description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。">
-<meta property="og:updated_time" content="2015-11-04T14:55:37.000Z">
+<meta property="og:updated_time" content="2015-11-19T01:21:00.496Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法--K-means聚类">
 <meta name="twitter:description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。">
@@ -291,7 +291,92 @@
 <p>上面的结果给出了四个质心。可以看出，经过3次迭代之后K-均值算法收敛。质心会保存在第一个返回值中，第二个是每个点的簇分布情况。</p>
 <p><strong>附件：</strong></p>
 <p>上面测试的数据集为：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">1<span class="class">.658985</span>	4<span class="class">.285136</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.453687</span>	3<span class="class">.424321</span></span><br><span class="line">4<span class="class">.838138</span>	<span class="tag">-1</span><span class="class">.151539</span></span><br><span class="line"><span class="tag">-5</span><span class="class">.379713</span>	<span class="tag">-3</span><span class="class">.362104</span></span><br><span class="line">0<span class="class">.972564</span>	2<span class="class">.924086</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.567919</span>	1<span class="class">.531611</span></span><br><span class="line">0<span class="class">.450614</span>	<span class="tag">-3</span><span class="class">.302219</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.487105</span>	<span class="tag">-1</span><span class="class">.724432</span></span><br><span class="line">2<span class="class">.668759</span>	1<span class="class">.594842</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.156485</span>	3<span class="class">.191137</span></span><br><span class="line">3<span class="class">.165506</span>	<span class="tag">-3</span><span class="class">.999838</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.786837</span>	<span class="tag">-3</span><span class="class">.099354</span></span><br><span class="line">4<span class="class">.208187</span>	2<span class="class">.984927</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.123337</span>	2<span class="class">.943366</span></span><br><span class="line">0<span class="class">.704199</span>	<span class="tag">-0</span><span class="class">.479481</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.392370</span>	<span class="tag">-3</span><span class="class">.963704</span></span><br><span class="line">2<span class="class">.831667</span>	1<span class="class">.574018</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.790153</span>	3<span class="class">.343144</span></span><br><span class="line">2<span class="class">.943496</span>	<span class="tag">-3</span><span class="class">.357075</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.195883</span>	<span class="tag">-2</span><span class="class">.283926</span></span><br><span class="line">2<span class="class">.336445</span>	2<span class="class">.875106</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.786345</span>	2<span class="class">.554248</span></span><br><span class="line">2<span class="class">.190101</span>	<span class="tag">-1</span><span class="class">.906020</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.403367</span>	<span class="tag">-2</span><span class="class">.778288</span></span><br><span class="line">1<span class="class">.778124</span>	3<span class="class">.880832</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.688346</span>	2<span class="class">.230267</span></span><br><span class="line">2<span class="class">.592976</span>	<span class="tag">-2</span><span class="class">.054368</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.007257</span>	<span class="tag">-3</span><span class="class">.207066</span></span><br><span class="line">2<span class="class">.257734</span>	3<span class="class">.387564</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.679011</span>	0<span class="class">.785119</span></span><br><span class="line">0<span class="class">.939512</span>	<span class="tag">-4</span><span class="class">.023563</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.674424</span>	<span class="tag">-2</span><span class="class">.261084</span></span><br><span class="line">2<span class="class">.046259</span>	2<span class="class">.735279</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.189470</span>	1<span class="class">.780269</span></span><br><span class="line">4<span class="class">.372646</span>	<span class="tag">-0</span><span class="class">.822248</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.579316</span>	<span class="tag">-3</span><span class="class">.497576</span></span><br><span class="line">1<span class="class">.889034</span>	5<span class="class">.190400</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.798747</span>	2<span class="class">.185588</span></span><br><span class="line">2<span class="class">.836520</span>	<span class="tag">-2</span><span class="class">.658556</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.837877</span>	<span class="tag">-3</span><span class="class">.253815</span></span><br><span class="line">2<span class="class">.096701</span>	3<span class="class">.886007</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.709034</span>	2<span class="class">.923887</span></span><br><span class="line">3<span class="class">.367037</span>	<span class="tag">-3</span><span class="class">.184789</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.121479</span>	<span class="tag">-4</span><span class="class">.232586</span></span><br><span class="line">2<span class="class">.329546</span>	3<span class="class">.179764</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.284816</span>	3<span class="class">.273099</span></span><br><span class="line">3<span class="class">.091414</span>	<span class="tag">-3</span><span class="class">.815232</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.762093</span>	<span class="tag">-2</span><span class="class">.432191</span></span><br><span class="line">3<span class="class">.542056</span>	2<span class="class">.778832</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.736822</span>	4<span class="class">.241041</span></span><br><span class="line">2<span class="class">.127073</span>	<span class="tag">-2</span><span class="class">.983680</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.323818</span>	<span class="tag">-3</span><span class="class">.938116</span></span><br><span class="line">3<span class="class">.792121</span>	5<span class="class">.135768</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.786473</span>	3<span class="class">.358547</span></span><br><span class="line">2<span class="class">.624081</span>	<span class="tag">-3</span><span class="class">.260715</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.009299</span>	<span class="tag">-2</span><span class="class">.978115</span></span><br><span class="line">2<span class="class">.493525</span>	1<span class="class">.963710</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.513661</span>	2<span class="class">.642162</span></span><br><span class="line">1<span class="class">.864375</span>	<span class="tag">-3</span><span class="class">.176309</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.171184</span>	<span class="tag">-3</span><span class="class">.572452</span></span><br><span class="line">2<span class="class">.894220</span>	2<span class="class">.489128</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.562539</span>	2<span class="class">.884438</span></span><br><span class="line">3<span class="class">.491078</span>	<span class="tag">-3</span><span class="class">.947487</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.565729</span>	<span class="tag">-2</span><span class="class">.012114</span></span><br><span class="line">3<span class="class">.332948</span>	3<span class="class">.983102</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.616805</span>	3<span class="class">.573188</span></span><br><span class="line">2<span class="class">.280615</span>	<span class="tag">-2</span><span class="class">.559444</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.651229</span>	<span class="tag">-3</span><span class="class">.103198</span></span><br><span class="line">2<span class="class">.321395</span>	3<span class="class">.154987</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.685703</span>	2<span class="class">.939697</span></span><br><span class="line">3<span class="class">.031012</span>	<span class="tag">-3</span><span class="class">.620252</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.599622</span>	<span class="tag">-2</span><span class="class">.185829</span></span><br><span class="line">4<span class="class">.196223</span>	1<span class="class">.126677</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.133863</span>	3<span class="class">.093686</span></span><br><span class="line">4<span class="class">.668892</span>	<span class="tag">-2</span><span class="class">.562705</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.793241</span>	<span class="tag">-2</span><span class="class">.149706</span></span><br><span class="line">2<span class="class">.884105</span>	3<span class="class">.043438</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.967647</span>	2<span class="class">.848696</span></span><br><span class="line">4<span class="class">.479332</span>	<span class="tag">-1</span><span class="class">.764772</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.905566</span>	<span class="tag">-2</span><span class="class">.911070</span></span><br></pre></td></tr></table></figure></span>
+<pre><code class="markdown">
+1.658985    4.285136
+-3.453687    3.424321
+4.838138    -1.151539
+-5.379713    -3.362104
+0.972564    2.924086
+-3.567919    1.531611
+0.450614    -3.302219
+-3.487105    -1.724432
+2.668759    1.594842
+-3.156485    3.191137
+3.165506    -3.999838
+-2.786837    -3.099354
+4.208187    2.984927
+-2.123337    2.943366
+0.704199    -0.479481
+-0.392370    -3.963704
+2.831667    1.574018
+-0.790153    3.343144
+2.943496    -3.357075
+-3.195883    -2.283926
+2.336445    2.875106
+-1.786345    2.554248
+2.190101    -1.906020
+-3.403367    -2.778288
+1.778124    3.880832
+-1.688346    2.230267
+2.592976    -2.054368
+-4.007257    -3.207066
+2.257734    3.387564
+-2.679011    0.785119
+0.939512    -4.023563
+-3.674424    -2.261084
+2.046259    2.735279
+-3.189470    1.780269
+4.372646    -0.822248
+-2.579316    -3.497576
+1.889034    5.190400
+-0.798747    2.185588
+2.836520    -2.658556
+-3.837877    -3.253815
+2.096701    3.886007
+-2.709034    2.923887
+3.367037    -3.184789
+-2.121479    -4.232586
+2.329546    3.179764
+-3.284816    3.273099
+3.091414    -3.815232
+-3.762093    -2.432191
+3.542056    2.778832
+-1.736822    4.241041
+2.127073    -2.983680
+-4.323818    -3.938116
+3.792121    5.135768
+-4.786473    3.358547
+2.624081    -3.260715
+-4.009299    -2.978115
+2.493525    1.963710
+-2.513661    2.642162
+1.864375    -3.176309
+-3.171184    -3.572452
+2.894220    2.489128
+-2.562539    2.884438
+3.491078    -3.947487
+-2.565729    -2.012114
+3.332948    3.983102
+-1.616805    3.573188
+2.280615    -2.559444
+-2.651229    -3.103198
+2.321395    3.154987
+-1.685703    2.939697
+3.031012    -3.620252
+-4.599622    -2.185829
+4.196223    1.126677
+-2.133863    3.093686
+4.668892    -2.562705
+-2.793241    -2.149706
+2.884105    3.043438
+-2.967647    2.848696
+4.479332    -1.764772
+-4.905566    -2.911070
+
+</code></pre>
+
+<hr>
+</span>
       
     </div>
 

@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-18T15:59:33.359Z</updated>
+  <updated>2015-11-19T01:15:50.672Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://csuldw.github.io/2015/11/18/2015-11-18%20ExpNotes%5B1%5D-Extract%20protein%20sequences%20from%20a%20fasta%20file/"/>
     <id>http://csuldw.github.io/2015/11/18/2015-11-18 ExpNotes[1]-Extract protein sequences from a fasta file/</id>
     <published>2015-11-18T04:24:00.000Z</published>
-    <updated>2015-11-18T15:59:33.359Z</updated>
+    <updated>2015-11-19T01:15:50.672Z</updated>
     <content type="html"><![CDATA[<p><strong>提示：以下内容乃个人实验笔记！</strong></p>
 <h3 id="功能描述">功能描述</h3><p>从格式化后的dssp文件<code>DSSP</code>（单一文件）中提取序列信息，要求输出的序列不含有<code>X</code>残基，并且序列最短长度<code>minlen</code>可人为指定，一般设置为<code>40</code>。</p>
 <a id="more"></a>
@@ -40,7 +40,7 @@
 
 <hr>
 <h3 id="代码">代码</h3><p><code>generateSeqFromDSSP.py</code>文件如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#_*_ coding: utf-8 _*_</span></span><br><span class="line"><span class="keyword">import</span> os </span><br><span class="line"><span class="string">'''</span><br><span class="line">Parameters：</span><br><span class="line">    - dsspfile:	为格式过的DSSP文件</span><br><span class="line">    - foseq: 	为输出的序列文件</span><br><span class="line">    - fochain: 	输出的蛋白链文件</span><br><span class="line">    - minLen:  	最短的序列长度</span><br><span class="line">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSeqFromDSSP</span><span class="params">(dsspfile, foseq, fochain, minLen)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(dsspfile, <span class="string">'r'</span>) <span class="keyword">as</span> inputfile:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> foseq.strip():</span><br><span class="line">            foseq = <span class="string">'protein'</span>+ str(minLen) + <span class="string">'.dssp.seq'</span></span><br><span class="line">        outchain = open(fochain, <span class="string">'w'</span>)</span><br><span class="line">        <span class="keyword">with</span> open(foseq, <span class="string">'w'</span>) <span class="keyword">as</span> outputfile:</span><br><span class="line">            residue=[];Ntype=[]</span><br><span class="line">            preType=[];preRes=[]</span><br><span class="line">            firstline=[];secondline=[];content=<span class="string">''</span></span><br><span class="line">            <span class="keyword">for</span> eachline <span class="keyword">in</span> inputfile:</span><br><span class="line">                oneline = eachline.split(<span class="string">'\t'</span>) </span><br><span class="line">                residue = oneline[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> residue.strip(): </span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                Ntype = oneline[<span class="number">3</span>].strip()</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> Ntype.strip():</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> preRes!=residue:</span><br><span class="line">                    content = <span class="string">''</span>.join(firstline)+<span class="string">'\n'</span>+<span class="string">''</span>.join(secondline) +<span class="string">'\n'</span></span><br><span class="line">                    <span class="keyword">if</span> len(secondline)&gt;=int(minLen) <span class="keyword">and</span> <span class="keyword">not</span> <span class="string">'X'</span> <span class="keyword">in</span> secondline:</span><br><span class="line">                        outchain.write(<span class="string">''</span>.join(firstline) + <span class="string">'\n'</span>)</span><br><span class="line">                        outputfile.write(content)</span><br><span class="line">                    firstline=[]</span><br><span class="line">                    firstline.append(<span class="string">'&gt;'</span> + residue + <span class="string">':'</span> + Ntype)</span><br><span class="line">                    secondline=[];secondline.append(oneline[<span class="number">4</span>].strip())</span><br><span class="line">                    preRes = residue;preType = Ntype</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> Ntype != preType:</span><br><span class="line">                    content = <span class="string">''</span>.join(firstline)+<span class="string">'\n'</span>+<span class="string">''</span>.join(secondline)+<span class="string">'\n'</span></span><br><span class="line">                    <span class="keyword">if</span> len(secondline)&gt;=int(minLen) <span class="keyword">and</span>  <span class="keyword">not</span> <span class="string">'X'</span> <span class="keyword">in</span> secondline:</span><br><span class="line">                        outchain.write(<span class="string">''</span>.join(firstline) + <span class="string">'\n'</span>)</span><br><span class="line">                        outputfile.write(content)</span><br><span class="line">                    firstline=[]</span><br><span class="line">                    firstline.append(<span class="string">'&gt;'</span> + residue + <span class="string">':'</span> + Ntype)</span><br><span class="line">                    secondline=[];secondline.append(oneline[<span class="number">4</span>].strip())</span><br><span class="line">                    preRes = residue;preType = Ntype</span><br><span class="line">                <span class="keyword">else</span>: <span class="comment">#如果Ntype不为空，且等于preType</span></span><br><span class="line">                    secondline.append(oneline[<span class="number">4</span>].strip())</span><br><span class="line">            content = <span class="string">''</span>.join(firstline)+<span class="string">'\n'</span> + <span class="string">''</span>.join(secondline) +<span class="string">'\n'</span></span><br><span class="line">            <span class="comment">#选择长度大于40而且序列中不存在‘X’残基的序列</span></span><br><span class="line">            <span class="keyword">if</span> len(secondline) &gt;= int(minLen) <span class="keyword">and</span> <span class="keyword">not</span> <span class="string">'X'</span> <span class="keyword">in</span> secondline:  </span><br><span class="line">                outchain.write(<span class="string">''</span>.join(firstline) + <span class="string">'\n'</span>)</span><br><span class="line">                outputfile.write(content)</span><br><span class="line">        outchain.close()</span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    os.chdir(<span class="string">"/ifs/home/liudiwei/DNA_BP/_data/Exp_DBPI/"</span>)</span><br><span class="line">    dsspfile = os.sys.argv[<span class="number">1</span>]</span><br><span class="line">    foseq = os.sys.argv[<span class="number">2</span>]</span><br><span class="line">    fochain = os.sys.argv[<span class="number">3</span>]</span><br><span class="line">    minlen = os.sys.argv[<span class="number">4</span>]</span><br><span class="line">    getSeqFromDSSP(dsspfile, foseq, fochain, minlen)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="keyword">import</span> os </span><br><span class="line"><span class="string">'''</span><br><span class="line">Parameters：</span><br><span class="line">    - dsspfile:	为格式过的DSSP文件</span><br><span class="line">    - foseq: 	为输出的序列文件</span><br><span class="line">    - fochain: 	输出的蛋白链文件</span><br><span class="line">    - minLen:  	最短的序列长度</span><br><span class="line">'''</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getSeqFromDSSP</span><span class="params">(dsspfile, foseq, fochain, minLen)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(dsspfile, <span class="string">'r'</span>) <span class="keyword">as</span> inputfile:</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> foseq.strip():</span><br><span class="line">            foseq = <span class="string">'protein'</span>+ str(minLen) + <span class="string">'.dssp.seq'</span></span><br><span class="line">        outchain = open(fochain, <span class="string">'w'</span>)</span><br><span class="line">        <span class="keyword">with</span> open(foseq, <span class="string">'w'</span>) <span class="keyword">as</span> outputfile:</span><br><span class="line">            residue=[];Ntype=[]</span><br><span class="line">            preType=[];preRes=[]</span><br><span class="line">            firstline=[];secondline=[];content=<span class="string">''</span></span><br><span class="line">            <span class="keyword">for</span> eachline <span class="keyword">in</span> inputfile:</span><br><span class="line">                oneline = eachline.split(<span class="string">'\t'</span>) </span><br><span class="line">                residue = oneline[<span class="number">0</span>]</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> residue.strip(): </span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                Ntype = oneline[<span class="number">3</span>].strip()</span><br><span class="line">                <span class="keyword">if</span> <span class="keyword">not</span> Ntype.strip():</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> preRes!=residue:</span><br><span class="line">                    content = <span class="string">''</span>.join(firstline)+<span class="string">'\n'</span>+<span class="string">''</span>.join(secondline) +<span class="string">'\n'</span></span><br><span class="line">                    <span class="keyword">if</span> len(secondline)&gt;=int(minLen) <span class="keyword">and</span> <span class="keyword">not</span> <span class="string">'X'</span> <span class="keyword">in</span> secondline:</span><br><span class="line">                        outchain.write(<span class="string">''</span>.join(firstline) + <span class="string">'\n'</span>)</span><br><span class="line">                        outputfile.write(content)</span><br><span class="line">                    firstline=[]</span><br><span class="line">                    firstline.append(<span class="string">'&gt;'</span> + residue + <span class="string">':'</span> + Ntype)</span><br><span class="line">                    secondline=[];secondline.append(oneline[<span class="number">4</span>].strip())</span><br><span class="line">                    preRes = residue;preType = Ntype</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                <span class="keyword">if</span> Ntype != preType:</span><br><span class="line">                    content = <span class="string">''</span>.join(firstline)+<span class="string">'\n'</span>+<span class="string">''</span>.join(secondline)+<span class="string">'\n'</span></span><br><span class="line">                    <span class="keyword">if</span> len(secondline)&gt;=int(minLen) <span class="keyword">and</span>  <span class="keyword">not</span> <span class="string">'X'</span> <span class="keyword">in</span> secondline:</span><br><span class="line">                        outchain.write(<span class="string">''</span>.join(firstline) + <span class="string">'\n'</span>)</span><br><span class="line">                        outputfile.write(content)</span><br><span class="line">                    firstline=[]</span><br><span class="line">                    firstline.append(<span class="string">'&gt;'</span> + residue + <span class="string">':'</span> + Ntype)</span><br><span class="line">                    secondline=[];secondline.append(oneline[<span class="number">4</span>].strip())</span><br><span class="line">                    preRes = residue;preType = Ntype</span><br><span class="line">                <span class="keyword">else</span>: <span class="comment">#如果Ntype不为空，且等于preType</span></span><br><span class="line">                    secondline.append(oneline[<span class="number">4</span>].strip())</span><br><span class="line">            content = <span class="string">''</span>.join(firstline)+<span class="string">'\n'</span> + <span class="string">''</span>.join(secondline) +<span class="string">'\n'</span></span><br><span class="line">            <span class="comment">#选择长度大于40而且序列中不存在‘X’残基的序列</span></span><br><span class="line">            <span class="keyword">if</span> len(secondline) &gt;= int(minLen) <span class="keyword">and</span> <span class="keyword">not</span> <span class="string">'X'</span> <span class="keyword">in</span> secondline:  </span><br><span class="line">                outchain.write(<span class="string">''</span>.join(firstline) + <span class="string">'\n'</span>)</span><br><span class="line">                outputfile.write(content)</span><br><span class="line">        outchain.close()</span><br><span class="line"><span class="comment">###############################################################################</span></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>:</span><br><span class="line">    os.chdir(<span class="string">"/ifs/home/liudiwei/DNA_BP/_data/Exp_DBPI/"</span>)</span><br><span class="line">    dsspfile = os.sys.argv[<span class="number">1</span>]</span><br><span class="line">    foseq = os.sys.argv[<span class="number">2</span>]</span><br><span class="line">    fochain = os.sys.argv[<span class="number">3</span>]</span><br><span class="line">    minlen = os.sys.argv[<span class="number">4</span>]</span><br><span class="line">    getSeqFromDSSP(dsspfile, foseq, fochain, minlen)</span><br></pre></td></tr></table></figure>
 <hr>
 <h3 id="Test_sample">Test sample</h3><p>在Linux控制台中输入下面命令：</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">python generateSeqFromDSSP.py \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/dssp_testset/</span>DSSP \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/protein_test.seq \</span><br><span class="line">/i</span>fs<span class="regexp">/home/</span>liudiwei<span class="regexp">/DNA_BP/</span>_data<span class="regexp">/Exp_DBPI/</span>protein_test.chain \</span><br><span class="line"><span class="number">40</span></span><br></pre></td></tr></table></figure>
@@ -90,7 +90,7 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     <link href="http://csuldw.github.io/2015/11/17/2015-11-17%20B=U-A/"/>
     <id>http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/</id>
     <published>2015-11-17T07:11:00.000Z</published>
-    <updated>2015-11-18T16:00:50.205Z</updated>
+    <updated>2015-11-19T01:16:03.224Z</updated>
     <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
 <h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>
 <a id="more"></a>
@@ -104,7 +104,7 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
 </ul>
 <p>代码如下：</p>
 <p>compareTwoFile.py</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">#_*_ coding: utf-<span class="number">8</span> _*_</span><br><span class="line">import os</span><br><span class="line">def <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span>:</span><br><span class="line">    with <span class="function"><span class="title">open</span><span class="params">(outfile,<span class="string">'w'</span>)</span></span> as fo: </span><br><span class="line">        fw = []</span><br><span class="line">        with <span class="function"><span class="title">open</span><span class="params">(file1,<span class="string">'r'</span>)</span></span> as fr1:</span><br><span class="line">            fr1_con = [each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr1.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>] </span><br><span class="line">            with <span class="function"><span class="title">open</span><span class="params">(file2,<span class="string">'r'</span>)</span></span> as fr2:</span><br><span class="line">                fr2_con =[each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr2.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>]</span><br><span class="line">                <span class="keyword">for</span> eachline <span class="keyword">in</span> fr1_con:</span><br><span class="line">                    <span class="keyword">if</span> eachline not <span class="keyword">in</span> fr2_con:</span><br><span class="line">                        fw.<span class="function"><span class="title">append</span><span class="params">(eachline)</span></span></span><br><span class="line">        fo.<span class="function"><span class="title">write</span><span class="params">(<span class="string">''</span>.join(fw)</span></span>)</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>: </span><br><span class="line">    file1 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">1</span>]</span><br><span class="line">    file2 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">2</span>]</span><br><span class="line">    outfile = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">3</span>]</span><br><span class="line">    <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">#-*- coding: utf-<span class="number">8</span> -*-</span><br><span class="line">import os</span><br><span class="line">def <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span>:</span><br><span class="line">    with <span class="function"><span class="title">open</span><span class="params">(outfile,<span class="string">'w'</span>)</span></span> as fo: </span><br><span class="line">        fw = []</span><br><span class="line">        with <span class="function"><span class="title">open</span><span class="params">(file1,<span class="string">'r'</span>)</span></span> as fr1:</span><br><span class="line">            fr1_con = [each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr1.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>] </span><br><span class="line">            with <span class="function"><span class="title">open</span><span class="params">(file2,<span class="string">'r'</span>)</span></span> as fr2:</span><br><span class="line">                fr2_con =[each.<span class="function"><span class="title">strip</span><span class="params">()</span></span> <span class="keyword">for</span> each <span class="keyword">in</span> fr2.<span class="function"><span class="title">readlines</span><span class="params">()</span></span>]</span><br><span class="line">                <span class="keyword">for</span> eachline <span class="keyword">in</span> fr1_con:</span><br><span class="line">                    <span class="keyword">if</span> eachline not <span class="keyword">in</span> fr2_con:</span><br><span class="line">                        fw.<span class="function"><span class="title">append</span><span class="params">(eachline)</span></span></span><br><span class="line">        fo.<span class="function"><span class="title">write</span><span class="params">(<span class="string">''</span>.join(fw)</span></span>)</span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">"__main__"</span>: </span><br><span class="line">    file1 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">1</span>]</span><br><span class="line">    file2 = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">2</span>]</span><br><span class="line">    outfile = os<span class="class">.sys</span><span class="class">.argv</span>[<span class="number">3</span>]</span><br><span class="line">    <span class="function"><span class="title">compareTwoFile</span><span class="params">(file1,file2,outfile)</span></span></span><br></pre></td></tr></table></figure>
 <p>Test sample:</p>
 <figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">python compareTwoFile.py \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/train_set.protein  \</span><br><span class="line">/i</span>fs<span class="regexp">/home/</span>liudiwei<span class="regexp">/DNA_BP/</span>_data<span class="regexp">/Exp_DBPI/</span>pdb_trainset.txt \</span><br><span class="line"><span class="regexp">/ifs/</span>home<span class="regexp">/liudiwei/</span>DNA_BP<span class="regexp">/_data/</span>Exp_DBPI<span class="regexp">/compare.result</span></span><br></pre></td></tr></table></figure>
 <p>file1和file2的top10格式：</p>
@@ -255,7 +255,7 @@ download.py文件</li>
     <link href="http://csuldw.github.io/2015/11/03/2015-11-03%20Add%20header%20and%20footer%20to%20some%20file/"/>
     <id>http://csuldw.github.io/2015/11/03/2015-11-03 Add header and footer to some file/</id>
     <published>2015-11-03T08:24:00.000Z</published>
-    <updated>2015-11-15T15:17:10.910Z</updated>
+    <updated>2015-11-19T01:17:11.937Z</updated>
     <content type="html"><![CDATA[<p>今天整理资料的时候，发现要在很多文件中的头部和尾部添加相同的文本，于是自己使用Python做了一个简单的文件拼接功能，也可以说是文件追加功能，给一个文件批量追加头尾内容，达到省事的效果，顺便还可以练习下Python。下面来介绍下这个功能的代码：</p>
 <p>现在有三个文件，如下：</p>
 <ul>
@@ -274,13 +274,10 @@ download.py文件</li>
 <li>getStdTime(seconds):将时间戳格式的日期转换为标准格式，如：2015-11-03 10:24</li>
 </ul>
 <p>代码（AddHeader.py）：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span><br><span class="line">Created on Tue Nov 03 10:32:26 2015</span><br><span class="line"></span><br><span class="line">@author: liudiwei</span><br><span class="line">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os,time</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_footer</span><span class="params">(infile, outfile)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(infile,<span class="string">'r'</span>) <span class="keyword">as</span> inputfile:</span><br><span class="line">        <span class="keyword">with</span> open(outfile,<span class="string">'a'</span>) <span class="keyword">as</span> outfile:</span><br><span class="line">            outfile.write(<span class="string">"\n\n"</span>+<span class="string">''</span>.join(inputfile.readlines()))</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果auto==True，直接将文件内容加入到当前文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_header</span><span class="params">(infile, outfile, auto=True)</span>:</span> </span><br><span class="line">    inf=open(infile,<span class="string">'r'</span>)</span><br><span class="line">    outf = open(outfile,<span class="string">'r'</span>)</span><br><span class="line">    header = inf.readlines()</span><br><span class="line">    content=outf.readlines()</span><br><span class="line">    <span class="keyword">if</span> auto==<span class="keyword">True</span>:</span><br><span class="line">        <span class="keyword">with</span> open(outfile,<span class="string">'w'</span>) <span class="keyword">as</span> output:</span><br><span class="line">            output.write(<span class="string">''</span>.join(header)+ <span class="string">"\n\n"</span> \</span><br><span class="line">                            +<span class="string">''</span>.join(content))  </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        ctime=getStdTime(os.path.getctime(outfile))</span><br><span class="line">        title=<span class="string">"title: "</span> + outfile.split(<span class="string">'/'</span>)[<span class="number">1</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">print</span> title</span><br><span class="line">        add_content=<span class="string">"---\n"</span></span><br><span class="line">        add_content=add_content+title+<span class="string">'\n'</span>  <span class="comment">#add title</span></span><br><span class="line">        add_content=add_content+ctime +<span class="string">'\n'</span> <span class="comment">#add date</span></span><br><span class="line">        add_content=add_content+<span class="string">''</span>.join(header)</span><br><span class="line">        <span class="keyword">with</span> open(outfile,<span class="string">'w'</span>) <span class="keyword">as</span> output:</span><br><span class="line">            output.write(<span class="string">''</span>.join(add_content)+ <span class="string">"\n\n"</span> \</span><br><span class="line">                        +<span class="string">''</span>.join(content))  </span><br><span class="line">    outf.close()</span><br><span class="line">    inf.close()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addHeadAndFooter</span><span class="params">(path, header, footer, auto=False)</span>:</span></span><br><span class="line">    filelist=os.listdir(path)</span><br><span class="line">    <span class="keyword">for</span> eachfile <span class="keyword">in</span> filelist:</span><br><span class="line">        add_header(header,path + <span class="string">"/"</span> + eachfile, auto)</span><br><span class="line">        add_footer(footer,path + <span class="string">"/"</span> + eachfile)   </span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getStdTime</span><span class="params">(seconds)</span>:</span></span><br><span class="line">    x = time.localtime(seconds)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"date: "</span>+ time.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>,x)</span><br><span class="line">    </span><br><span class="line">        </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">if</span> (len(os.sys.argv)&lt;<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">raise</span> TypeError()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"os.sys.arg"</span></span><br><span class="line">    <span class="comment">#path="path"</span></span><br><span class="line">    <span class="comment">#header="head.md"</span></span><br><span class="line">    <span class="comment">#footer="footer.md"</span></span><br><span class="line">    os.chdir(<span class="string">"."</span>)</span><br><span class="line">    path=os.sys.argv[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">print</span> path</span><br><span class="line">    header=os.sys.argv[<span class="number">2</span>]</span><br><span class="line">    footer=os.sys.argv[<span class="number">3</span>]</span><br><span class="line">    filelist=os.listdir(path)</span><br><span class="line">    addHeadAndFooter(path,header,footer)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Success added!"</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">#----------------    </span></span><br><span class="line"><span class="comment"># command </span></span><br><span class="line"><span class="comment"># python AddHead.py "path" "header.txt" "footer.txt"</span></span><br><span class="line"><span class="comment">#----------------</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span><br><span class="line">Created on Tue Nov 03 10:32:26 2015</span><br><span class="line">@author: liudiwei</span><br><span class="line">"""</span></span><br><span class="line"><span class="keyword">import</span> os,time</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_footer</span><span class="params">(infile, outfile)</span>:</span></span><br><span class="line">    <span class="keyword">with</span> open(infile,<span class="string">'r'</span>) <span class="keyword">as</span> inputfile:</span><br><span class="line">        <span class="keyword">with</span> open(outfile,<span class="string">'a'</span>) <span class="keyword">as</span> outfile:</span><br><span class="line">            outfile.write(<span class="string">"\n\n"</span>+<span class="string">''</span>.join(inputfile.readlines()))</span><br><span class="line"><span class="comment">#如果auto==True，直接将文件内容加入到当前文件</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add_header</span><span class="params">(infile, outfile, auto=True)</span>:</span> </span><br><span class="line">    inf=open(infile,<span class="string">'r'</span>)</span><br><span class="line">    outf = open(outfile,<span class="string">'r'</span>)</span><br><span class="line">    header = inf.readlines()</span><br><span class="line">    content=outf.readlines()</span><br><span class="line">    <span class="keyword">if</span> auto==<span class="keyword">True</span>:</span><br><span class="line">        <span class="keyword">with</span> open(outfile,<span class="string">'w'</span>) <span class="keyword">as</span> output:</span><br><span class="line">            output.write(<span class="string">''</span>.join(header)+ <span class="string">"\n\n"</span> \</span><br><span class="line">                            +<span class="string">''</span>.join(content))  </span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        ctime=getStdTime(os.path.getctime(outfile))</span><br><span class="line">        title=<span class="string">"title: "</span> + outfile.split(<span class="string">'/'</span>)[<span class="number">1</span>].split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line">        <span class="keyword">print</span> title</span><br><span class="line">        add_content=<span class="string">"---\n"</span></span><br><span class="line">        add_content=add_content+title+<span class="string">'\n'</span>  <span class="comment">#add title</span></span><br><span class="line">        add_content=add_content+ctime +<span class="string">'\n'</span> <span class="comment">#add date</span></span><br><span class="line">        add_content=add_content+<span class="string">''</span>.join(header)</span><br><span class="line">        <span class="keyword">with</span> open(outfile,<span class="string">'w'</span>) <span class="keyword">as</span> output:</span><br><span class="line">            output.write(<span class="string">''</span>.join(add_content)+ <span class="string">"\n\n"</span> \</span><br><span class="line">                        +<span class="string">''</span>.join(content))  </span><br><span class="line">    outf.close()</span><br><span class="line">    inf.close()</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">addHeadAndFooter</span><span class="params">(path, header, footer, auto=False)</span>:</span></span><br><span class="line">    filelist=os.listdir(path)</span><br><span class="line">    <span class="keyword">for</span> eachfile <span class="keyword">in</span> filelist:</span><br><span class="line">        add_header(header,path + <span class="string">"/"</span> + eachfile, auto)</span><br><span class="line">        add_footer(footer,path + <span class="string">"/"</span> + eachfile)       </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getStdTime</span><span class="params">(seconds)</span>:</span></span><br><span class="line">    x = time.localtime(seconds)</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"date: "</span>+ time.strftime(<span class="string">'%Y-%m-%d %H:%M:%S'</span>,x)        </span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    <span class="keyword">if</span> (len(os.sys.argv)&lt;<span class="number">4</span>):</span><br><span class="line">        <span class="keyword">raise</span> TypeError()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"os.sys.arg"</span></span><br><span class="line">    <span class="comment">#path="path"</span></span><br><span class="line">    <span class="comment">#header="head.md"</span></span><br><span class="line">    <span class="comment">#footer="footer.md"</span></span><br><span class="line">    os.chdir(<span class="string">"."</span>)</span><br><span class="line">    path=os.sys.argv[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">print</span> path</span><br><span class="line">    header=os.sys.argv[<span class="number">2</span>]</span><br><span class="line">    footer=os.sys.argv[<span class="number">3</span>]</span><br><span class="line">    filelist=os.listdir(path)</span><br><span class="line">    addHeadAndFooter(path,header,footer)</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"Success added!"</span>    </span><br><span class="line"><span class="comment">#----------------    </span></span><br><span class="line"><span class="comment"># command </span></span><br><span class="line"><span class="comment"># python AddHead.py "path" "header.txt" "footer.txt"</span></span><br><span class="line"><span class="comment">#----------------</span></span><br></pre></td></tr></table></figure>
 <p>直接在console控制台上运行下列代码即可 </p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python AddHeader<span class="class">.py</span> <span class="string">"path"</span> <span class="string">"header.txt"</span> <span class="string">"footer.txt"</span></span><br></pre></td></tr></table></figure>
 <hr>
-<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s DIARIES 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>
-
-
 ]]></content>
     <summary type="html">
     <![CDATA[<p>今天整理资料的时候，发现要在很多文件中的头部和尾部添加相同的文本，于是自己使用Python做了一个简单的文件拼接功能，也可以说是文件追加功能，给一个文件批量追加头尾内容，达到省事的效果，顺便还可以练习下Python。下面来介绍下这个功能的代码：</p>
@@ -305,7 +302,7 @@ download.py文件</li>
     <link href="http://csuldw.github.io/2015/10/29/2015-10-29%20Python%20RegEx/"/>
     <id>http://csuldw.github.io/2015/10/29/2015-10-29 Python RegEx/</id>
     <published>2015-10-29T12:24:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:17:28.670Z</updated>
     <content type="html"><![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
@@ -569,7 +566,7 @@ _csu.ldw@csu.edu.cn1
 <p>都不会匹配</p>
 <p>提示：合法邮箱的规则可能不够完善，这里就简单的匹配这三个规则吧！</p>
 <hr>
-<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s DIARIES 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>]]></content>
+]]></content>
     <summary type="html">
     <![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
@@ -591,7 +588,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/25/2015-10-25%20scikit-learn%20preprocessing/"/>
     <id>http://csuldw.github.io/2015/10/25/2015-10-25 scikit-learn preprocessing/</id>
     <published>2015-10-25T02:24:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:17:48.258Z</updated>
     <content type="html"><![CDATA[<p>本文主要是对照<a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing" target="_blank" rel="external">scikit-learn的preprocessing</a>章节结合代码简单的回顾下预处理技术的几种方法，主要包括标准化、数据最大最小缩放处理、正则化、特征二值化和数据缺失值处理。内容比较简单，仅供参考！</p>
 <p>首先来回顾一下下面要用到的基本知识。</p>
 <a id="more"></a>
@@ -679,11 +676,6 @@ _csu.ldw@csu.edu.cn1
 <li><a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing" target="_blank" rel="external">Scikit-learn preprocessing</a>.</li>
 </ul>
 <hr>
-<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s DIARIES 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>
-
-
-
-
 ]]></content>
     <summary type="html">
     <![CDATA[<p>本文主要是对照<a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing">scikit-learn的preprocessing</a>章节结合代码简单的回顾下预处理技术的几种方法，主要包括标准化、数据最大最小缩放处理、正则化、特征二值化和数据缺失值处理。内容比较简单，仅供参考！</p>
@@ -704,7 +696,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/24/2015-10-24%20feature%20engineering/"/>
     <id>http://csuldw.github.io/2015/10/24/2015-10-24 feature engineering/</id>
     <published>2015-10-24T02:24:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:17:56.070Z</updated>
     <content type="html"><![CDATA[<p>在这个振奋人心的程序员节日里，我决定认真地写一篇文章来纪念一下自己这长达六年程序员史。o(╯□╰)o</p>
 <p>本文是一篇关于特征工程的总结类文章，如有不足之处或理解有偏差的地方，还望多多指教。</p>
 <p>首先，给一张特征工程的思维导图吧：</p>
@@ -816,10 +808,6 @@ _csu.ldw@csu.edu.cn1
 <li><a href="https://www.quora.com/How-valuable-do-you-think-feature-selection-is-in-machine-learning-Which-do-you-think-improves-accuracy-more-feature-selection-or-feature-engineering" target="_blank" rel="external">How valuable do you think feature selection is in machine learning? Which do you think improves accuracy more, feature selection or feature engineering?</a></li>
 </ul>
 <hr>
-<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>
-
-
-
 ]]></content>
     <summary type="html">
     <![CDATA[<p>在这个振奋人心的程序员节日里，我决定认真地写一篇文章来纪念一下自己这长达六年程序员史。o(╯□╰)o</p>
@@ -842,7 +830,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/21/2015-10-21%20Windows%20git%20push%20no%20password/"/>
     <id>http://csuldw.github.io/2015/10/21/2015-10-21 Windows git push no password/</id>
     <published>2015-10-21T08:45:44.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:18:03.651Z</updated>
     <content type="html"><![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
@@ -854,7 +842,7 @@ _csu.ldw@csu.edu.cn1
 <p>接着，打开git bash后，输入git push 命令就无需再输入用户名和密码了。</p>
 <p>爽歪歪啦~</p>
 <hr>
-<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>]]></content>
+]]></content>
     <summary type="html">
     <![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
@@ -874,7 +862,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/09/23/2015-09-23%20Machine%20learning%20materials/"/>
     <id>http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/</id>
     <published>2015-09-23T14:22:22.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:23:58.649Z</updated>
     <content type="html"><![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>
 <a id="more"></a>
@@ -987,7 +975,7 @@ _csu.ldw@csu.edu.cn1
 
 <p>最后，关于机器学习资料的整理，先到此为止吧，如果你有什么好的资料，欢迎在评论中给出推荐或网址链接。</p>
 <hr>
-<center><strong><br>此文乃博主即兴之作，如果你从中有所收获，欢迎前来赞助，为博主送上你的支持：<a href="http://csuldw.github.io/donation" target="_black"><font color="red">【赞助中心】</font></a>。<br>  博客主页： <a href="http://csuldw.github.io" target="_black">【D.W’s Diaries 】</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">【@拾毅者】</a><br><br></strong></center>]]></content>
+]]></content>
     <summary type="html">
     <![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>]]>
@@ -1005,7 +993,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/08/29/2015-08-29%20Summary/"/>
     <id>http://csuldw.github.io/2015/08/29/2015-08-29 Summary/</id>
     <published>2015-08-29T02:54:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:18:17.062Z</updated>
     <content type="html"><![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
 <p>下面来总结一下自已这几个月的学习成长吧。<br><a id="more"></a><br>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
 <p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
@@ -1015,6 +1003,7 @@ _csu.ldw@csu.edu.cn1
 <p>到了七月，开始整理自己的数据集，跑实验，然后从分析结果。这段时间碰到的问题也让人抓狂。首先是数据集不均衡，跑出来的效果很差，很不理想。不过这个问题还是比较容易解决，最常用的就是抽样了，下抽样还是上抽样就看结果好不好了。最后我选择的是下抽样，构造新的平衡数据，但是最后跑出来的效果不理想，使用别人的方法，跑出来的效果比别人差了将近8个百分点，这显然不合逻辑。到了七月下旬的时候，没办法了，还是使用别人的数据集吧。然后接着在别人数据集的基础上，加特征，构造新的数据集，然后使用不同算法来跑实验，比较效果等。最后得到的效果和别人的差不多，但是相对于另外一篇论文，似乎要差点。因为该论文没有说明自己的结果是在独立测试上的结果还是交叉验证得到的结果。所以，继续跑实验吧。</p>
 <p>八月的第一个星期，实验总算做出来了，最后比较了下，效果提升不多，因为本来原来的实验就做的比较好了，AUC达到了0.923，确实难以超越。接下来就开始赶paper，没日没夜的赶呀，终于在8月中旬将paper赶出来了。对于APBC2016能不能中，30%的接受率，就看运气了，因为整篇论文的效果确实不是很明显。</p>
 <p>总的来说，整个实验下来，学到了不少东西。以前是看中文论文容易，看英文paper难，现在感觉是看英文paper明显简单了，而写paper困难了。接下来好好努力，加油学英语、学算法、学理论、做实验吧，其他的事情都是浮云。</p>
+<hr>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
@@ -1033,7 +1022,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/08/19/2015-08-19%20GBDT/"/>
     <id>http://csuldw.github.io/2015/08/19/2015-08-19 GBDT/</id>
     <published>2015-08-19T02:54:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:18:26.851Z</updated>
     <content type="html"><![CDATA[<h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
 <p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。<br><a id="more"></a></p>
 <h2 id="Gradient_Tree_Boosting"><strong>Gradient Tree Boosting</strong></h2><p>梯度树提升（Gradient Tree Boosting）是一种组合算法，也叫做梯度提升回归树（gradient boosting regression tree），它的基分类器是决策树，既可以用来回归，也可以用作分类。在分类性能上，能够和随机森林媲美，甚至在有的数据集上表现的有过之而无不及。如今，Gradient Tree Boosting模型已经广泛的运用在Web搜索排行榜以及生态学上。在阿里内部也用的比较多，所以值得我们去花点时间认真学习。</p>
@@ -1078,7 +1067,6 @@ _csu.ldw@csu.edu.cn1
 <p>参考文章： <a href="http://www.cnblogs.com/LeftNotEasy/archive/2011/03/07/1976562.html" target="_blank" rel="external">随机森林与GBDT</a></p>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
@@ -1097,7 +1085,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/28/2015-07-28%20crossvalidation/"/>
     <id>http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/</id>
     <published>2015-07-28T07:40:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:18:33.770Z</updated>
     <content type="html"><![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
 <h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
@@ -1172,7 +1160,6 @@ _csu.ldw@csu.edu.cn1
 <p>总之，交叉验证在一定程度上能够避免陷入局部最小值。一般实际操作中使用的是十折交叉验证，单具体情况还得具体分析，并没有一个统一的标准固定十倍交叉的参数或者是算法的选择以及算法参数的选择。不同的数据使用不同的算法往往会的得到不同的最优分类器。So,just try it!Happy coding!</p>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注CSDN博客：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">dream_angel_z</a><br></strong></center><br><br></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
@@ -1191,7 +1178,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/23/2015-07-23%20machine%20learning%20tips/"/>
     <id>http://csuldw.github.io/2015/07/23/2015-07-23 machine learning tips/</id>
     <published>2015-07-23T04:53:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:18:40.848Z</updated>
     <content type="html"><![CDATA[<p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
 <blockquote>
 <p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="external">WinPython_2.7</a></p>
@@ -1233,7 +1220,6 @@ _csu.ldw@csu.edu.cn1
 <figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">def __init__(self,</span><br><span class="line">	 <span class="variable">n_estimators=</span><span class="number">10</span>,</span><br><span class="line">	 <span class="variable">criterion=</span><span class="string">"gini"</span>,</span><br><span class="line">	 <span class="variable">max_depth=</span>None,</span><br><span class="line">	 <span class="variable">min_samples_split=</span><span class="number">2</span>,</span><br><span class="line">	 <span class="variable">min_samples_leaf=</span><span class="number">1</span>,</span><br><span class="line">	 <span class="variable">min_weight_fraction_leaf=</span><span class="number">0</span>.,</span><br><span class="line">	 <span class="variable">max_features=</span><span class="string">"auto"</span>,</span><br><span class="line">	 <span class="variable">max_leaf_nodes=</span>None,</span><br><span class="line">	 <span class="variable">bootstrap=</span>True,</span><br><span class="line">	 <span class="variable">oob_score=</span>False,</span><br><span class="line">	 <span class="variable">n_jobs=</span><span class="number">1</span>,</span><br><span class="line">	 <span class="variable">random_state=</span>None,</span><br><span class="line">	 <span class="variable">verbose=</span><span class="number">0</span>,</span><br><span class="line">	 <span class="variable">warm_start=</span>False,</span><br><span class="line">	 <span class="variable">class_weight=</span>None):</span><br></pre></td></tr></table></figure>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
@@ -1257,7 +1243,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/22/2015-07-22%20%20ensemble/"/>
     <id>http://csuldw.github.io/2015/07/22/2015-07-22  ensemble/</id>
     <published>2015-07-21T22:53:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:18:47.515Z</updated>
     <content type="html"><![CDATA[<h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
 <h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br> <a id="more"></a></p>
 <blockquote>
@@ -1306,7 +1292,6 @@ _csu.ldw@csu.edu.cn1
 <p>Boosting主要是一种思想，表示“知错就改”。而Gradient Boosting是在这个思想下的一种函数（也可以说是模型）的优化的方法，首先将函数分解为可加的形式（其实所有的函数都是可加的，只是是否好放在这个框架中，以及最终的效果如何）。然后进行m次迭代，通过使得损失函数在梯度方向上减少，最终得到一个优秀的模型。值得一提的是，每次模型在梯度方向上的减少的部分，可以认为是一个“小”的或者“弱”的模型，最终我们会通过加权(也就是每次在梯度方向上下降的距离）的方式将这些“弱”的模型合并起来，形成一个更好的模型。</p>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
@@ -1325,7 +1310,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/21/2015-07-21%20An%20introduction%20to%20machine%20learning%20with%20scikit-learn%20/"/>
     <id>http://csuldw.github.io/2015/07/21/2015-07-21 An introduction to machine learning with scikit-learn /</id>
     <published>2015-07-21T13:31:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:18:54.423Z</updated>
     <content type="html"><![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
 <p><strong>章节内容</strong></p>
 <p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
@@ -1386,7 +1371,6 @@ _csu.ldw@csu.edu.cn1
 </blockquote>
 <hr>
 <p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">D.W’s Diary</a><br><br></strong></center>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
@@ -1407,7 +1391,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/18/2015-07-18-a%20precision%20and%20recall/"/>
     <id>http://csuldw.github.io/2015/07/18/2015-07-18-a precision and recall/</id>
     <published>2015-07-18T04:30:00.000Z</published>
-    <updated>2015-11-04T14:55:38.000Z</updated>
+    <updated>2015-11-19T01:19:02.670Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 
@@ -1462,6 +1446,7 @@ _csu.ldw@csu.edu.cn1
 <p>关于译者： <a href="http://my.csdn.net/Dream_angel_Z" target="_blank" rel="external">刘帝伟</a>，中南大学在读研究生，关注机器学习、数据挖掘及生物信息领域。 </p>
 <hr>
 <p>本文为CSDN编译整理，未经允许不得转载，如需转载请联系market#csdn.net(#换成@)</p>
+<hr>
 ]]></content>
     <summary type="html">
     <![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
@@ -1507,7 +1492,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/13/2015-07-13-10%20keys%20to%20successful%20machine%20learning%20for%20developers/"/>
     <id>http://csuldw.github.io/2015/07/13/2015-07-13-10 keys to successful machine learning for developers/</id>
     <published>2015-07-13T13:53:12.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:19:14.087Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 <p>在提供发现埋藏数据深层的模式的能力上，机器学习有着潜在的能力使得应用程序更加的强大并且更能响应用户的需求。精心调校好的算法能够从巨大的并且互不相同的数据源中提取价值，同时没有人类思考和分析的限制。对于开发者而言，机器学习为应用业务的关键分析提供了希望，从而实现从改善客户体验到提供产品推荐上升至超个性化内容服务的任何应用程序。<br><a id="more"></a><br>像Amazon和Micorosoft这样的云供应商提供云功能的机器学习解决方案，承诺为开发者提供一个简单的方法，使得机器学习的能力能够融入到他们的应用程序当中，这也算是最近的头条新闻了。承诺似乎很好，但开发者还需谨慎。</p>
@@ -1541,6 +1526,7 @@ _csu.ldw@csu.edu.cn1
 <p>译者简介： <a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>，中南大学软件学院在读研究生，关注机器学习、数据挖掘及生物信息领域。</p>
 <p>【预告】<a href="http://ccai2015.csdn.net/" target="_blank" rel="external">首届中国人工智能大会（CCAI 2015）</a>将于7月26-27日在北京友谊宾馆召开。机器学习与模式识别、大数据的机遇与挑战、人工智能与认知科学、智能机器人四个主题专家云集。人工智能产品库将同步上线，预约咨询：QQ：1192936057。欢迎关注。</p>
 <p>本文为CSDN编译整理，未经允许不得转载，如需转载请联系market#csdn.net(#换成@)</p>
+<hr>
 ]]></content>
     <summary type="html">
     <![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
@@ -1562,7 +1548,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/07/2015-07-07-PDB/"/>
     <id>http://csuldw.github.io/2015/07/07/2015-07-07-PDB/</id>
     <published>2015-07-07T15:23:23.000Z</published>
-    <updated>2015-11-18T15:59:21.259Z</updated>
+    <updated>2015-11-19T01:19:55.355Z</updated>
     <content type="html"><![CDATA[<p>以下代码为个人原创，python实现，是处理PDB文件的部分常用代码，仅供参考！</p>
 <h3 id="1-下载PDB文件">1.下载PDB文件</h3><p>下面是一个下载PDB文件的函数，传入的参数是一个写有pdb名字的namefile文件，函数的核心部分是三个系统命令，先通过wget下载，然后解压，最后替换名字。</p>
 <a id="more"></a>
@@ -1593,7 +1579,7 @@ _csu.ldw@csu.edu.cn1
 <p>测试实例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dsspfile = <span class="string">'/ifs/home/liudiwei/datasets/832.protein/DSSPdir1/DSSP'</span></span><br><span class="line">chainname = <span class="string">'/ifs/home/liudiwei/experiment/step1/832p.cluster/cdhit/protein.chain'</span></span><br><span class="line">outfile = <span class="string">'/ifs/home/liudiwei/experiment/step1/832p.cluster/cdhit/DSSP'</span></span><br><span class="line">extractDSSP(dsspfile, chainname, outfile )</span><br></pre></td></tr></table></figure>
 <hr>
-<center><br><strong>本栏目持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong><br></center>]]></content>
+]]></content>
     <summary type="html">
     <![CDATA[<p>以下代码为个人原创，python实现，是处理PDB文件的部分常用代码，仅供参考！</p>
 <h3 id="1-下载PDB文件">1.下载PDB文件</h3><p>下面是一个下载PDB文件的函数，传入的参数是一个写有pdb名字的namefile文件，函数的核心部分是三个系统命令，先通过wget下载，然后解压，最后替换名字。</p>]]>
@@ -1611,14 +1597,13 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/"/>
     <id>http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/</id>
     <published>2015-07-05T14:53:12.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
-    <content type="html"><![CDATA[<p><strong>本章内容</strong></p>
-<ul>
+    <updated>2015-11-19T01:19:48.745Z</updated>
+    <content type="html"><![CDATA[<h2 id="本章内容"><strong>本章内容</strong></h2><ul>
 <li>组合相似的分类器来提高分类性能</li>
 <li>应用AdaBoost算法</li>
 <li>处理非均衡分类问题</li>
 </ul>
-<p><strong>主题：</strong>利用AdaBoost元算法提高分类性能</p>
+<h2 id="主题："><strong>主题：</strong></h2><p><strong>利用AdaBoost元算法提高分类性能</strong></p>
 <a id="more"></a>
 <h3 id="1-基于数据集多重抽样的分类器">1.基于数据集多重抽样的分类器</h3><table>
 <thead>
@@ -1694,16 +1679,14 @@ _csu.ldw@csu.edu.cn1
 <h3 id="References">References</h3><p>【1】Machine Learning in Action 机器学习实战 第七章</p>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><strong>本章内容</strong></p>
-<ul>
+    <![CDATA[<h2 id="本章内容"><strong>本章内容</strong></h2><ul>
 <li>组合相似的分类器来提高分类性能</li>
 <li>应用AdaBoost算法</li>
 <li>处理非均衡分类问题</li>
 </ul>
-<p><strong>主题：</strong>利用AdaBoost元算法提高分类性能</p>]]>
+<h2 id="主题："><strong>主题：</strong></h2><p><strong>利用AdaBoost元算法提高分类性能</strong></p>]]>
     
     </summary>
     
@@ -1718,7 +1701,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/06/10/2015-06-10%20Python%20simulate%20command/"/>
     <id>http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/</id>
     <published>2015-06-10T11:24:00.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:20:01.606Z</updated>
     <content type="html"><![CDATA[<p>模拟控制台命令</p>
 <p>写一个程序 lsrm 要求如下:</p>
 <pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
@@ -1735,6 +1718,7 @@ lsrm -<span class="keyword">ll</span>
 
 
 <p>注意：在寻找子目录的文件时，需将工作目切换到子目录，档子目录遍历完毕后，再前换到上一层目录os.chdir(“..”).</p>
+<hr>
 ]]></content>
     <summary type="html">
     <![CDATA[<p>模拟控制台命令</p>
@@ -1759,7 +1743,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/"/>
     <id>http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/</id>
     <published>2015-06-04T13:53:12.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:20:08.743Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据用户平时的搜索或者是购买情况来生成的。如果是蛮力搜索的话代价太高了，所以Apriori就出现了，就是为了解决这类问题的。</p>
 <a id="more"></a>
 <p><strong>内容纲要</strong></p>
@@ -1822,9 +1806,6 @@ lsrm -<span class="keyword">ll</span>
 <h3 id="Reference"><strong>Reference</strong></h3><p>[1]<strong>《机器学习实战》</strong>书籍第11章</p>
 <p><br></p>
 <hr>
-<center><strong>本栏目Machine Learning 算法实现持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center>
-
-<p><br><br><br></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><strong>引文：</strong> 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据用户平时的搜索或者是购买情况来生成的。如果是蛮力搜索的话代价太高了，所以Apriori就出现了，就是为了解决这类问题的。</p>]]>
@@ -1842,7 +1823,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/"/>
     <id>http://csuldw.github.io/2015/06/03/2015-06-03-K-means/</id>
     <published>2015-06-03T04:30:00.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:21:00.496Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>
 <a id="more"></a>
 <p><strong>算法的目的：</strong> 使各个样本与所在类均值的<strong>误差平方和达到最小</strong>（这也是评价K-means算法最后聚类效果的评价标准）</p>
@@ -1875,7 +1856,92 @@ lsrm -<span class="keyword">ll</span>
 <p>上面的结果给出了四个质心。可以看出，经过3次迭代之后K-均值算法收敛。质心会保存在第一个返回值中，第二个是每个点的簇分布情况。</p>
 <p><strong>附件：</strong></p>
 <p>上面测试的数据集为：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">1<span class="class">.658985</span>	4<span class="class">.285136</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.453687</span>	3<span class="class">.424321</span></span><br><span class="line">4<span class="class">.838138</span>	<span class="tag">-1</span><span class="class">.151539</span></span><br><span class="line"><span class="tag">-5</span><span class="class">.379713</span>	<span class="tag">-3</span><span class="class">.362104</span></span><br><span class="line">0<span class="class">.972564</span>	2<span class="class">.924086</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.567919</span>	1<span class="class">.531611</span></span><br><span class="line">0<span class="class">.450614</span>	<span class="tag">-3</span><span class="class">.302219</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.487105</span>	<span class="tag">-1</span><span class="class">.724432</span></span><br><span class="line">2<span class="class">.668759</span>	1<span class="class">.594842</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.156485</span>	3<span class="class">.191137</span></span><br><span class="line">3<span class="class">.165506</span>	<span class="tag">-3</span><span class="class">.999838</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.786837</span>	<span class="tag">-3</span><span class="class">.099354</span></span><br><span class="line">4<span class="class">.208187</span>	2<span class="class">.984927</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.123337</span>	2<span class="class">.943366</span></span><br><span class="line">0<span class="class">.704199</span>	<span class="tag">-0</span><span class="class">.479481</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.392370</span>	<span class="tag">-3</span><span class="class">.963704</span></span><br><span class="line">2<span class="class">.831667</span>	1<span class="class">.574018</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.790153</span>	3<span class="class">.343144</span></span><br><span class="line">2<span class="class">.943496</span>	<span class="tag">-3</span><span class="class">.357075</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.195883</span>	<span class="tag">-2</span><span class="class">.283926</span></span><br><span class="line">2<span class="class">.336445</span>	2<span class="class">.875106</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.786345</span>	2<span class="class">.554248</span></span><br><span class="line">2<span class="class">.190101</span>	<span class="tag">-1</span><span class="class">.906020</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.403367</span>	<span class="tag">-2</span><span class="class">.778288</span></span><br><span class="line">1<span class="class">.778124</span>	3<span class="class">.880832</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.688346</span>	2<span class="class">.230267</span></span><br><span class="line">2<span class="class">.592976</span>	<span class="tag">-2</span><span class="class">.054368</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.007257</span>	<span class="tag">-3</span><span class="class">.207066</span></span><br><span class="line">2<span class="class">.257734</span>	3<span class="class">.387564</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.679011</span>	0<span class="class">.785119</span></span><br><span class="line">0<span class="class">.939512</span>	<span class="tag">-4</span><span class="class">.023563</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.674424</span>	<span class="tag">-2</span><span class="class">.261084</span></span><br><span class="line">2<span class="class">.046259</span>	2<span class="class">.735279</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.189470</span>	1<span class="class">.780269</span></span><br><span class="line">4<span class="class">.372646</span>	<span class="tag">-0</span><span class="class">.822248</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.579316</span>	<span class="tag">-3</span><span class="class">.497576</span></span><br><span class="line">1<span class="class">.889034</span>	5<span class="class">.190400</span></span><br><span class="line"><span class="tag">-0</span><span class="class">.798747</span>	2<span class="class">.185588</span></span><br><span class="line">2<span class="class">.836520</span>	<span class="tag">-2</span><span class="class">.658556</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.837877</span>	<span class="tag">-3</span><span class="class">.253815</span></span><br><span class="line">2<span class="class">.096701</span>	3<span class="class">.886007</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.709034</span>	2<span class="class">.923887</span></span><br><span class="line">3<span class="class">.367037</span>	<span class="tag">-3</span><span class="class">.184789</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.121479</span>	<span class="tag">-4</span><span class="class">.232586</span></span><br><span class="line">2<span class="class">.329546</span>	3<span class="class">.179764</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.284816</span>	3<span class="class">.273099</span></span><br><span class="line">3<span class="class">.091414</span>	<span class="tag">-3</span><span class="class">.815232</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.762093</span>	<span class="tag">-2</span><span class="class">.432191</span></span><br><span class="line">3<span class="class">.542056</span>	2<span class="class">.778832</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.736822</span>	4<span class="class">.241041</span></span><br><span class="line">2<span class="class">.127073</span>	<span class="tag">-2</span><span class="class">.983680</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.323818</span>	<span class="tag">-3</span><span class="class">.938116</span></span><br><span class="line">3<span class="class">.792121</span>	5<span class="class">.135768</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.786473</span>	3<span class="class">.358547</span></span><br><span class="line">2<span class="class">.624081</span>	<span class="tag">-3</span><span class="class">.260715</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.009299</span>	<span class="tag">-2</span><span class="class">.978115</span></span><br><span class="line">2<span class="class">.493525</span>	1<span class="class">.963710</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.513661</span>	2<span class="class">.642162</span></span><br><span class="line">1<span class="class">.864375</span>	<span class="tag">-3</span><span class="class">.176309</span></span><br><span class="line"><span class="tag">-3</span><span class="class">.171184</span>	<span class="tag">-3</span><span class="class">.572452</span></span><br><span class="line">2<span class="class">.894220</span>	2<span class="class">.489128</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.562539</span>	2<span class="class">.884438</span></span><br><span class="line">3<span class="class">.491078</span>	<span class="tag">-3</span><span class="class">.947487</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.565729</span>	<span class="tag">-2</span><span class="class">.012114</span></span><br><span class="line">3<span class="class">.332948</span>	3<span class="class">.983102</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.616805</span>	3<span class="class">.573188</span></span><br><span class="line">2<span class="class">.280615</span>	<span class="tag">-2</span><span class="class">.559444</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.651229</span>	<span class="tag">-3</span><span class="class">.103198</span></span><br><span class="line">2<span class="class">.321395</span>	3<span class="class">.154987</span></span><br><span class="line"><span class="tag">-1</span><span class="class">.685703</span>	2<span class="class">.939697</span></span><br><span class="line">3<span class="class">.031012</span>	<span class="tag">-3</span><span class="class">.620252</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.599622</span>	<span class="tag">-2</span><span class="class">.185829</span></span><br><span class="line">4<span class="class">.196223</span>	1<span class="class">.126677</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.133863</span>	3<span class="class">.093686</span></span><br><span class="line">4<span class="class">.668892</span>	<span class="tag">-2</span><span class="class">.562705</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.793241</span>	<span class="tag">-2</span><span class="class">.149706</span></span><br><span class="line">2<span class="class">.884105</span>	3<span class="class">.043438</span></span><br><span class="line"><span class="tag">-2</span><span class="class">.967647</span>	2<span class="class">.848696</span></span><br><span class="line">4<span class="class">.479332</span>	<span class="tag">-1</span><span class="class">.764772</span></span><br><span class="line"><span class="tag">-4</span><span class="class">.905566</span>	<span class="tag">-2</span><span class="class">.911070</span></span><br></pre></td></tr></table></figure>]]></content>
+<pre><code class="markdown">
+1.658985    4.285136
+-3.453687    3.424321
+4.838138    -1.151539
+-5.379713    -3.362104
+0.972564    2.924086
+-3.567919    1.531611
+0.450614    -3.302219
+-3.487105    -1.724432
+2.668759    1.594842
+-3.156485    3.191137
+3.165506    -3.999838
+-2.786837    -3.099354
+4.208187    2.984927
+-2.123337    2.943366
+0.704199    -0.479481
+-0.392370    -3.963704
+2.831667    1.574018
+-0.790153    3.343144
+2.943496    -3.357075
+-3.195883    -2.283926
+2.336445    2.875106
+-1.786345    2.554248
+2.190101    -1.906020
+-3.403367    -2.778288
+1.778124    3.880832
+-1.688346    2.230267
+2.592976    -2.054368
+-4.007257    -3.207066
+2.257734    3.387564
+-2.679011    0.785119
+0.939512    -4.023563
+-3.674424    -2.261084
+2.046259    2.735279
+-3.189470    1.780269
+4.372646    -0.822248
+-2.579316    -3.497576
+1.889034    5.190400
+-0.798747    2.185588
+2.836520    -2.658556
+-3.837877    -3.253815
+2.096701    3.886007
+-2.709034    2.923887
+3.367037    -3.184789
+-2.121479    -4.232586
+2.329546    3.179764
+-3.284816    3.273099
+3.091414    -3.815232
+-3.762093    -2.432191
+3.542056    2.778832
+-1.736822    4.241041
+2.127073    -2.983680
+-4.323818    -3.938116
+3.792121    5.135768
+-4.786473    3.358547
+2.624081    -3.260715
+-4.009299    -2.978115
+2.493525    1.963710
+-2.513661    2.642162
+1.864375    -3.176309
+-3.171184    -3.572452
+2.894220    2.489128
+-2.562539    2.884438
+3.491078    -3.947487
+-2.565729    -2.012114
+3.332948    3.983102
+-1.616805    3.573188
+2.280615    -2.559444
+-2.651229    -3.103198
+2.321395    3.154987
+-1.685703    2.939697
+3.031012    -3.620252
+-4.599622    -2.185829
+4.196223    1.126677
+-2.133863    3.093686
+4.668892    -2.562705
+-2.793241    -2.149706
+2.884105    3.043438
+-2.967647    2.848696
+4.479332    -1.764772
+-4.905566    -2.911070
+
+</code></pre>
+
+<hr>
+]]></content>
     <summary type="html">
     <![CDATA[<p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>]]>
     
@@ -1892,11 +1958,12 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/31/2015-05-31%20scikit-learn%20training%20model's%20save%20and%20reused/"/>
     <id>http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/</id>
     <published>2015-05-31T12:52:00.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
-    <content type="html"><![CDATA[<p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
+    <updated>2015-11-19T01:21:23.741Z</updated>
+    <content type="html"><![CDATA[<h2 id="描述">描述</h2><p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
 <p>scikit-learn已经有了模型持久化的操作，导入joblib即可</p>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br></pre></td></tr></table></figure>
 <a id="more"></a>
+<hr>
 <h3 id="模型保存"><strong>模型保存</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>os.chdir(<span class="string">"workspace/model_save"</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>X = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>]]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>y = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf = svm.SVC()</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf.fit(X, y)  </span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf.fit(train_X,train_y)</span><br><span class="line"><span class="prompt">&gt;&gt;&gt; </span>joblib.dump(clf, <span class="string">"train_model.m"</span>)</span><br></pre></td></tr></table></figure>
 <p>通过joblib的dump可以将模型保存到本地，clf是训练的分类器</p>
 <h3 id="模型从本地调回"><strong>模型从本地调回</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;&gt; </span>clf = joblib.load(<span class="string">"train_model.m"</span>)</span><br></pre></td></tr></table></figure>
@@ -1905,11 +1972,9 @@ lsrm -<span class="keyword">ll</span>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clf.<span class="function"><span class="title">predit</span><span class="params">(test_X，test_y)</span></span></span><br></pre></td></tr></table></figure>
 <hr>
 <p><br></p>
-<center><strong>本栏目机器学习持续更新中，欢迎来访：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z 博客</a><br>新浪微博： <a href="http://weibo.com/liudiwei210" target="_black">@拾毅者</a> 个人博客： <a href="http://csuldw.github.io" target="_black">AirHax’s Notes</a><br><br></strong></center>
-
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
+    <![CDATA[<h2 id="描述">描述</h2><p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
 <p>scikit-learn已经有了模型持久化的操作，导入joblib即可</p>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br></pre></td></tr></table></figure>]]>
     
@@ -1928,8 +1993,9 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/28/2015-05-28-NB/"/>
     <id>http://csuldw.github.io/2015/05/28/2015-05-28-NB/</id>
     <published>2015-05-28T04:59:00.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
-    <content type="html"><![CDATA[<p><strong>引文：</strong>前面提到的K最近邻算法和决策树算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。<br>categories: ML<br><a id="more"></a></p>
+    <updated>2015-11-19T01:24:22.227Z</updated>
+    <content type="html"><![CDATA[<p><strong>引文：</strong>前面提到的K最近邻算法和决策树算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。</p>
+<a id="more"></a>
 <h3 id="基于贝叶斯决策理论的分类方法之朴素贝叶斯"><strong>基于贝叶斯决策理论的分类方法之朴素贝叶斯</strong></h3><ul>
 <li>优点：在数据较少的情况下仍然有效，可以处理多类别问题</li>
 <li>缺点：对于输入数据的准备方式较为敏感 </li>
@@ -1973,14 +2039,17 @@ lsrm -<span class="keyword">ll</span>
 <p>可以看出，贝叶斯算法将[‘love’, ‘my’, ‘dalmation’]分为“无侮辱”一类，将[‘stupid’, ‘garbage’]分为“侮辱”性质的一类。</p>
 <h3 id="Reference"><strong>Reference</strong></h3><p><strong>[1]《Machine Learning in Action 》机器学习实战</strong></p>
 <hr>
-<center><br><br>本栏目Machine Learning 算法实现持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a><br><br></center>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p><strong>引文：</strong>前面提到的K最近邻算法和决策树算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。<br>categories: ML<br>]]>
+    <![CDATA[<p><strong>引文：</strong>前面提到的K最近邻算法和决策树算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。</p>]]>
     
     </summary>
     
       <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
+    
+      <category term="Python" scheme="http://csuldw.github.io/tags/Python/"/>
+    
+      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
     
   </entry>
   
@@ -1989,7 +2058,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/"/>
     <id>http://csuldw.github.io/2015/05/21/2015-05-21-KNN/</id>
     <published>2015-05-21T12:34:00.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:24:16.245Z</updated>
     <content type="html"><![CDATA[<p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
 <a id="more"></a>
 <h3 id="1-K最近邻分类器原理"><strong>1.K最近邻分类器原理</strong></h3><p>首先给出一张图，根据这张图来理解最近邻分类器，如下：</p>
@@ -2032,7 +2101,10 @@ lsrm -<span class="keyword">ll</span>
 <h3 id="References"><strong>References</strong></h3><p>【1】Introduction to Data Mining <a href="http://vdisk.weibo.com/s/akTUdytgliZM8" target="_blank" rel="external">数据挖掘导论</a><br>【2】<a href="http://blog.csdn.net/abcjennifer/article/details/19757987" target="_blank" rel="external">Rachel Zhang-K近邻分类算法实现 in Python</a></p>
 <hr>
 <p>附件（两张自己的计算过程图）：</p>
-<center><img src="http://img.blog.csdn.net/20150524192410343" alt="这里写图片描述"><br><strong>图1 KNN算法核心部分</strong><br></center><br><center><br><img src="http://img.blog.csdn.net/20150524192640924" alt="这里写图片描述"><br><strong>图2 简易计算过程</strong><br></center><br>说明：上述图片仅供参考，看不懂就自己测试一组数据如[0,1]慢慢推导一下吧<br><br>———-<br><br><center><strong>本栏目机器学习算法持续更新中……</strong></center>]]></content>
+<p><center><img src="http://img.blog.csdn.net/20150524192410343" alt="这里写图片描述"><br><strong>图1 KNN算法核心部分</strong><br></center></p>
+<p><center><br><img src="http://img.blog.csdn.net/20150524192640924" alt="这里写图片描述"><br><strong>图2 简易计算过程</strong><br></center><br>说明：上述图片仅供参考，看不懂就自己测试一组数据如[0,1]慢慢推导一下吧</p>
+<hr>
+]]></content>
     <summary type="html">
     <![CDATA[<p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>]]>
     
@@ -2049,7 +2121,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/08/2015-05-08-decision%20tree/"/>
     <id>http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/</id>
     <published>2015-05-08T13:53:12.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:24:32.074Z</updated>
     <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
 <h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>
@@ -2106,7 +2178,6 @@ lsrm -<span class="keyword">ll</span>
 <h2 id="4-Reference"><strong>4.Reference</strong></h2><p>[1]数据挖掘概念与技术 Third Edition,韩家伟.<br>[2]机器学习实战 ,Peter Harrington.  </p>
 <hr>
 <p><br></p>
-<p><center><strong>本栏目Machine Learning持续更新中，欢迎关注：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">Dream_Angel_Z博客</a></strong></center><br><br></p>
 ]]></content>
     <summary type="html">
     <![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
@@ -2125,11 +2196,11 @@ lsrm -<span class="keyword">ll</span>
   </entry>
   
   <entry>
-    <title><![CDATA[Git-同步一个fork]]></title>
+    <title><![CDATA[Git小结-同步一个fork]]></title>
     <link href="http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/"/>
     <id>http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/</id>
     <published>2015-04-15T05:14:54.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:24:53.385Z</updated>
     <content type="html"><![CDATA[<h2 id="如何使用搜索引擎">如何使用搜索引擎</h2><p>其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用<strong>英文</strong>在 <a href="http://www.google.com" target="_blank" rel="external">Google</a> 或者 <a href="http://cn.bing.com/" target="_blank" rel="external">Bing</a> 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   </p>
 <p>搜索 fork sync，就可以看到 GitHub 自己的帮助文档 <a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="external">Syncing a fork</a> 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with an upstream repository, you must <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="external">configure a remote that points to the upstream repository</a> in Git.<br>根据这两篇文章，问题迎刃而解！ </p>
 <a id="more"></a>
@@ -2199,6 +2270,7 @@ lsrm -<span class="keyword">ll</span>
 <ul>
 <li>如果想更新到 GitHub 的 fork 上，直接 <code>git push origin master</code> 就好了。</li>
 </ul>
+<hr>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="如何使用搜索引擎">如何使用搜索引擎</h2><p>其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用<strong>英文</strong>在 <a href="http://www.google.com">Google</a> 或者 <a href="http://cn.bing.com/">Bing</a> 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   </p>
@@ -2217,7 +2289,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/"/>
     <id>http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/</id>
     <published>2015-03-26T07:14:54.000Z</published>
-    <updated>2015-11-04T14:55:37.000Z</updated>
+    <updated>2015-11-19T01:25:37.457Z</updated>
     <content type="html"><![CDATA[<h2 id="序">序</h2><p>本文我将讲述一下 SublimeLinter 的安装过程。<br>其组件 jshint 的安装与使用。<br>其组件 csslint 的安装与使用。<br>我将基于 <a href="http://sublimetext.com/3" target="_blank" rel="external">Sublime Text 3</a> 来安装。<br>使用 Sublime Text 2 的用户阅读本文是没有帮助的。   </p>
 <p>SublimeLinter 是 Sublime 的插件，它的作用是检查代码语法是否有错误，并提示。习惯了 IDE 下写代码的人一定需要一款在 Sublime 上类似的语法检查工具。下面我们开始。   </p>
 <a id="more"></a>
@@ -2336,6 +2408,7 @@ v0.10.0
 <p><img src="http://7q5cdt.com1.z0.glb.clouddn.com/SublimeLinter-csslint-test.jpg" alt="SublimeLinter-csslint-test"></p>
 <p>点击提示点后，Sublime 状态栏也会有相应的说明   </p>
 <p><img src="http://7q5cdt.com1.z0.glb.clouddn.com/SublimeLinter-csslint-test2.jpg" alt="SublimeLinter-csslint-test2"></p>
+<hr>
 ]]></content>
     <summary type="html">
     <![CDATA[<h2 id="序">序</h2><p>本文我将讲述一下 SublimeLinter 的安装过程。<br>其组件 jshint 的安装与使用。<br>其组件 csslint 的安装与使用。<br>我将基于 <a href="http://sublimetext.com/3">Sublime Text 3</a> 来安装。<br>使用 Sublime Text 2 的用户阅读本文是没有帮助的。   </p>
