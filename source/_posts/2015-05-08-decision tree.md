@@ -51,9 +51,17 @@ categories: ML
 
 **信息增益度量属性选择**
 
+熵被用来衡量一个随机变量出现的期望值。熵越大，一个变量的不确定性就越大（也就是可取的值很多），把它搞清楚所需要的信息量也就越大，熵是整个系统的平均消息量。 信息熵是信息论中用于度量信息量的一个概念。一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。
+
 **熵（Entropy）的计算公式**
 
-熵定义为**信息增益的期望值**。熵越大，一个变量的不确定性就越大（也就是可取的值很多），把它分析清楚需要的信息量也就越大，熵是整个系统的平均信息量。对$D$中的元组分类所需要的期望信息由下列公式给出：
+熵定义为**信息的期望值**。先看看信息的定义：
+
+$$l(x_i)=-log_2p(x_i)$$
+
+其中，$p(x_i)$是选择该分类的概率。
+
+对$D$中的元组所有分类所有可能值的信息期望，即熵，计算公式如下：
 
 $$Entropy=H(D)=E(I(D))=-\sum_i^{n}p_ilog_2(p_i)，p_i是D中任意元组属于类C_i非零概率。$$
 
@@ -67,7 +75,7 @@ ID3划分特征使用的就是信息增益IG.
 
 **信息增益计算**
 
-首先计算特征A对数据集D的经验**条件熵**$H(D|A)$,在数学上就是条件概率分布（Condition Probability）
+首先计算特征A对数据集D的经验**条件熵**$H(D|A)$,在数学上就是条件概率分布（Condition Probability）.
 
 $$H(D|A)=\sum_j\dfrac{|D_j|}{|D|}\times H(D_j)，项\dfrac{|D_i|}{|D|}充当第j个分区的权重$$
 
@@ -78,11 +86,14 @@ $$Gain(A) = H(D) - H(D|A)$$
 
 其中，$Gain(A)$即为所求的信息增益。
 
+
 下面来应用一个实例，**训练元组数据D**
 
 ![这里写图片描述](http://img.blog.csdn.net/20150513110022176)
 
 在这里
+
+$$H(D)=-\dfrac{9}{14}log_2\dfrac{9}{14}-\dfrac{5}{14}log_{2}\frac{5}{14}=0.940位$$
 
 $$H(D|age)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$
 
@@ -137,7 +148,7 @@ $$Gini(D)=1-\sum p^{2}_i，其中，p_i是D中元组数以C_i类的概率，对m
 
 ## **3.学习推介**
 
-Andrew W. Moore PPT [dtree](http://www.autonlab.org/tutorials/dtree18.pdf)  
+Andrew W. Moore PPT [DTree](http://www.autonlab.org/tutorials/dtree18.pdf)  
 决策树Python实现，单独成文，网址：[决策树实现](http://blog.csdn.net/dream_angel_z/article/details/45965463)  
 Wikipedia维基百科-[Decision Tree决策树](https://en.wikipedia.org/wiki/Decision_tree)
 

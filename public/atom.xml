@@ -5,7 +5,7 @@
   <subtitle><![CDATA[——悄悄是别离的笙箫，沉默是今晚的康桥。]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://csuldw.github.io//"/>
-  <updated>2015-11-19T07:43:14.744Z</updated>
+  <updated>2015-11-21T10:58:45.716Z</updated>
   <id>http://csuldw.github.io//</id>
   
   <author>
@@ -16,11 +16,40 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[机器学习算法代码汇总]]></title>
+    <link href="http://csuldw.github.io/2015/11/21/2015-11-21-machine-learning-algorithms/"/>
+    <id>http://csuldw.github.io/2015/11/21/2015-11-21-machine-learning-algorithms/</id>
+    <published>2015-11-21T02:24:00.000Z</published>
+    <updated>2015-11-21T10:58:45.716Z</updated>
+    <content type="html"><![CDATA[<p><br></p>
+<p>【机器学习算法代码汇总-Python&amp;R】- <a link="http://csuldw.github.io/assets/pdf/Full-CheatSheet-on-Machine-Learning-Algorithms(Python-and-R-Codes).pdf" target="_black">PDF文件下载</a>.</p>
+<p><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ey8lm4rhn5j20s40fp466.jpg" alt="机器学习算法代码汇总1"></p>
+<a id="more"></a>
+<p><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ey8lkrdcwlj20s93kl4qq.jpg" alt="机器学习算法代码汇总2"></p>
+<p>原文链接：<a href="http://www.analyticsvidhya.com/blog/2015/09/full-cheatsheet-machine-learning-algorithms/" target="_blank" rel="external">点击这里</a>.</p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><br></p>
+<p>【机器学习算法代码汇总-Python&amp;R】- <a link="http://csuldw.github.io/assets/pdf/Full-CheatSheet-on-Machine-Learning-Algorithms(Python-and-R-Codes).pdf"target="_black">PDF文件下载</a>.</p>
+<p><img src="http://ww3.sinaimg.cn/large/637f3c58gw1ey8lm4rhn5j20s40fp466.jpg" alt="机器学习算法代码汇总1"></p>]]>
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
+    
+      <category term="Python" scheme="http://csuldw.github.io/tags/Python/"/>
+    
+      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[实验笔记[1]-DSSP文件提取序列]]></title>
     <link href="http://csuldw.github.io/2015/11/18/2015-11-18%20ExpNotes%5B1%5D-Extract%20protein%20sequences%20from%20a%20fasta%20file/"/>
     <id>http://csuldw.github.io/2015/11/18/2015-11-18 ExpNotes[1]-Extract protein sequences from a fasta file/</id>
     <published>2015-11-18T04:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.744Z</updated>
+    <updated>2015-11-19T07:50:44.444Z</updated>
     <content type="html"><![CDATA[<p><strong>提示：以下内容乃个人实验笔记！</strong></p>
 <h3 id="功能描述">功能描述</h3><p>从格式化后的dssp文件<code>DSSP</code>（单一文件）中提取序列信息，要求输出的序列不含有<code>X</code>残基，并且序列最短长度<code>minlen</code>可人为指定，一般设置为<code>40</code>。</p>
 <a id="more"></a>
@@ -90,7 +119,7 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     <link href="http://csuldw.github.io/2015/11/17/2015-11-17%20B=U-A/"/>
     <id>http://csuldw.github.io/2015/11/17/2015-11-17 B=U-A/</id>
     <published>2015-11-17T07:11:00.000Z</published>
-    <updated>2015-11-19T07:43:14.743Z</updated>
+    <updated>2015-11-19T07:50:44.444Z</updated>
     <content type="html"><![CDATA[<h2 id="问题描述">问题描述</h2><p>在做数据处理的时候，根据原论文的蛋白质链下载蛋白质PDB文件，大体上还算正常。但是有的protein的PDB文件在PDB数据库已经不存在了，所以下载后的PDB文件理论上只属于原论文提到的PDB文件的一个子集。由于数据比较大，手动去找会耗费大量的时间，所以为了找出这些不存在的PDB文件，下面写一段代码来实现。</p>
 <h2 id="问题转换与实现">问题转换与实现</h2><p>首先，将问题转化成一个数学问题。</p>
 <a id="more"></a>
@@ -138,7 +167,7 @@ AIEVKLANMEAEINTLKSKLELTNKLHAFSMGKKSGKKFFVTNHERMPFSKVKALcSELRGTVAIPRNAEENKAIQEVAK
     <link href="http://csuldw.github.io/2015/11/16/2015-11-16%20Download%20PDB%20file%20with%20wget%20command/"/>
     <id>http://csuldw.github.io/2015/11/16/2015-11-16 Download PDB file with wget command/</id>
     <published>2015-11-16T02:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.743Z</updated>
+    <updated>2015-11-19T07:50:44.444Z</updated>
     <content type="html"><![CDATA[<p>在Linux服务器下，使用<code>wget</code>命令下载PDB文件，即蛋白质文件。</p>
 <ul>
 <li>输入文件格式：一个存有<code>protein chain</code>的单独文件，每行的格式为：<code>1A34A</code></li>
@@ -188,7 +217,7 @@ download.py文件</li>
     <link href="http://csuldw.github.io/2015/11/15/2015-11-15%20normalization/"/>
     <id>http://csuldw.github.io/2015/11/15/2015-11-15 normalization/</id>
     <published>2015-11-15T02:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.742Z</updated>
+    <updated>2015-11-19T07:50:44.443Z</updated>
     <content type="html"><![CDATA[<p>本文主要介绍两种基本的数据归一化方法。</p>
 <ul>
 <li>min-max标准化（Min-Max Normalization）</li>
@@ -255,7 +284,7 @@ download.py文件</li>
     <link href="http://csuldw.github.io/2015/11/03/2015-11-03%20Add%20header%20and%20footer%20to%20some%20file/"/>
     <id>http://csuldw.github.io/2015/11/03/2015-11-03 Add header and footer to some file/</id>
     <published>2015-11-03T08:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.742Z</updated>
+    <updated>2015-11-19T07:50:44.443Z</updated>
     <content type="html"><![CDATA[<p>今天整理资料的时候，发现要在很多文件中的头部和尾部添加相同的文本，于是自己使用Python做了一个简单的文件拼接功能，也可以说是文件追加功能，给一个文件批量追加头尾内容，达到省事的效果，顺便还可以练习下Python。下面来介绍下这个功能的代码：</p>
 <p>现在有三个文件，如下：</p>
 <ul>
@@ -302,7 +331,7 @@ download.py文件</li>
     <link href="http://csuldw.github.io/2015/10/29/2015-10-29%20Python%20RegEx/"/>
     <id>http://csuldw.github.io/2015/10/29/2015-10-29 Python RegEx/</id>
     <published>2015-10-29T12:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.741Z</updated>
+    <updated>2015-11-19T07:50:44.442Z</updated>
     <content type="html"><![CDATA[<p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
 <h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
@@ -588,7 +617,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/25/2015-10-25%20scikit-learn%20preprocessing/"/>
     <id>http://csuldw.github.io/2015/10/25/2015-10-25 scikit-learn preprocessing/</id>
     <published>2015-10-25T02:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.741Z</updated>
+    <updated>2015-11-19T07:50:44.442Z</updated>
     <content type="html"><![CDATA[<p>本文主要是对照<a href="http://scikit-learn.org/stable/modules/preprocessing.html#preprocessing" target="_blank" rel="external">scikit-learn的preprocessing</a>章节结合代码简单的回顾下预处理技术的几种方法，主要包括标准化、数据最大最小缩放处理、正则化、特征二值化和数据缺失值处理。内容比较简单，仅供参考！</p>
 <p>首先来回顾一下下面要用到的基本知识。</p>
 <a id="more"></a>
@@ -696,7 +725,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/24/2015-10-24%20feature%20engineering/"/>
     <id>http://csuldw.github.io/2015/10/24/2015-10-24 feature engineering/</id>
     <published>2015-10-24T02:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.740Z</updated>
+    <updated>2015-11-19T07:50:44.441Z</updated>
     <content type="html"><![CDATA[<p>在这个振奋人心的程序员节日里，我决定认真地写一篇文章来纪念一下自己这长达六年程序员史。o(╯□╰)o</p>
 <p>本文是一篇关于特征工程的总结类文章，如有不足之处或理解有偏差的地方，还望多多指教。</p>
 <p>首先，给一张特征工程的思维导图吧：</p>
@@ -830,7 +859,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/21/2015-10-21%20Windows%20git%20push%20no%20password/"/>
     <id>http://csuldw.github.io/2015/10/21/2015-10-21 Windows git push no password/</id>
     <published>2015-10-21T08:45:44.000Z</published>
-    <updated>2015-11-19T07:43:14.739Z</updated>
+    <updated>2015-11-19T07:50:44.440Z</updated>
     <content type="html"><![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
@@ -862,7 +891,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/09/23/2015-09-23%20Machine%20learning%20materials/"/>
     <id>http://csuldw.github.io/2015/09/23/2015-09-23 Machine learning materials/</id>
     <published>2015-09-23T14:22:22.000Z</published>
-    <updated>2015-11-19T07:43:14.739Z</updated>
+    <updated>2015-11-19T07:50:44.440Z</updated>
     <content type="html"><![CDATA[<p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
 <p>下面来做个资料整理吧。</p>
 <a id="more"></a>
@@ -993,7 +1022,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/08/29/2015-08-29%20Summary/"/>
     <id>http://csuldw.github.io/2015/08/29/2015-08-29 Summary/</id>
     <published>2015-08-29T02:54:00.000Z</published>
-    <updated>2015-11-19T07:43:14.738Z</updated>
+    <updated>2015-11-19T07:50:44.439Z</updated>
     <content type="html"><![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
 <p>下面来总结一下自已这几个月的学习成长吧。<br><a id="more"></a><br>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
 <p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
@@ -1022,7 +1051,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/08/19/2015-08-19%20GBDT/"/>
     <id>http://csuldw.github.io/2015/08/19/2015-08-19 GBDT/</id>
     <published>2015-08-19T02:54:00.000Z</published>
-    <updated>2015-11-19T07:43:14.738Z</updated>
+    <updated>2015-11-19T14:32:43.132Z</updated>
     <content type="html"><![CDATA[<h2 id="Introduction"><strong>Introduction</strong></h2><p>决策树这种算法有着很多良好的特性，比如说训练时间复杂度较低，预测的过程比较快速，模型容易展示（容易将得到的决策树做成图片展示出来）等。但是同时，单决策树又有一些不好的地方，比如说容易over-fitting，虽然有一些方法，如剪枝可以减少这种情况，但是还是不太理想。</p>
 <p>模型组合（比如说有Boosting，Bagging等）与决策树相关的算法比较多，如randomForest、Adaboost、GBRT等，这些算法最终的结果是生成N(可能会有几百棵以上）棵树，这样可以大大的减少单决策树带来的毛病，有点类似于三个臭皮匠赛过一个诸葛亮的做法，虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但是他们组合起来确是很强大。虽然这些算法都是通过决策树演变过来的，但在处理的过程上有着一些差异，我会在后面对此做一个本质上的比较。下面先来介绍下本文的梯度提升算法。<br><a id="more"></a></p>
 <h2 id="Gradient_Tree_Boosting"><strong>Gradient Tree Boosting</strong></h2><p>梯度树提升（Gradient Tree Boosting）是一种组合算法，也叫做梯度提升回归树（gradient boosting regression tree），它的基分类器是决策树，既可以用来回归，也可以用作分类。在分类性能上，能够和随机森林媲美，甚至在有的数据集上表现的有过之而无不及。如今，Gradient Tree Boosting模型已经广泛的运用在Web搜索排行榜以及生态学上。在阿里内部也用的比较多，所以值得我们去花点时间认真学习。</p>
@@ -1038,24 +1067,24 @@ _csu.ldw@csu.edu.cn1
 </ul>
 <p>尽管如此，由于GTB的表现性能很好，所以它仍然受广大业界人士的青睐。下面来介绍下梯度提升树的算法原理。</p>
 <h3 id="GTB算法"><strong>GTB算法</strong></h3><p>梯度提升（gradient boosting）算法最初是FreidMan在2000年提出来的，其核心就在于，每棵树是从先前所有树的残差中来学习。利用的是当前模型中损失函数的负梯度值</p>
-<p>$$ r<em>{mi} = - \Bigg [ \frac {\partial L(y_i, f (x_i))}{\partial f (x_i)}\Bigg ] </em>{f (x) = f _{m-1}(x)}$$</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24%20r_%7Bmi%7D%20%3D%20-%20%5CBigg%20%5B%20%5Cfrac%20%7B%5Cpartial%20L%28y_i%2C%20f%20%28x_i%29%29%7D%7B%5Cpartial%20f%20%28x_i%29%7D%5CBigg%20%5D%20_%7Bf%20%28x%29%20%3D%20f%20_%7Bm-1%7D%28x%29%7D%24%24" alt=""></p>
 <p>作为提升树算法中的残差的近似值，进而拟合一棵回归（分类）树。</p>
 <p>梯度提升属于Boost算法的一种，也可以说是Boost算法的一种改进，原始的Boost算法是在算法开始时，为每一个样本赋上一个相等的权重值，也就是说，最开始的时候，大家都是一样重要的。在每一次训练中得到的模型，会使得数据点的估计有所差异，所以在每一步结束后，我们需要对权重值进行处理，而处理的方式就是通过增加错分类点的权重，同时减少错分类点的权重，这样使得某些点如果老是被分错，那么就会被“严重关注”，也就被赋上一个很高的权重。然后等进行了N次迭代（由用户指定），将会得到N个简单的基分类器（basic learner），最后将它们组合起来，可以对它们进行加权（错误率越大的基分类器权重值越小，错误率越小的基分类器权重值越大）、或者让它们进行投票等得到一个最终的模型。</p>
 <p>Gradient Boost与传统的Boost有着很大的区别，它的每一次计算都是为了减少上一次的残差(residual)，而为了减少这些残差，可以在残差减少的梯度(Gradient)方向上建立一个新模型。所以说，在Gradient Boost中，每个新模型的建立是为了使得先前模型残差往梯度方向减少，与传统的Boost算法对正确、错误的样本进行加权有着极大的区别。</p>
 <h4 id="梯度提升算法（以回归为例）"><strong>梯度提升算法（以回归为例）</strong></h4><p>对于给定的输入：训练数据集T={(x1,y1),(x2,y2),…,(xn,yn)},损失函数L(y,f(x));<br>输出结果：一棵回归树$\tilde{f}(x)$</p>
 <hr>
-<p>（1）首先初始化$$f<em>0(x)=arg min_c \sum</em>{i=1}^{N}L(y_i, c)$$</p>
+<p>（1）首先初始化</p>
+<p>$$f<em>0(x)=arg min_c \sum</em>{i=1}^{N}L(y_i, c)$$</p>
 <p>估计一个使损失函数极小化的常数值，此时它只有一个节点的树；<br>（2）迭代的建立M棵提升树<br>for m=1 to M:（第一层循环）<br>for i=1 to N：（第二层循环） 计算损失函数的负梯度在当前模型的值，并将它作为残差的估计值。</p>
-<p>$$ r<em>{mi} = - \Bigg [ \frac {\partial L(y_i, f (x_i))}{\partial f (x_i)}\Bigg ] </em>{f (x) = f _{m-1}(x)}$$</p>
-<p>对于$r<em>{mi}$拟合一棵回归树，得到第m棵树的叶节点区域$R</em>{mj}$,j=1,2,…,J</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24%20r_%7Bmi%7D%20%3D%20-%20%5CBigg%20%5B%20%5Cfrac%20%7B%5Cpartial%20L%28y_i%2C%20f%20%28x_i%29%29%7D%7B%5Cpartial%20f%20%28x_i%29%7D%5CBigg%20%5D%20_%7Bf%20%28x%29%20%3D%20f%20_%7Bm-1%7D%28x%29%7D%24%24" alt=""></p>
+<p>对于$r<em>{mi}$拟合一棵回归树，得到第m棵树的叶节点区域 $R\</em>{mj}$,j=1,2,…,J</p>
 <p>for j=1 to J：（第二层循环）,计算：</p>
-<p>$$c<em>{mj} = arg min_c \sum</em>{x<em>i\epsilon R</em>{mj}}L(y<em>i,f</em>{m-1}(x_i)+c)$$</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24c_%7Bmj%7D%20%3D%20arg%20min_c%20%5Csum_%7Bx_i%5Cepsilon%20R_%7Bmj%7D%7DL%28y_i%2Cf_%7Bm-1%7D%28x_i%29&plus;c%29%24%24" alt=""></p>
 <p>利用线性搜索估计叶节点区域的值，使损失函数极小化；</p>
-<p>然后，更新$f<em>{m}(x) = f</em>{m-1}(x) + \sum<em>{j=1}^Jc</em>{mj}I(x \epsilon R_{mj})$</p>
+<p>然后，更新</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24f_%7Bm%7D%28x%29%20%3D%20f_%7Bm-1%7D%28x%29%20&plus;%20%5Csum_%7Bj%3D1%7D%5EJc_%7Bmj%7DI%28x%20%5Cepsilon%20R_%7Bmj%7D%29%24%24" alt=""></p>
 <p>（3）最后得到的$f_{m}(x)$就是我们最终的模型</p>
-<p>$$\tilde{f}(x)=f<em>M(x)=\sum</em>{m=1}^M\sum<em>{j=1}^Jc</em>{mj}I(x \epsilon R_{mj})$$</p>
-<hr>
-<h4 id="使用scikit-learn中的GTB"><strong>使用scikit-learn中的GTB</strong></h4><p>在scikit-learn中对GTB算法有了很好的封装，对于分类可以选择的损失函数有逻辑回归和指数函数，对于回归的损失函数相对比较多，有最小二乘法、最小绝对偏差函数、huber以及分位数等。具体描述参考下面的图片：<br><img src="file:///C:/Users/liudiwei/Desktop/QQ截图20150829104337.png" alt=""></p>
+<h2 id=""><img src="http://latex.codecogs.com/gif.latex?%24%24%5Ctilde%7Bf%7D%28x%29%3Df_M%28x%29%3D%5Csum_%7Bm%3D1%7D%5EM%5Csum_%7Bj%3D1%7D%5EJc_%7Bmj%7DI%28x%20%5Cepsilon%20R_%7Bmj%7D%29%24%24" alt=""></h2><h4 id="使用scikit-learn中的GTB"><strong>使用scikit-learn中的GTB</strong></h4><p>在scikit-learn中对GTB算法有了很好的封装，对于分类可以选择的损失函数有逻辑回归和指数函数，对于回归的损失函数相对比较多，有最小二乘法、最小绝对偏差函数、huber以及分位数等。具体描述参考下面的图片：<br><img src="file:///C:/Users/liudiwei/Desktop/QQ截图20150829104337.png" alt=""></p>
 <p>下面是sklearn中的一个分类原例：</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; from sklearn.datasets import make_hastie_10_2</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; from sklearn.ensemble import <span class="constant">GradientBoostingClassifier</span></span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="constant">X</span>, y = make_hastie_10_2(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; <span class="constant">X_train</span>, <span class="constant">X_test</span> = <span class="constant">X</span>[<span class="symbol">:</span><span class="number">2000</span>], <span class="constant">X</span>[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; y_train, y_test = y[<span class="symbol">:</span><span class="number">2000</span>], y[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; clf = <span class="constant">GradientBoostingClassifier</span>(n_estimators=<span class="number">100</span>, learning_rate=<span class="number">1.0</span>,</span><br><span class="line">...     max_depth=<span class="number">1</span>, random_state=<span class="number">0</span>).fit(<span class="constant">X_train</span>, y_train)</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; clf.score(<span class="constant">X_test</span>, y_test)                 </span><br><span class="line"><span class="number">0</span>.<span class="number">913</span>...</span><br></pre></td></tr></table></figure>
 <p>其中n_estimators表示弱分类器的个数，learning_rate表示学习率，max_depth表示最大的深度等。GTB的参数比较多，在实际应用中需要自己去调整合适的参数。</p>
@@ -1085,7 +1114,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/28/2015-07-28%20crossvalidation/"/>
     <id>http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/</id>
     <published>2015-07-28T07:40:00.000Z</published>
-    <updated>2015-11-19T07:43:14.737Z</updated>
+    <updated>2015-11-19T07:50:44.438Z</updated>
     <content type="html"><![CDATA[<p>版权声明：本文为原创文章，转载请注明来源。</p>
 <h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
@@ -1178,7 +1207,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/23/2015-07-23%20machine%20learning%20tips/"/>
     <id>http://csuldw.github.io/2015/07/23/2015-07-23 machine learning tips/</id>
     <published>2015-07-23T04:53:00.000Z</published>
-    <updated>2015-11-19T07:43:14.737Z</updated>
+    <updated>2015-11-19T07:50:44.437Z</updated>
     <content type="html"><![CDATA[<p><strong>一个Windows操作系统能够使用的pythonIDE</strong></p>
 <blockquote>
 <p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="external">WinPython_2.7</a></p>
@@ -1243,7 +1272,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/22/2015-07-22%20%20ensemble/"/>
     <id>http://csuldw.github.io/2015/07/22/2015-07-22  ensemble/</id>
     <published>2015-07-21T22:53:00.000Z</published>
-    <updated>2015-11-19T07:43:14.736Z</updated>
+    <updated>2015-11-19T07:50:44.437Z</updated>
     <content type="html"><![CDATA[<h2 id="组合模型"><strong>组合模型</strong></h2><p>下面简单的介绍下Bootstraping, Bagging, Boosting, AdaBoost, RandomForest 和Gradient boosting这些组合型算法.</p>
 <h3 id="1-Bootstraping"><strong>1.Bootstraping</strong></h3><p><strong>Bootstraping</strong>: 名字来自成语“pull up by your own bootstraps”，意思就是依靠你自己的资源，称为自助法，它是一种有放回的抽样方法，它是非参数统计中一种重要的估计统计量方差进而进行区间估计的统计方法。其核心思想和基本步骤如下：<br> <a id="more"></a></p>
 <blockquote>
@@ -1310,7 +1339,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/"/>
     <id>http://csuldw.github.io/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/</id>
     <published>2015-07-21T13:31:00.000Z</published>
-    <updated>2015-11-19T07:43:14.735Z</updated>
+    <updated>2015-11-21T02:41:34.794Z</updated>
     <content type="html"><![CDATA[<p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="external">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
 <p><strong>章节内容</strong></p>
 <p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
@@ -1382,7 +1411,9 @@ _csu.ldw@csu.edu.cn1
     
       <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
     
-      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
+      <category term="译文" scheme="http://csuldw.github.io/tags/%E8%AF%91%E6%96%87/"/>
+    
+      <category term="译文" scheme="http://csuldw.github.io/categories/%E8%AF%91%E6%96%87/"/>
     
   </entry>
   
@@ -1391,7 +1422,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/18/2015-07-18-a%20precision%20and%20recall/"/>
     <id>http://csuldw.github.io/2015/07/18/2015-07-18-a precision and recall/</id>
     <published>2015-07-18T04:30:00.000Z</published>
-    <updated>2015-11-19T07:43:14.734Z</updated>
+    <updated>2015-11-19T07:50:44.436Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 
@@ -1467,7 +1498,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/16/2015-07-16%20Python%20timer/"/>
     <id>http://csuldw.github.io/2015/07/16/2015-07-16 Python timer/</id>
     <published>2015-07-16T12:24:25.000Z</published>
-    <updated>2015-11-19T07:43:14.733Z</updated>
+    <updated>2015-11-19T07:50:44.435Z</updated>
     <content type="html"><![CDATA[<p>在实际开发中，往往想要计算一段代码运行多长时间，下面我将该功能写入到一个函数里面，只要在每个函数前面调用该函数即可，见下面代码：</p>
 <a id="more"></a>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#--------------------------------</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fun_timer</span><span class="params">(function)</span>:</span></span><br><span class="line">    <span class="decorator">@wraps(function)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">function_timer</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        t0 = time.time()</span><br><span class="line">        result = function(*args, **kwargs)</span><br><span class="line">        t1 = time.time()</span><br><span class="line">        os.system(<span class="string">" echo Total time running %s: %s seconds"</span> % (function.func_name, str(t1-t0)) + <span class="string">" &gt;&gt; timecount.log"</span>)</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> function_timer</span><br><span class="line"><span class="comment">#-----------------------------------</span></span><br></pre></td></tr></table></figure>
@@ -1492,7 +1523,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/13/2015-07-13-10%20keys%20to%20successful%20machine%20learning%20for%20developers/"/>
     <id>http://csuldw.github.io/2015/07/13/2015-07-13-10 keys to successful machine learning for developers/</id>
     <published>2015-07-13T13:53:12.000Z</published>
-    <updated>2015-11-19T07:43:14.733Z</updated>
+    <updated>2015-11-19T07:50:44.435Z</updated>
     <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
 
 <p>在提供发现埋藏数据深层的模式的能力上，机器学习有着潜在的能力使得应用程序更加的强大并且更能响应用户的需求。精心调校好的算法能够从巨大的并且互不相同的数据源中提取价值，同时没有人类思考和分析的限制。对于开发者而言，机器学习为应用业务的关键分析提供了希望，从而实现从改善客户体验到提供产品推荐上升至超个性化内容服务的任何应用程序。<br><a id="more"></a><br>像Amazon和Micorosoft这样的云供应商提供云功能的机器学习解决方案，承诺为开发者提供一个简单的方法，使得机器学习的能力能够融入到他们的应用程序当中，这也算是最近的头条新闻了。承诺似乎很好，但开发者还需谨慎。</p>
@@ -1548,7 +1579,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/07/2015-07-07-PDB/"/>
     <id>http://csuldw.github.io/2015/07/07/2015-07-07-PDB/</id>
     <published>2015-07-07T15:23:23.000Z</published>
-    <updated>2015-11-19T07:43:14.732Z</updated>
+    <updated>2015-11-19T07:50:44.432Z</updated>
     <content type="html"><![CDATA[<p>以下代码为个人原创，python实现，是处理PDB文件的部分常用代码，仅供参考！</p>
 <h3 id="1-下载PDB文件">1.下载PDB文件</h3><p>下面是一个下载PDB文件的函数，传入的参数是一个写有pdb名字的namefile文件，函数的核心部分是三个系统命令，先通过wget下载，然后解压，最后替换名字。</p>
 <a id="more"></a>
@@ -1597,7 +1628,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/"/>
     <id>http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/</id>
     <published>2015-07-05T14:53:12.000Z</published>
-    <updated>2015-11-19T07:43:14.732Z</updated>
+    <updated>2015-11-19T07:50:44.434Z</updated>
     <content type="html"><![CDATA[<h2 id="本章内容"><strong>本章内容</strong></h2><ul>
 <li>组合相似的分类器来提高分类性能</li>
 <li>应用AdaBoost算法</li>
@@ -1701,7 +1732,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/06/10/2015-06-10%20Python%20simulate%20command/"/>
     <id>http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/</id>
     <published>2015-06-10T11:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.731Z</updated>
+    <updated>2015-11-19T07:50:44.432Z</updated>
     <content type="html"><![CDATA[<p>模拟控制台命令</p>
 <p>写一个程序 lsrm 要求如下:</p>
 <pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
@@ -1743,7 +1774,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/"/>
     <id>http://csuldw.github.io/2015/06/04/2015-06-04-Apriori/</id>
     <published>2015-06-04T13:53:12.000Z</published>
-    <updated>2015-11-19T07:43:14.731Z</updated>
+    <updated>2015-11-19T07:50:44.432Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> 学习一个算法，我们最关心的并不是算法本身，而是一个算法能够干什么，能应用到什么地方。很多的时候，我们都需要从大量数据中提取出有用的信息，从大规模数据中寻找物品间的隐含关系叫做关联分析(association analysis)或者关联规则学习(association rule learning)。比如在平时的购物中，那些商品一起捆绑购买销量会比较好，又比如购物商城中的那些推荐信息，都是根据用户平时的搜索或者是购买情况来生成的。如果是蛮力搜索的话代价太高了，所以Apriori就出现了，就是为了解决这类问题的。</p>
 <a id="more"></a>
 <p><strong>内容纲要</strong></p>
@@ -1823,7 +1854,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/"/>
     <id>http://csuldw.github.io/2015/06/03/2015-06-03-K-means/</id>
     <published>2015-06-03T04:30:00.000Z</published>
-    <updated>2015-11-19T07:43:14.731Z</updated>
+    <updated>2015-11-19T07:50:44.431Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>
 <a id="more"></a>
 <p><strong>算法的目的：</strong> 使各个样本与所在类均值的<strong>误差平方和达到最小</strong>（这也是评价K-means算法最后聚类效果的评价标准）</p>
@@ -1958,7 +1989,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/31/2015-05-31%20scikit-learn%20training%20model's%20save%20and%20reused/"/>
     <id>http://csuldw.github.io/2015/05/31/2015-05-31 scikit-learn training model's save and reused/</id>
     <published>2015-05-31T12:52:00.000Z</published>
-    <updated>2015-11-19T07:43:14.730Z</updated>
+    <updated>2015-11-19T07:50:44.431Z</updated>
     <content type="html"><![CDATA[<h2 id="描述">描述</h2><p>在做模型训练的时候，尤其是在训练集上做交叉验证，通常想要将模型保存下来，然后放到独立的测试集上测试，下面介绍的是Python中训练模型的保存和再使用。</p>
 <p>scikit-learn已经有了模型持久化的操作，导入joblib即可</p>
 <figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.externals <span class="keyword">import</span> joblib</span><br></pre></td></tr></table></figure>
@@ -1993,7 +2024,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/28/2015-05-28-NB/"/>
     <id>http://csuldw.github.io/2015/05/28/2015-05-28-NB/</id>
     <published>2015-05-28T04:59:00.000Z</published>
-    <updated>2015-11-19T07:43:14.730Z</updated>
+    <updated>2015-11-19T07:50:44.430Z</updated>
     <content type="html"><![CDATA[<p><strong>引文：</strong>前面提到的K最近邻算法和决策树算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。</p>
 <a id="more"></a>
 <h3 id="基于贝叶斯决策理论的分类方法之朴素贝叶斯"><strong>基于贝叶斯决策理论的分类方法之朴素贝叶斯</strong></h3><ul>
@@ -2058,7 +2089,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/"/>
     <id>http://csuldw.github.io/2015/05/21/2015-05-21-KNN/</id>
     <published>2015-05-21T12:34:00.000Z</published>
-    <updated>2015-11-19T07:43:14.729Z</updated>
+    <updated>2015-11-19T07:50:44.430Z</updated>
     <content type="html"><![CDATA[<p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
 <a id="more"></a>
 <h3 id="1-K最近邻分类器原理"><strong>1.K最近邻分类器原理</strong></h3><p>首先给出一张图，根据这张图来理解最近邻分类器，如下：</p>
@@ -2118,7 +2149,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/05/08/2015-05-08-decision%20tree/"/>
     <id>http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/</id>
     <published>2015-05-08T13:53:12.000Z</published>
-    <updated>2015-11-19T07:43:14.728Z</updated>
+    <updated>2015-11-20T03:30:47.298Z</updated>
     <content type="html"><![CDATA[<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
 <h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>
@@ -2131,15 +2162,19 @@ lsrm -<span class="keyword">ll</span>
 <h3 id="2-2_算法一般流程"><strong>2.2 算法一般流程</strong></h3><p>（1）收集数据：任意方法和途径。<br>（2）准备数据：书构造算法只适用于标称型数据，因此数据必须离散化。<br>（3）分析数据：构造树完成后，检查图形是否符合预测。<br>（4）训练算法：决策树的数据构造。<br>（5）测试算法：一般将决策树用于分类，可以用错误率衡量，而错误率使用经验率计算。<br>（6）使用算法：决策树可以用于任何监督学习算法。  </p>
 <h3 id="2-3_实例"><strong>2.3 实例</strong></h3><p><strong>信息增益和熵（克劳德.香农提出）</strong></p>
 <h4 id="1-使用信息增益进行决策树归纳"><strong>1.使用信息增益进行决策树归纳</strong></h4><p><strong>信息增益度量属性选择</strong></p>
+<p>熵被用来衡量一个随机变量出现的期望值。熵越大，一个变量的不确定性就越大（也就是可取的值很多），把它搞清楚所需要的信息量也就越大，熵是整个系统的平均消息量。 信息熵是信息论中用于度量信息量的一个概念。一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。</p>
 <p><strong>熵（Entropy）的计算公式</strong></p>
-<p>熵定义为<strong>信息增益的期望值</strong>。熵越大，一个变量的不确定性就越大（也就是可取的值很多），把它分析清楚需要的信息量也就越大，熵是整个系统的平均信息量。对$D$中的元组分类所需要的期望信息由下列公式给出：</p>
+<p>熵定义为<strong>信息的期望值</strong>。先看看信息的定义：</p>
+<p>$$l(x_i)=-log_2p(x_i)$$</p>
+<p>其中，$p(x_i)$是选择该分类的概率。</p>
+<p>对$D$中的元组所有分类所有可能值的信息期望，即熵，计算公式如下：</p>
 <p>$$Entropy=H(D)=E(I(D))=-\sum_i^{n}p_ilog_2(p_i)，p_i是D中任意元组属于类C_i非零概率。$$</p>
 <p>熵越大，说明系统越混乱，携带的信息就越少。熵越小，说明系统越有序，携带的信息就越多。信息的作用就是在于消除不确定性。</p>
 <p>ID3划分特征使用的就是信息增益IG.</p>
 <p>一个属性的信息增益越大，表明属性对样本的熵减少的能力就更强，该属性使得数据所属类别的不确定性变为确定性的能力越强。</p>
 <p>注：<strong>需要的期望信息越小，分区的纯度越高。</strong></p>
 <p><strong>信息增益计算</strong></p>
-<p>首先计算特征A对数据集D的经验<strong>条件熵</strong>$H(D|A)$,在数学上就是条件概率分布（Condition Probability）</p>
+<p>首先计算特征A对数据集D的经验<strong>条件熵</strong>$H(D|A)$,在数学上就是条件概率分布（Condition Probability）.</p>
 <p>$$H(D|A)=\sum_j\dfrac{|D_j|}{|D|}\times H(D_j)，项\dfrac{|D_i|}{|D|}充当第j个分区的权重$$</p>
 <p>引入条件熵，在信息论中主要是为了消除结果的不确定性。<br>然后计算信息增益</p>
 <p>$$Gain(A) = H(D) - H(D|A)$$</p>
@@ -2147,6 +2182,7 @@ lsrm -<span class="keyword">ll</span>
 <p>下面来应用一个实例，<strong>训练元组数据D</strong></p>
 <p><img src="http://img.blog.csdn.net/20150513110022176" alt="这里写图片描述"></p>
 <p>在这里</p>
+<p>$$H(D)=-\dfrac{9}{14}log<em>2\dfrac{9}{14}-\dfrac{5}{14}log</em>{2}\frac{5}{14}=0.940位$$</p>
 <p>$$H(D|age)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$</p>
 <p>根据计算出来的条件熵，计算按$age$划分的信息增益，计算方法如下：</p>
 <p>$$Gain(age)=H(D)-H(D|age)=0.940-0.964=0.246位$$</p>
@@ -2167,7 +2203,7 @@ lsrm -<span class="keyword">ll</span>
 <p>选择具有最大增益率的特征作为分裂特征。</p>
 <h4 id="3-基尼指数Gini_index"><strong>3.基尼指数Gini index</strong></h4><p>基尼指数在CART中使用，Gini index度量的是数据分区或训练元组集D的不纯度。计算方式如下：</p>
 <p>$$Gini(D)=1-\sum p^{2}_i，其中，p_i是D中元组数以C_i类的概率，对m个类计算和。$$</p>
-<h2 id="3-学习推介"><strong>3.学习推介</strong></h2><p>Andrew W. Moore PPT <a href="http://www.autonlab.org/tutorials/dtree18.pdf" target="_blank" rel="external">dtree</a><br>决策树Python实现，单独成文，网址：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="external">决策树实现</a><br>Wikipedia维基百科-<a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank" rel="external">Decision Tree决策树</a></p>
+<h2 id="3-学习推介"><strong>3.学习推介</strong></h2><p>Andrew W. Moore PPT <a href="http://www.autonlab.org/tutorials/dtree18.pdf" target="_blank" rel="external">DTree</a><br>决策树Python实现，单独成文，网址：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="external">决策树实现</a><br>Wikipedia维基百科-<a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank" rel="external">Decision Tree决策树</a></p>
 <p>最后，附一张决策树的优点和缺点图：</p>
 <center><br><img src="http://img.blog.csdn.net/20150921094738621" alt="这里写图片描述"><br></center>
 
@@ -2197,7 +2233,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/"/>
     <id>http://csuldw.github.io/2015/04/15/2015-04-12-Syncing-a-fork/</id>
     <published>2015-04-15T05:14:54.000Z</published>
-    <updated>2015-11-19T07:43:14.728Z</updated>
+    <updated>2015-11-19T07:50:44.429Z</updated>
     <content type="html"><![CDATA[<h2 id="如何使用搜索引擎">如何使用搜索引擎</h2><p>其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用<strong>英文</strong>在 <a href="http://www.google.com" target="_blank" rel="external">Google</a> 或者 <a href="http://cn.bing.com/" target="_blank" rel="external">Bing</a> 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   </p>
 <p>搜索 fork sync，就可以看到 GitHub 自己的帮助文档 <a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="external">Syncing a fork</a> 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with an upstream repository, you must <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="external">configure a remote that points to the upstream repository</a> in Git.<br>根据这两篇文章，问题迎刃而解！ </p>
 <a id="more"></a>
@@ -2286,7 +2322,7 @@ lsrm -<span class="keyword">ll</span>
     <link href="http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/"/>
     <id>http://csuldw.github.io/2015/03/26/2015-03-26-sublimeLinter/</id>
     <published>2015-03-26T07:14:54.000Z</published>
-    <updated>2015-11-19T07:43:14.727Z</updated>
+    <updated>2015-11-19T07:50:44.427Z</updated>
     <content type="html"><![CDATA[<h2 id="序">序</h2><p>本文我将讲述一下 SublimeLinter 的安装过程。<br>其组件 jshint 的安装与使用。<br>其组件 csslint 的安装与使用。<br>我将基于 <a href="http://sublimetext.com/3" target="_blank" rel="external">Sublime Text 3</a> 来安装。<br>使用 Sublime Text 2 的用户阅读本文是没有帮助的。   </p>
 <p>SublimeLinter 是 Sublime 的插件，它的作用是检查代码语法是否有错误，并提示。习惯了 IDE 下写代码的人一定需要一款在 Sublime 上类似的语法检查工具。下面我们开始。   </p>
 <a id="more"></a>
@@ -2420,11 +2456,152 @@ v0.10.0
   </entry>
   
   <entry>
+    <title><![CDATA[排序算法-归并排序]]></title>
+    <link href="http://csuldw.github.io/2014/12/21/2014-12-21-MergeSort/"/>
+    <id>http://csuldw.github.io/2014/12/21/2014-12-21-MergeSort/</id>
+    <published>2014-12-21T04:24:00.000Z</published>
+    <updated>2015-11-22T05:08:56.992Z</updated>
+    <content type="html"><![CDATA[<p><strong>注：代码均使用C++编写.</strong></p>
+<h2 id="介绍">介绍</h2><p>对于数据较大的输入，归并排序是比较快的一个算法。该算法采用的是分治法的思想。</p>
+<p>原理：将数据分开排序，然后进行合并，最后形成一个排好的序列。</p>
+<p><img src="/assets/articleImg/2014-12-21-mergesort-1.png" alt=""><br><a id="more"></a></p>
+<p>将其合并输出，如下图所示：</p>
+<p><img src="/assets/articleImg/2014-12-21-mergeSort-2.png" alt=""></p>
+<p>归并排序有一个关键步骤：合并两个排序好的序列。方法是：两个序列中的数相互比较，将较小的数先插入新的序列中。</p>
+<p>归并过程：比较a[i]和a[j]的大小，若a[i]≤a[j]，则将第一个有序表中的元素a[i]复制到r[k]中，并令i和k分别加上1；否则将第二个有序表中的元素a[j]复制到r[k]中，并令j和k分别加上1，如此循环下去，直到其中一个有序表取完，然后再将另一个有序表中剩余的元素复制到r中从下标k到下标t的单元。归并排序的算法我们通常用递归实现，先把待排序区间[s,t]以中点二分，接着把左边子区间排序，再把右边子区间排序，最后把左区间和右区间用一次归并操作合并成有序的区间[s,t]。</p>
+<ul>
+<li>发明者：约翰·冯·诺伊曼</li>
+<li>时间复杂度：O(nlogn)</li>
+<li>空间复杂度 O（n)</li>
+<li>稳定的算法</li>
+</ul>
+<h2 id="一次合并">一次合并</h2><p>在代码实现部分，需要进行递归进行合并，因此，先编写一个合并的方法。</p>
+<p>归并操作的工作原理如下：</p>
+<p>一次归并函数传递的参数有：一个数组名、数组的起始位置、数组的末尾位置以及数组的中点位置。</p>
+<ul>
+<li>第一步：申请空间，初始化起点中点和中点到末尾位置两个变量(nl,nr)，同时设定两个指针p和q，空间大小分别为nl和nr;</li>
+<li>第二步：将数组分别输入到两个空间中;</li>
+<li>第三步：合并两个数组。操作：比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置;</li>
+<li>重复步骤3直到某一指针超出序列尾;</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾.</li>
+</ul>
+<p>在第三步的时候，需要注意的是，不额外的开辟辅助数组，直接通过两个指针的值将原数组的数值进行修改。此处需要设置一个变量<code>k</code>，起始位置为数组的起始位置,方便在合并时同时增加指针的下标和数组下标值.</p>
+<p>注：使用<code>malloc</code>时，需要引入<code>#include &lt;stdlib.h&gt;</code>头文件。</p>
+<p>代码如下:</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">void mergeOne(<span class="keyword">int</span> nums[], <span class="keyword">int</span> l, <span class="keyword">int</span> <span class="keyword">m</span>, <span class="keyword">int</span> r)&#123;</span><br><span class="line">    <span class="keyword">int</span> nl = <span class="keyword">m</span> - l + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> nr = r - <span class="keyword">m</span>;</span><br><span class="line">    <span class="keyword">int</span> *p = NULL, *<span class="keyword">q</span> = NULL;</span><br><span class="line">    p = (<span class="keyword">int</span> *) malloc (nl * sizeof(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">q</span> = (<span class="keyword">int</span> *) malloc (nr * sizeof(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line">    <span class="regexp">//</span>将数组输入到两个空间中</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nl; i++) &#123;</span><br><span class="line">        p[i] = nums[l + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nr; j++) &#123;</span><br><span class="line">        <span class="string">q[j]</span> = nums[<span class="keyword">m</span> + <span class="number">1</span> + j];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //合并两个数组</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> k = l;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; nl &amp;&amp; j &lt; nr) &#123;</span><br><span class="line">        <span class="keyword">if</span>(p[i] &lt; <span class="string">q[j]</span>) &#123;</span><br><span class="line">            nums[k++] = p[i++];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            nums[k++] = <span class="string">q[j++]</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //将剩余的元素合并</span><br><span class="line">    <span class="keyword">while</span>(i &lt; nl) &#123;</span><br><span class="line">        nums[k++]  = p[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j &lt;nr) &#123;</span><br><span class="line">        nums[k++] = <span class="string">q[j++]</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="归并排序">归并排序</h2><p>通过合并函数来实现归并排序的算法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意：此处的left和right必须是数组下标能取到的有效值</span></span><br><span class="line">void mergeSort(int nums[], int <span class="keyword">left</span>, int <span class="keyword">right</span>) &#123;</span><br><span class="line">    int mid = (<span class="keyword">left</span> + <span class="keyword">right</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">left</span> &lt; <span class="keyword">right</span>) &#123;</span><br><span class="line">        mergeSort(nums, <span class="keyword">left</span>, mid);</span><br><span class="line">        mergeSort(nums, mid+<span class="number">1</span>, <span class="keyword">right</span>);</span><br><span class="line">        mergeOne(nums, <span class="keyword">left</span>, mid, <span class="keyword">right</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试">测试</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> nums[]=&#123;<span class="number">9</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="keyword">sizeof</span>(nums)/<span class="keyword">sizeof</span>(nums[<span class="number">0</span>]);</span><br><span class="line">    mergeSort(nums, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    print_array(nums,n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;nums[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后输出：</p>
+<pre><code class="markdown">1 2 3 4 5 6 7 9
+
+Process returned 0 (0x0)   execution time : 0.097 s
+Press any key to continue.
+</code></pre>
+
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>注：代码均使用C++编写.</strong></p>
+<h2 id="介绍">介绍</h2><p>对于数据较大的输入，归并排序是比较快的一个算法。该算法采用的是分治法的思想。</p>
+<p>原理：将数据分开排序，然后进行合并，最后形成一个排好的序列。</p>
+<p><img src="/assets/articleImg/2014-12-21-mergesort-1.png" alt=""><br>]]>
+    
+    </summary>
+    
+      <category term="C++" scheme="http://csuldw.github.io/tags/C/"/>
+    
+      <category term="归并排序" scheme="http://csuldw.github.io/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="排序算法" scheme="http://csuldw.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://csuldw.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="算法与数据结构" scheme="http://csuldw.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[插入排序-简单插入排序&希尔排序]]></title>
+    <link href="http://csuldw.github.io/2014/12/21/2014-12-21-InsertSort/"/>
+    <id>http://csuldw.github.io/2014/12/21/2014-12-21-InsertSort/</id>
+    <published>2014-12-21T03:24:00.000Z</published>
+    <updated>2015-11-22T05:08:32.301Z</updated>
+    <content type="html"><![CDATA[<p><strong>注：代码均使用C++编写.</strong></p>
+<p>首先介绍一个常用排序算法的时间复杂度和空间复杂度的表格：</p>
+<p><img src="/assets/articleImg/2014-12-21-performances-of-sort-algs.png" alt=""></p>
+<a id="more"></a>
+<p>对于插入排序，本文简单介绍两种：简单插入排序和希尔排序。同时，会附上实现源码。</p>
+<h2 id="1-知识点小记">1.知识点小记</h2><ul>
+<li><p>使用<code>sizeof(nums)/sizeof(nums[0])</code>获得数组的长度；</p>
+</li>
+<li><p>数组作为参数有两种方法，一种是以数组名本身，一种是以指针；</p>
+</li>
+<li><p>如果要给一个函数传入一个数组，一般都是传入两个参数，一个数组指针或数组名，另一个是数组大小；</p>
+</li>
+</ul>
+<h2 id="2-简单插入排序">2.简单插入排序</h2><p>直接插入排序(Insertion Sort)的基本思想是：每次将一个待排序的记录，按其关键字大小插入到前面已经排好序的子序列中的适当位置，直到全部记录插入完成为止。</p>
+<p>实现：从头到尾遍历数组，设置一个变量作为哨兵，记录当前元素；然后从当前位置依次往前寻找插入点，如果哨兵元素值要小，就将前面的元素往后移动一位，直到哨兵元素大于前面的元素为止。</p>
+<p>设数组为a[0…n-1]。</p>
+<ul>
+<li>初始时，a[0]自成1个有序区，无序区为a[1..n-1]。令i=1</li>
+<li>将a[i]并入当前的有序区a[0…i-1]中形成a[0…i]的有序区间。</li>
+<li>i++，并重复第二步直到i==n-1。</li>
+</ul>
+<p>简单插入排序方法实现：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//insert sort</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = nums[i];</span><br><span class="line">        <span class="keyword">int</span> j=i-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(nums[j]&gt;temp &amp;&amp; j&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            nums[j+<span class="number">1</span>] = nums[j];</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[j+<span class="number">1</span>] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是一个完整的例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span>；</span><br><span class="line"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> nums[] = &#123;<span class="number">9</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="keyword">sizeof</span>(nums)/<span class="keyword">sizeof</span>(nums[<span class="number">0</span>]);</span><br><span class="line">    insertSort(nums, n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; (<span class="keyword">sizeof</span>(nums)/<span class="keyword">sizeof</span>(nums[<span class="number">0</span>])); i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;nums[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//insert sort</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> temp = nums[i];</span><br><span class="line">        <span class="keyword">int</span> j=i-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span>(nums[j]&gt;temp &amp;&amp; j&gt;=<span class="number">0</span>)&#123;</span><br><span class="line">            nums[j+<span class="number">1</span>] = nums[j];</span><br><span class="line">            j--;</span><br><span class="line">        &#125;</span><br><span class="line">        nums[j+<span class="number">1</span>] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>简单插入排序最坏和平均时间复杂度都为O($n^2$),空间复杂度为O(1)，最好的时间复杂度为O(n).属于稳定的排序算法。</p>
+<hr>
+<h2 id="3-希尔排序">3.希尔排序</h2><p>希尔排序思路：先将整个待排元素序列分割成若干个子序列（由相隔某个“增量”的元素组成的）分别进行直接插入排序，然后依次缩减增量再进行排序，待整个序列中的元素基本有序（增量足够小）时，再对全体元素进行一次直接插入排序。因为直接插入排序在元素基本有序的情况下（接近最好情况），效率是很高的，因此希尔排序在时间效率上比前两种方法有较大提高。</p>
+<p>希尔排序方法：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//希尔排序</span></span><br><span class="line">void shellSort(int nums[], int <span class="keyword">n</span>)&#123;</span><br><span class="line">    int <span class="keyword">d</span> = <span class="keyword">n</span>&gt;&gt;1;</span><br><span class="line">    <span class="keyword">while</span>(<span class="keyword">d</span>&gt;=1)&#123;</span><br><span class="line">        <span class="keyword">for</span>(int i=0; i&lt;<span class="keyword">n</span>-<span class="keyword">d</span>; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(int j=i+<span class="keyword">d</span>; j&lt;<span class="keyword">n</span>; j+=<span class="keyword">d</span>)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j-<span class="keyword">d</span>]&gt;nums[j])&#123;</span><br><span class="line">                    int temp = nums[j-<span class="keyword">d</span>];</span><br><span class="line">                    nums[j-<span class="keyword">d</span>] = nums[j];</span><br><span class="line">                    nums[j] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">d</span> = <span class="keyword">d</span>&gt;&gt;1;</span><br><span class="line">        print_array(nums,<span class="keyword">n</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是一个完整的例子：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> nums[] = &#123;<span class="number">9</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">5</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="keyword">sizeof</span>(nums)/<span class="keyword">sizeof</span>(nums[<span class="number">0</span>]);</span><br><span class="line">    shellSort(nums, n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>; i&lt; (<span class="keyword">sizeof</span>(nums)/<span class="keyword">sizeof</span>(nums[<span class="number">0</span>])); i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;nums[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//希尔排序</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> d = n&gt;&gt;<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(d&gt;=<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n-d; i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i+d; j&lt;n; j+=d)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j-d]&gt;nums[j])&#123;</span><br><span class="line">                    <span class="keyword">int</span> temp = nums[j-d];</span><br><span class="line">                    nums[j-d] = nums[j];</span><br><span class="line">                    nums[j] = temp;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        d = d&gt;&gt;<span class="number">1</span>;</span><br><span class="line">        print_array(nums,n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;nums[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：</p>
+<p><img src="/assets/articleImg/2014-12-21-insert-sort.png" alt=""></p>
+<p>简单插入排序平均时间复杂度为O($n^{1.3}$),空间复杂度为O(1)。最坏情况下的时间复杂度为O($n^2$),最好的时间复杂度为O(n).</p>
+<hr>
+<h2 id="4-补充知识点">4.补充知识点</h2><p><strong>将数组作为参数传递</strong></p>
+<p>两种形式：</p>
+<ul>
+<li>使用数组名本身,如上方的函数形式：</li>
+</ul>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> insertSort(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>用指针作为参数,这就简单了,只需将上面方法中的数组修改成指针形式:</li>
+</ul>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> insertSort(<span class="keyword">int</span> *nums, <span class="keyword">int</span> n)</span><br></pre></td></tr></table></figure>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>注：代码均使用C++编写.</strong></p>
+<p>首先介绍一个常用排序算法的时间复杂度和空间复杂度的表格：</p>
+<p><img src="/assets/articleImg/2014-12-21-performances-of-sort-algs.png" alt=""></p>]]>
+    
+    </summary>
+    
+      <category term="C++" scheme="http://csuldw.github.io/tags/C/"/>
+    
+      <category term="希尔排序" scheme="http://csuldw.github.io/tags/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="排序算法" scheme="http://csuldw.github.io/tags/%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构" scheme="http://csuldw.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+      <category term="简单插入排序" scheme="http://csuldw.github.io/tags/%E7%AE%80%E5%8D%95%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="算法与数据结构" scheme="http://csuldw.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Python元组与列表的区别]]></title>
     <link href="http://csuldw.github.io/2014/12/19/2014-12-19-The-difference-of-list-and-tupple/"/>
     <id>http://csuldw.github.io/2014/12/19/2014-12-19-The-difference-of-list-and-tupple/</id>
     <published>2014-12-19T06:24:00.000Z</published>
-    <updated>2015-11-19T07:43:14.726Z</updated>
+    <updated>2015-11-19T07:50:44.427Z</updated>
     <content type="html"><![CDATA[<h2 id="list和tuple区别">list和tuple区别</h2><p>列表和元组非常类似，有时候他们都干一样的事情。他们最大的区别是:</p>
 <ul>
 <li><p><strong>元组一旦被赋值，值不可以被改变，一旦改变就会出错；列表可以任意的更改</strong>。</p>
@@ -2488,6 +2665,144 @@ abcd
       <category term="tuple" scheme="http://csuldw.github.io/tags/tuple/"/>
     
       <category term="Python" scheme="http://csuldw.github.io/categories/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Linx学习笔记-tree命令]]></title>
+    <link href="http://csuldw.github.io/2014/11/19/2014-11-19-linux-tree-command/"/>
+    <id>http://csuldw.github.io/2014/11/19/2014-11-19-linux-tree-command/</id>
+    <published>2014-11-19T02:24:00.000Z</published>
+    <updated>2015-11-21T02:40:03.651Z</updated>
+    <content type="html"><![CDATA[<h2 id="安装">安装</h2><p>有时候，我们想要知道一个目录下面的详细情况，那么有什么好的方法呢？</p>
+<p>很幸运，Linux shell 有一个tree 命令，专门用来打印目录树。</p>
+<p>如果你没有安装，可以使用<code>yum</code>来安装，命令如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install tree</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="使用">使用</h2><p>此时如果想打印某个目录下的所有文件，可以使用<code>tree</code>命令：</p>
+<pre><code class="markdown">[liudiwei@master _code]$ tree
+.
+`-- preprocessing
+    |-- compareTwoFile.py
+    |-- download.py
+    |-- extractChainFromSeq.py
+    |-- extractSeqByChain.py
+    |-- formatChain.py
+    |-- generateSeqFromDSSP.py
+    |-- getProteinFromChain.py
+    |-- getProteinNameFromDir.py
+    |-- pdbToDSSP.py
+    `-- _README.txt
+</code></pre>
+
+
+<p>此外，如果只想要显示目录的话，可以使用添加<code>-d</code>参数：</p>
+<pre><code class="markdown">[liudiwei@master DNA_BP]$ tree -d
+.
+|-- _code
+|   `-- preprocessing
+|-- _data
+|   `-- Exp_DBPI
+|       |-- DBPI_Datasets
+|       |-- dssp_testset
+|       |   `-- format
+|       |-- dssp_trainset
+|       |   `-- format
+|       |-- pdb_testset
+|       `-- pdb_trainset
+|-- _feature
+|   `-- feature_extraction
+`-- paper_Graham
+
+14 directories
+</code></pre>
+
+<p>如果你不想看到全部的文件？可以加上“-P 通配符”的方法来只列出某种文件：</p>
+<pre><code class="markdown">[liudiwei@master DNA_BP]$ tree -P "*.py"
+.
+|-- _code
+|   `-- preprocessing
+|       |-- compareTwoFile.py
+|       |-- download.py
+|       |-- extractChainFromSeq.py
+|       |-- extractSeqByChain.py
+|       |-- formatChain.py
+|       |-- generateSeqFromDSSP.py
+|       |-- getProteinFromChain.py
+|       |-- getProteinNameFromDir.py
+|       `-- pdbToDSSP.py
+|-- _data
+|   `-- Exp_DBPI
+|       |-- DBPI_Datasets
+|       |-- dssp_testset
+|       |   `-- format
+|       |-- dssp_trainset
+|       |   `-- format
+|       |-- pdb_testset
+|       `-- pdb_trainset
+|-- _feature
+|   `-- feature_extraction
+`-- paper2015_Graham
+</code></pre>
+
+<h2 id="详细参数">详细参数</h2><p><code>tree</code>常用参数：</p>
+<pre><code class="markdown">
+-a 显示所有文件和目录。
+
+-A 使用ASNI绘图字符显示树状图而非以ASCII字符组合。
+
+-C 在文件和目录清单加上色彩，便于区分各种类型。
+
+-d 显示目录名称而非内容。
+
+-D 列出文件或目录的更改时间。
+
+-f 在每个文件或目录之前，显示完整的相对路径名称。
+
+-F 在执行文件，目录，Socket，符号连接，管道名称名称，各自加上”*“,”/“,”=“,”@“,”|“号。
+
+-g 列出文件或目录的所属群组名称，没有对应的名称时，则显示群组识别码。
+
+-i 不以阶梯状列出文件或目录名称。
+
+-I <范本样式> 不显示符合范本样式的文件或目录名称。
+
+-l 如遇到性质为符号连接的目录，直接列出该连接所指向的原始目录。
+
+-n 不在文件和目录清单加上色彩。
+
+-N 直接列出文件和目录名称，包括控制字符。
+
+-p 列出权限标示。
+
+-P <范本样式> 只显示符合范本样式的文件或目录名称。
+
+-q 用”?“号取代控制字符，列出文件和目录名称。
+
+-s 列出文件或目录大小。
+
+-t 用文件和目录的更改时间排序。
+
+-u 列出文件或目录的拥有者名称，没有对应的名称时，则显示用户识别码。
+
+-x 将范围局限在现行的文件系统中，若指定目录下的某些子目录，其存放于另一个文件系统上，则将该子目录予以排除在寻找范围外。
+</范本样式></范本样式></code></pre>
+
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="安装">安装</h2><p>有时候，我们想要知道一个目录下面的详细情况，那么有什么好的方法呢？</p>
+<p>很幸运，Linux shell 有一个tree 命令，专门用来打印目录树。</p>
+<p>如果你没有安装，可以使用<code>yum</code>来安装，命令如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install tree</span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+      <category term="Linux" scheme="http://csuldw.github.io/tags/Linux/"/>
+    
+      <category term="Shell" scheme="http://csuldw.github.io/tags/Shell/"/>
+    
+      <category term="Linux" scheme="http://csuldw.github.io/categories/Linux/"/>
     
   </entry>
   

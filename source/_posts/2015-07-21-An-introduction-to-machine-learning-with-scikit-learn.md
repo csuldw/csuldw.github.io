@@ -5,7 +5,8 @@ date: 2015-07-21 21:31
 comment: true
 tags: 
 	- Machine Learning
-categories: ML
+	- 译文
+categories: 译文
 ---
 
 原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html

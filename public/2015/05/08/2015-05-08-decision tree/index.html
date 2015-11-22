@@ -65,7 +65,7 @@
 <meta property="og:image" content="http://img.blog.csdn.net/20150921091028096">
 <meta property="og:image" content="http://img.blog.csdn.net/20150921091053471">
 <meta property="og:image" content="http://img.blog.csdn.net/20150921094738621">
-<meta property="og:updated_time" content="2015-11-19T07:43:14.728Z">
+<meta property="og:updated_time" content="2015-11-20T03:30:47.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-决策树理论">
 <meta name="twitter:description" content="用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
@@ -287,15 +287,19 @@
 <h3 id="2-2_算法一般流程"><strong>2.2 算法一般流程</strong></h3><p>（1）收集数据：任意方法和途径。<br>（2）准备数据：书构造算法只适用于标称型数据，因此数据必须离散化。<br>（3）分析数据：构造树完成后，检查图形是否符合预测。<br>（4）训练算法：决策树的数据构造。<br>（5）测试算法：一般将决策树用于分类，可以用错误率衡量，而错误率使用经验率计算。<br>（6）使用算法：决策树可以用于任何监督学习算法。  </p>
 <h3 id="2-3_实例"><strong>2.3 实例</strong></h3><p><strong>信息增益和熵（克劳德.香农提出）</strong></p>
 <h4 id="1-使用信息增益进行决策树归纳"><strong>1.使用信息增益进行决策树归纳</strong></h4><p><strong>信息增益度量属性选择</strong></p>
+<p>熵被用来衡量一个随机变量出现的期望值。熵越大，一个变量的不确定性就越大（也就是可取的值很多），把它搞清楚所需要的信息量也就越大，熵是整个系统的平均消息量。 信息熵是信息论中用于度量信息量的一个概念。一个系统越是有序，信息熵就越低；反之，一个系统越是混乱，信息熵就越高。所以，信息熵也可以说是系统有序化程度的一个度量。</p>
 <p><strong>熵（Entropy）的计算公式</strong></p>
-<p>熵定义为<strong>信息增益的期望值</strong>。熵越大，一个变量的不确定性就越大（也就是可取的值很多），把它分析清楚需要的信息量也就越大，熵是整个系统的平均信息量。对$D$中的元组分类所需要的期望信息由下列公式给出：</p>
+<p>熵定义为<strong>信息的期望值</strong>。先看看信息的定义：</p>
+<p>$$l(x_i)=-log_2p(x_i)$$</p>
+<p>其中，$p(x_i)$是选择该分类的概率。</p>
+<p>对$D$中的元组所有分类所有可能值的信息期望，即熵，计算公式如下：</p>
 <p>$$Entropy=H(D)=E(I(D))=-\sum_i^{n}p_ilog_2(p_i)，p_i是D中任意元组属于类C_i非零概率。$$</p>
 <p>熵越大，说明系统越混乱，携带的信息就越少。熵越小，说明系统越有序，携带的信息就越多。信息的作用就是在于消除不确定性。</p>
 <p>ID3划分特征使用的就是信息增益IG.</p>
 <p>一个属性的信息增益越大，表明属性对样本的熵减少的能力就更强，该属性使得数据所属类别的不确定性变为确定性的能力越强。</p>
 <p>注：<strong>需要的期望信息越小，分区的纯度越高。</strong></p>
 <p><strong>信息增益计算</strong></p>
-<p>首先计算特征A对数据集D的经验<strong>条件熵</strong>$H(D|A)$,在数学上就是条件概率分布（Condition Probability）</p>
+<p>首先计算特征A对数据集D的经验<strong>条件熵</strong>$H(D|A)$,在数学上就是条件概率分布（Condition Probability）.</p>
 <p>$$H(D|A)=\sum_j\dfrac{|D_j|}{|D|}\times H(D_j)，项\dfrac{|D_i|}{|D|}充当第j个分区的权重$$</p>
 <p>引入条件熵，在信息论中主要是为了消除结果的不确定性。<br>然后计算信息增益</p>
 <p>$$Gain(A) = H(D) - H(D|A)$$</p>
@@ -303,6 +307,7 @@
 <p>下面来应用一个实例，<strong>训练元组数据D</strong></p>
 <p><img src="http://img.blog.csdn.net/20150513110022176" alt="这里写图片描述"></p>
 <p>在这里</p>
+<p>$$H(D)=-\dfrac{9}{14}log<em>2\dfrac{9}{14}-\dfrac{5}{14}log</em>{2}\frac{5}{14}=0.940位$$</p>
 <p>$$H(D|age)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$</p>
 <p>根据计算出来的条件熵，计算按$age$划分的信息增益，计算方法如下：</p>
 <p>$$Gain(age)=H(D)-H(D|age)=0.940-0.964=0.246位$$</p>
@@ -323,7 +328,7 @@
 <p>选择具有最大增益率的特征作为分裂特征。</p>
 <h4 id="3-基尼指数Gini_index"><strong>3.基尼指数Gini index</strong></h4><p>基尼指数在CART中使用，Gini index度量的是数据分区或训练元组集D的不纯度。计算方式如下：</p>
 <p>$$Gini(D)=1-\sum p^{2}_i，其中，p_i是D中元组数以C_i类的概率，对m个类计算和。$$</p>
-<h2 id="3-学习推介"><strong>3.学习推介</strong></h2><p>Andrew W. Moore PPT <a href="http://www.autonlab.org/tutorials/dtree18.pdf" target="_blank" rel="external">dtree</a><br>决策树Python实现，单独成文，网址：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="external">决策树实现</a><br>Wikipedia维基百科-<a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank" rel="external">Decision Tree决策树</a></p>
+<h2 id="3-学习推介"><strong>3.学习推介</strong></h2><p>Andrew W. Moore PPT <a href="http://www.autonlab.org/tutorials/dtree18.pdf" target="_blank" rel="external">DTree</a><br>决策树Python实现，单独成文，网址：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="external">决策树实现</a><br>Wikipedia维基百科-<a href="https://en.wikipedia.org/wiki/Decision_tree" target="_blank" rel="external">Decision Tree决策树</a></p>
 <p>最后，附一张决策树的优点和缺点图：</p>
 <center><br><img src="http://img.blog.csdn.net/20150921094738621" alt="这里写图片描述"><br></center>
 
@@ -445,21 +450,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">31</span>
+              <span class="site-state-item-count">35</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">8</span>
+              <span class="site-state-item-count">9</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
