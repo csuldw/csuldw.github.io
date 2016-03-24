@@ -32,47 +32,47 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
 
 
-    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。" />
+    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域." />
 
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Decision Tree,Machine Learning," />
 
 
 
-  <link rel="alternate" href="/atom.xml" title="D.W's Diaries" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
 
 
 
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
+<meta name="description" content="源码下载：Github-MachineLearning
+用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
 引文数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。
 
-分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。
-在第二阶段，使用模型进行分类。首先评估分类器的预测准确率">
+分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习算法-决策树理论">
 <meta property="og:url" content="http://csuldw.github.io/2015/05/08/2015-05-08-decision tree/index.html">
-<meta property="og:site_name" content="D.W's Diaries">
-<meta property="og:description" content="用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
+<meta property="og:site_name" content="D.W's Notes - Machine Learning">
+<meta property="og:description" content="源码下载：Github-MachineLearning
+用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
 引文数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。
 
-分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。
-在第二阶段，使用模型进行分类。首先评估分类器的预测准确率">
+分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。">
 <meta property="og:image" content="http://img.blog.csdn.net/20150513110022176">
 <meta property="og:image" content="http://img.blog.csdn.net/20150921091028096">
 <meta property="og:image" content="http://img.blog.csdn.net/20150921091053471">
 <meta property="og:image" content="http://img.blog.csdn.net/20150921094738621">
-<meta property="og:updated_time" content="2015-11-20T03:30:47.298Z">
+<meta property="og:updated_time" content="2016-03-08T09:02:18.819Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-决策树理论">
-<meta name="twitter:description" content="用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
+<meta name="twitter:description" content="源码下载：Github-MachineLearning
+用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。
 引文数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。
 
-分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。
-在第二阶段，使用模型进行分类。首先评估分类器的预测准确率">
+分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -84,7 +84,7 @@
 
 
 
-  <title> 机器学习算法-决策树理论 | D.W's Diaries </title>
+  <title> 机器学习算法-决策树理论 | D.W's Notes - Machine Learning </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -175,20 +175,10 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/donation" rel="section">
-            
-              <i class="menu-item-icon fa fa-heartbeat"></i> <br />
-            
-            赞助
-          </a>
-        </li>
-      
 
       
       
-	  	<span style="font-size:14px;float:right;padding-top:39px">——悄悄是别离的笙箫，沉默是今晚的康桥。</span>
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
     </ul>
   
 
@@ -275,7 +265,8 @@
       
 
       
-        <span itemprop="articleBody"><p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
+        <span itemprop="articleBody"><p>源码下载：<a href="https://github.com/csuldw/MachineLearning/tree/master/DecisionTree" target="_blank" rel="external">Github-MachineLearning</a></p>
+<p><strong>用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。</strong></p>
 <h2 id="引文"><strong>引文</strong></h2><p>数据分类是一个两阶段过程，包括学习阶段（构建分类模型）和分类阶段（使用模型预测给定数据的类标号）。决策树分类算法是监督学习的一种，即Supervised learning。</p>
 <ul>
 <li>分类过程的第一阶段也可以看做学习一个映射或函数y=f(x),它可以预测给定元组X的类标号y。</li>
@@ -307,7 +298,7 @@
 <p>下面来应用一个实例，<strong>训练元组数据D</strong></p>
 <p><img src="http://img.blog.csdn.net/20150513110022176" alt="这里写图片描述"></p>
 <p>在这里</p>
-<p>$$H(D)=-\dfrac{9}{14}log<em>2\dfrac{9}{14}-\dfrac{5}{14}log</em>{2}\frac{5}{14}=0.940位$$</p>
+<p>$$H(D)=-\dfrac{9}{14}log_2\dfrac{9}{14}-\dfrac{5}{14}log_2\dfrac{5}{14}=0.940位$$</p>
 <p>$$H(D|age)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$</p>
 <p>根据计算出来的条件熵，计算按$age$划分的信息增益，计算方法如下：</p>
 <p>$$Gain(age)=H(D)-H(D|age)=0.940-0.964=0.246位$$</p>
@@ -343,6 +334,8 @@
     <footer class="post-footer">
       
         <div class="post-tags">
+          
+            <a href="/tags/Decision-Tree/" rel="tag">#Decision Tree</a>
           
             <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
           
@@ -446,11 +439,11 @@
           <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
           <p class="site-author-name" itemprop="name">刘帝伟</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。</p>
+        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域.</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -464,7 +457,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -492,12 +485,6 @@
               <span class="links-of-author-item">
                 <a href="http://weibo.com/liudiwei210" target="_blank">
                   <i class="fa fa-weibo"></i> WeiBo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/liudiwei" target="_blank">
-                  <i class="fa fa-zhihu"></i> ZhiHu
                 </a>
               </span>
             
@@ -544,7 +531,7 @@
       <div class="footer-inner"> <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

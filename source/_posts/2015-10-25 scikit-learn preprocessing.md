@@ -4,8 +4,9 @@ date: 2015-10-25 10:24
 title: "scikit-learn Preprocessing"
 categories: ML
 tag: 
-	- preprocessing
 	- Machine Learning
+	- 预处理
+	- scikit-learn
 comment: true
 ---
 

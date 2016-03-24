@@ -32,36 +32,39 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
 
 
-    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。" />
+    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域." />
 
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="KNN,Machine Learning,最近邻," />
 
 
 
-  <link rel="alternate" href="/atom.xml" title="D.W's Diaries" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
 
 
 
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
+<meta name="description" content="源码：Github-MachineLearning
+引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习算法-K最近邻从原理到实现">
 <meta property="og:url" content="http://csuldw.github.io/2015/05/21/2015-05-21-KNN/index.html">
-<meta property="og:site_name" content="D.W's Diaries">
-<meta property="og:description" content="引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
+<meta property="og:site_name" content="D.W's Notes - Machine Learning">
+<meta property="og:description" content="源码：Github-MachineLearning
+引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
 <meta property="og:image" content="http://img.blog.csdn.net/20150521201557111">
 <meta property="og:image" content="http://img.blog.csdn.net/20150521203027253">
 <meta property="og:image" content="http://img.blog.csdn.net/20150521203212596">
 <meta property="og:image" content="http://img.blog.csdn.net/20150524192410343">
 <meta property="og:image" content="http://img.blog.csdn.net/20150524192640924">
-<meta property="og:updated_time" content="2015-11-19T07:50:44.430Z">
+<meta property="og:updated_time" content="2016-03-13T06:00:40.457Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-K最近邻从原理到实现">
-<meta name="twitter:description" content="引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
+<meta name="twitter:description" content="源码：Github-MachineLearning
+引文：决策树和基于规则的分类器都是积极学习方法（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为消极学习法（lazy learner）。最近邻分类器就是这样的一种方法。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -73,7 +76,7 @@
 
 
 
-  <title> 机器学习算法-K最近邻从原理到实现 | D.W's Diaries </title>
+  <title> 机器学习算法-K最近邻从原理到实现 | D.W's Notes - Machine Learning </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -164,20 +167,10 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/donation" rel="section">
-            
-              <i class="menu-item-icon fa fa-heartbeat"></i> <br />
-            
-            赞助
-          </a>
-        </li>
-      
 
       
       
-	  	<span style="font-size:14px;float:right;padding-top:39px">——悄悄是别离的笙箫，沉默是今晚的康桥。</span>
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
     </ul>
   
 
@@ -264,7 +257,8 @@
       
 
       
-        <span itemprop="articleBody"><p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
+        <span itemprop="articleBody"><p>源码：<a href="https://github.com/csuldw/MachineLearning/tree/master/KNN" target="_blank" rel="external">Github-MachineLearning</a></p>
+<p><strong>引文</strong>：决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
 <a id="more"></a>
 <h3 id="1-K最近邻分类器原理"><strong>1.K最近邻分类器原理</strong></h3><p>首先给出一张图，根据这张图来理解最近邻分类器，如下：</p>
 <center><img src="http://img.blog.csdn.net/20150521201557111" alt="这里写图片描述"><br></center>
@@ -314,7 +308,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/KNN/" rel="tag">#KNN</a>
+          
             <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/最近邻/" rel="tag">#最近邻</a>
           
         </div>
       
@@ -416,11 +414,11 @@
           <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
           <p class="site-author-name" itemprop="name">刘帝伟</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。</p>
+        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域.</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -434,7 +432,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -462,12 +460,6 @@
               <span class="links-of-author-item">
                 <a href="http://weibo.com/liudiwei210" target="_blank">
                   <i class="fa fa-weibo"></i> WeiBo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/liudiwei" target="_blank">
-                  <i class="fa fa-zhihu"></i> ZhiHu
                 </a>
               </span>
             
@@ -514,7 +506,7 @@
       <div class="footer-inner"> <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

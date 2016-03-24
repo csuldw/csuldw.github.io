@@ -1,7 +1,8 @@
 ---
 layout: post
 date: 2015-10-21 16:45:44
-tag: GitHub
+tag: 
+	- GitHub
 title: "Windows下使用 git push 命令的无密码设置"
 categories: GitHub
 ---

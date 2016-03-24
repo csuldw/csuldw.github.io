@@ -5,8 +5,6 @@ title: "Python元组与列表的区别"
 categories: Python 
 tag: 
 	- Python
-	- list
-	- tuple
 comment: true
 ---
 

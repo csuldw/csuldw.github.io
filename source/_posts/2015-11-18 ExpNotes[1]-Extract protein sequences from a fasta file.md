@@ -3,7 +3,10 @@ layout: post
 date: 2015-11-18 12:24
 title: "实验笔记[1]-DSSP文件提取序列"
 categories: BioInfo
-tag: BioInfo
+tag: 
+	- BioInfo
+	- DSSP
+	- 预处理
 comment: true
 ---
 

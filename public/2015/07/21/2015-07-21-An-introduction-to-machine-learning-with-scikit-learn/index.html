@@ -32,15 +32,15 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
 
 
-    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。" />
+    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域." />
 
 
 
-  <meta name="keywords" content="Machine Learning,译文," />
+  <meta name="keywords" content="Machine Learning,scikit-learn,译文," />
 
 
 
-  <link rel="alternate" href="/atom.xml" title="D.W's Diaries" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
 
 
 
@@ -54,13 +54,13 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习scikit-learn入门教程（译）">
 <meta property="og:url" content="http://csuldw.github.io/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/index.html">
-<meta property="og:site_name" content="D.W's Diaries">
+<meta property="og:site_name" content="D.W's Notes - Machine Learning">
 <meta property="og:description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html
 章节内容
 在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。
 机器学习：问题设置通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据）">
 <meta property="og:image" content="http://img.blog.csdn.net/20150720185355481">
-<meta property="og:updated_time" content="2015-11-21T02:41:34.794Z">
+<meta property="og:updated_time" content="2016-03-08T08:57:49.910Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习scikit-learn入门教程（译）">
 <meta name="twitter:description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html
@@ -78,7 +78,7 @@
 
 
 
-  <title> 机器学习scikit-learn入门教程（译） | D.W's Diaries </title>
+  <title> 机器学习scikit-learn入门教程（译） | D.W's Notes - Machine Learning </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -169,20 +169,10 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/donation" rel="section">
-            
-              <i class="menu-item-icon fa fa-heartbeat"></i> <br />
-            
-            赞助
-          </a>
-        </li>
-      
 
       
       
-	  	<span style="font-size:14px;float:right;padding-top:39px">——悄悄是别离的笙箫，沉默是今晚的康桥。</span>
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
     </ul>
   
 
@@ -233,8 +223,8 @@
               &nbsp; | &nbsp; 分类于
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/译文/" itemprop="url" rel="index">
-                    <span itemprop="name">译文</span>
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
                   </a>
                 </span>
 
@@ -339,6 +329,8 @@
           
             <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
           
+            <a href="/tags/scikit-learn/" rel="tag">#scikit-learn</a>
+          
             <a href="/tags/译文/" rel="tag">#译文</a>
           
         </div>
@@ -356,7 +348,7 @@
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/07/18/2015-07-18-a precision and recall/" rel="next">
+              <a href="/2015/07/18/2015-07-18-a precision-and-recall/" rel="next">
                 Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译） <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -441,11 +433,11 @@
           <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
           <p class="site-author-name" itemprop="name">刘帝伟</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。</p>
+        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域.</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -459,7 +451,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -487,12 +479,6 @@
               <span class="links-of-author-item">
                 <a href="http://weibo.com/liudiwei210" target="_blank">
                   <i class="fa fa-weibo"></i> WeiBo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/liudiwei" target="_blank">
-                  <i class="fa fa-zhihu"></i> ZhiHu
                 </a>
               </span>
             
@@ -539,7 +525,7 @@
       <div class="footer-inner"> <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

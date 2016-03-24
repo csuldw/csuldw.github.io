@@ -32,34 +32,31 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
 
 
-    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。" />
+    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域." />
 
 
 
-  <meta name="keywords" content="Machine Learning," />
+  <meta name="keywords" content="Cross-Validation,Machine Learning,交叉验证," />
 
 
 
-  <link rel="alternate" href="/atom.xml" title="D.W's Diaries" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
 
 
 
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="版权声明：本文为原创文章，转载请注明来源。
-1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方">
+<meta name="description" content="1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted E">
 <meta property="og:type" content="article">
-<meta property="og:title" content="机器学习-CrossValidation交叉验证Python实现">
+<meta property="og:title" content="机器学习-Cross Validation交叉验证Python实现">
 <meta property="og:url" content="http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/index.html">
-<meta property="og:site_name" content="D.W's Diaries">
-<meta property="og:description" content="版权声明：本文为原创文章，转载请注明来源。
-1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方">
-<meta property="og:updated_time" content="2015-11-19T07:50:44.438Z">
+<meta property="og:site_name" content="D.W's Notes - Machine Learning">
+<meta property="og:description" content="1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted E">
+<meta property="og:updated_time" content="2016-03-13T10:22:17.928Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="机器学习-CrossValidation交叉验证Python实现">
-<meta name="twitter:description" content="版权声明：本文为原创文章，转载请注明来源。
-1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方">
+<meta name="twitter:title" content="机器学习-Cross Validation交叉验证Python实现">
+<meta name="twitter:description" content="1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted E">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -71,7 +68,7 @@
 
 
 
-  <title> 机器学习-CrossValidation交叉验证Python实现 | D.W's Diaries </title>
+  <title> 机器学习-Cross Validation交叉验证Python实现 | D.W's Notes - Machine Learning </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -162,20 +159,10 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/donation" rel="section">
-            
-              <i class="menu-item-icon fa fa-heartbeat"></i> <br />
-            
-            赞助
-          </a>
-        </li>
-      
 
       
       
-	  	<span style="font-size:14px;float:right;padding-top:39px">——悄悄是别离的笙箫，沉默是今晚的康桥。</span>
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
     </ul>
   
 
@@ -207,7 +194,7 @@
             
             
               
-                机器学习-CrossValidation交叉验证Python实现
+                机器学习-Cross Validation交叉验证Python实现
               
             
           </h1>
@@ -262,8 +249,7 @@
       
 
       
-        <span itemprop="articleBody"><p>版权声明：本文为原创文章，转载请注明来源。</p>
-<h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
+        <span itemprop="articleBody"><h2 id="1-原理"><strong>1.原理</strong></h2><h3 id="1-1_概念"><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
 <h3 id="1-2_目的"><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
 <p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对</p>
 <h3 id="1-3_常见的交叉验证形式："><strong>1.3 常见的交叉验证形式</strong>：</h3><p><strong>Holdout 验证</strong></p>
@@ -344,7 +330,11 @@
       
         <div class="post-tags">
           
+            <a href="/tags/Cross-Validation/" rel="tag">#Cross-Validation</a>
+          
             <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/交叉验证/" rel="tag">#交叉验证</a>
           
         </div>
       
@@ -353,8 +343,8 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/08/19/2015-08-19 GBDT/" rel="prev">
-                <i class="fa fa-chevron-left"></i> Gradient Tree Boosting
+              <a href="/2015/08/12/2015-08-12-theano-to-lasagne/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 从Theano到Lasagne：基于Python的深度学习的框架和库（译文）
               </a>
             
           </div>
@@ -379,7 +369,7 @@
     <div class="post-spread">
       
         <div class="ds-share flat" data-thread-key="2015/07/28/2015-07-28 crossvalidation/"
-     data-title="机器学习-CrossValidation交叉验证Python实现"
+     data-title="机器学习-Cross Validation交叉验证Python实现"
      data-content=""
      data-url="http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/">
   <div class="ds-share-inline">
@@ -408,7 +398,7 @@
           <div class="comments" id="comments">
             
               <div class="ds-thread" data-thread-key="2015/07/28/2015-07-28 crossvalidation/"
-                   data-title="机器学习-CrossValidation交叉验证Python实现" data-url="http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/">
+                   data-title="机器学习-Cross Validation交叉验证Python实现" data-url="http://csuldw.github.io/2015/07/28/2015-07-28 crossvalidation/">
               </div>
             
           </div>
@@ -446,11 +436,11 @@
           <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
           <p class="site-author-name" itemprop="name">刘帝伟</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。</p>
+        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域.</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -464,7 +454,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -492,12 +482,6 @@
               <span class="links-of-author-item">
                 <a href="http://weibo.com/liudiwei210" target="_blank">
                   <i class="fa fa-weibo"></i> WeiBo
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/liudiwei" target="_blank">
-                  <i class="fa fa-zhihu"></i> ZhiHu
                 </a>
               </span>
             
@@ -544,7 +528,7 @@
       <div class="footer-inner"> <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

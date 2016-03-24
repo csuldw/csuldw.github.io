@@ -6,7 +6,8 @@ comment: true
 tags: 
 	- Machine Learning
 	- 译文
-categories: 译文
+	- scikit-learn
+categories: ML
 ---
 
 原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html

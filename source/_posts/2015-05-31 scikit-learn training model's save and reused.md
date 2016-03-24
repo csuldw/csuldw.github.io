@@ -6,6 +6,7 @@ categories: Python
 tag: 
 	- scikit-learn
 	- Python
+	- 持久化
 ---
 
 

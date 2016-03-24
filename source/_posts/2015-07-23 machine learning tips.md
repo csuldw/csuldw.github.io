@@ -4,6 +4,8 @@ date: 2015-07-23 12:53
 title: "scikit-klean交叉验证"
 tags: 
 	- Machine Learning
+	- 交叉验证
+	- Cross-Validation
 comment: true
 categories: ML
 ---
@@ -14,13 +16,14 @@ __一个Windows操作系统能够使用的pythonIDE__
 
 传统的F-measure或平衡的F-score (F1 score)是精度和召回的调和平均值：
 
-$$F_1 = 2\dfrac{precision * recall}{precision + recall}$$
+$$F_1 = 2 \times \dfrac{precision \times recall}{precision + recall}$$
 
+<!-- more -->
 
 ### __1.Cross Validation （交叉验证）__
 
 cross validation大概的意思是：对于原始数据我们要将其一部分分为train_data，一部分分为test_data。train_data用于训练，test_data用于测试准确率。在test_data上测试的结果叫做validation_error。将一个算法作用于一个原始数据，我们不可能只做出随机的划分一次train和test_data，然后得到一个validation_error，就作为衡量这个算法好坏的标准。因为这样存在偶然性。我们必须好多次的随机的划分train_data和test_data，分别在其上面算出各自的validation_error。这样就有一组validation_error，根据这一组validation_error，就可以较好的准确的衡量算法的好坏。
-<!-- more -->
+
 cross validation是在数据量有限的情况下的非常好的一个evaluate performance的方法。而对原始数据划分出train data和test data的方法有很多种，这也就造成了cross validation的方法有很多种。
 
 sklearn中的cross validation模块，最主要的函数是如下函数：

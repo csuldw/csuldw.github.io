@@ -4,9 +4,13 @@ title: "机器学习算法-决策树理论"
 date: 2015-05-08 21:53:12
 tags: 
 	- Machine Learning
+	- Decision Tree
 comments: true
 categories: ML
 ---
+
+源码下载：[Github-MachineLearning](https://github.com/csuldw/MachineLearning/tree/master/DecisionTree)
+
 
 **用较少的东西，同样可以做好的事情。越是小的决策树，越优于大的决策树。**
 
@@ -93,7 +97,7 @@ $$Gain(A) = H(D) - H(D|A)$$
 
 在这里
 
-$$H(D)=-\dfrac{9}{14}log_2\dfrac{9}{14}-\dfrac{5}{14}log_{2}\frac{5}{14}=0.940位$$
+$$H(D)=-\dfrac{9}{14}log_2\dfrac{9}{14}-\dfrac{5}{14}log_2\dfrac{5}{14}=0.940位$$
 
 $$H(D|age)=\dfrac{5}{14}\times(-\dfrac{2}{5}log_2\dfrac{2}{5}-\dfrac{3}{5}log_2 \dfrac{3}{5})+\dfrac{4}{14}\times(-\dfrac{4}{4}log_2\dfrac{0}{4}-\dfrac{0}{4}log_2 \dfrac{0}{4})+\dfrac{5}{14}\times(-\dfrac{3}{5}log_2\dfrac{3}{5}-\dfrac{2}{5}log_2 \dfrac{2}{5})=0.694位$$
 

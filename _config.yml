@@ -3,9 +3,9 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: D.W's Diaries
-subtitle: ——悄悄是别离的笙箫，沉默是今晚的康桥。
-description: 中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。 
+title: D.W's Notes - Machine Learning 
+subtitle: ——悄悄是别离的笙箫，沉默是今晚的康桥.
+description: 中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域. 
 author: 刘帝伟
 email: csu.ldw@csu.edu.cn
 keywords: "D.W"
@@ -79,7 +79,7 @@ time_format: H:mm:ss
 
 # Pagination
 ## Set per_page to 0 to disable pagination
-per_page: 12
+per_page: 20
 pagination_dir: page
 
 # Disqus
@@ -88,7 +88,7 @@ disqus_shortname:
 social:
   GitHub: https://github.com/csuldw
   WeiBo: http://weibo.com/liudiwei210
-  ZhiHu: http://www.zhihu.com/people/liudiwei
+  #ZhiHu: http://www.zhihu.com/people/liudiwei
   CSDN: http://blog.csdn.net/dream_angel_z
 
 # Extensions

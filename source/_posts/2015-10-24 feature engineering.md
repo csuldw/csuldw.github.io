@@ -4,8 +4,8 @@ date: 2015-10-24 10:24
 title: "机器学习之特征工程"
 categories: ML
 tag: 
-	- Feature Engineering
 	- Machine Learning
+	- 特征工程
 comment: true
 ---
 

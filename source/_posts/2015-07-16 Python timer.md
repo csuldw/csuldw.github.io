@@ -4,7 +4,7 @@ title: "一个简单的Python函数运行时间计时器"
 date: 2015-07-16 20:24:25
 categories: Python
 tag: 
-	- 函数计时器
+	- 计时器
 	- Python
 ---
 

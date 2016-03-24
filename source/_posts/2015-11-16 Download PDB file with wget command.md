@@ -3,7 +3,9 @@ layout: post
 date: 2015-11-16 10:24
 title: "Download PDB file with wget command"
 categories: BioInfo
-tag: BioInfo
+tag: 
+	- BioInfo
+	- PDB
 comment: true
 ---
 

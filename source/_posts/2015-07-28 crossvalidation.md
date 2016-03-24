@@ -1,13 +1,13 @@
 ---
 layout: post
 date: 2015-07-28 15:40
-title: "机器学习-CrossValidation交叉验证Python实现"
+title: "机器学习-Cross Validation交叉验证Python实现"
 tags: 
 	- Machine Learning
+	- 交叉验证
+	- Cross-Validation
 categories: ML
 ---
-
-版权声明：本文为原创文章，转载请注明来源。
 
 ## __1.原理__
 

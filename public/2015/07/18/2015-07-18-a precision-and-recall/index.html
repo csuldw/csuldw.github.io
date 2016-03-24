@@ -1,0 +1,819 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.useso.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域." />
+
+
+
+  <meta name="keywords" content="Machine Learning,Precision,Recall,译文," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="译者：刘帝伟   审校：刘翔宇 朱正贵   责编：周建丁
+
+
+Airbnb网站基于允许任何人将闲置的房屋进行长期或短期出租构建商业模式，来自房客或房东的欺诈风险是必须解决的问题。Airbnb信任和安全小组通过构建机器学习模型进行欺诈预测，本文介绍了其设计思想。假想模型是预测某些虚拟人物是否为“反面人物”，基本步骤：构建模型预期，构建训练集和测试集，特征学习，模型性能评估。其中特征转换倾向于采用条件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）">
+<meta property="og:url" content="http://csuldw.github.io/2015/07/18/2015-07-18-a precision-and-recall/index.html">
+<meta property="og:site_name" content="D.W's Notes - Machine Learning">
+<meta property="og:description" content="译者：刘帝伟   审校：刘翔宇 朱正贵   责编：周建丁
+
+
+Airbnb网站基于允许任何人将闲置的房屋进行长期或短期出租构建商业模式，来自房客或房东的欺诈风险是必须解决的问题。Airbnb信任和安全小组通过构建机器学习模型进行欺诈预测，本文介绍了其设计思想。假想模型是预测某些虚拟人物是否为“反面人物”，基本步骤：构建模型预期，构建训练集和测试集，特征学习，模型性能评估。其中特征转换倾向于采用条件">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a2b74a98e.jpg">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a2e11dabc_middle.jpg?_=23712">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a304d75b7.jpg">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a31c8bc17.jpg">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a34d3dd90.jpg">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a3b87ef92.jpg">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a3fb5a353.jpg">
+<meta property="og:image" content="http://img.ptcms.csdn.net/article/201507/13/55a2a428441f6.jpg">
+<meta property="og:updated_time" content="2016-03-08T08:44:23.384Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）">
+<meta name="twitter:description" content="译者：刘帝伟   审校：刘翔宇 朱正贵   责编：周建丁
+
+
+Airbnb网站基于允许任何人将闲置的房屋进行长期或短期出租构建商业模式，来自房客或房东的欺诈风险是必须解决的问题。Airbnb信任和安全小组通过构建机器学习模型进行欺诈预测，本文介绍了其设计思想。假想模型是预测某些虚拟人物是否为“反面人物”，基本步骤：构建模型预期，构建训练集和测试集，特征学习，模型性能评估。其中特征转换倾向于采用条件">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译） | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            发表于
+            <time itemprop="dateCreated" datetime="2015-07-18T12:30:00+08:00" content="2015-07-18">
+              2015-07-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; 分类于
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/18/2015-07-18-a precision-and-recall/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/18/2015-07-18-a precision-and-recall/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
+
+
+<p>Airbnb网站基于允许任何人将闲置的房屋进行长期或短期出租构建商业模式，来自房客或房东的欺诈风险是必须解决的问题。Airbnb信任和安全小组通过构建机器学习模型进行欺诈预测，本文介绍了其设计思想。假想模型是预测某些虚拟人物是否为“反面人物”，基本步骤：构建模型预期，构建训练集和测试集，特征学习，模型性能评估。其中特征转换倾向于采用条件概率编码（CP-coding），评估度量是准确率（Precision）和召回率（Recall），通常偏向于高召回率。<br><a id="more"></a><br><strong>以下为全文内容：</strong></p>
+<p>在Airbnb网站上，我们专注于创造一个这样的地方：一个人可以属于任何地方。部分归属感来自于我们用户之间的信任，同时认识到他们的安全是我们最关心的。</p>
+<p>虽然我们绝大多数的社区是由友好和可靠的房东和房客组成，但仍然有一小部分用户，他们试图从我们的网站中（非法）获利。这些都是非常罕见的，尽管如此，信任和安全小组还是因此而产生。</p>
+<p>信任和安全小组主要是解决任何可能会发生在我们平台的欺诈行为。我们最主要目的是试图保护我们的用户和公司免于不同类型的风险。例如：退款风险——一个绝大多数电子商务企业都熟悉的风险问题。为了减少此类欺诈行为，信任和安全小组的数据科学家构建了不同种类的机器学习模型，用来帮助识别不同类型的风险。想要获得我们模型背后更多的体系结构信息，请参考以前的文章 <a href="http://nerds.airbnb.com/architecting-machine-learning-system-risk/" target="_blank" rel="external">机器学习风险系统的设计</a>。</p>
+<p>在这篇文章中，我对机器学习的模型建立给了一个简短的思维过程概述。当然，每个模型都有所不同，但希望它能够给读者在关于机器学习中我们如何使用数据来帮助保护我们的用户以及如何改善模型的不同处理方法上带来一个全新的认识。在这篇文章中，我们假设想要构建一个这样的模型：预测某些虚构的角色是否是反面人物。</p>
+<h3 id="试图预测的是什么？">试图预测的是什么？</h3><p>在模型建立中最基本的问题就是明确你想要用这个模型来预测什么。我知道这个听起来似乎很愚蠢，但很多时候，通过这个问题可以引发出其它更深层的问题。</p>
+<p>即使是一个看似简单的角色分类模型，随着我们逐步深入地思考，也可以提出许多更深层的问题。例如，我们想要怎样来给这个模型评分：仅仅是给当前新介绍的角色还是给所有角色？如果是前者，我们想要评分的角色和人物介绍中的角色评分相差多远？如果是后者，我们又该多长时间给这些角色评分呢？</p>
+<p>第一个想法可能是根据人物介绍中给每个角色的评分来建立模型。然而，这种模型，我们可能不能随着时间的推移动态地追踪人物的评分。此外，我们可能会因为在介绍时的一些“好”的特征而忽略了潜在的反面人物。</p>
+<p>相反，我们还可以建立这样一个模型，只要他/她出现在情节里面就评分一次。这将让我们在每个时间段都会有人物评分并检测出任何异常情况。但是，考虑到在每个角色单独出现的情况下可能没有任何的角色类别发展，所以这可能也不是最实际的方法。</p>
+<p>深思熟虑之后，我们决定把模型设计成介于这两种想法之间的模型。例如，建立这样一种模型，在每次有意义的事情发生的时候对角色进行评分，比如结交新盟友，龙族领地占领等等。在这种方式下，我们仍然可以随着时间的变化来跟踪人物的评分，同时，对没有最新进展的角色也不会多加评分。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a2b74a98e.jpg" alt=""></p>
+<h3 id="如何模拟得分？">如何模拟得分？</h3><p>因为我们的目的是分析每个时期的得分，所以我们的训练集要能反映出某段时间某个角色的类别行为，最后的训练数据集类似于下图：</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a2e11dabc_middle.jpg?_=23712" alt=""></p>
+<p>与每个角色相关的时间不一定是连续的，因为我们关心的是那些有着重要事件发展的时间。</p>
+<p>在这个实例当中，Jarden在3个不同的场合有着重要的角色发展并且在一段时间内持续扩充他的军队。相比之下，Dineas 在5个不同的场合有着重要的角色发展并且主管着4个龙族中心基地。</p>
+<h3 id="采样">采样</h3><p>在机器学习模型中，从观测数据中下采样是有必要的。采样过程本身很简单，一旦有了所需要的训练数据集，就可以在数据集上做一个基于行的采样。</p>
+<p>然而，由于这里描述的模型是处理每个角色多个时期的样本，基于行采样可能会导致这样一种情况，即在建立模型的数据和用来验证的数据之间，场景附加的人物角色被分离开。如下表所示：</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a304d75b7.jpg" alt=""></p>
+<p>显然这并不是理想的采样，因为我们没有得到每个角色的整体描述，并且这些缺失的观测数据可能对建立一个好的模型至关重要。</p>
+<p>出于这个原因，我们需要做基于角色的采样。这样做能确保在模型数据建立中包含所有场合附加的角色，或者什么都没有。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a31c8bc17.jpg" alt=""></p>
+<p>此外，当我们将我们的数据集切分为训练集和测试集时，通常这样的逻辑也适用。</p>
+<h3 id="特征设计">特征设计</h3><p>特征设计是机器学习不可或缺的一部分，通常情况下，在特征种类的选择上，对数据的充分理解有助于形成一个更好的模型设计思路。特征设计的实例包括特征规范化和分类特征处理。</p>
+<p>特征规范化是标准化特征的一种方式，允许更合理的对比。如下表所示：</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a34d3dd90.jpg" alt=""></p>
+<p>从上表可知，每个人物都有10,000个士兵。然而，Serion掌权长达5年，而Dineas仅仅掌权2年。通过这些人物比较绝对的士兵数量可能并不是非常有效的。但是，通过人物掌权的年份来标准化他们可能会提供更好的见解，并且产生更有预测力的特征。</p>
+<p>在分类特征的特征设计上值得单独的写一篇博客文章，因为有很多方式可以去处理它们。特别是对于缺失值的插补，请看一看以前的博客文章—— <a href="http://nerds.airbnb.com/overcoming-missing-values-in-a-rfc/" target="_blank" rel="external">使用随机森林分类器处理缺失值</a>。</p>
+<p>转换分类特征最常见的方法就是矢量化（也称作one-hot encoding）。然而，在处理有许多不同级别的分类特征时，使用条件概率编码（CP-coding）则更为实用。</p>
+<p>CP-coding的基本思想就是在给定的分类级别上，计算出某个特征值发生的概率。这种方法使得我们能够将所有级别的分类特征转化为一个单一的数值型变量。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a3b87ef92.jpg" alt=""></p>
+<p>然而，这种类型转换可能会因为没有充分描述的类别而造成噪音数据。在上面的例子中，我们只有一个来自House 为 “Tallight”的观测样本。结果相应的概率就是0或1。为了避免这种问题的发生并且降低噪声数据，通常情况下，可以通过考虑加权平均值，全局概率或者引入一个平滑的超系数来调整如何计算概率。</p>
+<p>那么，哪一种方法最好呢？这取决于分类特征的数量和级别。CP-coding是个不错的选择，因为他降低了特征的维数，但是这样会牺牲掉特征与特征之间的互信息，这种方法称之为矢量化保留。此外，我们可以整合这两种方法，即组合相似的类别特征，然后使用CP-coding处理整合的特征。</p>
+<h3 id="模型性能评估">模型性能评估</h3><p>当谈及到评估模型性能的时候，我们需要留意正面角色和反面角色的比例。在我们的例子模型中，数据最后的统计格式为[character*period]（下表左）。然而，模型评估应该以角色类别测量（下表右）。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a3fb5a353.jpg" alt=""></p>
+<p>结果，在模型的构建数据和模型的评估数据之间的正面人物和反面人物的比例有着明显的差异。当评估模型准确率和召回率的时候分配合适的权重值是相当重要的。</p>
+<p>此外，因为我们可能会使用下采样以减少观测样本的数量，所以我们还需要调整模型占采样过程的准确率和召回率。</p>
+<h3 id="评估准确率和召回率">评估准确率和召回率</h3><p>对于模型评估的两种主要的评估度量是准确率（Precision）和召回率（Recall）。在我们的例子当中，准确率是预测结果为反面角色中被正确预测为反面角色的比例。它在给定的阈值下衡量模型的准确度。另外，召回率是模型从原本为反面角色当中能够正确检测出为反面角色的比例。它在一个给定的阈值下以识别反面人物来衡量模型的综合指标。这两个变量很容易混淆，所以通过下表会更加的直观看出两者的不同。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a428441f6.jpg" alt=""></p>
+<p>通常将最后的数据划分为四个不同的部分：</p>
+<p>True Positives（TP）：角色是反面人物，模型预测为反面人物；<br>False Positives（FP）：角色是正面人物，模型预测为反面人物；<br>True Negatives（TN）：角色是正面人物，模型预测为正面人物；<br>False Negatives（FN）：角色是反面人物，模型预测为正面人物；<br>准确率计算：在所有被预测为反面人物中，模型正确预测的比例，即TP /（TP + FP）。</p>
+<p>召回率计算：在所有原本就是反面人物中，模型正确预测的比例，即TP / (TP + FN）。</p>
+<p>通过观察可以看出，尽管准确率和召回率的分子是相同的，但分母不同。</p>
+<p>通常在选择高准确率和高召回率之间总有一种权衡。这要取决于构建模型的最终目的，对于某些情况而言，高准确率的选择可能会优于高召回率。然而，对于欺诈预测模型，通常要偏向于高召回率，即使会牺牲掉一些准确率。</p>
+<p>有许多的方式可以用来改善模型的准确度和召回率。其中包括添加更好的特征，优化决策树剪枝或者建立一个更大的森林等等。不过，鉴于讨论广泛，我打算将其单独地放在一篇文章当中。</p>
+<h3 id="结束语">结束语</h3><p>希望这篇文章能让读者了解到什么是构建机器学习模型所需要的。遗憾的是，没有放之四海而皆准的解决方案来构建一种好的模型，充分了解数据的上下文是关键，因为通过它我们能够从中提取出更多更好的预测特征，从而建立出更优化的模型。</p>
+<p>最后，虽然将角色分为正面和反面是主观的，但类别标签的确是机器学习的一个非常重要的部分，而不好的类别标签通常会导致一个糟糕的模型。祝建模快乐!</p>
+<p>注：这个模型确保每个角色都是正面角色或者是反面角色，即如果他们生来就是反面角色，那么在他们的整个生命当中都是反面角色。如果我们假设角色可以跨越类别标签作为中立人物，那么模型的设计将会完全不同。</p>
+<p>英文原文： <a href="http://nerds.airbnb.com/designing-machine-learning-models/" target="_blank" rel="external">Designing Machine Learning Models: A Tale of Precision and Recall</a>（译者/刘帝伟 审校/刘翔宇、朱正贵 责编/周建丁）</p>
+<p>关于译者： <a href="http://my.csdn.net/Dream_angel_Z" target="_blank" rel="external">刘帝伟</a>，中南大学在读研究生，关注机器学习、数据挖掘及生物信息领域。 </p>
+<hr>
+<p>本文为CSDN编译整理，未经允许不得转载，如需转载请联系market#csdn.net(#换成@)</p>
+<hr>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/Precision/" rel="tag">#Precision</a>
+          
+            <a href="/tags/Recall/" rel="tag">#Recall</a>
+          
+            <a href="/tags/译文/" rel="tag">#译文</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 机器学习scikit-learn入门教程（译）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/16/2015-07-16 Python timer/" rel="next">
+                一个简单的Python函数运行时间计时器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/07/18/2015-07-18-a precision-and-recall/"
+     data-title="Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）"
+     data-content=""
+     data-url="http://csuldw.github.io/2015/07/18/2015-07-18-a precision-and-recall/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div class="ds-thread" data-thread-key="2015/07/18/2015-07-18-a precision-and-recall/"
+                   data-title="Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）" data-url="http://csuldw.github.io/2015/07/18/2015-07-18-a precision-and-recall/">
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#试图预测的是什么？"><span class="nav-number">1.</span> <span class="nav-text">试图预测的是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何模拟得分？"><span class="nav-number">2.</span> <span class="nav-text">如何模拟得分？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#采样"><span class="nav-number">3.</span> <span class="nav-text">采样</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征设计"><span class="nav-number">4.</span> <span class="nav-text">特征设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型性能评估"><span class="nav-number">5.</span> <span class="nav-text">模型性能评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#评估准确率和召回率"><span class="nav-number">6.</span> <span class="nav-text">评估准确率和召回率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结束语"><span class="nav-number">7.</span> <span class="nav-text">结束语</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+</div>
+
+
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"csuldw"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+    
+     
+
+    
+  
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+</body>
+</html>

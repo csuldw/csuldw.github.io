@@ -3,7 +3,10 @@ layout: post
 title:  "Git小结-同步一个fork"
 date:   2015-04-15 13:14:54
 categories: GitHub
-tags: GitHub
+tags: 
+	- GitHub
+	- fork
+	- 同步
 ---
 
 

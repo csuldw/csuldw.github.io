@@ -3,7 +3,10 @@ layout: post
 date: 2015-11-15 10:24
 title: "Machine Learning-Normalization"
 categories: ML
-tag: normalization
+tag: 
+	- normalization
+	- 标准化
+	- 预处理
 comment: true
 ---
 

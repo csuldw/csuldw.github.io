@@ -4,9 +4,9 @@ date: 2014-12-21 12:24
 title: "排序算法-归并排序"
 categories: 算法与数据结构
 tag: 
-	- 归并排序
+	- 归并
 	- 数据结构
-	- 排序算法
+	- 排序
 	- C++
 comment: true
 ---
@@ -19,8 +19,10 @@ comment: true
 
 原理：将数据分开排序，然后进行合并，最后形成一个排好的序列。
 
-![](/assets/articleImg/2014-12-21-mergesort-1.png)
 <!--more-->
+
+![](/assets/articleImg/2014-12-21-mergeSort-1.png)
+
 
 将其合并输出，如下图所示：
 

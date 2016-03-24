@@ -3,7 +3,8 @@ layout: post
 date: 2015-11-03 16:24
 title: "Add header and footer to some file"
 categories: Python
-tag: Python
+tag: 
+	- Python
 comment: true
 ---
 

@@ -32,15 +32,15 @@
 <link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
 
 
-    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。" />
+    <meta name="description" content="中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域." />
 
 
 
-  <meta name="keywords" content="Python,正则表达式," />
+  <meta name="keywords" content="Python,RegEx,正则表达式," />
 
 
 
-  <link rel="alternate" href="/atom.xml" title="D.W's Diaries" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
 
 
 
@@ -48,19 +48,19 @@
 
 
 <meta name="description" content="关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！
-正则表达式简介正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表">
+正则表达式正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python-RegEx（正则表达式）">
 <meta property="og:url" content="http://csuldw.github.io/2015/10/29/2015-10-29 Python RegEx/index.html">
-<meta property="og:site_name" content="D.W's Diaries">
+<meta property="og:site_name" content="D.W's Notes - Machine Learning">
 <meta property="og:description" content="关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！
-正则表达式简介正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表">
+正则表达式正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式">
 <meta property="og:image" content="http://ww4.sinaimg.cn/large/637f3c58gw1exic0q7k4ej20cj055t9e.jpg">
-<meta property="og:updated_time" content="2015-11-19T07:50:44.442Z">
+<meta property="og:updated_time" content="2016-03-23T12:25:49.452Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python-RegEx（正则表达式）">
 <meta name="twitter:description" content="关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！
-正则表达式简介正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表">
+正则表达式正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -72,7 +72,7 @@
 
 
 
-  <title> Python-RegEx（正则表达式） | D.W's Diaries </title>
+  <title> Python-RegEx（正则表达式） | D.W's Notes - Machine Learning </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -163,20 +163,10 @@
           </a>
         </li>
       
-        
-        <li class="menu-item menu-item-commonweal">
-          <a href="/donation" rel="section">
-            
-              <i class="menu-item-icon fa fa-heartbeat"></i> <br />
-            
-            赞助
-          </a>
-        </li>
-      
 
       
       
-	  	<span style="font-size:14px;float:right;padding-top:39px">——悄悄是别离的笙箫，沉默是今晚的康桥。</span>
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
     </ul>
   
 
@@ -264,7 +254,7 @@
 
       
         <span itemprop="articleBody"><p>关于Python的正则表达式，初步学习了下，感觉跟shell脚本的正则表达式大体相同，先来做个小结吧！</p>
-<h2 id="正则表达式简介">正则表达式简介</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
+<h2 id="正则表达式">正则表达式</h2><p>正则表达式在实际的文本文件处理中，经常用到，其实正则表达式并不是Python的一部分，其它语言中都有。正则表达式是用于处理字符串的强大工具，拥有自己独特的语法以及一个独立的处理引擎，效率上可能不如str自带的方法，但功能真的十分强大。得益于这一点，在提供了正则表达式的语言里，正则表达式的语法都是一样的，区别只在于不同的编程语言实现支持的语法数量不同；但不用担心，不被支持的语法通常是不常用的部分。如果已经在其他语言里使用过正则表达式，只需要简单看一看就可以上手了。</p>
 <p>下图展示了使用正则表达式进行匹配的流程： </p>
 <p><img src="http://ww4.sinaimg.cn/large/637f3c58gw1exic0q7k4ej20cj055t9e.jpg" alt=""></p>
 <a id="more"></a>
@@ -272,156 +262,192 @@
 <table>
 <thead>
 <tr>
-<th>模式</th>
+<th>ID</th>
+<th style="text-align:right">模式</th>
 <th>描述</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>^</td>
+<td>1</td>
+<td style="text-align:right">^</td>
 <td>匹配字符串的开头</td>
 </tr>
 <tr>
-<td>$</td>
+<td>2</td>
+<td style="text-align:right">$</td>
 <td>匹配字符串的末尾。</td>
 </tr>
 <tr>
-<td>.</td>
+<td>3</td>
+<td style="text-align:right">.</td>
 <td>匹配任意字符，除了换行符，当re.DOTALL标记被指定时，则可以匹配包括换行符的任意字符。</td>
 </tr>
 <tr>
-<td>[…]</td>
+<td>4</td>
+<td style="text-align:right">[…]</td>
 <td>用来表示一组字符,单独列出：[amk] 匹配 ‘a’，’m’或’k’</td>
 </tr>
 <tr>
-<td>[^…]</td>
+<td>5</td>
+<td style="text-align:right">[^…]</td>
 <td>不在[]中的字符：[^abc] 匹配除了a,b,c之外的字符。</td>
 </tr>
 <tr>
-<td>*</td>
+<td>6</td>
+<td style="text-align:right">*</td>
 <td>匹配0个或多个的表达式。</td>
 </tr>
 <tr>
-<td>+</td>
+<td>7</td>
+<td style="text-align:right">+</td>
 <td>匹配1个或多个的表达式。</td>
 </tr>
 <tr>
-<td>?</td>
+<td>8</td>
+<td style="text-align:right">?</td>
 <td>匹配0个或1个由前面的正则表达式定义的片段，非贪婪方式</td>
 </tr>
 <tr>
-<td>{ n,}</td>
+<td>9</td>
+<td style="text-align:right">{ n,}</td>
 <td>精确匹配n个前面表达式。</td>
 </tr>
 <tr>
-<td>{ n, m}</td>
+<td>10</td>
+<td style="text-align:right">{n,m}</td>
 <td>匹配 n 到 m 次由前面的正则表达式定义的片段，贪婪方式</td>
 </tr>
 <tr>
-<td>(re)</td>
+<td>11</td>
+<td style="text-align:right">(re)</td>
 <td>G匹配括号内的表达式，也表示一个组</td>
 </tr>
 <tr>
-<td>(?imx)</td>
+<td>12</td>
+<td style="text-align:right">(?imx)</td>
 <td>正则表达式包含三种可选标志：i, m, 或 x 。只影响括号中的区域。</td>
 </tr>
 <tr>
-<td>(?-imx)</td>
+<td>13</td>
+<td style="text-align:right">(?-imx)</td>
 <td>正则表达式关闭 i, m, 或 x 可选标志。只影响括号中的区域。</td>
 </tr>
 <tr>
-<td>(?: re)</td>
+<td>14</td>
+<td style="text-align:right">(?:re)</td>
 <td>类似 (…), 但是不表示一个组</td>
 </tr>
 <tr>
-<td>(?imx: re)</td>
+<td>15</td>
+<td style="text-align:right">(?imx:re)</td>
 <td>在括号中使用i, m, 或 x 可选标志</td>
 </tr>
 <tr>
-<td>(?-imx: re)</td>
+<td>16</td>
+<td style="text-align:right">(?-imx:re)</td>
 <td>在括号中不使用i, m, 或 x 可选标志</td>
 </tr>
 <tr>
-<td>(?#…)</td>
+<td>17</td>
+<td style="text-align:right">(?#…)</td>
 <td>注释.</td>
 </tr>
 <tr>
-<td>(?= re)</td>
+<td>18</td>
+<td style="text-align:right">(?=re)</td>
 <td>前向肯定界定符。如果所含正则表达式，以 … 表示，在当前位置成功匹配时成功，否则失败。但一旦所含表达式已经尝试，匹配引擎根本没有提高；模式的剩余部分还要尝试界定符的右边。</td>
 </tr>
 <tr>
-<td>(?! re)</td>
+<td>19</td>
+<td style="text-align:right">(?!re)</td>
 <td>前向否定界定符。与肯定界定符相反；当所含表达式不能在字符串当前位置匹配时成功</td>
 </tr>
 <tr>
-<td>(?&gt; re)</td>
+<td>20</td>
+<td style="text-align:right">(?&gt;re)</td>
 <td>匹配的独立模式，省去回溯。</td>
 </tr>
 <tr>
-<td>\w</td>
+<td>21</td>
+<td style="text-align:right">\w</td>
 <td>匹配字母数字,等价于’[A-Za-z0-9_]’</td>
 </tr>
 <tr>
-<td>\W</td>
+<td>22</td>
+<td style="text-align:right">\W</td>
 <td>匹配非字母数字, [^A-Za-z0-9_]’</td>
 </tr>
 <tr>
-<td>\s</td>
+<td>23</td>
+<td style="text-align:right">\s</td>
 <td>匹配任意空白字符，等价于[\t\n\r\f].</td>
 </tr>
 <tr>
-<td>\S</td>
+<td>24</td>
+<td style="text-align:right">\S</td>
 <td>匹配任意非空字符,等价于[^ \f\n\r\t\v]</td>
 </tr>
 <tr>
-<td>\d</td>
+<td>25</td>
+<td style="text-align:right">\d</td>
 <td>匹配任意数字，等价于[0-9].</td>
 </tr>
 <tr>
-<td>\D</td>
+<td>26</td>
+<td style="text-align:right">\D</td>
 <td>匹配任意非数字,等价于[^0-9]。</td>
 </tr>
 <tr>
-<td>\A</td>
+<td>27</td>
+<td style="text-align:right">\A</td>
 <td>匹配字符串开始</td>
 </tr>
 <tr>
-<td>\Z</td>
+<td>28</td>
+<td style="text-align:right">\Z</td>
 <td>匹配字符串结束，如果是存在换行，只匹配到换行前的结束字符串。c</td>
 </tr>
 <tr>
-<td>\z</td>
+<td>29</td>
+<td style="text-align:right">\z</td>
 <td>匹配字符串结束</td>
 </tr>
 <tr>
-<td>\G</td>
+<td>30</td>
+<td style="text-align:right">\G</td>
 <td>匹配最后匹配完成的位置。</td>
 </tr>
 <tr>
-<td>\b</td>
+<td>31</td>
+<td style="text-align:right">\b</td>
 <td>匹配一个单词边界，也就是指单词和空格间的位置。例如， ‘er\b’ 可以匹配”never” 中的 ‘er’，但不能匹配 “verb” 中的 ‘er’。</td>
 </tr>
 <tr>
-<td>\B</td>
+<td>32</td>
+<td style="text-align:right">\B</td>
 <td>匹配非单词边界。’er\B’ 能匹配 “verb” 中的 ‘er’，但不能匹配 “never” 中的 ‘er’。</td>
 </tr>
 <tr>
-<td>\n, \t, 等.</td>
+<td>33</td>
+<td style="text-align:right">\n, \t, 等.</td>
 <td>匹配一个换行符。匹配一个制表符。等</td>
 </tr>
 <tr>
-<td>\1…\9</td>
+<td>34</td>
+<td style="text-align:right">\1…\9</td>
 <td>匹配第n个分组的子表达式。</td>
 </tr>
 <tr>
-<td>\10</td>
+<td>35</td>
+<td style="text-align:right">\10</td>
 <td>匹配第n个分组的子表达式，如果它经匹配。否则指的是八进制字符码的表达式。</td>
 </tr>
 </tbody>
 </table>
 <p>下面从正则表达式的几个函数/方法来简单介绍下正则表达式的用法。</p>
 <hr>
-<h2 id="re-match函数">re.match函数</h2><p>re.match 尝试<strong>从字符串的开头匹配一个模式</strong>，如：下面的例子匹配第一个单词。 </p>
+<h2 id="re-match()函数">re.match()函数</h2><p>re.match 尝试<font color="#007FFF"><strong>从字符串的开头匹配一个模式</strong></font>，如：下面的例子匹配第一个单词。 </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">text = <span class="string">"This is a very beautiful girl, I like her very much."</span></span><br><span class="line">m = re.match(<span class="string">r"(\w+)\s"</span>, text)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">	<span class="keyword">print</span> m.group(<span class="number">0</span>), <span class="string">'\n'</span>, m.group(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="keyword">print</span> <span class="string">'not match'</span></span><br></pre></td></tr></table></figure>
 <p>输出:</p>
 <pre><code class="markdown">
@@ -436,7 +462,7 @@ This
 <li>第三个参数是标致位，用于控制正则表达式的匹配方式，如：是否区分大小写，多行匹配等等。</li>
 </ul>
 <hr>
-<h2 id="re-search函数">re.search函数</h2><p>re.search函数会在字符串内查找模式匹配,只到找到第一个匹配然后返回，如果字符串没有匹配，则返回None。</p>
+<h2 id="re-search()函数">re.search()函数</h2><p>re.search函数会在字符串内查找模式匹配,只到找到第一个匹配然后返回，如果字符串没有匹配，则返回None。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">text = <span class="string">"This is a very beautiful girl, I like her very much."</span></span><br><span class="line">m = re.search(<span class="string">r'\sbeaut(i)ful\s'</span>, text)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">	<span class="keyword">print</span> m.group(<span class="number">0</span>), m.group(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="keyword">print</span> <span class="string">'not search'</span></span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
 <pre><code class="markdown">
@@ -446,22 +472,22 @@ beautiful i
 <p>re.search的函数原型为： re.search(pattern, string, flags)</p>
 <p>每个参数的含意与re.match一样。 </p>
 <hr>
-<h2 id="re-match与re-search的区别">re.match与re.search的区别</h2><p>re.match只匹配字符串的开始，如果字符串从一开始就不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</p>
+<h2 id="re-match()与re-search()的区别">re.match()与re.search()的区别</h2><font color="#007FFF"><strong>re.match只匹配字符串的开始，如果字符串从一开始就不符合正则表达式，则匹配失败，函数返回None；而re.search匹配整个字符串，直到找到一个匹配。</strong></font>
+
 <p>请看下面这个实例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">line = <span class="string">"This is a very beautiful girl, I like her very much."</span>;</span><br><span class="line">m = re.match( <span class="string">r'girl'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"match --&gt; m.group() : "</span>, m.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!!"</span></span><br></pre></td></tr></table></figure>
-<pre><code class="markdown">
-search --> m.group() :  girl
-search --> matchObj.group() :  dogs
+<p>match会从字符串起始出进行模式匹配，即模式中的其实字母‘g’匹配‘This’中的‘T’，所以，匹配失败。</p>
+<pre><code class="markdown">No match!!
 </code></pre>
 
+<p>如果使用的是search，来看看结果：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">m = re.search( <span class="string">r'girl'</span>, line, re.M|re.I)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"search --&gt; m.group() : "</span>, m.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">   <span class="keyword">print</span> <span class="string">"No match!"</span></span><br></pre></td></tr></table></figure>
 <p>以上实例运行结果如下：</p>
-<pre><code class="markdown">
-search --> m.group() :  girl
+<pre><code class="markdown">search --> m.group() :  girl
 </code></pre>
 
 <hr>
-<h2 id="re-sub函数">re.sub函数</h2><p>re.sub用于替换字符串中的匹配项。下面一个例子将字符串中的空格 ‘ ‘ 替换成 ‘-‘ : </p>
+<h2 id="re-sub()_&amp;_re-subn()函数">re.sub() &amp; re.subn()函数</h2><p>re.sub用于替换字符串中的匹配项。下面一个例子将字符串中的空格 ‘ ‘ 替换成 ‘-‘ : </p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">text = <span class="string">"I like Cats more than dogs!"</span></span><br><span class="line"><span class="keyword">print</span> re.sub(<span class="string">r'\s+'</span>, <span class="string">'-'</span>, text)</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <pre><code class="markdown">
@@ -469,12 +495,15 @@ I-like-Cats-more-than-dogs!
 </code></pre>
 
 
-<p>re.sub的函数原型为：re.sub(pattern, repl, string, count)</p>
+<p>re.sub的函数原型为：<font color="#007FFF"><strong>re.sub(pattern, repl, string, count)</strong></font></p>
 <p>其中第二个函数是替换后的字符串；本例中为’-‘</p>
 <p>第四个参数指替换个数。默认为0，表示每个匹配项都替换。</p>
 <p>re.sub还允许使用函数对匹配项的替换进行复杂的处理。如：re.sub(r’\s’, lambda m: ‘[‘ + m.group(0) + ‘]’, text, 0)；将字符串中的空格’ ‘替换为’[ ]’。</p>
+<p>注：re.subn和re.sub大体相似，唯一不同的就是返回结果，subn会将匹配的个数也显示出来。</p>
+<p>如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt;<span class="keyword">import</span> re</span><br><span class="line">&gt;&gt;&gt;text = <span class="string">"I like Cats more than dogs!"</span></span><br><span class="line">&gt;&gt;&gt;<span class="keyword">print</span> re.subn(<span class="string">r'\s+'</span>, <span class="string">'-'</span>, text)</span><br><span class="line"></span><br><span class="line">(<span class="string">'I-like-Cats-more-than-dogs!'</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
 <hr>
-<h2 id="re-split函数">re.split函数</h2><p>可以使用re.split来分割字符串，如：re.split(r’-‘, text)；将字符串按’-‘符号分割成一个单词列表。</p>
+<h2 id="re-split()函数">re.split()函数</h2><p>可以使用re.split来分割字符串，如：re.split(r’-‘, text)；将字符串按’-‘符号分割成一个单词列表。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">text=<span class="string">"I-really-like-this-girl!"</span></span><br><span class="line">re.split(<span class="string">r'-'</span>,text)</span><br></pre></td></tr></table></figure>
 <p>输出：</p>
 <pre><code class="markdown">
@@ -483,19 +512,17 @@ I-like-Cats-more-than-dogs!
 
 
 <hr>
-<h2 id="re-findall函数">re.findall函数</h2><p>re.findall可以获取字符串中所有匹配的字符串。如：re.findall(r’\w<em>i\w</em>‘, text)；获取字符串中，包含’oo’的所有单词。</p>
+<h2 id="re-findall()函数">re.findall()函数</h2><p>re.findall可以获取字符串中所有匹配的字符串。如：re.findall(r’\w*i\w*‘, text)；获取字符串中，包含’oo’的所有单词。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">text=<span class="string">"I-really-like-this-girl!"</span></span><br><span class="line">re.findall(<span class="string">r'girl'</span>,text)</span><br></pre></td></tr></table></figure>
 <p>输出结果：</p>
-<pre><code class="markdown">
-['like', 'this', 'girl']
+<pre><code class="markdown">['like', 'this', 'girl']
 </code></pre>
 
 <hr>
-<h2 id="re-compile函数">re.compile函数</h2><p>可以把正则表达式编译成一个正则表达式对象。可以把那些经常使用的正则表达式编译成正则表达式对象，这样可以提高一定的效率。下面是一个正则表达式对象的一个例子：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">regex = re.compile(<span class="string">r'\w*er\w*'</span>) <span class="comment"># 将正则表达式编译成Pattern对象</span></span><br><span class="line">text = <span class="string">"This is a very beautiful girl, I like her very much."</span></span><br><span class="line">m = regex.search(text) <span class="comment">#使用regex来匹配text字符串</span></span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">	<span class="keyword">print</span> m.group() <span class="comment"># 使用Match获得分组信息</span></span><br><span class="line"><span class="keyword">print</span> regex.findall(text)   <span class="comment">#查找所有包含'oo'的单词</span></span><br><span class="line"><span class="keyword">print</span> regex.sub(<span class="keyword">lambda</span> m: <span class="string">'['</span> + m.group(<span class="number">0</span>) + <span class="string">']'</span>, text) <span class="comment">#将字符串中含有'oo'的单词用[]括起来。</span></span><br></pre></td></tr></table></figure>
+<h2 id="re-compile()函数">re.compile()函数</h2><p>可以把正则表达式编译成一个正则表达式对象。可以把那些经常使用的正则表达式编译成正则表达式对象，这样可以提高一定的效率。下面是一个正则表达式对象的一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line">regex = re.compile(<span class="string">r'\w*er\w*'</span>) <span class="comment"># 将正则表达式编译成Pattern对象</span></span><br><span class="line">text = <span class="string">"This is a very beautiful girl, I like her very much."</span></span><br><span class="line">m = regex.search(text) <span class="comment">#使用regex来匹配text字符串</span></span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">    <span class="keyword">print</span> m.group() <span class="comment"># 使用Match获得分组信息</span></span><br><span class="line"><span class="keyword">print</span> regex.findall(text)   <span class="comment">#查找所有包含'oo'的单词</span></span><br><span class="line"><span class="keyword">print</span> regex.sub(<span class="keyword">lambda</span> m: <span class="string">'['</span> + m.group(<span class="number">0</span>) + <span class="string">']'</span>, text) <span class="comment">#将字符串中含有'oo'的单词用[]括起来。</span></span><br></pre></td></tr></table></figure>
 <p>分别输出下列信息：</p>
-<pre><code class="markdown">
-'very'
+<pre><code class="markdown">'very'
 ['very', 'her', 'very']
 This is a [very] beautiful girl, I like [her] [very] much.
 </code></pre>
@@ -505,19 +532,17 @@ This is a [very] beautiful girl, I like [her] [very] much.
 <p>根据csu.ldw@csu.edu.cn来填写规则</p>
 <p>规则：</p>
 <ul>
-<li>@前面可以有’.’、‘_’,’-‘，但不能出现在头尾，而且不能连续出现</li>
+<li>@前面可以有’.’, ‘_’, ‘-‘, 但不能出现在头尾，而且不能连续出现</li>
 <li>@后面到结尾之间，可以有多个子域名</li>
 <li>邮箱的结尾为2~5个字母，比如cn、com、name等</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span><br><span class="line">Created on Thu Oct 29 20:28:57 2015</span><br><span class="line">@author: liudiwei</span><br><span class="line">"""</span></span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line">regex = re.compile(<span class="string">'^[A-Za-z0-9]+(([\.\_\-])?[A-Za-z0-9]+)+@([A-Za-z]+.)+[A-Za-z]&#123;2,5&#125;$'</span>)</span><br><span class="line">m = regex.match(<span class="string">"csu.ldw@csu.edu.cn"</span>)</span><br><span class="line"><span class="keyword">if</span> m:</span><br><span class="line">    <span class="keyword">print</span> m.group()</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"no match!"</span></span><br></pre></td></tr></table></figure>
 <p>测试输出：</p>
-<pre><code class="markdown">
-csu.ldw@csu.edu.cn
+<pre><code class="markdown">csu.ldw@csu.edu.cn
 </code></pre>
 
 <p>当m = regex.match(“_csu.ldw@csu.edu.cn”)<br>当邮箱为：</p>
-<pre><code class="markdown">
-_csu.ldw@csu.edu.cn  
+<pre><code class="markdown">_csu.ldw@csu.edu.cn  
 csu.ldw_@csu.edu.cn
 csu.ldw@csu_.edu.cn
 _csu.ldw@csu.edu.cn1
@@ -535,6 +560,8 @@ _csu.ldw@csu.edu.cn1
         <div class="post-tags">
           
             <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/RegEx/" rel="tag">#RegEx</a>
           
             <a href="/tags/正则表达式/" rel="tag">#正则表达式</a>
           
@@ -638,11 +665,11 @@ _csu.ldw@csu.edu.cn1
           <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
           <p class="site-author-name" itemprop="name">刘帝伟</p>
         </div>
-        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域。</p>
+        <p class="site-description motion-element" itemprop="description">中南大学在读硕士，关注机器学习、数据挖掘和人工智能领域.</p>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -656,7 +683,7 @@ _csu.ldw@csu.edu.cn1
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">68</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -688,12 +715,6 @@ _csu.ldw@csu.edu.cn1
               </span>
             
               <span class="links-of-author-item">
-                <a href="http://www.zhihu.com/people/liudiwei" target="_blank">
-                  <i class="fa fa-zhihu"></i> ZhiHu
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
                 <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
                   <i class="fa fa-csdn"></i> CSDN
                 </a>
@@ -717,7 +738,7 @@ _csu.ldw@csu.edu.cn1
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式简介"><span class="nav-number">1.</span> <span class="nav-text">正则表达式简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match函数"><span class="nav-number">2.</span> <span class="nav-text">re.match函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-search函数"><span class="nav-number">3.</span> <span class="nav-text">re.search函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match与re-search的区别"><span class="nav-number">4.</span> <span class="nav-text">re.match与re.search的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-sub函数"><span class="nav-number">5.</span> <span class="nav-text">re.sub函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-split函数"><span class="nav-number">6.</span> <span class="nav-text">re.split函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-findall函数"><span class="nav-number">7.</span> <span class="nav-text">re.findall函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-compile函数"><span class="nav-number">8.</span> <span class="nav-text">re.compile函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邮箱验证"><span class="nav-number">9.</span> <span class="nav-text">邮箱验证</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则表达式"><span class="nav-number">1.</span> <span class="nav-text">正则表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match()函数"><span class="nav-number">2.</span> <span class="nav-text">re.match()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-search()函数"><span class="nav-number">3.</span> <span class="nav-text">re.search()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-match()与re-search()的区别"><span class="nav-number">4.</span> <span class="nav-text">re.match()与re.search()的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-sub()_&_re-subn()函数"><span class="nav-number">5.</span> <span class="nav-text">re.sub() & re.subn()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-split()函数"><span class="nav-number">6.</span> <span class="nav-text">re.split()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-findall()函数"><span class="nav-number">7.</span> <span class="nav-text">re.findall()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#re-compile()函数"><span class="nav-number">8.</span> <span class="nav-text">re.compile()函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#邮箱验证"><span class="nav-number">9.</span> <span class="nav-text">邮箱验证</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -736,7 +757,7 @@ _csu.ldw@csu.edu.cn1
       <div class="footer-inner"> <div class="copyright" >
   
   &copy;  2014 - 
-  <span itemprop="copyrightYear">2015</span>
+  <span itemprop="copyrightYear">2016</span>
   <span class="with-love">
     <i class="icon-next-heart fa fa-heart"></i>
   </span>

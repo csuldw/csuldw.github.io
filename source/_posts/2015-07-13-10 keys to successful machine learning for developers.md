@@ -3,11 +3,9 @@ layout: post
 title: "开发者成功使用机器学习的十大诀窍(译)"
 date: 2015-07-13 21:53:12
 comments: true
-excerpt: bagging:对于开发人员而言，基于云的机器学习工具带来了使用机器学习创造和提供新的功能的可能性。然而，开发者想要在它们的应用程序中融入机器学习，通常会犯一些错误，本文列了十条注意点以飨读者。
 tags: 
 	- Machine Learning
-	- CV
-	- AI
+	- 译文
 ---
 
 <div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
