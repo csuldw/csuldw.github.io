@@ -1,14 +1,14 @@
 ---
 layout: post
 date: 2014-12-21 11:24
-title: "插入排序-简单插入排序&希尔排序"
+title: "排序算法-插入排序"
 categories: 算法与数据结构
 tag: 
 	- C++
 	- 数据结构
 	- 排序
-	- 希尔
-	- 插入
+	- 希尔排序
+	- 插入排序
 comment: true
 ---
 

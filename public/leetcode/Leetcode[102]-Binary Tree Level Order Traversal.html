@@ -53,7 +53,7 @@
 <meta property="og:url" content="http://csuldw.github.io/leetcode/Leetcode[102]-Binary Tree Level Order Traversal.html">
 <meta property="og:site_name" content="D.W's Notes - Machine Learning">
 <meta property="og:description" content="LeetCode题解">
-<meta property="og:updated_time" content="2016-03-23T14:33:02.280Z">
+<meta property="og:updated_time" content="2016-03-26T08:22:10.005Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Leetcode[102]-Binary Tree Level Order Traversal">
 <meta name="twitter:description" content="LeetCode题解">
@@ -186,39 +186,7 @@
   <div id="posts" class="posts-expand">
     
     
-      <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article" style="opacity: 1; transform: translateY(0px);"><br><br>Link: <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="external">https://leetcode.com/problems/binary-tree-level-order-traversal/</a><br><br>Given a binary tree, return the level order traversal of its nodes’ values. (ie, from left to right, level by level).<br><br>For example:<br>Given binary tree {3,9,20,#,#,15,7},<br><br><br>        3<br>       / \<br>      9  20<br>        /  \<br>       15   7<br><br>return its level order traversal as:<br><br><br>    [<br>      [3],<br>      [9,20],<br>      [15,7]<br>    ]<br><br><br>——-<br><br><strong>思路</strong>： 使用层序遍历，一层一层的出队，并将节点值放入数组中；<br><br>代码C++：<br><br><code>/**
- * Definition for a binary tree node.
- * struct TreeNode {
- *     int val;
- *     TreeNode *left;
- *     TreeNode *right;
- *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
- * };
- */
-class Solution {
-public:
-    vector&lt;vector&lt;int&gt; &gt; levelOrder(TreeNode* root) {
-        vector&lt;vector&lt;int&gt; &gt; res;
-        vector&lt;int&gt; nums;
-        if(root == NULL) return res;
-        queue&lt;TreeNode *&gt; que;
-        TreeNode *p = root;
-        que.push(p);
-        while(!que.empty()){
-            int queSize = que.size();
-            nums.resize(0);
-            for(int i = 0; i &lt; queSize; i++){
-                p = que.front();
-                nums.push_back(p-&gt;val);
-                if(p-&gt;left) que.push(p-&gt;left);
-                if(p-&gt;right) que.push(p-&gt;right);
-                que.pop();
-            }
-            res.push_back(nums);
-        }
-        return res;
-    }
-};</code><br><br><br>有问题，来一起讨论吧~<br><br><br></article>
+      <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article" style="opacity: 1; transform: translateY(0px);"><br><br>Link: <a href="https://leetcode.com/problems/binary-tree-level-order-traversal/" target="_blank" rel="external">https://leetcode.com/problems/binary-tree-level-order-traversal/</a><br><br>Given a binary tree, return the level order traversal of its nodes’ values. (ie, from left to right, level by level).<br><br>For example:<br>Given binary tree {3,9,20,#,#,15,7},<br><br><br><pre>         3<br>       / \<br>      9  20<br>        /  \<br>       15   7]</pre><br><br>return its level order traversal as:<br><br><br><pre>    [<br>      [3],<br>      [9,20],<br>      [15,7]<br>    ]</pre><br><br><strong>思路</strong>： 使用层序遍历，一层一层的出队，并将节点值放入数组中；<br><br>代码C++：<br><br><figure class="highlight sml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * <span class="type">Definition</span> for a binary tree node.</span><br><span class="line"> * <span class="keyword">struct</span> <span class="type">TreeNode</span> &#123;</span><br><span class="line"> *     <span class="built_in">int</span> <span class="keyword">val</span>;</span><br><span class="line"> *     <span class="type">TreeNode</span> *left;</span><br><span class="line"> *     <span class="type">TreeNode</span> *right;</span><br><span class="line"> *     <span class="type">TreeNode</span>(<span class="built_in">int</span> x) : <span class="keyword">val</span>(x), left(<span class="type">NULL</span>), right(<span class="type">NULL</span>) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line">class <span class="type">Solution</span> &#123;</span><br><span class="line">public:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">int</span>&gt; &gt; levelOrder(<span class="type">TreeNode</span>* root) &#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="built_in">int</span>&gt; &gt; res;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">int</span>&gt; nums;</span><br><span class="line">        <span class="keyword">if</span>(root == <span class="type">NULL</span>) return res;</span><br><span class="line">        queue&lt;<span class="type">TreeNode</span> *&gt; que;</span><br><span class="line">        <span class="type">TreeNode</span> *p = root;</span><br><span class="line">        que.push(p);</span><br><span class="line">        <span class="keyword">while</span>(!que.empty<span class="literal">()</span>)&#123;</span><br><span class="line">            <span class="built_in">int</span> queSize = que.size<span class="literal">()</span>;</span><br><span class="line">            nums.resize(<span class="number">0</span>);</span><br><span class="line">            for(<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; queSize; i++)&#123;</span><br><span class="line">                p = que.front<span class="literal">()</span>;</span><br><span class="line">                nums.push_back(p-&gt;<span class="keyword">val</span>);</span><br><span class="line">                <span class="keyword">if</span>(p-&gt;left) que.push(p-&gt;left);</span><br><span class="line">                <span class="keyword">if</span>(p-&gt;right) que.push(p-&gt;right);</span><br><span class="line">                que.pop<span class="literal">()</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            res.push_back(nums);</span><br><span class="line">        &#125;</span><br><span class="line">        return res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><br><br>有问题，欢迎一起讨论~<br><br><br></article>
 
     
   </div>
@@ -264,7 +232,7 @@ public:
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -278,7 +246,7 @@ public:
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -357,9 +325,20 @@ public:
   <a class="theme-link" href="#">
     FreeSky
   </a>(Reserved)
+
+  <!--
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  访客<span id="busuanzi_value_site_uv"></span>人
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  -->
+  
 </div>
 
 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  </div>
     </footer>
 

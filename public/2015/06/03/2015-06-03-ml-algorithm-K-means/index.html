@@ -47,19 +47,21 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。
-Github源码实现:链接">
+<meta name="description" content="原文地址：http://www.csuldw.com/2015/06/03/2015-06-03-ml-algorithm-K-means/Github源码:https://github.com/csuldw/MachineLearning/tree/master/Kmeans
+k-Means算法是一种聚类算法，它是一种无监督学习算法，目的是将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习算法-K-means聚类">
 <meta property="og:url" content="http://csuldw.github.io/2015/06/03/2015-06-03-ml-algorithm-K-means/index.html">
 <meta property="og:site_name" content="D.W's Notes - Machine Learning">
-<meta property="og:description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。
-Github源码实现:链接">
-<meta property="og:updated_time" content="2016-03-13T06:00:13.840Z">
+<meta property="og:description" content="原文地址：http://www.csuldw.com/2015/06/03/2015-06-03-ml-algorithm-K-means/Github源码:https://github.com/csuldw/MachineLearning/tree/master/Kmeans
+k-Means算法是一种聚类算法，它是一种无监督学习算法，目的是将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24SSE%20%3D%20%5Csum_%7Bi%3D1%7D%5Ek%20%5Csum_%7Bx%20%5Cepsilon%20C_%7Bi%7D%20%7D%20%7C%7Cx-%5Cmu_i%7C%7C_%7B2%7D%5E2%24%24">
+<meta property="og:image" content="http://csuldw.github.io/assets/articleImg/k_clusters4.png">
+<meta property="og:updated_time" content="2016-03-26T00:35:02.921Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法-K-means聚类">
-<meta name="twitter:description" content="引文： k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。
-Github源码实现:链接">
+<meta name="twitter:description" content="原文地址：http://www.csuldw.com/2015/06/03/2015-06-03-ml-algorithm-K-means/Github源码:https://github.com/csuldw/MachineLearning/tree/master/Kmeans
+k-Means算法是一种聚类算法，它是一种无监督学习算法，目的是将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -240,7 +242,6 @@ Github源码实现:链接">
           
 
           
-
         </div>
       </header>
     
@@ -252,123 +253,88 @@ Github源码实现:链接">
       
 
       
-        <span itemprop="articleBody"><p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>
-<p>Github源码实现:<a href="https://github.com/csuldw/MachineLearning/tree/master/Kmeans" target="_blank" rel="external">链接</a></p>
+        <span itemprop="articleBody"><p>原文地址：<a href="http://www.csuldw.com/2015/06/03/2015-06-03-ml-algorithm-K-means/" target="_blank" rel="external">http://www.csuldw.com/2015/06/03/2015-06-03-ml-algorithm-K-means/</a><br>Github源码:<a href="https://github.com/csuldw/MachineLearning/tree/master/Kmeans" target="_blank" rel="external">https://github.com/csuldw/MachineLearning/tree/master/Kmeans</a></p>
+<p>k-Means算法是一种聚类算法，它是一种无监督学习算法，目的是将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果就越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。其产生的结果和分类相同，而只是类别没有预先定义。</p>
 <a id="more"></a>
-<p><strong>算法的目的：</strong> 使各个样本与所在类均值的<strong>误差平方和达到最小</strong>（这也是评价K-means算法最后聚类效果的评价标准）</p>
-<center><strong>K-均值聚类</strong></center>
-
+<h2 id="算法原理">算法原理</h2><p>设计的目的：<font color="#1986C7"><strong>使各个样本与所在类均值的误差平方和达到最小</strong></font>（这也是评价K-means算法最后聚类效果的评价标准）。</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24SSE%20%3D%20%5Csum_%7Bi%3D1%7D%5Ek%20%5Csum_%7Bx%20%5Cepsilon%20C_%7Bi%7D%20%7D%20%7C%7Cx-%5Cmu_i%7C%7C_%7B2%7D%5E2%24%24" alt="$$SSE = \sum_{i=1}^k  \sum_{x \epsilon C_{i} } ||x-\mu_i||_{2}^2$$"></p>
+<p><strong>K-均值聚类</strong></p>
 <ul>
 <li>优点：容易实现</li>
 <li>缺点：可能收敛到局部最小值，在大规模数据上收敛较慢</li>
 <li>适合数据类型：数值型数据</li>
 </ul>
-<h3 id="伪代码"><strong>伪代码</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建k个点作为起始质心（经常随机选择）</span></span><br><span class="line"><span class="comment">#当任意一个点的蔟分配结果发生变化时</span></span><br><span class="line">	<span class="comment">#对数据集中的每个数据点</span></span><br><span class="line">		<span class="comment">#对每个质心</span></span><br><span class="line">			<span class="comment">#计算质心到数据点之间的距离</span></span><br><span class="line">		<span class="comment">#将数据点分配到距其最近的蔟</span></span><br><span class="line">	<span class="comment">#对每个蔟，计算蔟中所有点的均值并将均值作为质心</span></span><br></pre></td></tr></table></figure>
-<h3 id="代码实现"><strong>代码实现</strong></h3><p>因为我们用到的是数值类型的数据，这里编写一个加载数据集的函数，返回值是一个矩阵形式。<br>下面代码应写在一个py文件里，我这里写在kMeans.py文件中。</p>
-<p>文件的头部引入numpy<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure></p>
+<p>原理：</p>
+<ol>
+<li>创建k个点作为k个簇的起始质心（经常随机选择）。</li>
+<li>分别计算剩下的元素到k个簇中心的相异度（距离），将这些元素分别划归到相异度最低的簇。</li>
+<li>根据聚类结果，重新计算k个簇各自的中心，计算方法是取簇中所有元素各自维度的算术平均值。</li>
+<li>将D中全部元素按照新的中心重新聚类。</li>
+<li>重复第4步，直到聚类结果不再变化。</li>
+<li>最后，输出聚类结果。</li>
+</ol>
+<h2 id="算法实现">算法实现</h2><p><strong>伪代码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">创建k个点作为K个簇的起始质心（经常随机选择）</span><br><span class="line">当任意一个点的蔟分配结果发生变化时（初始化为<span class="keyword">True</span>）</span><br><span class="line">	对数据集中的每个数据点，重新分配质心</span><br><span class="line">		对每个质心</span><br><span class="line">			计算质心到数据点之间的距离</span><br><span class="line">		将数据点分配到距其最近的蔟</span><br><span class="line">	对每个蔟，计算蔟中所有点的均值并将均值作为新的质心</span><br></pre></td></tr></table></figure>
+<p><strong>实现</strong></p>
+<p>因为我们用到的是数值类型数据，这里需要编写一个加载数据集的函数，其返回值是一个矩阵。下面代码应写在一个py文件里，我这里写在kMeans.py文件中。</p>
+<p>首先引入相关的头文件：numpy</p>
+<figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
 <p><strong>数据集加载代码</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载数据集文件，没有返回类标号的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName)</span>:</span></span><br><span class="line">    dataMat = []</span><br><span class="line">    openfile = open(fileName)    </span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> openfile.readlines():</span><br><span class="line">        curLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">        floatLine = map(float,curLine)</span><br><span class="line">        dataMat.append(floatLine)</span><br><span class="line">    <span class="keyword">return</span> dataMat</span><br></pre></td></tr></table></figure>
 <p>因为在k均值算法中要计算点到质心的距离，所以这里将距离计算写成一个函数，计算欧几里得距离公式：</p>
-<p>$$d=\sqrt{(x_2-x_1)^2+…+(z_2-z_1)^2}$$</p>
+<p>$$d=\sqrt{(x_1-z_1)^2+…+(x_n-z_n)^2}$$</p>
 <p><strong>函数代码如下：</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算两个向量的欧氏距离</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distEclud</span><span class="params">(vecA,vecB)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> sqrt(sum(power(vecA-vecB,<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
 <p><strong>接下来初始化k个蔟的质心函数centroid</strong></p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 传入的数据时numpy的矩阵格式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randCent</span><span class="params">(dataMat, k)</span>:</span></span><br><span class="line">    n = shape(dataMat)[<span class="number">1</span>]</span><br><span class="line">    centroids = mat(zeros((k,n)))  </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        minJ = min(dataMat[:,j]) <span class="comment"># 找出矩阵dataMat第j列最小值</span></span><br><span class="line">        rangeJ = float(max(dataMat[:,j]) - minJ) <span class="comment">#计算第j列最大值和最小值的差</span></span><br><span class="line">        <span class="comment">#赋予一个随机质心，它的值在整个数据集的边界之内</span></span><br><span class="line">        centroids[:,j] = minJ + rangeJ * random.rand(k,<span class="number">1</span>) </span><br><span class="line">    <span class="keyword">return</span> centroids <span class="comment">#返回一个随机的质心矩阵</span></span><br></pre></td></tr></table></figure>
-<p><strong>K-means算法</strong></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#k-均值算法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kMeans</span><span class="params">(dataMat,k,distE = distEclud , createCent=randCent)</span>:</span></span><br><span class="line">    m = shape(dataMat)[<span class="number">0</span>]    <span class="comment"># 获得行数m</span></span><br><span class="line">    clusterAssment = mat(zeros((m,<span class="number">2</span>))) <span class="comment"># 初试化一个矩阵，用来记录簇索引和存储误差                               </span></span><br><span class="line">    centroids = createCent(dataMat,k) <span class="comment"># 随机的得到一个质心矩阵蔟</span></span><br><span class="line">    clusterChanged = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> clusterChanged:</span><br><span class="line">        clusterChanged = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):    <span class="comment">#对每个数据点寻找最近的质心</span></span><br><span class="line">            minDist = inf; minIndex = -<span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(k): <span class="comment"># 遍历质心蔟，寻找最近的质心    </span></span><br><span class="line">                distJ1 = distE(centroids[j,:],dataMat[i,:]) <span class="comment">#计算数据点和质心的欧式距离</span></span><br><span class="line">                <span class="keyword">if</span> distJ1 &lt; minDist: </span><br><span class="line">                    minDist = distJ1; minIndex = j</span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i,<span class="number">0</span>] != minIndex:</span><br><span class="line">                clusterChanged = <span class="keyword">True</span></span><br><span class="line">            clusterAssment[i,:] = minIndex,minDist**<span class="number">2</span></span><br><span class="line">        <span class="keyword">print</span> centroids</span><br><span class="line">        <span class="keyword">for</span> cent <span class="keyword">in</span> range(k):    <span class="comment">#更新质心的位置</span></span><br><span class="line">            ptsInClust = dataMat[nonzero(clusterAssment[:,<span class="number">0</span>].A==cent)[<span class="number">0</span>]]    </span><br><span class="line">            centroids[cent,:] = mean(ptsInClust, axis=<span class="number">0</span>) </span><br><span class="line">    <span class="keyword">return</span> centroids, clusterAssment</span><br></pre></td></tr></table></figure>
-<p><strong>测试：</strong></p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataMat = <span class="function"><span class="title">mat</span><span class="params">(loadDataSet(<span class="string">'testSet.txt'</span>)</span></span>)</span><br><span class="line"><span class="function"><span class="title">kMeans</span><span class="params">(dataMat,<span class="number">4</span>)</span></span></span><br></pre></td></tr></table></figure>
-<p><strong>输出结果：</strong></p>
-<p>===================</p>
-<p>[[-3.66087851  2.30869657]<br> [ 3.24377288  3.04700412]<br> [ 2.52577861 -3.12485493]<br> [-2.79672694  3.19201596]]<br>[[-3.78710372 -1.66790611]<br> [ 2.6265299   3.10868015]<br> [ 1.62908469 -2.92689085]<br> [-2.18799937  3.01824781]]<br>[[-3.53973889 -2.89384326]<br> [ 2.6265299   3.10868015]<br> [ 2.65077367 -2.79019029]<br> [-2.46154315  2.78737555]]</p>
-<p>===================</p>
-<p>上面的结果给出了四个质心。可以看出，经过3次迭代之后K-均值算法收敛。质心会保存在第一个返回值中，第二个是每个点的簇分布情况。</p>
-<p><strong>附件：</strong></p>
-<p>上面测试的数据集为：</p>
-<pre><code class="markdown">
-1.658985    4.285136
--3.453687    3.424321
-4.838138    -1.151539
--5.379713    -3.362104
-0.972564    2.924086
--3.567919    1.531611
-0.450614    -3.302219
--3.487105    -1.724432
-2.668759    1.594842
--3.156485    3.191137
-3.165506    -3.999838
--2.786837    -3.099354
-4.208187    2.984927
--2.123337    2.943366
-0.704199    -0.479481
--0.392370    -3.963704
-2.831667    1.574018
--0.790153    3.343144
-2.943496    -3.357075
--3.195883    -2.283926
-2.336445    2.875106
--1.786345    2.554248
-2.190101    -1.906020
--3.403367    -2.778288
-1.778124    3.880832
--1.688346    2.230267
-2.592976    -2.054368
--4.007257    -3.207066
-2.257734    3.387564
--2.679011    0.785119
-0.939512    -4.023563
--3.674424    -2.261084
-2.046259    2.735279
--3.189470    1.780269
-4.372646    -0.822248
--2.579316    -3.497576
-1.889034    5.190400
--0.798747    2.185588
-2.836520    -2.658556
--3.837877    -3.253815
-2.096701    3.886007
--2.709034    2.923887
-3.367037    -3.184789
--2.121479    -4.232586
-2.329546    3.179764
--3.284816    3.273099
-3.091414    -3.815232
--3.762093    -2.432191
-3.542056    2.778832
--1.736822    4.241041
-2.127073    -2.983680
--4.323818    -3.938116
-3.792121    5.135768
--4.786473    3.358547
-2.624081    -3.260715
--4.009299    -2.978115
-2.493525    1.963710
--2.513661    2.642162
-1.864375    -3.176309
--3.171184    -3.572452
-2.894220    2.489128
--2.562539    2.884438
-3.491078    -3.947487
--2.565729    -2.012114
-3.332948    3.983102
--1.616805    3.573188
-2.280615    -2.559444
--2.651229    -3.103198
-2.321395    3.154987
--1.685703    2.939697
-3.031012    -3.620252
--4.599622    -2.185829
-4.196223    1.126677
--2.133863    3.093686
-4.668892    -2.562705
--2.793241    -2.149706
-2.884105    3.043438
--2.967647    2.848696
-4.479332    -1.764772
--4.905566    -2.911070
-
+<p><strong>K-means算法实现</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#返回的第一个变量时质心，第二个是各个簇的分布情况</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kMeans</span><span class="params">(dataMat,k,distE = distEclud , createCent=randCent)</span>:</span></span><br><span class="line">    m = shape(dataMat)[<span class="number">0</span>]    <span class="comment"># 获得行数m</span></span><br><span class="line">    clusterAssment = mat(zeros((m,<span class="number">2</span>))) <span class="comment"># 初试化一个矩阵，用来记录簇索引和存储误差                               </span></span><br><span class="line">    centroids = createCent(dataMat,k) <span class="comment"># 随机的得到一个质心矩阵蔟</span></span><br><span class="line">    clusterChanged = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> clusterChanged:</span><br><span class="line">        clusterChanged = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):    <span class="comment">#对每个数据点寻找最近的质心</span></span><br><span class="line">            minDist = inf; minIndex = -<span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(k): <span class="comment"># 遍历质心蔟，寻找最近的质心    </span></span><br><span class="line">                distJ1 = distE(centroids[j,:],dataMat[i,:]) <span class="comment">#计算数据点和质心的欧式距离</span></span><br><span class="line">                <span class="keyword">if</span> distJ1 &lt; minDist: </span><br><span class="line">                    minDist = distJ1</span><br><span class="line">                    minIndex = j</span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i,<span class="number">0</span>] != minIndex:</span><br><span class="line">                clusterChanged = <span class="keyword">True</span></span><br><span class="line">            clusterAssment[i,:] = minIndex, minDist**<span class="number">2</span></span><br><span class="line">        <span class="keyword">print</span> centroids</span><br><span class="line">        <span class="keyword">for</span> ci <span class="keyword">in</span> range(k):   <span class="comment">#更新质心，将每个族中的点的均值作为质心</span></span><br><span class="line">            index_all = clusterAssment[:,<span class="number">0</span>].A   <span class="comment">#取出样本所属簇的索引值</span></span><br><span class="line">            value = nonzero(index_all==ci)    <span class="comment">#取出所有属于第ci个簇的索引值</span></span><br><span class="line">            sampleInClust = dataMat[value[<span class="number">0</span>]]     <span class="comment">#取出属于第i个簇的所有样本点</span></span><br><span class="line">            centroids[cent,:] = mean(sampleInClust, axis=<span class="number">0</span>) </span><br><span class="line">    <span class="keyword">return</span> centroids, clusterAssment</span><br></pre></td></tr></table></figure>
+<p>虽然K-Means算法原理简单，但是也有自身的缺陷：</p>
+<ul>
+<li>首先，聚类的簇数K值需要事先给定，但在实际中这个 K 值的选定是非常难以估计的，很多时候，事先并不知道给定的数据集应该分成多少个类别才最合适。</li>
+<li>Kmeans需要人为地确定初始聚类中心，不同的初始聚类中心可能导致完全不同的聚类结果，不能保证Ｋ-Means算法收敛于全局最优解。<ul>
+<li>针对此问题，在K-Means的基础上提出了二分K-means算法。该算法首先将所有点看做是一个簇，然后一分为二，找到最小SSE的聚类质心。接着选择其中一个簇继续一分为二，此处哪一个簇需要根据划分后的SSE值来判断。</li>
+</ul>
+</li>
+<li>对离群点敏感。</li>
+<li>结果不稳定 （受输入顺序影响）。</li>
+<li>时间复杂度高O(nkt)，其中n是对象总数，k是簇数，t是迭代次数。</li>
+</ul>
+<h2 id="测试">测试</h2><p>在控制台调用上述函数，执行下列命令：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataMat = <span class="function"><span class="title">mat</span><span class="params">(loadDataSet(<span class="string">'testSet.txt'</span>)</span></span>)</span><br><span class="line"><span class="function"><span class="title">kMeans</span><span class="params">(dataMat, <span class="number">4</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p>运行上面代码后，可以看到<code>print</code>处输出的结果：</p>
+<pre><code class="markdown">[[-3.66087851  2.30869657]
+ [ 3.24377288  3.04700412]
+ [ 2.52577861 -3.12485493]
+ [-2.79672694  3.19201596]]
+[[-3.78710372 -1.66790611]
+ [ 2.6265299   3.10868015]
+ [ 1.62908469 -2.92689085]
+ [-2.18799937  3.01824781]]
+[[-3.53973889 -2.89384326]
+ [ 2.6265299   3.10868015]
+ [ 2.65077367 -2.79019029]
+ [-2.46154315  2.78737555]]
 </code></pre>
 
+
+<p>测试的时候取的k值为4，即簇的个数为4，所以经过3次迭代之后K-均值算法就收敛了。质心会保存在第一个返回值中，第二个是每个点的簇分布情况。k=4是，聚类结果如下：</p>
+<p><img src="/assets/articleImg/k_clusters4.png" alt=""></p>
+<p>附数据集：<a href="https://github.com/csuldw/MachineLearning/blob/master/Kmeans/data/testSet.txt" target="_blank" rel="external">https://github.com/csuldw/MachineLearning/blob/master/Kmeans/data/testSet.txt</a></p>
+<h2 id="讨论">讨论</h2><h3 id="1-K-Means算法K值如何选择？">1.K-Means算法K值如何选择？</h3><p>《大数据》中提到：给定一个合适的类簇指标，比如平均半径或直径，只要我们假设的类簇的数目等于或者高于真实的类簇的数目时，该指标上升会很缓慢，而一旦试图得到少于真实数目的类簇时，该指标会急剧上升。</p>
+<ul>
+<li>簇的直径是指簇内任意两点之间的最大距离。</li>
+<li>簇的半径是指簇内所有点到簇中心距离的最大值。</li>
+</ul>
+<h3 id="2-_如何优化K-Means算法搜索的时间复杂度？">2. 如何优化K-Means算法搜索的时间复杂度？</h3><p>可以使用K-D树来缩短最近邻的搜索时间（NN算法都可以使用K-D树来优化时间复杂度）。</p>
+<h3 id="3-_如何确定K个簇的初始质心？">3. 如何确定K个簇的初始质心？</h3><p>1) 选择批次距离尽可能远的K个点</p>
+<p>首先随机选择一个点作为第一个初始类簇中心点，然后选择距离该点最远的那个点作为第二个初始类簇中心点，然后再选择距离前两个点的最近距离最大的点作为第三个初始类簇的中心点，以此类推，直至选出K个初始类簇中心点。</p>
+<p>2) 选用层次聚类或者Canopy算法进行初始聚类，然后利用这些类簇的中心点作为KMeans算法初始类簇中心点。</p>
+<p>聚类扩展：密度聚类、层次聚类。</p>
+<h2 id="参考文献">　参考文献</h2><ul>
+<li><a href="http://www.cnblogs.com/jerrylead/archive/2011/04/06/2006910.html" target="_blank" rel="external">http://www.cnblogs.com/jerrylead/archive/2011/04/06/2006910.html</a></li>
+<li><a href="http://www.cs.cmu.edu/~guestrin/Class/10701-S07/Slides/clustering.pdf" target="_blank" rel="external">http://www.cs.cmu.edu/~guestrin/Class/10701-S07/Slides/clustering.pdf</a></li>
+</ul>
 <hr>
 </span>
       
@@ -488,7 +454,7 @@ Github源码实现:链接">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -502,7 +468,7 @@ Github源码实现:链接">
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">73</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -557,7 +523,7 @@ Github源码实现:链接">
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码"><span class="nav-number">1.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码实现"><span class="nav-number">2.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法原理"><span class="nav-number">1.</span> <span class="nav-text">算法原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法实现"><span class="nav-number">2.</span> <span class="nav-text">算法实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#讨论"><span class="nav-number">4.</span> <span class="nav-text">讨论</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-K-Means算法K值如何选择？"><span class="nav-number">4.1.</span> <span class="nav-text">1.K-Means算法K值如何选择？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-_如何优化K-Means算法搜索的时间复杂度？"><span class="nav-number">4.2.</span> <span class="nav-text">2. 如何优化K-Means算法搜索的时间复杂度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-_如何确定K个簇的初始质心？"><span class="nav-number">4.3.</span> <span class="nav-text">3. 如何确定K个簇的初始质心？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">5.</span> <span class="nav-text">　参考文献</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -592,9 +558,20 @@ Github源码实现:链接">
   <a class="theme-link" href="#">
     FreeSky
   </a>(Reserved)
+
+  <!--
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  访客<span id="busuanzi_value_site_uv"></span>人
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量<span id="busuanzi_value_site_pv"></span>次
+  </span>
+  -->
+  
 </div>
 
 
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
  </div>
     </footer>
 

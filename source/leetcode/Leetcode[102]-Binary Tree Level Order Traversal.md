@@ -15,23 +15,20 @@ For example:
 Given binary tree {3,9,20,#,#,15,7},
 
 
-	    3
+<pre>		 3
 	   / \
 	  9  20
 	    /  \
-	   15   7
+	   15   7]</pre>
 
 return its level order traversal as:
 
 
-	[
+<pre>	[
 	  [3],
 	  [9,20],
 	  [15,7]
-	]
-
-
------
+	]</pre>
 
 **思路**： 使用层序遍历，一层一层的出队，并将节点值放入数组中；
 
@@ -71,10 +68,10 @@ public:
         return res;
     }
 };
-```  
+```
 
 
-有问题，来一起讨论吧~
+有问题，欢迎一起讨论~
 
 
 </article>
