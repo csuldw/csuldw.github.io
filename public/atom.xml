@@ -2421,6 +2421,35 @@ _csu.ldw@csu.edu.cn1
   </entry>
   
   <entry>
+    <title><![CDATA[2015年8月总结]]></title>
+    <link href="http://csuldw.github.io/2015/08/29/2015-08-29%20Summary/"/>
+    <id>http://csuldw.github.io/2015/08/29/2015-08-29 Summary/</id>
+    <published>2015-08-29T02:54:00.000Z</published>
+    <updated>2016-05-03T15:33:20.182Z</updated>
+    <content type="html"><![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
+<p>下面来总结一下自已这几个月的学习成长吧。<br><a id="more"></a><br>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
+<p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
+<p>从今年四月中旬开始，看paper，学习ML（DM）算法，然后跑实验，到现在大概整整四个月时间吧。能够写出一篇论文，确实不容易。期间也遇到了许多问题，比如自己做的数据没别人的好，数据正负样本不均衡、实验效果不理想等等，不过从中确实学到了很多的东西。现在，自己独立跑实验基本没有多大问题，至少自己能用Python实现常见的算法以及对文件的一些操作，唯一感觉会出问题的当属数据集这块。因为自己构造数据集，有些奇异点处理的不好，然后直接影响了最后模型的好坏。</p>
+<p>五月上旬基本上玩过去了，五月下旬各类机器学习书籍接连到手，然后开始学习《机器学习实践》这本书，全书是用Python实现的代码，因为有源码参考，所以很容易理解，很适合算法学习入门。由于之前学习过数据挖掘算法的理论知识，所以这本书不到半个月就把相应的知识点理解的差不多了。关于算法理论，清华大学出版社李航的《统计学习方法》确实不错，全书纯理论知识，分析独特，通俗易懂，很全面，适合想深入研究算法的人。这本书我还没完全看完，接下来可以好好学习下。</p>
+<p>六月，上旬的时候，在Leetcode上面刷了一个星期的算法题，做了60几个题目，后来感觉还是做实验重要，然后就接着去做数据了。数据处理期间，碰到了一些专业性问题，尤其是在计算结合位点的时候，导师当时也不在，而我对于生物上的一些专业知识不是很了解，所以进度卡住了一个星期左右。还有就是在计算一个特征的时候，停留了好几天。不过还好，六月底，数据的每个特征算是做出来了，但当时喉咙开始发炎了，然后又引起感冒，整个日子都不好过，整个人也都不好了。</p>
+<p>到了七月，开始整理自己的数据集，跑实验，然后从分析结果。这段时间碰到的问题也让人抓狂。首先是数据集不均衡，跑出来的效果很差，很不理想。不过这个问题还是比较容易解决，最常用的就是抽样了，下抽样还是上抽样就看结果好不好了。最后我选择的是下抽样，构造新的平衡数据，但是最后跑出来的效果不理想，使用别人的方法，跑出来的效果比别人差了将近8个百分点，这显然不合逻辑。到了七月下旬的时候，没办法了，还是使用别人的数据集吧。然后接着在别人数据集的基础上，加特征，构造新的数据集，然后使用不同算法来跑实验，比较效果等。最后得到的效果和别人的差不多，但是相对于另外一篇论文，似乎要差点。因为该论文没有说明自己的结果是在独立测试上的结果还是交叉验证得到的结果。所以，继续跑实验吧。</p>
+<p>八月的第一个星期，实验总算做出来了，最后比较了下，效果提升不多，因为本来原来的实验就做的比较好了，AUC达到了0.923，确实难以超越。接下来就开始赶paper，没日没夜的赶呀，终于在8月中旬将paper赶出来了。对于APBC2016能不能中，30%的接受率，就看运气了，因为整篇论文的效果确实不是很明显。</p>
+<p>总的来说，整个实验下来，学到了不少东西。以前是看中文论文容易，看英文paper难，现在感觉是看英文paper明显简单了，而写paper困难了。接下来好好努力，加油学英语、学算法、学理论、做实验吧，其他的事情都是浮云。</p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
+<p>下面来总结一下自已这几个月的学习成长吧。<br>]]>
+    
+    </summary>
+    
+      <category term="总结" scheme="http://csuldw.github.io/tags/%E6%80%BB%E7%BB%93/"/>
+    
+      <category term="总结" scheme="http://csuldw.github.io/categories/%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Gradient Tree Boosting]]></title>
     <link href="http://csuldw.github.io/2015/08/19/2015-08-19%20GBDT/"/>
     <id>http://csuldw.github.io/2015/08/19/2015-08-19 GBDT/</id>
@@ -2953,6 +2982,82 @@ _csu.ldw@csu.edu.cn1
   </entry>
   
   <entry>
+    <title><![CDATA[Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事（译）]]></title>
+    <link href="http://csuldw.github.io/2015/07/18/2015-07-18-a%20precision%20and%20recall/"/>
+    <id>http://csuldw.github.io/2015/07/18/2015-07-18-a precision and recall/</id>
+    <published>2015-07-18T04:30:00.000Z</published>
+    <updated>2016-05-03T15:33:20.182Z</updated>
+    <content type="html"><![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z" target="_blank" rel="external">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
+
+
+<p>Airbnb网站基于允许任何人将闲置的房屋进行长期或短期出租构建商业模式，来自房客或房东的欺诈风险是必须解决的问题。Airbnb信任和安全小组通过构建机器学习模型进行欺诈预测，本文介绍了其设计思想。假想模型是预测某些虚拟人物是否为“反面人物”，基本步骤：构建模型预期，构建训练集和测试集，特征学习，模型性能评估。其中特征转换倾向于采用条件概率编码（CP-coding），评估度量是准确率（Precision）和召回率（Recall），通常偏向于高召回率。<br><a id="more"></a><br><strong>以下为全文内容：</strong></p>
+<p>在Airbnb网站上，我们专注于创造一个这样的地方：一个人可以属于任何地方。部分归属感来自于我们用户之间的信任，同时认识到他们的安全是我们最关心的。</p>
+<p>虽然我们绝大多数的社区是由友好和可靠的房东和房客组成，但仍然有一小部分用户，他们试图从我们的网站中（非法）获利。这些都是非常罕见的，尽管如此，信任和安全小组还是因此而产生。</p>
+<p>信任和安全小组主要是解决任何可能会发生在我们平台的欺诈行为。我们最主要目的是试图保护我们的用户和公司免于不同类型的风险。例如：退款风险——一个绝大多数电子商务企业都熟悉的风险问题。为了减少此类欺诈行为，信任和安全小组的数据科学家构建了不同种类的机器学习模型，用来帮助识别不同类型的风险。想要获得我们模型背后更多的体系结构信息，请参考以前的文章 <a href="http://nerds.airbnb.com/architecting-machine-learning-system-risk/" target="_blank" rel="external">机器学习风险系统的设计</a>。</p>
+<p>在这篇文章中，我对机器学习的模型建立给了一个简短的思维过程概述。当然，每个模型都有所不同，但希望它能够给读者在关于机器学习中我们如何使用数据来帮助保护我们的用户以及如何改善模型的不同处理方法上带来一个全新的认识。在这篇文章中，我们假设想要构建一个这样的模型：预测某些虚构的角色是否是反面人物。</p>
+<h3 id="试图预测的是什么？">试图预测的是什么？</h3><p>在模型建立中最基本的问题就是明确你想要用这个模型来预测什么。我知道这个听起来似乎很愚蠢，但很多时候，通过这个问题可以引发出其它更深层的问题。</p>
+<p>即使是一个看似简单的角色分类模型，随着我们逐步深入地思考，也可以提出许多更深层的问题。例如，我们想要怎样来给这个模型评分：仅仅是给当前新介绍的角色还是给所有角色？如果是前者，我们想要评分的角色和人物介绍中的角色评分相差多远？如果是后者，我们又该多长时间给这些角色评分呢？</p>
+<p>第一个想法可能是根据人物介绍中给每个角色的评分来建立模型。然而，这种模型，我们可能不能随着时间的推移动态地追踪人物的评分。此外，我们可能会因为在介绍时的一些“好”的特征而忽略了潜在的反面人物。</p>
+<p>相反，我们还可以建立这样一个模型，只要他/她出现在情节里面就评分一次。这将让我们在每个时间段都会有人物评分并检测出任何异常情况。但是，考虑到在每个角色单独出现的情况下可能没有任何的角色类别发展，所以这可能也不是最实际的方法。</p>
+<p>深思熟虑之后，我们决定把模型设计成介于这两种想法之间的模型。例如，建立这样一种模型，在每次有意义的事情发生的时候对角色进行评分，比如结交新盟友，龙族领地占领等等。在这种方式下，我们仍然可以随着时间的变化来跟踪人物的评分，同时，对没有最新进展的角色也不会多加评分。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a2b74a98e.jpg" alt=""></p>
+<h3 id="如何模拟得分？">如何模拟得分？</h3><p>因为我们的目的是分析每个时期的得分，所以我们的训练集要能反映出某段时间某个角色的类别行为，最后的训练数据集类似于下图：</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a2e11dabc_middle.jpg?_=23712" alt=""></p>
+<p>与每个角色相关的时间不一定是连续的，因为我们关心的是那些有着重要事件发展的时间。</p>
+<p>在这个实例当中，Jarden在3个不同的场合有着重要的角色发展并且在一段时间内持续扩充他的军队。相比之下，Dineas 在5个不同的场合有着重要的角色发展并且主管着4个龙族中心基地。</p>
+<h3 id="采样">采样</h3><p>在机器学习模型中，从观测数据中下采样是有必要的。采样过程本身很简单，一旦有了所需要的训练数据集，就可以在数据集上做一个基于行的采样。</p>
+<p>然而，由于这里描述的模型是处理每个角色多个时期的样本，基于行采样可能会导致这样一种情况，即在建立模型的数据和用来验证的数据之间，场景附加的人物角色被分离开。如下表所示：</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a304d75b7.jpg" alt=""></p>
+<p>显然这并不是理想的采样，因为我们没有得到每个角色的整体描述，并且这些缺失的观测数据可能对建立一个好的模型至关重要。</p>
+<p>出于这个原因，我们需要做基于角色的采样。这样做能确保在模型数据建立中包含所有场合附加的角色，或者什么都没有。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a31c8bc17.jpg" alt=""></p>
+<p>此外，当我们将我们的数据集切分为训练集和测试集时，通常这样的逻辑也适用。</p>
+<h3 id="特征设计">特征设计</h3><p>特征设计是机器学习不可或缺的一部分，通常情况下，在特征种类的选择上，对数据的充分理解有助于形成一个更好的模型设计思路。特征设计的实例包括特征规范化和分类特征处理。</p>
+<p>特征规范化是标准化特征的一种方式，允许更合理的对比。如下表所示：</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a34d3dd90.jpg" alt=""></p>
+<p>从上表可知，每个人物都有10,000个士兵。然而，Serion掌权长达5年，而Dineas仅仅掌权2年。通过这些人物比较绝对的士兵数量可能并不是非常有效的。但是，通过人物掌权的年份来标准化他们可能会提供更好的见解，并且产生更有预测力的特征。</p>
+<p>在分类特征的特征设计上值得单独的写一篇博客文章，因为有很多方式可以去处理它们。特别是对于缺失值的插补，请看一看以前的博客文章—— <a href="http://nerds.airbnb.com/overcoming-missing-values-in-a-rfc/" target="_blank" rel="external">使用随机森林分类器处理缺失值</a>。</p>
+<p>转换分类特征最常见的方法就是矢量化（也称作one-hot encoding）。然而，在处理有许多不同级别的分类特征时，使用条件概率编码（CP-coding）则更为实用。</p>
+<p>CP-coding的基本思想就是在给定的分类级别上，计算出某个特征值发生的概率。这种方法使得我们能够将所有级别的分类特征转化为一个单一的数值型变量。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a3b87ef92.jpg" alt=""></p>
+<p>然而，这种类型转换可能会因为没有充分描述的类别而造成噪音数据。在上面的例子中，我们只有一个来自House 为 “Tallight”的观测样本。结果相应的概率就是0或1。为了避免这种问题的发生并且降低噪声数据，通常情况下，可以通过考虑加权平均值，全局概率或者引入一个平滑的超系数来调整如何计算概率。</p>
+<p>那么，哪一种方法最好呢？这取决于分类特征的数量和级别。CP-coding是个不错的选择，因为他降低了特征的维数，但是这样会牺牲掉特征与特征之间的互信息，这种方法称之为矢量化保留。此外，我们可以整合这两种方法，即组合相似的类别特征，然后使用CP-coding处理整合的特征。</p>
+<h3 id="模型性能评估">模型性能评估</h3><p>当谈及到评估模型性能的时候，我们需要留意正面角色和反面角色的比例。在我们的例子模型中，数据最后的统计格式为[character*period]（下表左）。然而，模型评估应该以角色类别测量（下表右）。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a3fb5a353.jpg" alt=""></p>
+<p>结果，在模型的构建数据和模型的评估数据之间的正面人物和反面人物的比例有着明显的差异。当评估模型准确率和召回率的时候分配合适的权重值是相当重要的。</p>
+<p>此外，因为我们可能会使用下采样以减少观测样本的数量，所以我们还需要调整模型占采样过程的准确率和召回率。</p>
+<h3 id="评估准确率和召回率">评估准确率和召回率</h3><p>对于模型评估的两种主要的评估度量是准确率（Precision）和召回率（Recall）。在我们的例子当中，准确率是预测结果为反面角色中被正确预测为反面角色的比例。它在给定的阈值下衡量模型的准确度。另外，召回率是模型从原本为反面角色当中能够正确检测出为反面角色的比例。它在一个给定的阈值下以识别反面人物来衡量模型的综合指标。这两个变量很容易混淆，所以通过下表会更加的直观看出两者的不同。</p>
+<p><img src="http://img.ptcms.csdn.net/article/201507/13/55a2a428441f6.jpg" alt=""></p>
+<p>通常将最后的数据划分为四个不同的部分：</p>
+<p>True Positives（TP）：角色是反面人物，模型预测为反面人物；<br>False Positives（FP）：角色是正面人物，模型预测为反面人物；<br>True Negatives（TN）：角色是正面人物，模型预测为正面人物；<br>False Negatives（FN）：角色是反面人物，模型预测为正面人物；<br>准确率计算：在所有被预测为反面人物中，模型正确预测的比例，即TP /（TP + FP）。</p>
+<p>召回率计算：在所有原本就是反面人物中，模型正确预测的比例，即TP / (TP + FN）。</p>
+<p>通过观察可以看出，尽管准确率和召回率的分子是相同的，但分母不同。</p>
+<p>通常在选择高准确率和高召回率之间总有一种权衡。这要取决于构建模型的最终目的，对于某些情况而言，高准确率的选择可能会优于高召回率。然而，对于欺诈预测模型，通常要偏向于高召回率，即使会牺牲掉一些准确率。</p>
+<p>有许多的方式可以用来改善模型的准确度和召回率。其中包括添加更好的特征，优化决策树剪枝或者建立一个更大的森林等等。不过，鉴于讨论广泛，我打算将其单独地放在一篇文章当中。</p>
+<h3 id="结束语">结束语</h3><p>希望这篇文章能让读者了解到什么是构建机器学习模型所需要的。遗憾的是，没有放之四海而皆准的解决方案来构建一种好的模型，充分了解数据的上下文是关键，因为通过它我们能够从中提取出更多更好的预测特征，从而建立出更优化的模型。</p>
+<p>最后，虽然将角色分为正面和反面是主观的，但类别标签的确是机器学习的一个非常重要的部分，而不好的类别标签通常会导致一个糟糕的模型。祝建模快乐!</p>
+<p>注：这个模型确保每个角色都是正面角色或者是反面角色，即如果他们生来就是反面角色，那么在他们的整个生命当中都是反面角色。如果我们假设角色可以跨越类别标签作为中立人物，那么模型的设计将会完全不同。</p>
+<p>英文原文： <a href="http://nerds.airbnb.com/designing-machine-learning-models/" target="_blank" rel="external">Designing Machine Learning Models: A Tale of Precision and Recall</a>（译者/刘帝伟 审校/刘翔宇、朱正贵 责编/周建丁）</p>
+<p>关于译者： <a href="http://my.csdn.net/Dream_angel_Z" target="_blank" rel="external">刘帝伟</a>，中南大学在读研究生，关注机器学习、数据挖掘及生物信息领域。 </p>
+<hr>
+<p>本文为CSDN编译整理，未经允许不得转载，如需转载请联系market#csdn.net(#换成@)</p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<div style="text-align:right;padding-bottom:7px;">译者：<a href="http://blog.csdn.net/dream_angel_z">刘帝伟</a>   审校：刘翔宇 朱正贵   责编：周建丁</div>
+
+
+<p>Airbnb网站基于允许任何人将闲置的房屋进行长期或短期出租构建商业模式，来自房客或房东的欺诈风险是必须解决的问题。Airbnb信任和安全小组通过构建机器学习模型进行欺诈预测，本文介绍了其设计思想。假想模型是预测某些虚拟人物是否为“反面人物”，基本步骤：构建模型预期，构建训练集和测试集，特征学习，模型性能评估。其中特征转换倾向于采用条件概率编码（CP-coding），评估度量是准确率（Precision）和召回率（Recall），通常偏向于高召回率。<br>]]>
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
+    
+      <category term="译文" scheme="http://csuldw.github.io/categories/%E8%AF%91%E6%96%87/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[一个简单的Python函数运行时间计时器]]></title>
     <link href="http://csuldw.github.io/2015/07/16/2015-07-16%20Python%20timer/"/>
     <id>http://csuldw.github.io/2015/07/16/2015-07-16 Python timer/</id>
@@ -3198,11 +3303,157 @@ _csu.ldw@csu.edu.cn1
   </entry>
   
   <entry>
+    <title><![CDATA[机器学习算法-Adaboost]]></title>
+    <link href="http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/"/>
+    <id>http://csuldw.github.io/2015/07/05/2015-07-12-Adaboost/</id>
+    <published>2015-07-05T14:53:12.000Z</published>
+    <updated>2016-05-03T15:33:20.182Z</updated>
+    <content type="html"><![CDATA[<h2 id="本章内容"><strong>本章内容</strong></h2><ul>
+<li>组合相似的分类器来提高分类性能</li>
+<li>应用AdaBoost算法</li>
+<li>处理非均衡分类问题</li>
+</ul>
+<h2 id="主题："><strong>主题：</strong></h2><p><strong>利用AdaBoost元算法提高分类性能</strong></p>
+<a id="more"></a>
+<h3 id="1-基于数据集多重抽样的分类器">1.基于数据集多重抽样的分类器</h3><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>AdaBoost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>优点</td>
+<td>泛化错误率低，易编码，可以应用在大部分分类器上，无需参数调整</td>
+</tr>
+<tr>
+<td>缺点</td>
+<td>对离群点敏感</td>
+</tr>
+<tr>
+<td>数据</td>
+<td>数值型和标称型数据</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<p>bagging:基于数据随机重抽样的分类器构建方法</p>
+<p>自举汇聚法(bootstrap aggregating),也称为bagging方法，是从原始数据集选择S次后得到S个新数据集的一种技术。新数据集和原始数据集的大小相等。每个数据集都是通过在原始数据集中随机选择一个本来进行替换而得到的。</p>
+<p>在S个数据集建好之后，将某个学习算法分别作用域每个数据集得到了S个分类器。当我们对新数据进行分类时，就可以应用S个分类器进行分类。与此同时，选择分类器投票结果最多的类别作为最后的分类结果。</p>
+<p>有一些比较先进的bagging方法，如<strong>随机森林</strong>（RF）。</p>
+<p>boosting是一种与bagging很类似的技术。不论是boosting还是bagging当中，当使用的多个分类器的类型都是一致的。但是在前者当中，不同的分类器是通过串行训练而获得的，每个新分类器都根据已训练出的分类器的性能来进行训练。boosting是通过训练集中关注被已有分类器错分的那些数据来获得新的分类器。</p>
+<p>boosting方法有多个版本，当前最流行便属于<strong>AdaBoost</strong>。</p>
+<p><strong>AdaBoost的一般流程</strong></p>
+<p>（1）收集数据：可以使用任何方法；<br><br>（2）准备数据：依赖于所使用的若分类器类型；<br><br>（3）分析数据：可以使用任意方法<br><br>（4）训练算法：AdaBoost的大部分时间都用在训练上，分类器将多次在同一数据集上训练若分类器；<br><br>（5）测试算法：计算分类的错误率；<br><br>（6）使用算法：同SVM一样，AdaBoost预测的两个类别中的一个，如果想要把它应用到多个类的场合，那么就像多类SVM中的做法一样对AdaBoost进行修改。</p>
+<h3 id="2-训练算法：基于错误提升分类器的性能">2.训练算法：基于错误提升分类器的性能</h3><p>AdaBoost是adaptive boosting（自适应boosting）的缩写，其运行过程：训练集中的每个样本，赋予其一个权重，这些权重构成向量D。一开始，这些权重都初试化成相等值。首先在训练数据上训练处一个若分类器并计算该分类器的错误率，然后在同一数据集上再次训练若分类器。在分类器的第二次训练当中，将会重新调整每个样本的权重，其中第一次分队的样本的权重值将会降低，而第一次分错的样本的权重将会提高。为了从所有分类器中得到最终的分类结果，AdaBoost为每个分类器都分配了一个权重值alpha，这些alpha值是基于每个分类器的错误率进行计算的。其中错误率定义为</p>
+<p>$$\epsilon=\dfrac{为正确分类的样本数目}{所有样本数目}$$</p>
+<p>alpha计算公式</p>
+<p>$$\alpha=\dfrac{1}{2}ln(\dfrac{1-\epsilon}{\epsilon})$$</p>
+<p>计算出alpha值之后，可以对权重向量D进行更新，使得正确分类的样本的权重值降低而分错的样本权重值升高，D的计算方法如下<br>如果某个样本被正确分类，更新该样本权重值为：</p>
+<p>$$D^{(t+1)}_i=\dfrac{D_i^{(t)} e^{-\alpha}}{Sum(D)}$$</p>
+<p>如果某个样本被错误分类，更新该样本的权重值为：</p>
+<p>$$D^{(t+1)}_i=\dfrac{D_i^{(t)} e^{\alpha}}{Sum(D)}$$</p>
+<p>计算出D后，AdaBoost接着开始下一轮的迭代。AdaBoost算法会不断地重复训练和调整权重的过程，知道训练错误率为0或者若分类器的数目达到用户指定值为止。</p>
+<p>在建立完整的AdaBoost算法之前，需要通过一些代码建立若分类器及保存数据集的权重。</p>
+<h3 id="3-基于单层决策树构建若分类器">3.基于单层决策树构建若分类器</h3><p>单层决策树是一种简单的决策树。首先构建一个简单的数据集,建立一个adaboost.py文件并加入下列代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadSimpData</span><span class="params">()</span>:</span></span><br><span class="line">    datMat = matrix([[ <span class="number">1.</span> ,  <span class="number">2.1</span>],</span><br><span class="line">        [ <span class="number">2.</span> ,  <span class="number">1.1</span>],</span><br><span class="line">        [ <span class="number">1.3</span>,  <span class="number">1.</span> ],</span><br><span class="line">        [ <span class="number">1.</span> ,  <span class="number">1.</span> ],</span><br><span class="line">        [ <span class="number">2.</span> ,  <span class="number">1.</span> ]])</span><br><span class="line">    classLabels = [<span class="number">1.0</span>, <span class="number">1.0</span>, -<span class="number">1.0</span>, -<span class="number">1.0</span>, <span class="number">1.0</span>]</span><br><span class="line">    <span class="keyword">return</span> datMat,classLabels</span><br></pre></td></tr></table></figure>
+<p>导入数据</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="prompt">&gt;&gt;</span>&gt; import adaboost</span><br><span class="line"><span class="prompt">&gt;&gt;</span>&gt; datMat,classLabels=adaboost.loadSimpData()</span><br></pre></td></tr></table></figure>
+<p>下面两个函数，一个用于测试是否某个值小于或者大于我们正在测试的阈值，一个会在一个加权数据集中循环，并找到具有最低错误率的单层决策树。</p>
+<p>伪代码如下：<br></p>
+<pre><code>将最小错误率<span class="keyword">min</span>Error设为无穷大
+对数据及中的每一个特征（第一层循环）：
+    对每个步长（第二层循环）：
+        对每个不等号（第三层循环）：
+            建立一颗单层决策树并利用加权数据集对它进行测试
+            如果错误率低于<span class="keyword">min</span>Error，则将当前单层决策树设置为最佳单层决策树
+返回最佳单层决策树
+</code></pre><p>单层决策树生成函数代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">stumpClassify</span><span class="params">(dataMatrix,dimen,threshVal,threshIneq)</span>:</span><span class="comment">#just classify the data</span></span><br><span class="line">    retArray = ones((shape(dataMatrix)[<span class="number">0</span>],<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">if</span> threshIneq == <span class="string">'lt'</span>:</span><br><span class="line">        retArray[dataMatrix[:,dimen] &lt;= threshVal] = -<span class="number">1.0</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        retArray[dataMatrix[:,dimen] &gt; threshVal] = -<span class="number">1.0</span></span><br><span class="line">    <span class="keyword">return</span> retArray</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">buildStump</span><span class="params">(dataArr,classLabels,D)</span>:</span></span><br><span class="line">    dataMatrix = mat(dataArr); labelMat = mat(classLabels).T</span><br><span class="line">    m,n = shape(dataMatrix)</span><br><span class="line">    numSteps = <span class="number">10.0</span>; bestStump = &#123;&#125;; bestClasEst = mat(zeros((m,<span class="number">1</span>)))</span><br><span class="line">    minError = inf <span class="comment">#init error sum, to +infinity</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):<span class="comment">#loop over all dimensions</span></span><br><span class="line">        rangeMin = dataMatrix[:,i].min(); rangeMax = dataMatrix[:,i].max();</span><br><span class="line">        stepSize = (rangeMax-rangeMin)/numSteps</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(-<span class="number">1</span>,int(numSteps)+<span class="number">1</span>):<span class="comment">#loop over all range in current dimension</span></span><br><span class="line">            <span class="keyword">for</span> inequal <span class="keyword">in</span> [<span class="string">'lt'</span>, <span class="string">'gt'</span>]: <span class="comment">#go over less than and greater than</span></span><br><span class="line">                threshVal = (rangeMin + float(j) * stepSize)</span><br><span class="line">                predictedVals = stumpClassify(dataMatrix,i,threshVal,inequal)<span class="comment">#call stump classify with i, j, lessThan</span></span><br><span class="line">                errArr = mat(ones((m,<span class="number">1</span>)))</span><br><span class="line">                errArr[predictedVals == labelMat] = <span class="number">0</span></span><br><span class="line">                weightedError = D.T*errArr  <span class="comment">#calc total error multiplied by D</span></span><br><span class="line">                <span class="comment">#print "split: dim %d, thresh %.2f, thresh ineqal: %s, the weighted error is %.3f" % (i, threshVal, inequal, weightedError)</span></span><br><span class="line">                <span class="keyword">if</span> weightedError &lt; minError:</span><br><span class="line">                    minError = weightedError</span><br><span class="line">                    bestClasEst = predictedVals.copy()</span><br><span class="line">                    bestStump[<span class="string">'dim'</span>] = i</span><br><span class="line">                    bestStump[<span class="string">'thresh'</span>] = threshVal</span><br><span class="line">                    bestStump[<span class="string">'ineq'</span>] = inequal</span><br><span class="line">    <span class="keyword">return</span> bestStump,minError,bestClasEst</span><br></pre></td></tr></table></figure>
+<h3 id="4-AdaBoost算法的实现">4.AdaBoost算法的实现</h3><p>整个实现的伪代码如下：</p>
+<pre><code>对每次迭代：
+    利用<span class="function"><span class="title">buildStump</span><span class="params">()</span></span>函数找到最佳的单层决策树
+    将最佳单层决策树加入到单层决策树数据中
+    计算alpha
+    计算心的权重向量D
+    更新累计类别估计值
+    如果错误率低于<span class="number">0.0</span> 则退出循环
+</code></pre><p>基于单层决策树的AdaBoost训练过程</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">adaBoostTrainDS</span><span class="params">(dataArr,classLabels,numIt=<span class="number">40</span>)</span>:</span></span><br><span class="line">    weakClassArr = []</span><br><span class="line">    m = shape(dataArr)[<span class="number">0</span>]</span><br><span class="line">    D = mat(ones((m,<span class="number">1</span>))/m)   <span class="comment">#init D to all equal</span></span><br><span class="line">    aggClassEst = mat(zeros((m,<span class="number">1</span>)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(numIt):</span><br><span class="line">        bestStump,error,classEst = buildStump(dataArr,classLabels,D)<span class="comment">#build Stump</span></span><br><span class="line">        <span class="comment">#print "D:",D.T</span></span><br><span class="line">        alpha = float(<span class="number">0.5</span>*log((<span class="number">1.0</span>-error)/max(error,<span class="number">1e-16</span>)))<span class="comment">#calc alpha, throw in max(error,eps) to account for error=0</span></span><br><span class="line">        bestStump[<span class="string">'alpha'</span>] = alpha  </span><br><span class="line">        weakClassArr.append(bestStump)                  <span class="comment">#store Stump Params in Array</span></span><br><span class="line">        <span class="comment">#print "classEst: ",classEst.T</span></span><br><span class="line">        expon = multiply(-<span class="number">1</span>*alpha*mat(classLabels).T,classEst) <span class="comment">#exponent for D calc, getting messy</span></span><br><span class="line">        D = multiply(D,exp(expon))                              <span class="comment">#Calc New D for next iteration</span></span><br><span class="line">        D = D/D.sum()</span><br><span class="line">        <span class="comment">#calc training error of all classifiers, if this is 0 quit for loop early (use break)</span></span><br><span class="line">        aggClassEst += alpha*classEst</span><br><span class="line">        <span class="comment">#print "aggClassEst: ",aggClassEst.T</span></span><br><span class="line">        aggErrors = multiply(sign(aggClassEst) != mat(classLabels).T,ones((m,<span class="number">1</span>)))</span><br><span class="line">        errorRate = aggErrors.sum()/m</span><br><span class="line">        <span class="keyword">print</span> <span class="string">"total error: "</span>,errorRate</span><br><span class="line">        <span class="keyword">if</span> errorRate == <span class="number">0.0</span>: <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">return</span> weakClassArr,aggClassEst</span><br></pre></td></tr></table></figure>
+<h3 id="5-测试算法">5.测试算法</h3><p>拥有了多个若分类器以及其对应的alpha值，进行测试就方便了。</p>
+<p>AdaBoost分类函数:利用训练处的多个若分类器进行分类的函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">adaClassify</span><span class="params">(datToClass,classifierArr)</span>:</span></span><br><span class="line">    dataMatrix = mat(datToClass)<span class="comment">#do stuff similar to last aggClassEst in adaBoostTrainDS</span></span><br><span class="line">    m = shape(dataMatrix)[<span class="number">0</span>]</span><br><span class="line">    aggClassEst = mat(zeros((m,<span class="number">1</span>)))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(classifierArr)):</span><br><span class="line">        classEst = stumpClassify(dataMatrix,classifierArr[i][<span class="string">'dim'</span>],\</span><br><span class="line">                                 classifierArr[i][<span class="string">'thresh'</span>],\</span><br><span class="line">                                 classifierArr[i][<span class="string">'ineq'</span>])<span class="comment">#call stump classify</span></span><br><span class="line">        aggClassEst += classifierArr[i][<span class="string">'alpha'</span>]*classEst</span><br><span class="line">        <span class="keyword">print</span> aggClassEst</span><br><span class="line">    <span class="keyword">return</span> sign(aggClassEst)</span><br></pre></td></tr></table></figure>
+<h3 id="6-绘制ROC曲线">6.绘制ROC曲线</h3><p>ROC曲线绘制代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">plotROC</span><span class="params">(predStrengths, classLabels)</span>:</span></span><br><span class="line">    <span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">    cur = (<span class="number">1.0</span>,<span class="number">1.0</span>) <span class="comment">#cursor</span></span><br><span class="line">    ySum = <span class="number">0.0</span> <span class="comment">#variable to calculate AUC</span></span><br><span class="line">    numPosClas = sum(array(classLabels)==<span class="number">1.0</span>)</span><br><span class="line">    yStep = <span class="number">1</span>/float(numPosClas); xStep = <span class="number">1</span>/float(len(classLabels)-numPosClas)</span><br><span class="line">    sortedIndicies = predStrengths.argsort()<span class="comment">#get sorted index, it's reverse</span></span><br><span class="line">    fig = plt.figure()</span><br><span class="line">    fig.clf()</span><br><span class="line">    ax = plt.subplot(<span class="number">111</span>)</span><br><span class="line">    <span class="comment">#loop through all the values, drawing a line segment at each point</span></span><br><span class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> sortedIndicies.tolist()[<span class="number">0</span>]:</span><br><span class="line">        <span class="keyword">if</span> classLabels[index] == <span class="number">1.0</span>:</span><br><span class="line">            delX = <span class="number">0</span>; delY = yStep;</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            delX = xStep; delY = <span class="number">0</span>;</span><br><span class="line">            ySum += cur[<span class="number">1</span>]</span><br><span class="line">        <span class="comment">#draw line from cur to (cur[0]-delX,cur[1]-delY)</span></span><br><span class="line">        ax.plot([cur[<span class="number">0</span>],cur[<span class="number">0</span>]-delX],[cur[<span class="number">1</span>],cur[<span class="number">1</span>]-delY], c=<span class="string">'b'</span>)</span><br><span class="line">        cur = (cur[<span class="number">0</span>]-delX,cur[<span class="number">1</span>]-delY)</span><br><span class="line">    ax.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">1</span>],<span class="string">'b--'</span>)</span><br><span class="line">    plt.xlabel(<span class="string">'False positive rate'</span>); plt.ylabel(<span class="string">'True positive rate'</span>)</span><br><span class="line">    plt.title(<span class="string">'ROC curve for AdaBoost horse colic detection system'</span>)</span><br><span class="line">    ax.axis([<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line">    plt.show()</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"the Area Under the Curve is: "</span>,ySum*xStep</span><br></pre></td></tr></table></figure>
+<h3 id="References">References</h3><p>【1】Machine Learning in Action 机器学习实战 第七章</p>
+<hr>
+<p><br></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="本章内容"><strong>本章内容</strong></h2><ul>
+<li>组合相似的分类器来提高分类性能</li>
+<li>应用AdaBoost算法</li>
+<li>处理非均衡分类问题</li>
+</ul>
+<h2 id="主题："><strong>主题：</strong></h2><p><strong>利用AdaBoost元算法提高分类性能</strong></p>]]>
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
+    
+      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Python模拟ls命令]]></title>
     <link href="http://csuldw.github.io/2015/06/10/2015-06-10%20Python-simulate-command/"/>
     <id>http://csuldw.github.io/2015/06/10/2015-06-10 Python-simulate-command/</id>
     <published>2015-06-10T12:03:00.000Z</published>
     <updated>2016-03-13T06:41:14.831Z</updated>
+    <content type="html"><![CDATA[<p>模拟控制台命令</p>
+<p>写一个程序 lsrm 要求如下:</p>
+<pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
+当使用命令
+lsrm -<span class="keyword">ll</span>
+显示目录下所有 <span class="keyword">py</span> 结尾的文件
+增加难度 (<span class="number">1</span>.使用递归 显示所有目录里的 <span class="keyword">py</span> 结尾文件)
+</code></pre><a id="more"></a>
+<hr>
+<p>首先定义一个outputFile函数，参数只设置一个infile，表示的是文件名或者目录名，然后进行判断，如果是文件，而且以py结尾，则输出；否则，如果是目录，则循环遍历每个每个文件。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span><br><span class="line">Created on Wed Oct 28 19:25:20 2015</span><br><span class="line"></span><br><span class="line">@author: liudiwei</span><br><span class="line">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">outputFile</span><span class="params">(infile)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> os.path.isdir(infile):</span><br><span class="line">        filelist = getFileList(infile)</span><br><span class="line">        <span class="keyword">for</span> eachfile <span class="keyword">in</span> filelist:</span><br><span class="line">            os.chdir(infile)</span><br><span class="line">            outputFile(eachfile)</span><br><span class="line">            os.chdir(<span class="string">".."</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">if</span> <span class="string">".py"</span> <span class="keyword">in</span> infile:</span><br><span class="line">            <span class="keyword">print</span> infile</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    filepath = <span class="string">r"F:\CSU\Academic\analysis\experiment\code"</span>; </span><br><span class="line">    filelist = getFileList(filepath)</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        command = raw_input(<span class="string">'# '</span> )</span><br><span class="line">        <span class="keyword">if</span> command == <span class="string">'lsrm -ll'</span>:    </span><br><span class="line">            outputFile(filepath)</span><br><span class="line">        <span class="keyword">elif</span> command == <span class="string">"stop"</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br></pre></td></tr></table></figure>
+<p>运行结果如下图所示：</p>
+<center><br><img src="/assets/images/20151029094653.png" alt="output"><br></center>
+
+
+<p>注意：在寻找子目录的文件时，需将工作目切换到子目录，档子目录遍历完毕后，再前换到上一层目录os.chdir(“..”).</p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>模拟控制台命令</p>
+<p>写一个程序 lsrm 要求如下:</p>
+<pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
+当使用命令
+lsrm -<span class="keyword">ll</span>
+显示目录下所有 <span class="keyword">py</span> 结尾的文件
+增加难度 (<span class="number">1</span>.使用递归 显示所有目录里的 <span class="keyword">py</span> 结尾文件)
+</code></pre>]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://csuldw.github.io/tags/Python/"/>
+    
+      <category term="Python" scheme="http://csuldw.github.io/categories/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python模拟ls命令]]></title>
+    <link href="http://csuldw.github.io/2015/06/10/2015-06-10%20Python%20simulate%20command/"/>
+    <id>http://csuldw.github.io/2015/06/10/2015-06-10 Python simulate command/</id>
+    <published>2015-06-10T11:24:00.000Z</published>
+    <updated>2016-05-03T15:33:20.182Z</updated>
     <content type="html"><![CDATA[<p>模拟控制台命令</p>
 <p>写一个程序 lsrm 要求如下:</p>
 <pre><code>模拟linux的命令<span class="keyword">ls</span>部分功能
@@ -3424,6 +3675,141 @@ lsrm -<span class="keyword">ll</span>
       <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
     
       <category term="聚类" scheme="http://csuldw.github.io/tags/%E8%81%9A%E7%B1%BB/"/>
+    
+      <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[机器学习算法--K-means聚类]]></title>
+    <link href="http://csuldw.github.io/2015/06/03/2015-06-03-K-means/"/>
+    <id>http://csuldw.github.io/2015/06/03/2015-06-03-K-means/</id>
+    <published>2015-06-03T04:30:00.000Z</published>
+    <updated>2016-05-03T15:33:20.166Z</updated>
+    <content type="html"><![CDATA[<p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>
+<a id="more"></a>
+<p><strong>算法的目的：</strong> 使各个样本与所在类均值的<strong>误差平方和达到最小</strong>（这也是评价K-means算法最后聚类效果的评价标准）</p>
+<center><strong>K-均值聚类</strong></center>
+
+<ul>
+<li>优点：容易实现</li>
+<li>缺点：可能收敛到局部最小值，在大规模数据上收敛较慢</li>
+<li>适合数据类型：数值型数据</li>
+</ul>
+<h3 id="伪代码"><strong>伪代码</strong></h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建k个点作为起始质心（经常随机选择）</span></span><br><span class="line"><span class="comment">#当任意一个点的蔟分配结果发生变化时</span></span><br><span class="line">	<span class="comment">#对数据集中的每个数据点</span></span><br><span class="line">		<span class="comment">#对每个质心</span></span><br><span class="line">			<span class="comment">#计算质心到数据点之间的距离</span></span><br><span class="line">		<span class="comment">#将数据点分配到距其最近的蔟</span></span><br><span class="line">	<span class="comment">#对每个蔟，计算蔟中所有点的均值并将均值作为质心</span></span><br></pre></td></tr></table></figure>
+<h3 id="代码实现"><strong>代码实现</strong></h3><p>因为我们用到的是数值类型的数据，这里编写一个加载数据集的函数，返回值是一个矩阵形式。<br>下面代码应写在一个py文件里，我这里写在kMeans.py文件中。</p>
+<p>文件的头部引入numpy<br><figure class="highlight capnproto"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure></p>
+<p><strong>数据集加载代码</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加载数据集文件，没有返回类标号的函数</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">loadDataSet</span><span class="params">(fileName)</span>:</span></span><br><span class="line">    dataMat = []</span><br><span class="line">    openfile = open(fileName)    </span><br><span class="line">    <span class="keyword">for</span> line <span class="keyword">in</span> openfile.readlines():</span><br><span class="line">        curLine = line.strip().split(<span class="string">'\t'</span>)</span><br><span class="line">        floatLine = map(float,curLine)</span><br><span class="line">        dataMat.append(floatLine)</span><br><span class="line">    <span class="keyword">return</span> dataMat</span><br></pre></td></tr></table></figure>
+<p>因为在k均值算法中要计算点到质心的距离，所以这里将距离计算写成一个函数，计算欧几里得距离公式：</p>
+<p>$$d=\sqrt{(x_2-x_1)^2+…+(z_2-z_1)^2}$$</p>
+<p><strong>函数代码如下：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 计算两个向量的欧氏距离</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">distEclud</span><span class="params">(vecA,vecB)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> sqrt(sum(power(vecA-vecB,<span class="number">2</span>)))</span><br></pre></td></tr></table></figure>
+<p><strong>接下来初始化k个蔟的质心函数centroid</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 传入的数据时numpy的矩阵格式</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">randCent</span><span class="params">(dataMat, k)</span>:</span></span><br><span class="line">    n = shape(dataMat)[<span class="number">1</span>]</span><br><span class="line">    centroids = mat(zeros((k,n)))  </span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</span><br><span class="line">        minJ = min(dataMat[:,j]) <span class="comment"># 找出矩阵dataMat第j列最小值</span></span><br><span class="line">        rangeJ = float(max(dataMat[:,j]) - minJ) <span class="comment">#计算第j列最大值和最小值的差</span></span><br><span class="line">        <span class="comment">#赋予一个随机质心，它的值在整个数据集的边界之内</span></span><br><span class="line">        centroids[:,j] = minJ + rangeJ * random.rand(k,<span class="number">1</span>) </span><br><span class="line">    <span class="keyword">return</span> centroids <span class="comment">#返回一个随机的质心矩阵</span></span><br></pre></td></tr></table></figure>
+<p><strong>K-means算法</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#k-均值算法</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kMeans</span><span class="params">(dataMat,k,distE = distEclud , createCent=randCent)</span>:</span></span><br><span class="line">    m = shape(dataMat)[<span class="number">0</span>]    <span class="comment"># 获得行数m</span></span><br><span class="line">    clusterAssment = mat(zeros((m,<span class="number">2</span>))) <span class="comment"># 初试化一个矩阵，用来记录簇索引和存储误差                               </span></span><br><span class="line">    centroids = createCent(dataMat,k) <span class="comment"># 随机的得到一个质心矩阵蔟</span></span><br><span class="line">    clusterChanged = <span class="keyword">True</span></span><br><span class="line">    <span class="keyword">while</span> clusterChanged:</span><br><span class="line">        clusterChanged = <span class="keyword">False</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(m):    <span class="comment">#对每个数据点寻找最近的质心</span></span><br><span class="line">            minDist = inf; minIndex = -<span class="number">1</span></span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(k): <span class="comment"># 遍历质心蔟，寻找最近的质心    </span></span><br><span class="line">                distJ1 = distE(centroids[j,:],dataMat[i,:]) <span class="comment">#计算数据点和质心的欧式距离</span></span><br><span class="line">                <span class="keyword">if</span> distJ1 &lt; minDist: </span><br><span class="line">                    minDist = distJ1; minIndex = j</span><br><span class="line">            <span class="keyword">if</span> clusterAssment[i,<span class="number">0</span>] != minIndex:</span><br><span class="line">                clusterChanged = <span class="keyword">True</span></span><br><span class="line">            clusterAssment[i,:] = minIndex,minDist**<span class="number">2</span></span><br><span class="line">        <span class="keyword">print</span> centroids</span><br><span class="line">        <span class="keyword">for</span> cent <span class="keyword">in</span> range(k):    <span class="comment">#更新质心的位置</span></span><br><span class="line">            ptsInClust = dataMat[nonzero(clusterAssment[:,<span class="number">0</span>].A==cent)[<span class="number">0</span>]]    </span><br><span class="line">            centroids[cent,:] = mean(ptsInClust, axis=<span class="number">0</span>) </span><br><span class="line">    <span class="keyword">return</span> centroids, clusterAssment</span><br></pre></td></tr></table></figure>
+<p><strong>测试：</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dataMat = <span class="function"><span class="title">mat</span><span class="params">(loadDataSet(<span class="string">'testSet.txt'</span>)</span></span>)</span><br><span class="line"><span class="function"><span class="title">kMeans</span><span class="params">(dataMat,<span class="number">4</span>)</span></span></span><br></pre></td></tr></table></figure>
+<p><strong>输出结果：</strong></p>
+<p>===================</p>
+<p>[[-3.66087851  2.30869657]<br> [ 3.24377288  3.04700412]<br> [ 2.52577861 -3.12485493]<br> [-2.79672694  3.19201596]]<br>[[-3.78710372 -1.66790611]<br> [ 2.6265299   3.10868015]<br> [ 1.62908469 -2.92689085]<br> [-2.18799937  3.01824781]]<br>[[-3.53973889 -2.89384326]<br> [ 2.6265299   3.10868015]<br> [ 2.65077367 -2.79019029]<br> [-2.46154315  2.78737555]]</p>
+<p>===================</p>
+<p>上面的结果给出了四个质心。可以看出，经过3次迭代之后K-均值算法收敛。质心会保存在第一个返回值中，第二个是每个点的簇分布情况。</p>
+<p><strong>附件：</strong></p>
+<p>上面测试的数据集为：</p>
+<pre><code class="markdown">
+1.658985    4.285136
+-3.453687    3.424321
+4.838138    -1.151539
+-5.379713    -3.362104
+0.972564    2.924086
+-3.567919    1.531611
+0.450614    -3.302219
+-3.487105    -1.724432
+2.668759    1.594842
+-3.156485    3.191137
+3.165506    -3.999838
+-2.786837    -3.099354
+4.208187    2.984927
+-2.123337    2.943366
+0.704199    -0.479481
+-0.392370    -3.963704
+2.831667    1.574018
+-0.790153    3.343144
+2.943496    -3.357075
+-3.195883    -2.283926
+2.336445    2.875106
+-1.786345    2.554248
+2.190101    -1.906020
+-3.403367    -2.778288
+1.778124    3.880832
+-1.688346    2.230267
+2.592976    -2.054368
+-4.007257    -3.207066
+2.257734    3.387564
+-2.679011    0.785119
+0.939512    -4.023563
+-3.674424    -2.261084
+2.046259    2.735279
+-3.189470    1.780269
+4.372646    -0.822248
+-2.579316    -3.497576
+1.889034    5.190400
+-0.798747    2.185588
+2.836520    -2.658556
+-3.837877    -3.253815
+2.096701    3.886007
+-2.709034    2.923887
+3.367037    -3.184789
+-2.121479    -4.232586
+2.329546    3.179764
+-3.284816    3.273099
+3.091414    -3.815232
+-3.762093    -2.432191
+3.542056    2.778832
+-1.736822    4.241041
+2.127073    -2.983680
+-4.323818    -3.938116
+3.792121    5.135768
+-4.786473    3.358547
+2.624081    -3.260715
+-4.009299    -2.978115
+2.493525    1.963710
+-2.513661    2.642162
+1.864375    -3.176309
+-3.171184    -3.572452
+2.894220    2.489128
+-2.562539    2.884438
+3.491078    -3.947487
+-2.565729    -2.012114
+3.332948    3.983102
+-1.616805    3.573188
+2.280615    -2.559444
+-2.651229    -3.103198
+2.321395    3.154987
+-1.685703    2.939697
+3.031012    -3.620252
+-4.599622    -2.185829
+4.196223    1.126677
+-2.133863    3.093686
+4.668892    -2.562705
+-2.793241    -2.149706
+2.884105    3.043438
+-2.967647    2.848696
+4.479332    -1.764772
+-4.905566    -2.911070
+
+</code></pre>
+
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>引文：</strong> k均值算法是一种聚类算法，所谓聚类，他是一种无监督学习，将相似的对象归到同一个蔟中。蔟内的对象越相似，聚类的效果越好。聚类和分类最大的不同在于，分类的目标事先已知，而聚类则不一样。因为其产生的结果和分类相同，而只是类别没有预先定义。</p>]]>
+    
+    </summary>
+    
+      <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
     
       <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
     
@@ -4176,6 +4562,72 @@ Press any key to continue.
       <category term="数据结构" scheme="http://csuldw.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="直接选择排序" scheme="http://csuldw.github.io/tags/%E7%9B%B4%E6%8E%A5%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="算法与数据结构" scheme="http://csuldw.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[排序算法-归并排序]]></title>
+    <link href="http://csuldw.github.io/2014/12/21/2014-12-21-MergeSort/"/>
+    <id>http://csuldw.github.io/2014/12/21/2014-12-21-MergeSort/</id>
+    <published>2014-12-21T04:24:00.000Z</published>
+    <updated>2016-05-03T15:33:20.166Z</updated>
+    <content type="html"><![CDATA[<p><strong>注：代码均使用C++编写.</strong></p>
+<h2 id="介绍">介绍</h2><p>对于数据较大的输入，归并排序是比较快的一个算法。该算法采用的是分治法的思想。</p>
+<p>原理：将数据分开排序，然后进行合并，最后形成一个排好的序列。</p>
+<a id="more"></a>
+<p><img src="/assets/articleImg/2014-12-21-mergeSort-1.png" alt=""></p>
+<p>将其合并输出，如下图所示：</p>
+<p><img src="/assets/articleImg/2014-12-21-mergeSort-2.png" alt=""></p>
+<p>归并排序有一个关键步骤：合并两个排序好的序列。方法是：两个序列中的数相互比较，将较小的数先插入新的序列中。</p>
+<p>归并过程：比较a[i]和a[j]的大小，若a[i]≤a[j]，则将第一个有序表中的元素a[i]复制到r[k]中，并令i和k分别加上1；否则将第二个有序表中的元素a[j]复制到r[k]中，并令j和k分别加上1，如此循环下去，直到其中一个有序表取完，然后再将另一个有序表中剩余的元素复制到r中从下标k到下标t的单元。归并排序的算法我们通常用递归实现，先把待排序区间[s,t]以中点二分，接着把左边子区间排序，再把右边子区间排序，最后把左区间和右区间用一次归并操作合并成有序的区间[s,t]。</p>
+<ul>
+<li>发明者：约翰·冯·诺伊曼</li>
+<li>时间复杂度：O(nlogn)</li>
+<li>空间复杂度 O（n)</li>
+<li>稳定的算法</li>
+</ul>
+<h2 id="一次合并">一次合并</h2><p>在代码实现部分，需要进行递归进行合并，因此，先编写一个合并的方法。</p>
+<p>归并操作的工作原理如下：</p>
+<p>一次归并函数传递的参数有：一个数组名、数组的起始位置、数组的末尾位置以及数组的中点位置。</p>
+<ul>
+<li>第一步：申请空间，初始化起点中点和中点到末尾位置两个变量(nl,nr)，同时设定两个指针p和q，空间大小分别为nl和nr;</li>
+<li>第二步：将数组分别输入到两个空间中;</li>
+<li>第三步：合并两个数组。操作：比较两个指针所指向的元素，选择相对小的元素放入到合并空间，并移动指针到下一位置;</li>
+<li>重复步骤3直到某一指针超出序列尾;</li>
+<li>将另一序列剩下的所有元素直接复制到合并序列尾.</li>
+</ul>
+<p>在第三步的时候，需要注意的是，不额外的开辟辅助数组，直接通过两个指针的值将原数组的数值进行修改。此处需要设置一个变量<code>k</code>，起始位置为数组的起始位置,方便在合并时同时增加指针的下标和数组下标值.</p>
+<p>注：使用<code>malloc</code>时，需要引入<code>#include &lt;stdlib.h&gt;</code>头文件。</p>
+<p>代码如下:</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">void mergeOne(<span class="keyword">int</span> nums[], <span class="keyword">int</span> l, <span class="keyword">int</span> <span class="keyword">m</span>, <span class="keyword">int</span> r)&#123;</span><br><span class="line">    <span class="keyword">int</span> nl = <span class="keyword">m</span> - l + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> nr = r - <span class="keyword">m</span>;</span><br><span class="line">    <span class="keyword">int</span> *p = NULL, *<span class="keyword">q</span> = NULL;</span><br><span class="line">    p = (<span class="keyword">int</span> *) malloc (nl * sizeof(<span class="keyword">int</span>));</span><br><span class="line">    <span class="keyword">q</span> = (<span class="keyword">int</span> *) malloc (nr * sizeof(<span class="keyword">int</span>));</span><br><span class="line"></span><br><span class="line">    <span class="regexp">//</span>将数组输入到两个空间中</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; nl; i++) &#123;</span><br><span class="line">        p[i] = nums[l + i];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; nr; j++) &#123;</span><br><span class="line">        <span class="string">q[j]</span> = nums[<span class="keyword">m</span> + <span class="number">1</span> + j];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //合并两个数组</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> k = l;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; nl &amp;&amp; j &lt; nr) &#123;</span><br><span class="line">        <span class="keyword">if</span>(p[i] &lt; <span class="string">q[j]</span>) &#123;</span><br><span class="line">            nums[k++] = p[i++];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            nums[k++] = <span class="string">q[j++]</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //将剩余的元素合并</span><br><span class="line">    <span class="keyword">while</span>(i &lt; nl) &#123;</span><br><span class="line">        nums[k++]  = p[i++];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(j &lt;nr) &#123;</span><br><span class="line">        nums[k++] = <span class="string">q[j++]</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="归并排序">归并排序</h2><p>通过合并函数来实现归并排序的算法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注意：此处的left和right必须是数组下标能取到的有效值</span></span><br><span class="line">void mergeSort(int nums[], int <span class="keyword">left</span>, int <span class="keyword">right</span>) &#123;</span><br><span class="line">    int mid = (<span class="keyword">left</span> + <span class="keyword">right</span>) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">left</span> &lt; <span class="keyword">right</span>) &#123;</span><br><span class="line">        mergeSort(nums, <span class="keyword">left</span>, mid);</span><br><span class="line">        mergeSort(nums, mid+<span class="number">1</span>, <span class="keyword">right</span>);</span><br><span class="line">        mergeOne(nums, <span class="keyword">left</span>, mid, <span class="keyword">right</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="测试">测试</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> &lt;stdlib.h&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span></span>;</span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> nums[]=&#123;<span class="number">9</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">2</span>, <span class="number">7</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="keyword">sizeof</span>(nums)/<span class="keyword">sizeof</span>(nums[<span class="number">0</span>]);</span><br><span class="line">    mergeSort(nums, <span class="number">0</span>, n - <span class="number">1</span>);</span><br><span class="line">    print_array(nums,n);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_array</span><span class="params">(<span class="keyword">int</span> nums[], <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i&lt;n; i++)&#123;</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;nums[i]&lt;&lt;<span class="string">" "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后输出：</p>
+<pre><code class="markdown">1 2 3 4 5 6 7 9
+
+Process returned 0 (0x0)   execution time : 0.097 s
+Press any key to continue.
+</code></pre>
+
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong>注：代码均使用C++编写.</strong></p>
+<h2 id="介绍">介绍</h2><p>对于数据较大的输入，归并排序是比较快的一个算法。该算法采用的是分治法的思想。</p>
+<p>原理：将数据分开排序，然后进行合并，最后形成一个排好的序列。</p>]]>
+    
+    </summary>
+    
+      <category term="C++" scheme="http://csuldw.github.io/tags/C/"/>
+    
+      <category term="归并" scheme="http://csuldw.github.io/tags/%E5%BD%92%E5%B9%B6/"/>
+    
+      <category term="排序" scheme="http://csuldw.github.io/tags/%E6%8E%92%E5%BA%8F/"/>
+    
+      <category term="数据结构" scheme="http://csuldw.github.io/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
       <category term="算法与数据结构" scheme="http://csuldw.github.io/categories/%E7%AE%97%E6%B3%95%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"/>
     
