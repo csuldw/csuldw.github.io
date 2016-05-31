@@ -47,14 +47,14 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="原文链接：http://www.csuldw.com/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/
-本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。">
+<meta name="description" content="本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。
+机器学习算法太多了，分类、回归、聚类、推荐、图像识别领域等等，要想找到一个合适算法真的不容易，所以在实际应用中，我们一般都是采用启发式学习方式来实验。通常最开始我们都会选择大家普遍认同的算法，诸如SVM，GBDT，Adaboost，现在深度学习很火热，神经网络也是一个不错的选择。假如你在乎精度（accuracy）的话，最">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习算法比较">
 <meta property="og:url" content="http://csuldw.github.io/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/index.html">
 <meta property="og:site_name" content="D.W's Notes - Machine Learning">
-<meta property="og:description" content="原文链接：http://www.csuldw.com/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/
-本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。">
+<meta property="og:description" content="本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。
+机器学习算法太多了，分类、回归、聚类、推荐、图像识别领域等等，要想找到一个合适算法真的不容易，所以在实际应用中，我们一般都是采用启发式学习方式来实验。通常最开始我们都会选择大家普遍认同的算法，诸如SVM，GBDT，Adaboost，现在深度学习很火热，神经网络也是一个不错的选择。假如你在乎精度（accuracy）的话，最">
 <meta property="og:image" content="https://upload.wikimedia.org/math/d/5/0/d50ed92100881594dd3e3e5fe524d1d9.png">
 <meta property="og:image" content="https://upload.wikimedia.org/math/6/4/9/6491e89f257cf71eea37182592f4cd3c.png">
 <meta property="og:image" content="https://upload.wikimedia.org/math/c/b/c/cbc65310d09a6efa630d8c1f33cdfa88.png">
@@ -63,11 +63,11 @@
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24%20%5Chat%7Bw%7D%3D%28X%5E%7BT%7DX%29%5E%7B-1%7DX%5ETy%24%24">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24%20%5Chat%7Bw%7D%3D%28X%5E%7BT%7DWX%29%5E%7B-1%7DX%5ETWy%24%24">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24H%3D-%5Csum%5E%7Bn%7D_%7Bi%3D1%7Dp%28x_i%29log_2p%28x_i%29%24%24">
-<meta property="og:updated_time" content="2016-03-18T01:31:15.982Z">
+<meta property="og:updated_time" content="2016-05-10T16:17:03.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习算法比较">
-<meta name="twitter:description" content="原文链接：http://www.csuldw.com/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/
-本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。">
+<meta name="twitter:description" content="本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。
+机器学习算法太多了，分类、回归、聚类、推荐、图像识别领域等等，要想找到一个合适算法真的不容易，所以在实际应用中，我们一般都是采用启发式学习方式来实验。通常最开始我们都会选择大家普遍认同的算法，诸如SVM，GBDT，Adaboost，现在深度学习很火热，神经网络也是一个不错的选择。假如你在乎精度（accuracy）的话，最">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -259,10 +259,9 @@
       
 
       
-        <span itemprop="articleBody"><p>原文链接：<a href="http://www.csuldw.com/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/" target="_blank" rel="external">http://www.csuldw.com/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/</a></p>
-<p>本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。</p>
-<a id="more"></a>
+        <span itemprop="articleBody"><p>本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。</p>
 <p>机器学习算法太多了，分类、回归、聚类、推荐、图像识别领域等等，要想找到一个合适算法真的不容易，所以在实际应用中，我们一般都是采用启发式学习方式来实验。通常最开始我们都会选择大家普遍认同的算法，诸如SVM，GBDT，Adaboost，现在深度学习很火热，神经网络也是一个不错的选择。假如你在乎精度（accuracy）的话，最好的方法就是通过交叉验证（cross-validation）对各个算法一个个地进行测试，进行比较，然后调整参数确保每个算法达到最优解，最后选择最好的一个。但是如果你只是在寻找一个“足够好”的算法来解决你的问题，或者这里有些技巧可以参考，下面来分析下各个算法的优缺点，基于算法的优缺点，更易于我们去选择它。</p>
+<a id="more"></a>
 <h2 id="偏差&amp;方差">偏差&amp;方差</h2><p>在统计学中，一个模型好坏，是根据偏差和方差来衡量的，所以我们先来普及一下偏差和方差：</p>
 <ul>
 <li>偏差：描述的是预测值（估计值）的期望E’与真实值Y之间的差距。偏差越大，越偏离真实数据。</li>
@@ -564,7 +563,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">63</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -578,7 +577,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">78</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

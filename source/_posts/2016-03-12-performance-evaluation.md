@@ -15,9 +15,6 @@ tags:
 
 <!-- more -->
 
-[TOC]
-
-
 ## Precision和Recall
 
 首先我们来看看下面这个混淆矩阵：

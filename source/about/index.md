@@ -11,8 +11,7 @@ comments: true
 
 中南大学在读硕士，数学出生，研究方向为机器学习与生物计算（[Our Lab](http://dlab.csu.edu.cn/index.html)），关注机器学习、数据挖掘与人工智能。
 
-- [简历 - 中文](http://csuldw.github.io/resume/resume_zh.pdf)
-- [简历 - 英文](http://csuldw.github.io/resume/resume_en.pdf) 
+<!-- - [简历 - 中文](http://csuldw.github.io/resume/resume_zh.pdf)-->
 
 有追求，才有动力！有梦想，才会拼搏！
 
@@ -43,7 +42,7 @@ comments: true
 
 ---
 
-如果您有什么建议，请在下方留言，或者QQ联系本人，又或者发Email吧！
+如果您有什么建议，请在下方留言，或者QQ联系本人，又或者发Email吧，另附 [个人简历](http://csuldw.github.io/resume/resume_en2.pdf) ！
 
 
 Q Q： 466454368	  	  
