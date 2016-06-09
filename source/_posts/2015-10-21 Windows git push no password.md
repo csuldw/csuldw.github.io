@@ -22,6 +22,7 @@ HOME%USERPROFILE%
 </center>
 
 <!-- more -->
+
 ## 2.新建配置文件
 
 由于使用的是Windows，所以进入%HOME%目录（如我的:C:\Users\username），新建一个名为"_netrc"的文件，文件中内容格式如下：

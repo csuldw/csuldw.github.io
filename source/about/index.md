@@ -9,7 +9,7 @@ comments: true
 
 ## 个人简介
 
-中南大学在读硕士，数学出生，研究方向为机器学习与生物计算（[Our Lab](http://dlab.csu.edu.cn/index.html)），关注机器学习、数据挖掘与人工智能。
+中南大学在读硕士，数学出生，研究方向为机器学习与生物计算（[Our Lab](http://dlab.csu.edu.cn/index.html)），长期关注机器学习、数据挖掘与人工智能领域。
 
 <!-- - [简历 - 中文](http://csuldw.github.io/resume/resume_zh.pdf)-->
 
@@ -42,11 +42,11 @@ comments: true
 
 ---
 
-如果您有什么建议，请在下方留言，或者QQ联系本人，又或者发Email吧，另附 [个人简历](http://csuldw.github.io/resume/resume_en2.pdf) ！
+如果您有什么建议，请在下方留言，或是QQ联系本人，又或是发E-mail吧！
 
 
 Q Q： 466454368	  	  
-Email： [csu.ldw@csu.edu.cn](mailto:csu.ldw@csu.edu.cn) 
+E-mail： [csu.ldw@csu.edu.cn](mailto:csu.ldw@csu.edu.cn) 
 <center>
 <iframe src="http://www.google.cn/maps/embed?pb=!1m18!1m12!1m3!1d3518.2573505277455!2d112.98802651280161!3d28.138652839545976!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3420b54da152a8b3%3A0x3bd670822384b1c6!2z5Lit5Y2X5aSn5a2m6ZOB6YGT5a2m6ZmiIOa5luWNl-ecgemVv-aymeW4guWkqeW_g-WMuumCruaUv-e8lueggTogNDEwMDAw!5e0!3m2!1szh-CN!2scn!4v1458285640054" width="600" height="350" frameborder="0" style="border:0" allowfullscreen></iframe>
 </center>

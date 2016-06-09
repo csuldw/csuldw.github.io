@@ -146,14 +146,19 @@
     <link href="http://csuldw.github.io/2016/03/26/2016-03-26-loss-function/"/>
     <id>http://csuldw.github.io/2016/03/26/2016-03-26-loss-function/</id>
     <published>2016-03-26T05:04:00.000Z</published>
-    <updated>2016-03-26T07:51:50.259Z</updated>
+    <updated>2016-06-09T02:03:10.723Z</updated>
     <content type="html"><![CDATA[<p>损失函数（loss function）是用来估量你模型的预测值f(x)与真实值Y的不一致程度，它是一个非负实值函数,通常使用L(Y, f(x))来表示，损失函数越小，模型的鲁棒性就越好。损失函数是<strong>经验风险函数</strong>的核心部分，也是<strong>结构风险函数</strong>重要组成部分。模型的结构风险函数包括了经验风险项和正则项，通常可以表示成如下式子：<br><img src="http://latex.codecogs.com/gif.latex?%24%24%5Ctheta%5E*%20%3D%20%5Carg%20%5Cmin_%5Ctheta%20%5Cfrac%7B1%7D%7BN%7D%7B%7D%5Csum_%7Bi%3D1%7D%5E%7BN%7D%20L%28y_i%2C%20f%28x_i%3B%20%5Ctheta%29%20&plus;%20%5Clambda%5C%20%5CPhi%28%5Ctheta%29%24%24" alt="$$\theta^* = \arg \min_\theta \frac{1}{N}{}\sum_{i=1}^{N} L(y_i, f(x_i; \theta) + \lambda\  \Phi(\theta)$$"></p>
 <a id="more"></a>
 <p>其中，前面的均值函数表示的是经验风险函数，L代表的是损失函数，后面的$\Phi$是正则化项（regularizer）或者叫惩罚项（penalty term），它可以是L1，也可以是L2，或者其他的正则函数。整个式子表示的意思是<font color="#1986C7"><strong>找到使目标函数最小时的$\theta$值</strong></font>。下面主要列出几种常见的损失函数。</p>
 <h2 id="一、log对数损失函数（逻辑回归）">一、log对数损失函数（逻辑回归）</h2><p>有些人可能觉得逻辑回归的损失函数就是平方损失，其实并不是。平方损失函数可以通过线性回归在假设样本是高斯分布的条件下推导得到，而逻辑回归得到的并不是平方损失。在逻辑回归的推导中，它假设样本服从<font color="#1986C7"><strong>伯努利分布（0-1分布）</strong></font>，然后求得满足该分布的似然函数，接着取对数求极值等等。而逻辑回归并没有求似然函数的极值，而是把极大化当做是一种思想，进而推导出它的经验风险函数为：<font color="#1986C7"><strong>最小化负的似然函数（即max F(y, f(x))  —-&gt;  min -F(y, f(x)))</strong></font>。从损失函数的视角来看，它就成了log损失函数了。</p>
-<p><strong>log损失函数的标准形式</strong>：<br>$$L(Y,P(Y|X)) = -\log P(Y|X)$$<br>刚刚说到，取对数是为了方便计算极大似然估计，因为在MLE中，直接求导比较困难，所以通常都是先取对数再求导找极值点。损失函数L(Y, P(Y|X))表达的是样本X在分类Y的情况下，使概率P(Y|X)达到最大值（换言之，<font color="#1986C7"><strong>就是利用已知的样本分布，找到最有可能（即最大概率）导致这种分布的参数值；或者说什么样的参数才能使我们观测到目前这组数据的概率最大</strong></font>）。因为log函数是单调递增的，所以logP(Y|X)也会达到最大值，因此在前面加上负号之后，最大化P(Y|X)就等价于最小化L了。<br>逻辑回归的P(Y=y|x)表达式如下：<br>$$P(Y=y|x) = \frac{1}{1+exp(-yf(x))}$$<br>将它带入到上式，通过推导可以得到logistic的损失函数表达式，如下：<br>$$L(y,P(Y=y|x)) = \log (1+exp(-yf(x)))$$<br>逻辑回归最后得到的目标式子如下：</p>
+<p><strong>log损失函数的标准形式</strong>：<br>$$L(Y,P(Y|X)) = -\log P(Y|X)$$<br>刚刚说到，取对数是为了方便计算极大似然估计，因为在MLE中，直接求导比较困难，所以通常都是先取对数再求导找极值点。损失函数L(Y, P(Y|X))表达的是样本X在分类Y的情况下，使概率P(Y|X)达到最大值（换言之，<font color="#1986C7"><strong>就是利用已知的样本分布，找到最有可能（即最大概率）导致这种分布的参数值；或者说什么样的参数才能使我们观测到目前这组数据的概率最大</strong></font>）。因为log函数是单调递增的，所以logP(Y|X)也会达到最大值，因此在前面加上负号之后，最大化P(Y|X)就等价于最小化L了。  </p>
+<p>逻辑回归的P(Y=y|x)表达式如下（为了将类别标签y统一为1和0，下面将表达式分开表示）：</p>
+<p><img src="https://zhihu.com/equation?tex=P%28Y%3Dy%7Cx%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0Ah_%5Ctheta%28x%29+%3D+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7B-f%28x%29%5C%7D+%7D%26+%2Cy%3D1%5C%5C+%0A1+-+h_%5Ctheta%28x%29+%3D+1+-+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7Bf%28x%29%5C%7D+%7D+%26+%2Cy%3D0%0A%5Cend%7Bmatrix%7D%5Cright." alt=""></p>
+<p>将它带入到上式，通过推导可以得到logistic的损失函数表达式，如下：</p>
+<p><img src="https://zhihu.com/equation?tex=L%28y%2CP%28Y%3Dy%7Cx%29%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0A+%5Clog+%281%2Bexp%5C%7B-f%28x%29%5C%7D%29+%26+%2Cy%3D1%5C%5C+%0A+%5Clog+%281%2Bexp%5C%7B+f%28x%29%5C%7D%29++%26+%2Cy%3D0%5C%5C+%0A%5Cend%7Bmatrix%7D%5Cright." alt=""></p>
+<p>逻辑回归最后得到的目标式子如下：</p>
 <p><img src="http://latex.codecogs.com/gif.latex?J%28%5Ctheta%29%20%3D%20-%20%5Cfrac%7B1%7D%7Bm%7D%5Cleft%20%5B%20%5Csum_%7Bi%3D1%7D%5Em%20y%5E%7B%28i%29%7D%20%5Clog%20h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%20&plus;%20%281-y%5E%7B%28i%29%7D%29%20%5Clog%281-h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%29%20%5Cright%20%5D" alt="$$J(\theta) = - \frac{1}{m}\left [ \sum_{i=1}^m y^{(i)} \log h_{\theta}(x^{(i)}) + (1-y^{(i)}) \log(1-h_{\theta}(x^{(i)}))  \right ]$$"></p>
-<p>如果是二分类的话，则m值等于2，如果是多分类，m就是相应的类别总个数。这里需要解释一下：<font color="green"><strong>之所以有人认为逻辑回归是平方损失，是因为在使用梯度下降来求最优解的时候，它的迭代式子与平方损失求导后的式子非常相似，从而给人一种直观上的错觉</strong></font>。</p>
+<p>如果是二分类的话，则m值等于2。这里需要解释一下：<font color="green"><strong>之所以有人认为逻辑回归是平方损失，是因为在使用梯度下降来求最优解的时候，它的迭代式子与平方损失求导后的式子非常相似，从而给人一种直观上的错觉</strong></font>。</p>
 <p>这里有个PDF可以参考一下：<a href="https://www.cs.berkeley.edu/~russell/classes/cs194/f11/lectures/CS194%20Fall%202011%20Lecture%2006.pdf" target="_blank" rel="external">Lecture 6: logistic regression.pdf</a>.</p>
 <h2 id="二、平方损失函数（最小二乘法,_Ordinary_Least_Squares_）">二、平方损失函数（最小二乘法, Ordinary Least Squares ）</h2><p>最小二乘法是线性回归的一种，OLS将问题转化成了一个凸优化问题。在线性回归中，它假设样本和噪声都服从高斯分布（为什么假设成高斯分布呢？其实这里隐藏了一个小知识点，就是<strong>中心极限定理</strong>，可以参考<a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="external">【central limit theorem】</a>），最后通过极大似然估计（MLE）可以推导出最小二乘式子。最小二乘的基本原则是：<font color="1986C7"><strong>最优拟合直线应该是使各点到回归直线的距离和最小的直线，即平方和最小</strong></font>。换言之，OLS是基于距离的，而这个距离就是我们用的最多的欧几里得距离。为什么它会选择使用欧式距离作为误差度量呢（即Mean squared error， MSE），主要有以下几个原因：</p>
 <ul>
@@ -212,9 +217,8 @@
     <link href="http://csuldw.github.io/2016/03/12/2016-03-12-performance-evaluation/"/>
     <id>http://csuldw.github.io/2016/03/12/2016-03-12-performance-evaluation/</id>
     <published>2016-03-12T12:03:00.000Z</published>
-    <updated>2016-05-10T16:17:52.420Z</updated>
-    <content type="html"><![CDATA[<p>出处：<a href="http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/" target="_blank" rel="external">http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/</a>  </p>
-<p>本文主要介绍几种常用的分类评估指标，同时介绍如何绘制ROC曲线以及AUC值的便捷的计算方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现。</p>
+    <updated>2016-06-09T02:26:37.644Z</updated>
+    <content type="html"><![CDATA[<p>本文主要介绍几种常用的用于分类的性能评估指标，同时介绍如何绘制ROC曲线以及计算AUC值的便捷方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现（Python）。</p>
 <a id="more"></a>
 <h2 id="Precision和Recall">Precision和Recall</h2><p>首先我们来看看下面这个混淆矩阵：</p>
 <table>
@@ -341,8 +345,7 @@ Created on Sat Mar 12 17:43:48 2016
 <h2 id="参考文献">参考文献</h2><p>[1] <a href="https://en.wikipedia.org/wiki/Receiver_operating_characteristic" target="_blank" rel="external">https://en.wikipedia.org/wiki/Receiver_operating_characteristic</a><br>[2] <a href="http://blog.csdn.net/chjjunking/article/details/5933105" target="_blank" rel="external">http://blog.csdn.net/chjjunking/article/details/5933105</a><br>[3]《Machine Learning in Action》<br>[4] <a href="https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test" target="_blank" rel="external">https://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test</a><br>[5] <a href="http://stats.stackexchange.com/questions/105501/understanding-roc-curve/105577" target="_blank" rel="external">Understanding ROC curve</a><br>[6] <a href="http://stats.stackexchange.com/questions/145566/how-to-calculate-area-under-the-curve-auc-or-the-c-statistic-by-hand" target="_blank" rel="external">http://stats.stackexchange.com/questions/145566/how-to-calculate-area-under-the-curve-auc-or-the-c-statistic-by-hand</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>出处：<a href="http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/">http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/</a>  </p>
-<p>本文主要介绍几种常用的分类评估指标，同时介绍如何绘制ROC曲线以及AUC值的便捷的计算方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现。</p>]]>
+    <![CDATA[<p>本文主要介绍几种常用的用于分类的性能评估指标，同时介绍如何绘制ROC曲线以及计算AUC值的便捷方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现（Python）。</p>]]>
     
     </summary>
     
@@ -699,10 +702,10 @@ xxxx     unsigned byte   ??               pixel</span>
     <link href="http://csuldw.github.io/2016/02/23/2016-02-23-Python-coding-standards/"/>
     <id>http://csuldw.github.io/2016/02/23/2016-02-23-Python-coding-standards/</id>
     <published>2016-02-23T12:37:00.000Z</published>
-    <updated>2016-03-08T09:05:20.130Z</updated>
-    <content type="html"><![CDATA[<p>此文是我们自己编写Python代码时使用的编码规范，方便整合！</p>
-<h2 id="常量">常量</h2><p>常量名所有字母大写，由下划线连接各个单词，如：</p>
+    <updated>2016-06-09T02:34:06.571Z</updated>
+    <content type="html"><![CDATA[<p>接触Python已将近两年了，写过的代码也不少，每次对代码的编写都没有统一的规范，所以，根据自己以往的经验，专门为自己定制了一份用于编写Python代码时使用的代码规范。</p>
 <a id="more"></a>
+<h2 id="常量">常量</h2><p>常量名所有字母大写，由下划线连接各个单词，如：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USER_CO<span class="built_in">NSTANT</span></span><br></pre></td></tr></table></figure>
 <h2 id="变量">变量</h2><p>变量名全部小写，由下划线连接各个单词，如：</p>
 <figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">color = WHITE</span><br><span class="line"><span class="keyword">this</span><span class="number">_</span><span class="keyword">is</span><span class="number">_</span>a<span class="number">_</span><span class="annotation">variable</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
@@ -779,24 +782,28 @@ xxxx     unsigned byte   ??               pixel</span>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person_address = &#123;<span class="string">'user_1'</span>:<span class="string">'10 road WD'</span>, <span class="string">'user_2'</span> : <span class="string">'20 street huafu'</span>&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>避免通用名称</li>
-</ul>
-<p>诸如 list, dict, sequence 或者 element 这样的名称应该避免。</p>
+<li><p>避免通用名称</p>
 <ul>
-<li>一些数字</li>
+<li>诸如 list, dict, sequence 或者 element 这样的名称应该避免。</li>
 </ul>
-<p>一行列数 : PEP 8 规定为 79 列，这有些苛刻了。根据自己的情况，比如不要超过满屏时编辑器的显示列数。这样就可以在不动水平游标的情况下，方便的查看代码。</p>
-<p>一个函数 : 不要超过 30 行代码, 即可显示在一个屏幕类，可以不使用垂直游标即可看到整个函数。</p>
-<p>一个类 : 不要超过 200 行代码，不要有超过 10 个方法。</p>
-<p>一个模块 不要超过 500 行。</p>
+</li>
+</ul>
+<ul>
+<li><p>一些数字</p>
+<ul>
+<li>一行列数 : PEP 8 规定为 79 列，这有些苛刻了。根据自己的情况，比如不要超过满屏时编辑器的显示列数。这样就可以在不动水平游标的情况下，方便的查看代码。</li>
+<li>一个函数 : 不要超过 30 行代码, 即可显示在一个屏幕类，可以不使用垂直游标即可看到整个函数。</li>
+<li>一个类 : 不要超过 200 行代码，不要有超过 10 个方法。</li>
+<li>一个模块 不要超过 500 行。</li>
+</ul>
+</li>
+</ul>
 <h2 id="Contributor">Contributor</h2><ul>
 <li>Liu Diwei: <a href="https://github.com/csuldw" target="_blank" rel="external">https://github.com/csuldw</a></li>
-<li>Gao Yong: <a href="https://github.com/gaoyongcn" target="_blank" rel="external">https://github.com/gaoyongcn</a></li>
 </ul>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>此文是我们自己编写Python代码时使用的编码规范，方便整合！</p>
-<h2 id="常量">常量</h2><p>常量名所有字母大写，由下划线连接各个单词，如：</p>]]>
+    <![CDATA[<p>接触Python已将近两年了，写过的代码也不少，每次对代码的编写都没有统一的规范，所以，根据自己以往的经验，专门为自己定制了一份用于编写Python代码时使用的代码规范。</p>]]>
     
     </summary>
     
@@ -809,11 +816,11 @@ xxxx     unsigned byte   ??               pixel</span>
   </entry>
   
   <entry>
-    <title><![CDATA[Python笔记小记]]></title>
+    <title><![CDATA[Python笔记-shape、extend、append、tile、numpy.sum]]></title>
     <link href="http://csuldw.github.io/2016/01/22/2016-01-21-Python-notes/"/>
     <id>http://csuldw.github.io/2016/01/22/2016-01-21-Python-notes/</id>
     <published>2016-01-22T02:24:00.000Z</published>
-    <updated>2016-03-23T07:12:23.869Z</updated>
+    <updated>2016-06-09T02:35:47.500Z</updated>
     <content type="html"><![CDATA[<p>本文主要记录在学习过程中碰到的易混淆的Python语法。</p>
 <h3 id="shape函数">shape函数</h3><p>python中的shape有两个，一个是numpy中的shape，一个是array的shape，本质上是一样的。</p>
 <a id="more"></a>
@@ -2372,7 +2379,7 @@ _csu.ldw@csu.edu.cn1
     <link href="http://csuldw.github.io/2015/10/21/2015-10-21%20Windows%20git%20push%20no%20password/"/>
     <id>http://csuldw.github.io/2015/10/21/2015-10-21 Windows git push no password/</id>
     <published>2015-10-21T08:45:44.000Z</published>
-    <updated>2016-03-08T08:52:45.375Z</updated>
+    <updated>2016-06-09T02:37:04.132Z</updated>
     <content type="html"><![CDATA[<p>在使用git时，每次进行git push时都需要输入用户名和密码，简直让人抓狂呀。下面介绍一种方法，可以避免用户名和密码输入，节省大量时间。</p>
 <h2 id="1-添加环境变量">1.添加环境变量</h2><p>首先在系统变量中添加一个环境变量HOME，内容为</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOME<span class="preprocessor">%</span>USERPROFILE<span class="preprocessor">%</span></span><br></pre></td></tr></table></figure>
@@ -2527,35 +2534,6 @@ _csu.ldw@csu.edu.cn1
       <category term="Machine Learning" scheme="http://csuldw.github.io/tags/Machine-Learning/"/>
     
       <category term="ML" scheme="http://csuldw.github.io/categories/ML/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[2015年8月总结]]></title>
-    <link href="http://csuldw.github.io/2015/08/29/2015-08-29%20Summary/"/>
-    <id>http://csuldw.github.io/2015/08/29/2015-08-29 Summary/</id>
-    <published>2015-08-29T02:54:00.000Z</published>
-    <updated>2016-05-03T15:33:20.182Z</updated>
-    <content type="html"><![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
-<p>下面来总结一下自已这几个月的学习成长吧。<br><a id="more"></a><br>以前总认为别人了不起，总感觉别人的知识面怎么会如此的宽泛，然后敬仰之心便犹如滔滔江水，连绵不绝。每次都会想着以后我也要好好充实自己的业余爱好，为生活增添一份乐趣，可事后往往又不了了之了。其实，学东西就好比爬山，起初精力充沛，步伐之神速令人刮目，很快就到了半山。可过了一阵子之后，精力值会达到了一个饱和点（或者说大脑的知识储藏量有限），会让你感觉怎么奋进都进步缓慢，看不到成功的灯塔，但当你再努力向前，到达山顶的时候，回首经历的一切，你会感觉，曾经的一切确实不过如此，一种“一览众山小”的感受油然而生，而这种感觉会让你心情舒畅，神清气爽，整个人都好了。</p>
-<p>从某种角度上说，我应该算是个“技术宅”吧。能够连续待在实验室拼个好几个月，这大概算是我最自豪的事情了，没有之一。</p>
-<p>从今年四月中旬开始，看paper，学习ML（DM）算法，然后跑实验，到现在大概整整四个月时间吧。能够写出一篇论文，确实不容易。期间也遇到了许多问题，比如自己做的数据没别人的好，数据正负样本不均衡、实验效果不理想等等，不过从中确实学到了很多的东西。现在，自己独立跑实验基本没有多大问题，至少自己能用Python实现常见的算法以及对文件的一些操作，唯一感觉会出问题的当属数据集这块。因为自己构造数据集，有些奇异点处理的不好，然后直接影响了最后模型的好坏。</p>
-<p>五月上旬基本上玩过去了，五月下旬各类机器学习书籍接连到手，然后开始学习《机器学习实践》这本书，全书是用Python实现的代码，因为有源码参考，所以很容易理解，很适合算法学习入门。由于之前学习过数据挖掘算法的理论知识，所以这本书不到半个月就把相应的知识点理解的差不多了。关于算法理论，清华大学出版社李航的《统计学习方法》确实不错，全书纯理论知识，分析独特，通俗易懂，很全面，适合想深入研究算法的人。这本书我还没完全看完，接下来可以好好学习下。</p>
-<p>六月，上旬的时候，在Leetcode上面刷了一个星期的算法题，做了60几个题目，后来感觉还是做实验重要，然后就接着去做数据了。数据处理期间，碰到了一些专业性问题，尤其是在计算结合位点的时候，导师当时也不在，而我对于生物上的一些专业知识不是很了解，所以进度卡住了一个星期左右。还有就是在计算一个特征的时候，停留了好几天。不过还好，六月底，数据的每个特征算是做出来了，但当时喉咙开始发炎了，然后又引起感冒，整个日子都不好过，整个人也都不好了。</p>
-<p>到了七月，开始整理自己的数据集，跑实验，然后从分析结果。这段时间碰到的问题也让人抓狂。首先是数据集不均衡，跑出来的效果很差，很不理想。不过这个问题还是比较容易解决，最常用的就是抽样了，下抽样还是上抽样就看结果好不好了。最后我选择的是下抽样，构造新的平衡数据，但是最后跑出来的效果不理想，使用别人的方法，跑出来的效果比别人差了将近8个百分点，这显然不合逻辑。到了七月下旬的时候，没办法了，还是使用别人的数据集吧。然后接着在别人数据集的基础上，加特征，构造新的数据集，然后使用不同算法来跑实验，比较效果等。最后得到的效果和别人的差不多，但是相对于另外一篇论文，似乎要差点。因为该论文没有说明自己的结果是在独立测试上的结果还是交叉验证得到的结果。所以，继续跑实验吧。</p>
-<p>八月的第一个星期，实验总算做出来了，最后比较了下，效果提升不多，因为本来原来的实验就做的比较好了，AUC达到了0.923，确实难以超越。接下来就开始赶paper，没日没夜的赶呀，终于在8月中旬将paper赶出来了。对于APBC2016能不能中，30%的接受率，就看运气了，因为整篇论文的效果确实不是很明显。</p>
-<p>总的来说，整个实验下来，学到了不少东西。以前是看中文论文容易，看英文paper难，现在感觉是看英文paper明显简单了，而写paper困难了。接下来好好努力，加油学英语、学算法、学理论、做实验吧，其他的事情都是浮云。</p>
-<hr>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>很多时候，都想写点什么，可又不知道从何开始，总会有一种语尽词穷的感觉，道不出那种振奋人心的话。“书到用时方恨少”大概就是这个意思吧。有时间，再回头学学语文，看看美文，涨涨知识吧。</p>
-<p>下面来总结一下自已这几个月的学习成长吧。<br>]]>
-    
-    </summary>
-    
-      <category term="总结" scheme="http://csuldw.github.io/tags/%E6%80%BB%E7%BB%93/"/>
-    
-      <category term="总结" scheme="http://csuldw.github.io/categories/%E6%80%BB%E7%BB%93/"/>
     
   </entry>
   

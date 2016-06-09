@@ -24,15 +24,21 @@ comment: true
 **log损失函数的标准形式**：
 $$L(Y,P(Y|X)) = -\log P(Y|X)$$
 刚刚说到，取对数是为了方便计算极大似然估计，因为在MLE中，直接求导比较困难，所以通常都是先取对数再求导找极值点。损失函数L(Y, P(Y|X))表达的是样本X在分类Y的情况下，使概率P(Y|X)达到最大值（换言之，<font color="#1986C7">**就是利用已知的样本分布，找到最有可能（即最大概率）导致这种分布的参数值；或者说什么样的参数才能使我们观测到目前这组数据的概率最大**</font>）。因为log函数是单调递增的，所以logP(Y|X)也会达到最大值，因此在前面加上负号之后，最大化P(Y|X)就等价于最小化L了。  
-逻辑回归的P(Y=y|x)表达式如下：
-$$P(Y=y|x) = \frac{1}{1+exp(-yf(x))}$$
+
+逻辑回归的P(Y=y|x)表达式如下（为了将类别标签y统一为1和0，下面将表达式分开表示）：
+
+![](https://zhihu.com/equation?tex=P%28Y%3Dy%7Cx%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0Ah_%5Ctheta%28x%29+%3D+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7B-f%28x%29%5C%7D+%7D%26+%2Cy%3D1%5C%5C+%0A1+-+h_%5Ctheta%28x%29+%3D+1+-+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7Bf%28x%29%5C%7D+%7D+%26+%2Cy%3D0%0A%5Cend%7Bmatrix%7D%5Cright.)
+
 将它带入到上式，通过推导可以得到logistic的损失函数表达式，如下：
-$$L(y,P(Y=y|x)) = \log (1+exp(-yf(x)))$$
+
+
+![](https://zhihu.com/equation?tex=L%28y%2CP%28Y%3Dy%7Cx%29%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0A+%5Clog+%281%2Bexp%5C%7B-f%28x%29%5C%7D%29+%26+%2Cy%3D1%5C%5C+%0A+%5Clog+%281%2Bexp%5C%7B+f%28x%29%5C%7D%29++%26+%2Cy%3D0%5C%5C+%0A%5Cend%7Bmatrix%7D%5Cright.)
+
 逻辑回归最后得到的目标式子如下：
 
 ![$$J(\theta) = - \frac{1}{m}\left [ \sum_{i=1}^m y^{(i)} \log h_{\theta}(x^{(i)}) + (1-y^{(i)}) \log(1-h_{\theta}(x^{(i)}))  \right ]$$](http://latex.codecogs.com/gif.latex?J%28%5Ctheta%29%20%3D%20-%20%5Cfrac%7B1%7D%7Bm%7D%5Cleft%20%5B%20%5Csum_%7Bi%3D1%7D%5Em%20y%5E%7B%28i%29%7D%20%5Clog%20h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%20&plus;%20%281-y%5E%7B%28i%29%7D%29%20%5Clog%281-h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%29%20%5Cright%20%5D)
 
-如果是二分类的话，则m值等于2，如果是多分类，m就是相应的类别总个数。这里需要解释一下：<font color="green">**之所以有人认为逻辑回归是平方损失，是因为在使用梯度下降来求最优解的时候，它的迭代式子与平方损失求导后的式子非常相似，从而给人一种直观上的错觉**</font>。
+如果是二分类的话，则m值等于2。这里需要解释一下：<font color="green">**之所以有人认为逻辑回归是平方损失，是因为在使用梯度下降来求最优解的时候，它的迭代式子与平方损失求导后的式子非常相似，从而给人一种直观上的错觉**</font>。
 
 这里有个PDF可以参考一下：[Lecture 6: logistic regression.pdf](https://www.cs.berkeley.edu/~russell/classes/cs194/f11/lectures/CS194%20Fall%202011%20Lecture%2006.pdf).
 

@@ -47,19 +47,16 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="此文是我们自己编写Python代码时使用的编码规范，方便整合！
-常量常量名所有字母大写，由下划线连接各个单词，如：">
+<meta name="description" content="接触Python已将近两年了，写过的代码也不少，每次对代码的编写都没有统一的规范，所以，根据自己以往的经验，专门为自己定制了一份用于编写Python代码时使用的代码规范。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python编码规范">
 <meta property="og:url" content="http://csuldw.github.io/2016/02/23/2016-02-23-Python-coding-standards/index.html">
 <meta property="og:site_name" content="D.W's Notes - Machine Learning">
-<meta property="og:description" content="此文是我们自己编写Python代码时使用的编码规范，方便整合！
-常量常量名所有字母大写，由下划线连接各个单词，如：">
-<meta property="og:updated_time" content="2016-03-08T09:05:20.130Z">
+<meta property="og:description" content="接触Python已将近两年了，写过的代码也不少，每次对代码的编写都没有统一的规范，所以，根据自己以往的经验，专门为自己定制了一份用于编写Python代码时使用的代码规范。">
+<meta property="og:updated_time" content="2016-06-09T02:34:06.571Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python编码规范">
-<meta name="twitter:description" content="此文是我们自己编写Python代码时使用的编码规范，方便整合！
-常量常量名所有字母大写，由下划线连接各个单词，如：">
+<meta name="twitter:description" content="接触Python已将近两年了，写过的代码也不少，每次对代码的编写都没有统一的规范，所以，根据自己以往的经验，专门为自己定制了一份用于编写Python代码时使用的代码规范。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -251,9 +248,9 @@
       
 
       
-        <span itemprop="articleBody"><p>此文是我们自己编写Python代码时使用的编码规范，方便整合！</p>
-<h2 id="常量">常量</h2><p>常量名所有字母大写，由下划线连接各个单词，如：</p>
+        <span itemprop="articleBody"><p>接触Python已将近两年了，写过的代码也不少，每次对代码的编写都没有统一的规范，所以，根据自己以往的经验，专门为自己定制了一份用于编写Python代码时使用的代码规范。</p>
 <a id="more"></a>
+<h2 id="常量">常量</h2><p>常量名所有字母大写，由下划线连接各个单词，如：</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">USER_CO<span class="built_in">NSTANT</span></span><br></pre></td></tr></table></figure>
 <h2 id="变量">变量</h2><p>变量名全部小写，由下划线连接各个单词，如：</p>
 <figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">color = WHITE</span><br><span class="line"><span class="keyword">this</span><span class="number">_</span><span class="keyword">is</span><span class="number">_</span>a<span class="number">_</span><span class="annotation">variable</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
@@ -330,19 +327,24 @@
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">person_address = &#123;<span class="string">'user_1'</span>:<span class="string">'10 road WD'</span>, <span class="string">'user_2'</span> : <span class="string">'20 street huafu'</span>&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>避免通用名称</li>
-</ul>
-<p>诸如 list, dict, sequence 或者 element 这样的名称应该避免。</p>
+<li><p>避免通用名称</p>
 <ul>
-<li>一些数字</li>
+<li>诸如 list, dict, sequence 或者 element 这样的名称应该避免。</li>
 </ul>
-<p>一行列数 : PEP 8 规定为 79 列，这有些苛刻了。根据自己的情况，比如不要超过满屏时编辑器的显示列数。这样就可以在不动水平游标的情况下，方便的查看代码。</p>
-<p>一个函数 : 不要超过 30 行代码, 即可显示在一个屏幕类，可以不使用垂直游标即可看到整个函数。</p>
-<p>一个类 : 不要超过 200 行代码，不要有超过 10 个方法。</p>
-<p>一个模块 不要超过 500 行。</p>
+</li>
+</ul>
+<ul>
+<li><p>一些数字</p>
+<ul>
+<li>一行列数 : PEP 8 规定为 79 列，这有些苛刻了。根据自己的情况，比如不要超过满屏时编辑器的显示列数。这样就可以在不动水平游标的情况下，方便的查看代码。</li>
+<li>一个函数 : 不要超过 30 行代码, 即可显示在一个屏幕类，可以不使用垂直游标即可看到整个函数。</li>
+<li>一个类 : 不要超过 200 行代码，不要有超过 10 个方法。</li>
+<li>一个模块 不要超过 500 行。</li>
+</ul>
+</li>
+</ul>
 <h2 id="Contributor">Contributor</h2><ul>
 <li>Liu Diwei: <a href="https://github.com/csuldw" target="_blank" rel="external">https://github.com/csuldw</a></li>
-<li>Gao Yong: <a href="https://github.com/gaoyongcn" target="_blank" rel="external">https://github.com/gaoyongcn</a></li>
 </ul>
 </span>
       
@@ -372,7 +374,7 @@
           <div class="post-nav-next post-nav-item">
             
               <a href="/2016/01/22/2016-01-21-Python-notes/" rel="next">
-                Python笔记小记 <i class="fa fa-chevron-right"></i>
+                Python笔记-shape、extend、append、tile、numpy.sum <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -460,7 +462,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

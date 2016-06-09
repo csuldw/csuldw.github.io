@@ -54,6 +54,8 @@
 <meta property="og:site_name" content="D.W's Notes - Machine Learning">
 <meta property="og:description" content="损失函数（loss function）是用来估量你模型的预测值f(x)与真实值Y的不一致程度，它是一个非负实值函数,通常使用L(Y, f(x))来表示，损失函数越小，模型的鲁棒性就越好。损失函数是经验风险函数的核心部分，也是结构风险函数重要组成部分。模型的结构风险函数包括了经验风险项和正则项，通常可以表示成如下式子：">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24%5Ctheta%5E*%20%3D%20%5Carg%20%5Cmin_%5Ctheta%20%5Cfrac%7B1%7D%7BN%7D%7B%7D%5Csum_%7Bi%3D1%7D%5E%7BN%7D%20L%28y_i%2C%20f%28x_i%3B%20%5Ctheta%29%20+%20%5Clambda%5C%20%5CPhi%28%5Ctheta%29%24%24">
+<meta property="og:image" content="https://zhihu.com/equation?tex=P%28Y%3Dy%7Cx%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0Ah_%5Ctheta%28x%29+%3D+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7B-f%28x%29%5C%7D+%7D%26+%2Cy%3D1%5C%5C+%0A1+-+h_%5Ctheta%28x%29+%3D+1+-+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7Bf%28x%29%5C%7D+%7D+%26+%2Cy%3D0%0A%5Cend%7Bmatrix%7D%5Cright.">
+<meta property="og:image" content="https://zhihu.com/equation?tex=L%28y%2CP%28Y%3Dy%7Cx%29%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0A+%5Clog+%281%2Bexp%5C%7B-f%28x%29%5C%7D%29+%26+%2Cy%3D1%5C%5C+%0A+%5Clog+%281%2Bexp%5C%7B+f%28x%29%5C%7D%29++%26+%2Cy%3D0%5C%5C+%0A%5Cend%7Bmatrix%7D%5Cright.">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?J%28%5Ctheta%29%20%3D%20-%20%5Cfrac%7B1%7D%7Bm%7D%5Cleft%20%5B%20%5Csum_%7Bi%3D1%7D%5Em%20y%5E%7B%28i%29%7D%20%5Clog%20h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%20+%20%281-y%5E%7B%28i%29%7D%29%20%5Clog%281-h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%29%20%5Cright%20%5D">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?L%28Y%2C%20f%28X%29%29%20%3D%20%5Csum%20_%7Bi%3D1%7D%5E%7Bn%7D%28Y%20-%20f%28X%29%29%5E2">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24f_m%20%28x%29%20%3D%20f_%7Bm-1%7D%28x%29%20+%20%5Calpha_m%20G_m%28x%29%24%24">
@@ -68,7 +70,7 @@
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?L%28Y%2C%20f%28X%29%29%20%3D%20%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D1%20%2C%26%20Y%20%5Cneq%20f%28X%29%5C%5C%200%20%2C%26%20y%20%3D%20f%28X%29%20%5Cend%7Bmatrix%7D%5Cright.">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?L%28Y%2C%20f%28X%29%29%20%3D%20%7CY-f%28X%29%7C">
 <meta property="og:image" content="http://csuldw.github.io/assets/articleImg/4DFDU.png">
-<meta property="og:updated_time" content="2016-03-26T07:51:50.259Z">
+<meta property="og:updated_time" content="2016-06-09T02:03:10.723Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习-损失函数">
 <meta name="twitter:description" content="损失函数（loss function）是用来估量你模型的预测值f(x)与真实值Y的不一致程度，它是一个非负实值函数,通常使用L(Y, f(x))来表示，损失函数越小，模型的鲁棒性就越好。损失函数是经验风险函数的核心部分，也是结构风险函数重要组成部分。模型的结构风险函数包括了经验风险项和正则项，通常可以表示成如下式子：">
@@ -267,9 +269,14 @@
 <a id="more"></a>
 <p>其中，前面的均值函数表示的是经验风险函数，L代表的是损失函数，后面的$\Phi$是正则化项（regularizer）或者叫惩罚项（penalty term），它可以是L1，也可以是L2，或者其他的正则函数。整个式子表示的意思是<font color="#1986C7"><strong>找到使目标函数最小时的$\theta$值</strong></font>。下面主要列出几种常见的损失函数。</p>
 <h2 id="一、log对数损失函数（逻辑回归）">一、log对数损失函数（逻辑回归）</h2><p>有些人可能觉得逻辑回归的损失函数就是平方损失，其实并不是。平方损失函数可以通过线性回归在假设样本是高斯分布的条件下推导得到，而逻辑回归得到的并不是平方损失。在逻辑回归的推导中，它假设样本服从<font color="#1986C7"><strong>伯努利分布（0-1分布）</strong></font>，然后求得满足该分布的似然函数，接着取对数求极值等等。而逻辑回归并没有求似然函数的极值，而是把极大化当做是一种思想，进而推导出它的经验风险函数为：<font color="#1986C7"><strong>最小化负的似然函数（即max F(y, f(x))  —-&gt;  min -F(y, f(x)))</strong></font>。从损失函数的视角来看，它就成了log损失函数了。</p>
-<p><strong>log损失函数的标准形式</strong>：<br>$$L(Y,P(Y|X)) = -\log P(Y|X)$$<br>刚刚说到，取对数是为了方便计算极大似然估计，因为在MLE中，直接求导比较困难，所以通常都是先取对数再求导找极值点。损失函数L(Y, P(Y|X))表达的是样本X在分类Y的情况下，使概率P(Y|X)达到最大值（换言之，<font color="#1986C7"><strong>就是利用已知的样本分布，找到最有可能（即最大概率）导致这种分布的参数值；或者说什么样的参数才能使我们观测到目前这组数据的概率最大</strong></font>）。因为log函数是单调递增的，所以logP(Y|X)也会达到最大值，因此在前面加上负号之后，最大化P(Y|X)就等价于最小化L了。<br>逻辑回归的P(Y=y|x)表达式如下：<br>$$P(Y=y|x) = \frac{1}{1+exp(-yf(x))}$$<br>将它带入到上式，通过推导可以得到logistic的损失函数表达式，如下：<br>$$L(y,P(Y=y|x)) = \log (1+exp(-yf(x)))$$<br>逻辑回归最后得到的目标式子如下：</p>
+<p><strong>log损失函数的标准形式</strong>：<br>$$L(Y,P(Y|X)) = -\log P(Y|X)$$<br>刚刚说到，取对数是为了方便计算极大似然估计，因为在MLE中，直接求导比较困难，所以通常都是先取对数再求导找极值点。损失函数L(Y, P(Y|X))表达的是样本X在分类Y的情况下，使概率P(Y|X)达到最大值（换言之，<font color="#1986C7"><strong>就是利用已知的样本分布，找到最有可能（即最大概率）导致这种分布的参数值；或者说什么样的参数才能使我们观测到目前这组数据的概率最大</strong></font>）。因为log函数是单调递增的，所以logP(Y|X)也会达到最大值，因此在前面加上负号之后，最大化P(Y|X)就等价于最小化L了。  </p>
+<p>逻辑回归的P(Y=y|x)表达式如下（为了将类别标签y统一为1和0，下面将表达式分开表示）：</p>
+<p><img src="https://zhihu.com/equation?tex=P%28Y%3Dy%7Cx%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0Ah_%5Ctheta%28x%29+%3D+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7B-f%28x%29%5C%7D+%7D%26+%2Cy%3D1%5C%5C+%0A1+-+h_%5Ctheta%28x%29+%3D+1+-+g%28f%28x%29%29+%3D+%5Cfrac%7B1%7D%7B1+%2B+exp%5C%7Bf%28x%29%5C%7D+%7D+%26+%2Cy%3D0%0A%5Cend%7Bmatrix%7D%5Cright." alt=""></p>
+<p>将它带入到上式，通过推导可以得到logistic的损失函数表达式，如下：</p>
+<p><img src="https://zhihu.com/equation?tex=L%28y%2CP%28Y%3Dy%7Cx%29%29+%3D+%5Cleft%5C%7B%5Cbegin%7Bmatrix%7D%0A+%5Clog+%281%2Bexp%5C%7B-f%28x%29%5C%7D%29+%26+%2Cy%3D1%5C%5C+%0A+%5Clog+%281%2Bexp%5C%7B+f%28x%29%5C%7D%29++%26+%2Cy%3D0%5C%5C+%0A%5Cend%7Bmatrix%7D%5Cright." alt=""></p>
+<p>逻辑回归最后得到的目标式子如下：</p>
 <p><img src="http://latex.codecogs.com/gif.latex?J%28%5Ctheta%29%20%3D%20-%20%5Cfrac%7B1%7D%7Bm%7D%5Cleft%20%5B%20%5Csum_%7Bi%3D1%7D%5Em%20y%5E%7B%28i%29%7D%20%5Clog%20h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%20&plus;%20%281-y%5E%7B%28i%29%7D%29%20%5Clog%281-h_%7B%5Ctheta%7D%28x%5E%7B%28i%29%7D%29%29%20%5Cright%20%5D" alt="$$J(\theta) = - \frac{1}{m}\left [ \sum_{i=1}^m y^{(i)} \log h_{\theta}(x^{(i)}) + (1-y^{(i)}) \log(1-h_{\theta}(x^{(i)}))  \right ]$$"></p>
-<p>如果是二分类的话，则m值等于2，如果是多分类，m就是相应的类别总个数。这里需要解释一下：<font color="green"><strong>之所以有人认为逻辑回归是平方损失，是因为在使用梯度下降来求最优解的时候，它的迭代式子与平方损失求导后的式子非常相似，从而给人一种直观上的错觉</strong></font>。</p>
+<p>如果是二分类的话，则m值等于2。这里需要解释一下：<font color="green"><strong>之所以有人认为逻辑回归是平方损失，是因为在使用梯度下降来求最优解的时候，它的迭代式子与平方损失求导后的式子非常相似，从而给人一种直观上的错觉</strong></font>。</p>
 <p>这里有个PDF可以参考一下：<a href="https://www.cs.berkeley.edu/~russell/classes/cs194/f11/lectures/CS194%20Fall%202011%20Lecture%2006.pdf" target="_blank" rel="external">Lecture 6: logistic regression.pdf</a>.</p>
 <h2 id="二、平方损失函数（最小二乘法,_Ordinary_Least_Squares_）">二、平方损失函数（最小二乘法, Ordinary Least Squares ）</h2><p>最小二乘法是线性回归的一种，OLS将问题转化成了一个凸优化问题。在线性回归中，它假设样本和噪声都服从高斯分布（为什么假设成高斯分布呢？其实这里隐藏了一个小知识点，就是<strong>中心极限定理</strong>，可以参考<a href="https://en.wikipedia.org/wiki/Central_limit_theorem" target="_blank" rel="external">【central limit theorem】</a>），最后通过极大似然估计（MLE）可以推导出最小二乘式子。最小二乘的基本原则是：<font color="1986C7"><strong>最优拟合直线应该是使各点到回归直线的距离和最小的直线，即平方和最小</strong></font>。换言之，OLS是基于距离的，而这个距离就是我们用的最多的欧几里得距离。为什么它会选择使用欧式距离作为误差度量呢（即Mean squared error， MSE），主要有以下几个原因：</p>
 <ul>
@@ -425,7 +432,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

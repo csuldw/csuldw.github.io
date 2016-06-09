@@ -1,7 +1,7 @@
 ---
 layout: post
 date: 2016-01-22 10:24
-title: "Python笔记小记"
+title: "Python笔记-shape、extend、append、tile、numpy.sum"
 categories: Python
 tag: 
 	- Python

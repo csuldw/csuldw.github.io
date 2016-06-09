@@ -47,24 +47,21 @@
   <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
 
 
-<meta name="description" content="出处：http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/  
-本文主要介绍几种常用的分类评估指标，同时介绍如何绘制ROC曲线以及AUC值的便捷的计算方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现。">
+<meta name="description" content="本文主要介绍几种常用的用于分类的性能评估指标，同时介绍如何绘制ROC曲线以及计算AUC值的便捷方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现（Python）。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分类之性能评估指标">
 <meta property="og:url" content="http://csuldw.github.io/2016/03/12/2016-03-12-performance-evaluation/index.html">
 <meta property="og:site_name" content="D.W's Notes - Machine Learning">
-<meta property="og:description" content="出处：http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/  
-本文主要介绍几种常用的分类评估指标，同时介绍如何绘制ROC曲线以及AUC值的便捷的计算方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现。">
+<meta property="og:description" content="本文主要介绍几种常用的用于分类的性能评估指标，同时介绍如何绘制ROC曲线以及计算AUC值的便捷方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现（Python）。">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24MCC%20%3D%20%5Cfrac%7BTP%20%5Ctimes%20TN%20-%20FP%20%5Ctimes%20FN%7D%7B%20%5Csqrt%20%7B%28TP%20+%20FP%29%28TP%20+%20FN%29%28%20TN%20+%20FP%29%28TN+FN%29%7D%7D%24%24">
 <meta property="og:image" content="http://www.csuldw.com/assets/articleImg/roc_plot.gif">
 <meta property="og:image" content="http://www.csuldw.com/assets/articleImg/area_under_curve.png">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?AUC%20%3D%20%5Cfrac%7B%5Csum_i%5En%20%28%20%5C%20pos%5C_score%20%3E%20neg%5C_score%20%5C%20%29%20+%200.5%20*%20%5Csum_i%5En%7B%28%5C%20pos%5C_score%3Dneg%5C_score%5C%20%29%7D%7D%7BM%20*%20N%7D">
 <meta property="og:image" content="http://latex.codecogs.com/gif.latex?AUC%20%3D%20%5Cfrac%7B%5Csum_%7Bins_i%20%5Cepsilon%20pos%7Drank_%7Bins_i%7D%20-%20%5Cfrac%7BM%20*%20%28M+1%29%7D%7B2%7D%7D%7BM%20*%20N%7D">
-<meta property="og:updated_time" content="2016-05-10T16:17:52.420Z">
+<meta property="og:updated_time" content="2016-06-09T02:26:37.644Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分类之性能评估指标">
-<meta name="twitter:description" content="出处：http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/  
-本文主要介绍几种常用的分类评估指标，同时介绍如何绘制ROC曲线以及AUC值的便捷的计算方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现。">
+<meta name="twitter:description" content="本文主要介绍几种常用的用于分类的性能评估指标，同时介绍如何绘制ROC曲线以及计算AUC值的便捷方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现（Python）。">
 
 
 <script type="text/javascript" id="hexo.configuration">
@@ -256,8 +253,7 @@
       
 
       
-        <span itemprop="articleBody"><p>出处：<a href="http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/" target="_blank" rel="external">http://www.csuldw.com/2016/03/12/2016-03-12-performance-evaluation/</a>  </p>
-<p>本文主要介绍几种常用的分类评估指标，同时介绍如何绘制ROC曲线以及AUC值的便捷的计算方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现。</p>
+        <span itemprop="articleBody"><p>本文主要介绍几种常用的用于分类的性能评估指标，同时介绍如何绘制ROC曲线以及计算AUC值的便捷方法。最后再附上一个绘制ROC曲线和计算AUC的源码实现（Python）。</p>
 <a id="more"></a>
 <h2 id="Precision和Recall">Precision和Recall</h2><p>首先我们来看看下面这个混淆矩阵：</p>
 <table>
@@ -500,7 +496,7 @@ Created on Sat Mar 12 17:43:48 2016
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">61</span>
+              <span class="site-state-item-count">60</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
