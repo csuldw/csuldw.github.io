@@ -1,0 +1,13 @@
+## README 
+
+一个用Hexo搭建的个人技术博客 http://www.csuldw.com.
+
+
+## Information：  
+
+Name： 刘帝伟  
+School： 中南大学
+Q Q： 466454368  
+E-mail： csu.ldw@csu.edu.cn  
+CSDN： http://blog.csdn.net/dream_angel_z
+
