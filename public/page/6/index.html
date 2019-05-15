@@ -1,0 +1,1995 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域." />
+
+
+
+  <meta name="keywords" content="Hexo,next" />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+<meta name="keywords" content="D.W">
+<meta property="og:type" content="website">
+<meta property="og:title" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:url" content="https://www.csuldw.com/page/6/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+<meta property="og:locale" content="en">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="D.W&#39;s Notes - Machine Learning">
+<meta name="twitter:description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column 
+   page-home 
+">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/05/28/2015-05-28-NB/" itemprop="url">
+                  机器学习算法-朴素贝叶斯Python实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-05-28T12:59:00+08:00" content="2015-05-28">
+              2015-05-28 12:59
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/05/28/2015-05-28-NB/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/28/2015-05-28-NB/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/05/28/2015-05-28-NB/"class="leancloud_visitors"  data-flag-title="机器学习算法-朴素贝叶斯Python实现">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>源码：<a href="https://github.com/csuldw/MachineLearning/tree/master/NaiveBayes" target="_blank" rel="noopener">https://github.com/csuldw/MachineLearning/tree/master/NaiveBayes</a></p>
+<p>前面提到的KNN和决策树DT算法，数据实例最终被明确的划分到某个分类中，下面介绍一种不能完全确定数据实例应该划分到哪个类别，或者说只能给数据实例属于给定分类的概率。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/28/2015-05-28-NB/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/05/21/2015-05-21-KNN/" itemprop="url">
+                  机器学习算法-K最近邻从原理到实现
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-05-21T20:34:00+08:00" content="2015-05-21">
+              2015-05-21 20:34
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/05/21/2015-05-21-KNN/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/21/2015-05-21-KNN/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/05/21/2015-05-21-KNN/"class="leancloud_visitors"  data-flag-title="机器学习算法-K最近邻从原理到实现">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>源码：<a href="https://github.com/csuldw/MachineLearning/tree/master/KNN" target="_blank" rel="noopener">https://github.com/csuldw/MachineLearning/tree/master/KNN</a></p>
+<p>决策树和基于规则的分类器都是<strong>积极学习方法</strong>（eager learner）的例子，因为一旦训练数据可用，他们就开始学习从输入属性到类标号的映射模型。一个相反的策略是推迟对训练数据的建模，直到需要分类测试样例时再进行。采用这种策略的技术被称为<strong>消极学习法</strong>（lazy learner）。<strong>最近邻分类器</strong>就是这样的一种方法。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/21/2015-05-21-KNN/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/05/08/2015-05-08-decision tree/" itemprop="url">
+                  机器学习算法-决策树理论
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-05-08T21:53:12+08:00" content="2015-05-08">
+              2015-05-08 21:53
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/05/08/2015-05-08-decision tree/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/05/08/2015-05-08-decision tree/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/05/08/2015-05-08-decision tree/"class="leancloud_visitors"  data-flag-title="机器学习算法-决策树理论">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>源码下载：<a href="https://github.com/csuldw/MachineLearning/tree/master/DecisionTree" target="_blank" rel="noopener">https://github.com/csuldw/MachineLearning/tree/master/DecisionTree</a></p>
+<p>在决策树理论中，有这样一句话，“<strong>用较少的东西，照样可以做很好的事情。越是小的决策树，越优于大的决策树</strong>”。数据分类是一个两阶段过程，包括模型学习阶段（构建分类模型）和分类预测阶段（使用模型预测给定数据的类标号）。决策树分类算法属于监督学习（Supervised learning），即样本数据中有类别标号。下面是两个阶段的简单描述：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/08/2015-05-08-decision tree/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/04/15/2015-04-12-Syncing-a-fork/" itemprop="url">
+                  Git小结-同步一个fork
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-04-15T13:14:54+08:00" content="2015-04-15">
+              2015-04-15 13:14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/GitHub/" itemprop="url" rel="index">
+                    <span itemprop="name">GitHub</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/04/15/2015-04-12-Syncing-a-fork/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/04/15/2015-04-12-Syncing-a-fork/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/04/15/2015-04-12-Syncing-a-fork/"class="leancloud_visitors"  data-flag-title="Git小结-同步一个fork">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="如何使用搜索引擎"><a href="#如何使用搜索引擎" class="headerlink" title="如何使用搜索引擎"></a>如何使用搜索引擎</h2><p>其实这个问题并不难，我又被坑了。百度搜的东西不靠谱啊，以后这种问题一定要用<strong>英文</strong>在 <a href="http://www.google.com" target="_blank" rel="noopener">Google</a> 或者 <a href="http://cn.bing.com/" target="_blank" rel="noopener">Bing</a> 上搜索，这样才能搜到原汁原味的答案。就当是一个教训吧。   </p>
+<p>搜索 fork sync，就可以看到 GitHub 自己的帮助文档 <a href="https://help.github.com/articles/syncing-a-fork/" target="_blank" rel="noopener">Syncing a fork</a> 点进去看这篇的时候，注意到有一个 Tip: Before you can sync your fork with an upstream repository, you must <a href="https://help.github.com/articles/configuring-a-remote-for-a-fork/" target="_blank" rel="noopener">configure a remote that points to the upstream repository</a> in Git.<br>根据这两篇文章，问题迎刃而解！ </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/15/2015-04-12-Syncing-a-fork/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/03/26/2015-03-26-sublimeLinter/" itemprop="url">
+                  代码校验工具 SublimeLinter 的安装与使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-03-26T15:14:54+08:00" content="2015-03-26">
+              2015-03-26 15:14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">Tools</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/03/26/2015-03-26-sublimeLinter/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/03/26/2015-03-26-sublimeLinter/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/03/26/2015-03-26-sublimeLinter/"class="leancloud_visitors"  data-flag-title="代码校验工具 SublimeLinter 的安装与使用">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="序言"><a href="#序言" class="headerlink" title="序言"></a>序言</h2><p>本文我将讲述一下 SublimeLinter 的安装过程。<br>其组件 jshint 的安装与使用。<br>其组件 csslint 的安装与使用。<br>我将基于 <a href="http://sublimetext.com/3" target="_blank" rel="noopener">Sublime Text 3</a> 来安装。<br>使用 Sublime Text 2 的用户阅读本文是没有帮助的。   </p>
+<p>SublimeLinter 是 Sublime 的插件，它的作用是检查代码语法是否有错误，并提示。习惯了 IDE 下写代码的人一定需要一款在 Sublime 上类似的语法检查工具。下面我们开始。   </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/26/2015-03-26-sublimeLinter/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/03/18/2015-03-18-machine-learning-top10-algorithms/" itemprop="url">
+                  机器学习算法Top10
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-03-18T10:24:00+08:00" content="2015-03-18">
+              2015-03-18 10:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/03/18/2015-03-18-machine-learning-top10-algorithms/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/03/18/2015-03-18-machine-learning-top10-algorithms/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/03/18/2015-03-18-machine-learning-top10-algorithms/"class="leancloud_visitors"  data-flag-title="机器学习算法Top10">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>以下就是从参加评选的18种候选算法中，最终决选出来的十大经典算法，文章内容参考的是一篇英文paper，下面来看看十大经典算法的具体内容。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/03/18/2015-03-18-machine-learning-top10-algorithms/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2015/02/14/2015-02-14-string-match/" itemprop="url">
+                  腾讯笔试题-字符串匹配
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-02-14T12:12:00+08:00" content="2015-02-14">
+              2015-02-14 12:12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/02/14/2015-02-14-string-match/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/02/14/2015-02-14-string-match/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/02/14/2015-02-14-string-match/"class="leancloud_visitors"  data-flag-title="腾讯笔试题-字符串匹配">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>假设两个字符串中所含有的字符和个数都相同我们就叫这两个字符串匹配，比如：abcda和adabc,由于出现的字符个数都是相同，只是顺序不同，所以这两个字符串是匹配的。要求高效。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/02/14/2015-02-14-string-match/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2014/12/31/2014-12-31-keep-silence/" itemprop="url">
+                  2014，静下来
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2014-12-31T23:17:00+08:00" content="2014-12-31">
+              2014-12-31 23:17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Summary/" itemprop="url" rel="index">
+                    <span itemprop="name">Summary</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/31/2014-12-31-keep-silence/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/31/2014-12-31-keep-silence/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2014/12/31/2014-12-31-keep-silence/"class="leancloud_visitors"  data-flag-title="2014，静下来">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p><em>我想应该静下来想一些话</em><br><em>我想应该静下来走一段路</em><br><em>我想应该静下来看一本书</em><br><em>我只想静下来反省自己</em></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/31/2014-12-31-keep-silence/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2014/12/26/2014-12-26-MergeSort/" itemprop="url">
+                  排序算法-归并排序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2014-12-26T12:24:00+08:00" content="2014-12-26">
+              2014-12-26 12:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/26/2014-12-26-MergeSort/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/26/2014-12-26-MergeSort/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2014/12/26/2014-12-26-MergeSort/"class="leancloud_visitors"  data-flag-title="排序算法-归并排序">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在实际应用当中，对于数据较大的输入，归并排序是比较快的一个算法。该算法采用的是分治法的思想。本文会详细介绍归并排序的思想，并在文章后面加以实现。</p>
+<p><strong>原理</strong>：将数据分开排序，然后进行合并，最后形成一个排好的序列。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/26/2014-12-26-MergeSort/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2014/12/25/2014-12-25-exchangeSort/" itemprop="url">
+                  排序算法-交换排序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2014-12-25T10:24:00+08:00" content="2014-12-25">
+              2014-12-25 10:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/25/2014-12-25-exchangeSort/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/25/2014-12-25-exchangeSort/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2014/12/25/2014-12-25-exchangeSort/"class="leancloud_visitors"  data-flag-title="排序算法-交换排序">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>再次回顾下各个排序算法的时间复杂度和空间复杂度的表格：</p>
+<p><img src="http://www.csuldw.com/assets/articleImg/2014-12-21-performances-of-sort-algs.png" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/25/2014-12-25-exchangeSort/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2014/12/22/2014-12-22-choiceSort/" itemprop="url">
+                  排序算法-选择排序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2014-12-22T18:24:00+08:00" content="2014-12-22">
+              2014-12-22 18:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/22/2014-12-22-choiceSort/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/22/2014-12-22-choiceSort/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2014/12/22/2014-12-22-choiceSort/"class="leancloud_visitors"  data-flag-title="排序算法-选择排序">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>首先分享一张堆排序的动态图，来自Wikipedia.</p>
+<p><img src="/assets/articleImg/Heapsort-example.gif" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/22/2014-12-22-choiceSort/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2014/12/21/2014-12-21-InsertSort/" itemprop="url">
+                  排序算法-插入排序
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2014-12-21T11:24:00+08:00" content="2014-12-21">
+              2014-12-21 11:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法与数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">算法与数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/21/2014-12-21-InsertSort/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/21/2014-12-21-InsertSort/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2014/12/21/2014-12-21-InsertSort/"class="leancloud_visitors"  data-flag-title="排序算法-插入排序">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>首先介绍一个常用排序算法的时间复杂度和空间复杂度的表格：</p>
+<p><img src="/assets/articleImg/2014-12-21-performances-of-sort-algs.png" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/21/2014-12-21-InsertSort/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2014/12/19/2014-12-19-The-difference-of-list-and-tupple/" itemprop="url">
+                  Python元组与列表的区别
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2014-12-19T14:24:00+08:00" content="2014-12-19">
+              2014-12-19 14:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Python/" itemprop="url" rel="index">
+                    <span itemprop="name">Python</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/12/19/2014-12-19-The-difference-of-list-and-tupple/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/12/19/2014-12-19-The-difference-of-list-and-tupple/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2014/12/19/2014-12-19-The-difference-of-list-and-tupple/"class="leancloud_visitors"  data-flag-title="Python元组与列表的区别">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="list和tuple区别"><a href="#list和tuple区别" class="headerlink" title="list和tuple区别"></a>list和tuple区别</h2><p>列表和元组非常类似，有时候他们都干一样的事情。他们最大的区别是:</p>
+<ul>
+<li>元组一旦被赋值，值不可以被改变，一旦改变就会出错；列表可以任意的更改。</li>
+<li>他们用不同的符号表示，赋值的时候，列表用方括号”[]”，而元组用小括号”（）”。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/19/2014-12-19-The-difference-of-list-and-tupple/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <a class="post-title-link" href="/2014/11/19/2014-11-19-linux-tree-command/" itemprop="url">
+                  Linx学习笔记-tree命令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2014-11-19T10:24:00+08:00" content="2014-11-19">
+              2014-11-19 10:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2014/11/19/2014-11-19-linux-tree-command/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/11/19/2014-11-19-linux-tree-command/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2014/11/19/2014-11-19-linux-tree-command/"class="leancloud_visitors"  data-flag-title="Linx学习笔记-tree命令">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>有时候，我们想要知道一个目录下面的详细情况，那么有什么好的方法呢？</p>
+<p>很幸运，Linux shell 有一个tree 命令，专门用来打印目录树。如果你没有安装，可以使用<code>yum</code>来安装，命令如下：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/11/19/2014-11-19-linux-tree-command/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+  </nav>
+
+
+ </div>
+
+        
+
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+
+      <section class="site-overview" sidebar-panel  sidebar-panel-active >
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">151</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+  
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = 'page/6/index.html';
+      var disqus_title = '';
+      var disqus_url = '';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

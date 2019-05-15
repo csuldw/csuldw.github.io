@@ -1,0 +1,935 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域." />
+
+
+
+  <meta name="keywords" content="Machine Learning,Deep Learning,BN," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="本文主要针对Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift进行翻译，参考了Batch Normalization论文翻译——中文版一文，正文内容部分进行了修改，主要是格式上进行了调整，方便后续阅读。如有侵权还请联系博主删除博文，感谢！">
+<meta name="keywords" content="Machine Learning,Deep Learning,BN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Batch Normalization(Paper 解读)">
+<meta property="og:url" content="https://www.csuldw.com/2018/07/16/2018-07-16-BN/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="本文主要针对Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift进行翻译，参考了Batch Normalization论文翻译——中文版一文，正文内容部分进行了修改，主要是格式上进行了调整，方便后续阅读。如有侵权还请联系博主删除博文，感谢！">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/bn-alg-1.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/bn-alg-2.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/bn-fig-1.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/bn-fig-2-3.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/bn-fig-4.png">
+<meta property="og:updated_time" content="2019-03-10T13:22:32.316Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Batch Normalization(Paper 解读)">
+<meta name="twitter:description" content="本文主要针对Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift进行翻译，参考了Batch Normalization论文翻译——中文版一文，正文内容部分进行了修改，主要是格式上进行了调整，方便后续阅读。如有侵权还请联系博主删除博文，感谢！">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/bn-alg-1.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Batch Normalization(Paper 解读) | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Batch Normalization(Paper 解读)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2018-07-16T00:31:00+08:00" content="2018-07-16">
+              2018-07-16 00:31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2018/07/16/2018-07-16-BN/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/07/16/2018-07-16-BN/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2018/07/16/2018-07-16-BN/"class="leancloud_visitors"  data-flag-title="Batch Normalization(Paper 解读)">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>本文主要针对<a href="https://arxiv.org/pdf/1502.03167.pdf" target="_blank" rel="noopener">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a>进行翻译，参考了<a href="https://www.jianshu.com/p/14f4eae76a19" target="_blank" rel="noopener">Batch Normalization论文翻译——中文版</a>一文，正文内容部分进行了修改，主要是格式上进行了调整，方便后续阅读。如有侵权还请联系博主删除博文，感谢！</p>
+<a id="more"></a>
+<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>训练深度神经网络的复杂性在于，每层输入的分布在训练过程中会发生变化，因为前面的层的参数会发生变化。通过要求较低的学习率和仔细的参数初始化减慢了训练，并且使具有饱和非线性的模型训练起来非常困难。我们将这种现象称为internal covariate shift，并通过标准化层输入来解决这个问题。我们的方法力图使标准化成为模型架构的一部分，并为每个训练小批量数据执行标准化。批标准化使我们能够使用更高的学习率，并且不用太注意初始化。它也作为一个正则化项，在某些情况下不需要Dropout。将批量标准化应用到最先进的图像分类模型上，批标准化在取得相同的精度的情况下，减少了14倍的训练步骤，并以显著的差距击败了原始模型。使用批标准化网络的组合，我们改进了在ImageNet分类上公布的最佳结果：达到了4.9％ top-5的验证误差（和4.8％测试误差），超过了人类评估者的准确性。</p>
+<h2 id="1-引言"><a href="#1-引言" class="headerlink" title="1. 引言"></a>1. 引言</h2><p>深度学习在视觉、语音等诸多方面显著提高了现有技术的水平。随机梯度下降（SGD）已经被证明是训练深度网络的有效方式，并且已经使用诸如动量（Sutskever等，2013）和Adagrad（Duchi等人，2011）等SGD变种取得了最先进的性能。SGD优化网络参数$\Theta$，以最小化损失</p>
+<p>$$\Theta = \arg \min_\Theta \frac{1}{N}\sum_{i=1}^N \ell(x_i, \Theta)$$</p>
+<p>其中$x_{1\ldots N}$是训练数据集。使用SGD，训练将逐步进行，在每一步中，我们考虑一个大小为$m$的小批量数据$x_{1 \ldots m}$。通过计算$\frac {1} {m} \sum _{i=1} ^m \frac {\partial \ell(x_i, \Theta)} {\partial \Theta}$，使用小批量数据来近似损失函数关于参数的梯度。使用小批量样本，而不是一次一个样本，在一些方面是有帮助的。首先，小批量数据的梯度损失是训练集上的梯度估计，其质量随着批量增加而改善。第二，由于现代计算平台提供的并行性，对一个批次的计算比单个样本计算$m$次效率更高。</p>
+<p>虽然SGD简单有效，但它需要仔细调整模型的hyper-parameters，特别是优化中使用的learning rate以及模型参数的 initial values。训练的复杂性在于每层的输入受到前面所有层的参数的影响——因此当网络变得更深时，网络参数的微小变化就会被放大。</p>
+<p>由于这些层需要不断适应新的分布，致使各层输入的分布变化成为一大问题。当学习系统的输入分布发生变化时，会导致covariate shift（Shimodaira，2000）。通常是通过domain adaptation（Jiang，2008）来处理。然而，covariate shift的概念可以扩展到整个学习系统之外，应用到学习系统的一部分，例如子网络或某一层。考虑下面这个网络计算：</p>
+<p>$$\ell = F_2(F_1(u, \Theta_1), \Theta_2)$$ </p>
+<p>其中$F_1$和$F_2$可以任意变换，参数$\Theta_1，\Theta_2$通过以便最小化损失$\ell$学习得到。$\Theta_2$的学习可以看作将$x=F_1(u,\Theta_1)$作为输入送到子网络</p>
+<p>$$\ell = F_2(x, \Theta_2)。$$</p>
+<p>例如，梯度下降步骤</p>
+<p>$$<br>\Theta_2\leftarrow \Theta_2 - \frac {\alpha} {m} \sum_{i=1}^m \frac {\partial F_2(x_i,\Theta_2)} {\partial \Theta_2}<br>$$</p>
+<p>（对于batch size $m$和学习率$\alpha$）与输入为$x$的单独网络$F_2$完全等价。因此，输入分布特性使训练更有效——例如训练数据和测试数据之间有相同的分布——也适用于训练子网络。因此$x$的分布在时间上保持固定是有利的。然后，$\Theta_2$不必重新调整来补偿$x$分布的变化。</p>
+<p>子网络输入的固定分布对于子网络外的层也有积极的影响。考虑一个激活函数为$g(x) = \frac{1}{1+\exp(-x)}$的层，$u$是输入层，权重矩阵$W$和偏置向量$b$是层参数，$g(x) = \frac{1}{1+\exp(-x)}$。随着$|x|$的增加，$g’(x)$趋向于0。这意味着对于$x=Wu+b$的所有维度，除了那些具有小的绝对值之外，流向$u$的梯度将会消失，模型将缓慢的进行训练。然而，由于$x$受$W,b$和下面所有层的参数的影响，训练期间那些参数的改变可能会将$x$的许多维度移动到非线性的饱和状态并减慢收敛的速度。这个影响随着网络深度的增加而被逐步放大。在实践中，饱和问题和由此产生的vanishing gradients通常可以使用Rectified Linear Units(Nair &amp; Hinton, 2010) $ReLU(x)=\max(x,0)$、适当的初始化(Bengio &amp; Glorot, 2010; Saxe et al., 2013)或者小的学习率来解决。然而，如果我们能保证非线性输入的分布在网络训练时保持更稳定，那么优化器将不太可能陷入饱和状态，训练也将得到加速。</p>
+<p>我们把训练过程中深度网络内部结点的分布变化称为Internal Covariate Shift。消除它可以保证更快的训练。我们提出了一种新的机制，我们称为为Batch Normalization，它是减少internal covariate shift的一个步骤，这样做可以显著加速深度神经网络的训练。它通过标准化步骤来实现，标准化步骤修正了输入层的均值和方差。Batch Normalization减少了梯度对参数或它们的初始化的依赖，对通过网络的梯度流动大有裨益。这允许我们使用更高的学习率而没有发散的风险。此外，Batch Normalization对模型进行了正则化并减少了模型对Dropout(Srivastava et al., 2014)的依赖。最后，Batch Normalization通过阻止网络陷入饱和模式让使用饱和非线性成为可能。</p>
+<p>在4.2小节，我们将BN应用到性能最好的ImageNet分类网络上，并且表明我们可以使用仅7％的训练步骤来匹配其性能，并且可以进一步超过其准确性一大截。通过使用批标准化训练的网络的集合，我们取得了top-5错误率，其改进了ImageNet分类上已知的最佳结果。</p>
+<h2 id="2-Towards-Reducing-Internal-Covariate-Shift"><a href="#2-Towards-Reducing-Internal-Covariate-Shift" class="headerlink" title="2. Towards Reducing Internal Covariate Shift"></a>2. Towards Reducing Internal Covariate Shift</h2><p>由于训练过程中网络参数的变化，我们将Internal Covariate Shift定义为网络激活层分布的变化。为了改善训练，我们寻求减少Internal Covariate Shift。随着训练的进行，通过固定层输入$x$的分布，我们期望提高训练速度。众所周知(LeCun et al., 1998b; Wiesler &amp; Ney, 2011)如果对网络的输入进行白化，网络训练将会收敛的更快——即输入线性变换为具有零均值和单位方差，并去相关。当每一层观察下面的层（上一层）产生的输入时，实现每一层输入进行相同的白化将是有利的。通过白化每一层的输入，我们将采取措施实现输入层的分布固定，消除Internal Covariate Shift的不良影响。</p>
+<p>我们考虑在每个训练步骤或在某些间隔来白化激活值，通过直接修改网络或根据网络激活值来更改优化方法的参数(Wiesler et al., 2014; Raiko et al., 2012; Povey et al., 2014; Desjardins &amp; Kavukcuoglu)。然而，如果这些修改分散在优化步骤中，那么梯度下降步骤可能会试图以要求标准化进行更新的方式来更新参数，这会降低梯度下降步骤的影响。例如，考虑一个层，其输入$u$加上学习到的偏置$b$，通过减去在训练集上计算的激活值的均值对结果进行归一化：$\hat x=x - E[x]$，$x = u+b$, $X={x_{1\ldots N}}$是训练集上$x$值的集合，$E[x] = \frac{1}{N}\sum_{i=1}^N x_i$。如果梯度下降步骤忽略了$E[x]$对$b$的依赖，那它将更新$b\leftarrow b+\Delta b$，其中$\Delta b\propto -\partial{\ell}/\partial{\hat x}$。然后$u+(b+\Delta b) -E[u+(b+\Delta b)] = u+b-E[u+b]$。因此，结合$b$的更新和接下来标准化中的改变会导致层的输出和损失都没有变化。随着训练的继续，$b$将无限增长而损失保持不变。如果标准化过程不仅对激活值进行中心化，还进行了缩放，那么问题会变得更糟糕。我们在最初的实验中已经观察到了这一点，当标准化参数在梯度下降步骤之外计算时，模型会爆炸。</p>
+<p>上述方法存在的问题是梯度下降优化没有考虑到标准化引起的问题。为了解决这个问题，我们希望确保对于任何参数值，网络总是能够产生所需分布的激活值。这样可以使用模型参数损失的梯度来解释标准化，以及它对模型参数$\Theta$的依赖。设$x$为层的输入，将其看作向量，$\cal X$是这些输入在训练集上的集合。标准化可以写为变换</p>
+<p>$$\hat x=Norm(x, \cal X)$$</p>
+<p>它不仅依赖于给定的训练样本$x$，而且依赖于所有样本$\cal X$——如果$x$是由另一层生成，那么它们每一个都依赖$\Theta$，。对于反向传播，我们将需要计算Jacobians<br>$$<br>\frac {\partial Norm(x,\cal X)} {\partial x} and \frac {\partial Norm(x,\cal X)} {\partial \cal X}<br>$$</p>
+<p>忽略后一项会导致上面描述的模型爆炸。在这个框架中，对层输入进行白化的代价是非常大的，因为它要求计算协方差矩阵$Cov[x]=E_{x\in \cal X}[x x^T]- E[x]E[x]T$和它的平方根倒数，从而生成白化的激活$Cov[x]{-1/2}(x-E[x])$和这些变换进行反向传播的偏导数。这促使我们寻求一种替代方案，以可微分的方式执行输入标准化，并且在每次参数更新后不需要对整个训练集进行分析。</p>
+<p>以前的一些方法（例如（Lyu＆Simoncelli，2008））使用通过单个训练样本计算的统计信息，或者在图像网络的情况下，使用给定位置处不同特征图上的统计。然而，通过丢弃激活值绝对尺度改变了网络的表示能力。我们希望通过对相对于整个训练数据统计信息的单个训练样本的激活值进行归一化来保留网络中的信息。</p>
+<h2 id="3-通过Mini-Batch统计进行标准化"><a href="#3-通过Mini-Batch统计进行标准化" class="headerlink" title="3. 通过Mini-Batch统计进行标准化"></a>3. 通过Mini-Batch统计进行标准化</h2><p>由于对每层输入的整个白化的代价非常昂贵，而且并不是处处可微的，因此我们做了两个必要的简化。首先是我们将单独标准化每个标量特征，从而代替在层输入输出对特征进行共同白化，使其具有零均值和单位方差。对于具有$d$维输入$x = (x^{(1)}\ldots x^{(d)})$的层，我们将标准化每一维</p>
+<p>$$\hat x^{(k)} = \frac{x^{(k)} - E[x^{(k)}]} {\sqrt {Var[x^{(k)}]}}$$</p>
+<p>其中期望和方差在整个训练数据集上计算。如(LeCun et al., 1998b)中所示，这种标准化加速了收敛，即使特征没有去除相关性。</p>
+<p>注意到对层输入的简单标准化可能会改变层的表示。例如，标准化sigmoid的输入会将它们约束到非线性的线性状态。为了解决这个问题，我们要确保<strong>插入到网络中的变换可以表示恒等变换</strong>。为了实现这个，对于每一个激活值$x{(k)}$，我们引入成对的参数$\gamma{(k)}，\beta{(k)}$，它们会归一化和移动标准化值：</p>
+<p>$$y{(k)} = \gamma^{(k)}\hat x^{(k)} + \beta{(k)}.$$</p>
+<p>这些参数与原始的模型参数一起学习，并恢复网络的表示能力。实际上，通过设置$\gamma{(k)} = \sqrt{Var[x{(k)}]}$和$\beta{(k)} = E[x^{(k)}]$，我们可以重新获得原始的激活值，如果这是要做的最优的事。</p>
+<p>每个训练步骤的批处理设置是基于整个训练集的，我们将使用整个训练集来标准化激活值。然而，当使用随机优化时，这是不切实际的。因此，我们做了第二个简化：<strong>由于我们在随机梯度训练中使用小批量，每个小批量产生每次激活平均值和方差的估计</strong>。这样，用于标准化的统计信息可以完全参与梯度反向传播。注意，通过计算每一维的方差而不是联合协方差，可以实现小批量的使用；在联合情况下，将需要正则化，因为小批量大小可能小于白化的激活值的数量，从而导致单个协方差矩阵。</p>
+<p>考虑一个大小为$m$的小批量数据$\cal B$。由于标准化被单独地应用于每一个激活，所以让我们集中在一个特定的激活$x^{(k)}$，而忽略$k$。在小批量数据里我们有这个激活的$m$个值，</p>
+<p>$$\cal B=\lbrace x_{1\ldots m} \rbrace.$$</p>
+<p>设标准化值为$\hat x_{1\ldots m}$，它们的线性变换为$y_{1\ldots m}$。我们把变换</p>
+<p>$$BN_{\gamma,\beta}: x_{1\ldots m}\rightarrow y_{1\ldots m}$$</p>
+<p>看作批标准化变换。我们在算法1中提出了BN变换。在算法中，为了数值稳定，$\epsilon$是一个加到小批量数据方差上的常量。</p>
+<p><img src="/assets/articleImg/bn-alg-1.png" alt="Algorithm 1"></p>
+<p>BN变换可以添加到网络上来操纵任何激活。在公式$y = BN_{\gamma,\beta}(x)$中，我们指出参数$\gamma$和$\beta$需要进行学习，但应该注意到在每一个训练样本中BN变换不单独处理激活。相反，$BN_{\gamma,\beta}(x)$取决于训练样本和小批量数据中的其它样本。缩放和移动的值$y$被传递到其它网络层。标准化的激活值$\hat x$在我们的变换内部，但它们的存在至关重要。只要每个小批量的元素从相同的分布中进行采样，如果我们忽略$\epsilon$，那么任何$\hat x$值的分布都具有期望为$0$，方差为$1$。这可以通过观察$\sum_{i=1}^m \hat x_i = 0$和$\frac {1} {m} \sum_{i=1}^m \hat x_i^2 = 1$得到，并取得预期。每一个标准化的激活值$\hat x{(k)}$可以看作由线性变换$y{(k)}=\gamma^{(k)}\hat x{(k)}+\beta{(k)}$组成的子网络的输入，接下来是原始网络的其它处理。所有的这些子网络输入都有固定的均值和方差，尽管这些标准化的$\hat x^{(k)}$的联合分布可能在训练过程中改变，但我们预计标准化输入的引入会加速子网络的训练，从而加速整个网络的训练。</p>
+<p>在训练过程中我们需要通过这个变换反向传播损失$\ell$的梯度，以及计算关于BN变换参数的梯度。我们使用的链式法则如下（简化之前）：</p>
+<p>$$<br>\begin {align}<br>&amp;\frac {\partial \ell}{\partial \hat x_i} = \frac {\partial \ell} {\partial y_i} \cdot \gamma\\<br>&amp;\frac {\partial \ell}{\partial \sigma_\cal B^2} = \sum_{i=1}^m \frac {\partial \ell}{\partial \hat x_i}\cdot(x_i-\mu_\cal B)\cdot \frac {-1}{2}(\sigma_\cal B2+\epsilon){-3/2}\\<br>&amp;\frac {\partial \ell}{\partial \mu_\cal B} = \sum_{i=1}^m \frac {\partial \ell}{\partial \hat x_i}\cdot \frac {-1} {\sqrt {\sigma_\cal B^2 + \epsilon}}\\<br>&amp;\frac {\partial \ell}{\partial x_i} = \sum_{i=1}^m \frac {\partial \ell}{\partial \hat x_i} \cdot \frac {-1} {\sqrt {\sigma_\cal B^2 + \epsilon}} + \frac {\partial \ell}{\partial \sigma_\cal B^2} \cdot \frac {2(x_i - \mu_\cal B)} {m} + \frac {\partial \ell} {\partial \mu_\cal B} \cdot \frac {1} {m}\\<br>&amp;\frac {\partial \ell}{\partial \gamma} = \sum_{i=1}^m \frac {\partial \ell}{\partial y_i} \cdot \hat x_i \\<br>&amp;\frac {\partial \ell}{\partial \beta} = \sum_{i=1}^m \frac {\partial \ell}{\partial y_i}<br>\end{align}<br>$$</p>
+<p>因此，BN变换是将标准化激活引入到网络中的可微变换。这确保了在模型训练时，层可以继续学习输入分布，表现出更少的internal covariate shift，从而加快训练。此外，应用于这些标准化的激活上的学习到的仿射变换允许BN变换表示恒等变换并保留网络的能力。</p>
+<h3 id="3-1-Training-and-Inference-with-Batch-Normalized-Networks"><a href="#3-1-Training-and-Inference-with-Batch-Normalized-Networks" class="headerlink" title="3.1 Training and Inference with Batch-Normalized Networks"></a>3.1 Training and Inference with Batch-Normalized Networks</h3><p>为了批标准化一个网络，根据算法1，我们指定一个激活的子集，然后在每一个激活中插入BN变换。任何以前接收$x$作为输入的层现在接收$BN(x)$作为输入。采用批标准化的模型可以使用批梯度下降，或者用小批量数据大小为$m&gt;1$的SGD，或使用它的任何变种例如Adagrad (Duchi et al., 2011)进行训练。依赖小批量数据的激活值的标准化可以有效地训练，但在推断过程中是不必要的也是不需要的；我们希望输出只确定性地取决于输入。为此，一旦网络训练完成，我们使用总体统计来进行标准化</p>
+<p>$$\hat x=\frac {x - E[x]} {\sqrt{Var[x] + \epsilon}}$$</p>
+<p>而不是小批量数据统计。跟训练过程中一样，如果忽略$\epsilon$，这些标准化的激活具有相同的均值0和方差1。我们使用无偏方差估计$Var[x] = \frac {m} {m-1} \cdot E_\cal B[\sigma_\cal B^2]$，其中期望是在大小为$m$的小批量训练数据上得到的，$\sigma_\cal B^2$是其样本方差。使用这些值移动平均，我们在训练过程中可以跟踪模型的准确性。由于均值和方差在推断时是固定的，因此标准化是应用到每一个激活上的简单线性变换。它可以进一步由缩放$\gamma$和转移$\beta$组成，以产生代替$BN(x)$的单线性变换。算法2总结了训练批标准化网络的过程。</p>
+<p><img src="/assets/articleImg/bn-alg-2.png" alt="Algorithm 2"></p>
+<h3 id="3-2-Batch-Normalized-Convolutional-Networks"><a href="#3-2-Batch-Normalized-Convolutional-Networks" class="headerlink" title="3.2. Batch-Normalized Convolutional Networks"></a>3.2. Batch-Normalized Convolutional Networks</h3><p>批标准化可以应用于网络的任何激活集合。这里我们专注于仿射变换和元素级非线性组成的变换：</p>
+<p>$$z = g(Wu+b)$$ </p>
+<p>其中$W$和$b$是模型学习的参数，$g(\cdot)$是非线性例如sigmoid或ReLU。这个公式涵盖了全连接层和卷积层。我们在非线性之前通过标准化$x=Wu+b$加入BN变换。我们也可以标准化层输入$u$，但由于$u$可能是另一个非线性的输出，它的分布形状可能在训练过程中改变，并且限制其一阶矩或二阶矩不能消除covariate shift。相比之下，$Wu+b$更可能具有对称，非稀疏分布，即“更高斯”（Hyvärinen＆Oja，2000）；对其标准化可能产生具有稳定分布的激活。</p>
+<p>注意，由于我们对$Wu+b$进行标准化，偏置$b$可以忽略，因为它的效应将会被后面的中心化取消（偏置的作用会归入到算法1的$\beta$）。因此，$z = g(Wu+b)$被$$z = g(BN(Wu))$$替代，其中BN变换独立地应用到$x=Wu$的每一维，每一维具有单独的成对学习参数$\gamma{(k)}$，$\beta{(k)}$。</p>
+<p>另外，对于卷积层我们希望标准化遵循卷积特性——为的是同一特征映射的不同元素，在不同的位置，以相同的方式进行标准化。为了实现这个，我们在所有位置联合标准化了小批量数据中的所有激活。在算法1中，我们让$\cal B$是跨越小批量数据的所有元素和空间位置的特征图中所有值的集合——因此对于大小为$m$的小批量数据和大小为$p\times q$的特征映射，我们使用有效的大小为$m’=|\cal B| = m\cdot p, q$的小批量数据。我们每个特征映射学习一对参数$\gamma{(k)}$和$\beta{(k)}$，而不是每个激活。算法2进行类似的修改，以便推断期间BN变换对在给定的特征映射上的每一个激活应用同样的线性变换。</p>
+<h3 id="3-3-Batch-Normalization-enables-higher-learning-rates"><a href="#3-3-Batch-Normalization-enables-higher-learning-rates" class="headerlink" title="3.3. Batch Normalization enables higher learning rates"></a>3.3. Batch Normalization enables higher learning rates</h3><p>在传统的深度网络中，学习率过高可能会导致梯度爆炸或梯度消失，以及陷入差的局部最小值（提前收敛）。Batch Normalization有助于解决这些问题。通过标准化整个网络的激活值，在数据通过深度网络传播时，它可以防止层参数的微小变化被放大。例如，这使sigmoid非线性更容易保持在它们的非饱和状态，这对训练深度sigmoid网络至关重要，但在传统上很难实现。</p>
+<p>Batch Normalization也使训练对参数的缩放更有弹性。通常，大的学习率可能会增加层参数的缩放，这会在反向传播中放大梯度并导致模型爆炸。然而，通过批标准化，通过层的反向传播不受其参数缩放的影响。实际上，对于标量$a$，</p>
+<p>$$BN(Wu) = BN((aW)u)$$</p>
+<p>我们可以看到</p>
+<p>$$\frac {\partial BN((aW)u)} {\partial u}= \frac {\partial BN(Wu)} {\partial u}$$</p>
+<p>$$\frac {\partial BN((aW)u)} {\partial (aW)}=\frac{1}{a} \cdot \frac {\partial BN(Wu)} {\partial W}$$</p>
+<p>标量不影响层的Jacobian行列式，也不影响梯度传播。此外，更大的权重会导致更小的梯度，并且BN会稳定参数的增长。</p>
+<p>我们进一步推测，批标准化可能会导致雅可比行列式的奇异值接近于1，这被认为对训练是有利的(Saxe et al., 2013)。考虑具有标准化输入的两个连续的层，并且变换位于这些标准化向量之间：$\hat z = F(\hat x)$。如果我们假设$\hat x$和$\hat z$是高斯分布且不相关的，那么$F(\hat x)\approx J \hat x$是对给定模型参数的一个线性变换，$\hat x$和$\hat z$有单位方差，并且$I=Cov[\hat z] =J Cov[\hat x] J^T = JJ^T$。因此，$J$是正交的，其保留了反向传播中的梯度大小。尽管上述假设在现实中不是真实的，但我们希望批标准化有助于梯度传播更好的执行。这有待于进一步研究。</p>
+<h2 id="4-实验"><a href="#4-实验" class="headerlink" title="4. 实验"></a>4. 实验</h2><h3 id="4-1-随时间激活"><a href="#4-1-随时间激活" class="headerlink" title="4.1. 随时间激活"></a>4.1. 随时间激活</h3><p>为了验证internal covariate shift对训练的影响，以及BN对抗它的能力，我们考虑了在MNIST数据集上预测数字类别的问题(LeCun et al., 1998a)。我们使用非常简单的网络，28x28的二值图像作为输入，以及三个全连接层，每层100个激活。每一个隐藏层用sigmoid非线性计算$y = g(Wu+b)$，权重$W$初始化为小的随机高斯值。最后的隐藏层之后是具有10个激活（每类1个）和交叉熵损失的全连接层。我们训练网络50000次迭代，每份小批量数据中有60个样本。如第3.1节所述，我们在网络的每一个隐藏层后添加批标准化。我们对基准线和批标准化网络之间的比较感兴趣，而不是实现在MNIST上的最佳性能（所描述的架构没有）。</p>
+<p>Fig 1(a)显示了随着训练进行，两个网络在提供的测试数据上正确预测的分数。批标准化网络具有更高的测试准确率。为了调查原因，我们在训练过程中研究了原始网络$N$和批标准化网络$N_{BN}^{tr}$(Alg. 2)中的sigmoid输入。在图1(b，c)中，我们显示，对于来自每个网络的最后一个隐藏层的一个典型的激活，其分布如何演变。原始网络中的分布随着时间的推移而发生显著变化，无论是平均值还是方差，都会使后面的层的训练复杂化。相比之下，随着训练的进行，批标准化网络中的分布更加稳定，这有助于训练。</p>
+<p><img src="/assets/articleImg/bn-fig-1.png" alt="Figure 1"></p>
+<p>Fig1 (a)使用批标准化和不使用批标准化训练的网络在MNIST上的测试准确率，以及训练的迭代次数。批标准化有助于网络训练的更快，取得更高的准确率。(b，c)典型的sigmoid在训练过程中输入分布的演变，显示为15%，50%，85%。批标准化使分布更稳定并降低了internal covariate shift。</p>
+<h3 id="4-2-ImageNet分类"><a href="#4-2-ImageNet分类" class="headerlink" title="4.2. ImageNet分类"></a>4.2. ImageNet分类</h3><p>我们将批标准化化应用于在ImageNet分类任务（Russakovsky等，2014）上训练的Inception网络的新变种（Szegedy等，2014）。网络具有大量的卷积和池化层，和一个softmax层用来在1000个可能之中预测图像的类别。卷积层使用ReLU作为非线性。与（Szegedy等人，2014年）中描述的网络的主要区别是5×5卷积层被两个连续的3x3卷积层替换，最多可以有128个滤波器。该网络包含$13.6 \cdot 10^6$个参数，除了顶部的softmax层之外，没有全连接层。在其余的文本中我们将这个模型称为Inception。训练在大型分布式架构（Dean et al。，2012）上进行，10个模型副本中的每一个都使用了5个并行步骤，使用异步带动量的SGD（Sutskever等，2013），小批量数据大小为32。随着训练进行，所有网络都通过计算验证准确率@1来评估，即每幅图像使用单个裁剪图像，在1000个可能性中预测正确标签的概率。</p>
+<p>在我们的实验中，我们评估了几个带有批标准化的Inception修改版本。在所有情况下，如第3.2节所述，批标准化以卷积方式应用于每个非线性的输入，同时保持架构的其余部分不变。</p>
+<h4 id="4-2-1-加速BN网络"><a href="#4-2-1-加速BN网络" class="headerlink" title="4.2.1. 加速BN网络"></a>4.2.1. 加速BN网络</h4><p>将BN简单添加到网络中不能充分利用我们方法的优势。为此，我们进行了以下修改：</p>
+<ul>
+<li><strong>提高学习率</strong>。在批标准化模型中，我们已经能够从高学习率中实现训练加速，没有不良的副作用（第3.3节）。</li>
+<li><strong>移除Dropout</strong>。我们发现从BN-Inception中移除dropout可以使网络实现更高的验证准确率。我们推测，BN提供了类似dropout的正则化收益，因为对于训练样本观察到的激活受到了同一小批量数据中样本随机选择的影响。</li>
+<li><strong>减少L2正则化权重</strong>。虽然在Inception中模型参数的L2损失会控制过拟合，但在修改的BN-Inception中，损失的权重减少了5倍。我们发现这提高了在提供的验证数据上的准确性。</li>
+<li><strong>加速学习率衰减</strong>。在训练Inception时，学习率呈指数衰减。因为我们的网络训练速度比Inception更快，所以我们将学习速度降低加快6倍。</li>
+<li><strong>删除局部响应归一化(Remove Local Response Normalization)</strong>。虽然Inception和其它网络（Srivastava等人，2014）从中受益，但是我们发现使用批标准化它是不必要的。</li>
+<li><strong>更彻底地搅乱训练样本</strong>。我们启用了分布内部搅乱训练数据，这样可以防止同一个例子一起出现在小批量数据中。这导致验证准确率提高了约1％，这与BN作为正则化项的观点是一致的：它每次被看到时都会影响一个样本，在我们的方法中内在的随机化应该是最有益的。</li>
+<li><strong>Reduce the photometric distortions</strong>。因为批标准化网络训练更快，并且观察每个训练样本更少的次数，所以通过更少地扭曲它们，我们让训练器关注更多的“真实”图像。</li>
+</ul>
+<h4 id="4-2-2-单网络分类"><a href="#4-2-2-单网络分类" class="headerlink" title="4.2.2. 单网络分类"></a>4.2.2. 单网络分类</h4><p>我们评估了下面的网络，所有的网络都在LSVRC2012训练数据上训练，并在验证数据上测试：</p>
+<ul>
+<li>Inception：在4.2小节开头描述的网络，以0.0015的初始学习率进行训练。</li>
+<li>BN-Baseline：每个非线性之前加上批标准化，其它的与Inception一样。</li>
+<li>BN-x5：带有批标准化的Inception，修改在4.2.1小节中。初始学习率增加5倍到了0.0075。原始Inception增加同样的学习率会使模型参数达到机器无限大。</li>
+<li>BN-x30：类似于BN-x5，但初始学习率为0.045（Inception学习率的30倍）。</li>
+<li>BN-x5-Sigmoid：类似于BN-x5，但使用sigmoud非线性$g(t)=\frac{1}{1+\exp(-x)}$来代替ReLU。我们也尝试训练带有sigmoid的原始Inception，但模型保持在相当于机会的准确率。<br>在图2中，我们显示了网络的验证集准确率，作为训练步骤次数的函数。Inception网络在$31 \cdot 10^6$次训练步骤后达到了72.2％的准确率。图3显示，对于每个网络，达到同样的72.2％准确率需要的训练步骤数量，以及网络达到的最大验证集准确率和达到该准确率的训练步骤数量。</li>
+</ul>
+<p><img src="/assets/articleImg/bn-fig-2-3.png" alt="Figure 2"></p>
+<p>通过仅使用Batch Normalization（BN-Baseline），我们在不到Inception一半的训练步骤数量内将准确度与其相匹配。通过应用4.2.1小节中的修改，我们显著提高了网络的训练速度。BN-x5需要比Inception少14倍的步骤就达到了72.2％的准确率。有趣的是，进一步提高学习率（BN-x30）使得该模型最初训练有点慢，但可以使其达到更高的最终准确率。这种现象是违反直觉的，应进一步调查。在$6 \cdot 10^6$步骤之后，BN-x30达到74.8％的准确率，即比Inception达到72.2％的准确率所需的步骤减少了5倍。<br>我们也证实了尽管训练这样的网络是众所周Batch Normalization的深层网络被训练。的确，BN-x5-Sigmoid取得了69.8％的准确率达。没有Batch Normalization，使用sigmoid的Inception从未达到比1/1000准确率更好的结果。</p>
+<h4 id="4-2-3-组合分类"><a href="#4-2-3-组合分类" class="headerlink" title="4.2.3. 组合分类"></a>4.2.3. 组合分类</h4><p>目前在ImageNet大型视觉识别竞赛中报道的最佳结果是传统模型（Wu et al。，2015）的Deep Image组合和（He等，2015）的组合模型。后者报告了ILSVRC测试服务器评估的4.94％的top-5错误率。这里我们在测试服务器上报告4.82％的测试错误率。这提高了以前的最佳结果，并且根据（Russakovsky等，2014）这超过了人类评估者的评估准确率。</p>
+<p>对于我们的组合，我们使用了6个网络。每个都是基于BN-x30的，进行了以下一些修改：增加卷积层中的初始重量；使用Dropout（丢弃概率为5％或10％，而原始Inception为40％）；模型最后的隐藏层使用非卷积BN。每个网络在大约$6 \cdot 10^6$个训练步骤之后实现了最大的准确率。组合预测是基于组成网络的预测类概率的算术平均。组合和多裁剪图像推断的细节与（Szegedy et al，2014）类似。</p>
+<p>我们在图4中证实了BN使我们能够在ImageNet分类挑战基准上设置新的最佳结果。</p>
+<p><img src="/assets/articleImg/bn-fig-4.png" alt="Figure 4"></p>
+<p>Fig4。BN Inception与以前的最佳结果在提供的包含5万张图像的验证集上的比较。组合结果是在测试集上由测试服务器评估的结果。BN-Inception组合在验证集的5万张图像上取得了4.9% top-5的错误率。所有报道的其它结果是在验证集上。</p>
+<h2 id="5-结论"><a href="#5-结论" class="headerlink" title="5. 结论"></a>5. 结论</h2><p>我们提出了一个新的机制，大大加快了深度网络的训练。它是基于covariate shift的前提，covariate shift会使机器学习系统的训练变得复杂化，也适用于子网络和层，并且从网络的内部激活中去除它可能有助于训练。我们提出的方法从其标准化激活中获取其功能，并将这种标准化合并到网络架构本身。这确保了标准化可以被用来训练网络的任何优化方法进行恰当的处理。为了让深度网络训练中常用的随机优化方法可用，我们对每个小批量数据执行标准化，并通过标准化参数来反向传播梯度。BN每个激活只增加了两个额外的参数，这样做可以保持网络的表示能力。我们提出了一个算法，其用于构建，训练和执行推断批标准化网络。所得到的网络可以用饱和非线性进行训练，能更容忍增加的训练率，并且通常不需要丢弃来进行正则化。</p>
+<p>仅仅将批标准化添加到了最新的图像分类模型中便在训练中取得了实质的加速。通过进一步提高学习率，删除丢弃和应用批标准化所提供的其它修改，我们只用了少部分的训练步骤就达到了以前的技术水平——然后在单网络图像分类中击败了最先进的技术。此外，通过组合多个使用BN训练的模型，我们在ImageNet上的表现显著优于最好的已知系统。</p>
+<p>我们的方法与（Gülçehre＆Bengio，2013）的standardization layer相似，尽管这两个方法解决的目标不同。Batch Normalization的目的是<strong>在整个训练过程中获得激活值的稳定分布</strong>，在实验中我们在非线性之前应用它，因为在非线性之前一阶矩和二阶矩更有可能导致稳定分布。相反，标准化层被应用于非线性的输出，这导致了更稀疏的激活。在我们大规模的图像分类实验中，无论有没有Batch Normalization，我们都没有观察到非线性输入是稀疏的。Batch Normalization的其它显著差异包括学习到的缩放和转移允许BN变换表示恒等，卷积层处理以及不依赖于小批量数据的确定性推断。</p>
+<p>在这项工作中，我们没有探索Batch Normalization可能实现的全部可能性。我们的未来工作包括将我们的方法应用于RNN（Pascanu et al.，2013），其internal covariate shift和梯度消失或爆炸情况特别严重，这将使我们能够更彻底地测试假设标准化改善了梯度传播（第3.3节）。需要对Batch Normalization的正则化属性进行更多的研究，我们认为这是BN-Inception中删除丢弃时我们观察到的改善的原因。我们计划调查批标准化是否有助于传统意义上的domain adaptation——即网络执行标准化是否能够更容易泛化到新的数据分布，也许仅仅是对总体均值和方差的重新计算（Alg.2）。最后，我们认为，该算法的进一步理论分析将允许更多的改进和应用。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag">#Deep Learning</a>
+          
+            <a href="/tags/BN/" rel="tag">#BN</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/31/2018-12-31-treat-yourself/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 2018，善待自己
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/28/2018-06-28-recurrent-neural-networks/" rel="next">
+                Deep Learning - RNN原理剖析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel >
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">151</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#摘要"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-引言"><span class="nav-number">2.</span> <span class="nav-text">1. 引言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Towards-Reducing-Internal-Covariate-Shift"><span class="nav-number">3.</span> <span class="nav-text">2. Towards Reducing Internal Covariate Shift</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-通过Mini-Batch统计进行标准化"><span class="nav-number">4.</span> <span class="nav-text">3. 通过Mini-Batch统计进行标准化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-Training-and-Inference-with-Batch-Normalized-Networks"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 Training and Inference with Batch-Normalized Networks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Batch-Normalized-Convolutional-Networks"><span class="nav-number">4.2.</span> <span class="nav-text">3.2. Batch-Normalized Convolutional Networks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Batch-Normalization-enables-higher-learning-rates"><span class="nav-number">4.3.</span> <span class="nav-text">3.3. Batch Normalization enables higher learning rates</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-实验"><span class="nav-number">5.</span> <span class="nav-text">4. 实验</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-随时间激活"><span class="nav-number">5.1.</span> <span class="nav-text">4.1. 随时间激活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-ImageNet分类"><span class="nav-number">5.2.</span> <span class="nav-text">4.2. ImageNet分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-1-加速BN网络"><span class="nav-number">5.2.1.</span> <span class="nav-text">4.2.1. 加速BN网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-2-单网络分类"><span class="nav-number">5.2.2.</span> <span class="nav-text">4.2.2. 单网络分类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-3-组合分类"><span class="nav-number">5.2.3.</span> <span class="nav-text">4.2.3. 组合分类</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-结论"><span class="nav-number">6.</span> <span class="nav-text">5. 结论</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+  
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2018/07/16/2018-07-16-BN/';
+      var disqus_title = 'Batch Normalization(Paper 解读)';
+      var disqus_url = 'https://www.csuldw.com/2018/07/16/2018-07-16-BN/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

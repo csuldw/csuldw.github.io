@@ -1,0 +1,869 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域." />
+
+
+
+  <meta name="keywords" content="Machine Learning,译文,框架&库,Theano,Lasagne," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="英文链接：http://creative-punch.net/2015/07/frameworks-and-libraries-for-deep-learning/ 深度学习是机器学习和人工智能的一种形式，利用堆积在彼此顶部的神经网络的多个隐藏层来尝试形成对数据更深层次的“理解”。 最近，深度神经网络以“Deep Dreams”形式在网站中如雨后春笋般出现，或是像谷歌研究原创论文中描述的那样：In">
+<meta name="keywords" content="Machine Learning,译文,框架&amp;库,Theano,Lasagne">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从Theano到Lasagne：基于Python的深度学习的框架和库（译文）">
+<meta property="og:url" content="https://www.csuldw.com/2015/08/12/2015-08-12-theano-to-lasagne/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="英文链接：http://creative-punch.net/2015/07/frameworks-and-libraries-for-deep-learning/ 深度学习是机器学习和人工智能的一种形式，利用堆积在彼此顶部的神经网络的多个隐藏层来尝试形成对数据更深层次的“理解”。 最近，深度神经网络以“Deep Dreams”形式在网站中如雨后春笋般出现，或是像谷歌研究原创论文中描述的那样：In">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2017-03-10T06:28:31.996Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="从Theano到Lasagne：基于Python的深度学习的框架和库（译文）">
+<meta name="twitter:description" content="英文链接：http://creative-punch.net/2015/07/frameworks-and-libraries-for-deep-learning/ 深度学习是机器学习和人工智能的一种形式，利用堆积在彼此顶部的神经网络的多个隐藏层来尝试形成对数据更深层次的“理解”。 最近，深度神经网络以“Deep Dreams”形式在网站中如雨后春笋般出现，或是像谷歌研究原创论文中描述的那样：In">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 从Theano到Lasagne：基于Python的深度学习的框架和库（译文） | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                从Theano到Lasagne：基于Python的深度学习的框架和库（译文）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-08-12T20:24:00+08:00" content="2015-08-12">
+              2015-08-12 20:24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/12/2015-08-12-theano-to-lasagne/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/12/2015-08-12-theano-to-lasagne/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/08/12/2015-08-12-theano-to-lasagne/"class="leancloud_visitors"  data-flag-title="从Theano到Lasagne：基于Python的深度学习的框架和库（译文）">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>英文链接：<a href="http://creative-punch.net/2015/07/frameworks-and-libraries-for-deep-learning/" target="_blank" rel="noopener">http://creative-punch.net/2015/07/frameworks-and-libraries-for-deep-learning/</a></p>
+<p>深度学习是机器学习和人工智能的一种形式，利用堆积在彼此顶部的神经网络的多个隐藏层来尝试形成对数据更深层次的“理解”。</p>
+<p>最近，深度神经网络以“Deep Dreams”形式在网站中如雨后春笋般出现，或是像谷歌研究原创论文中描述的那样：Inceptionism。</p>
+<p>在这篇文章中，我们将讨论几个不同的深度学习框架，库以及工具。</p>
+<a id="more"></a>
+<h2 id="Python深度学习"><a href="#Python深度学习" class="headerlink" title="Python深度学习"></a>Python深度学习</h2><h3 id="Theano"><a href="#Theano" class="headerlink" title="Theano"></a>Theano</h3><p>主页：<a href="http://deeplearning.net/software/theano/" target="_blank" rel="noopener">http://deeplearning.net/software/theano/</a></p>
+<p>Github网址：<a href="https://github.com/Theano/Theano" target="_blank" rel="noopener">https://github.com/Theano/Theano</a></p>
+<p>Theano不仅是这篇文章中将要讨论的其他框架的核心库，于其自身而言，它也是一个强大的库，几乎能在任何情况下使用，从简单的logistic回归到建模并生成音乐和弦序列或是使用长短期记忆人工神经网络对电影收视率进行分类。</p>
+<p>Theano大部分代码是使用Cython编写，Cython是一个可编译为本地可执行代码的Python方言，与仅仅使用解释性Python语言相比，它能够使运行速度快速提升。最重要的是，很多优化程序已经集成到Theano库中，它能够优化你的计算量并让你的运行时间保持最低。</p>
+<p>如果速度的提升还不能满足你，它还内置支持使用CUDA在GPU上执行那些所有耗时的计算。所有的这一切仅仅只需要修改配置文件中的标志位即可。在CPU上运行一个脚本，然后切换到GPU，而对于你的代码，则不需要做任何变化。</p>
+<p>同时我们应该注意到，尽管Theano使用Cython和CUDA对其性能大大提升，但你仍然可以仅仅使用Python语言来创建几乎任何类型的神经网络结构。</p>
+<h3 id="Pylearn2"><a href="#Pylearn2" class="headerlink" title="Pylearn2"></a>Pylearn2</h3><p>主页：<a href="http://deeplearning.net/software/pylearn2/" target="_blank" rel="noopener">http://deeplearning.net/software/pylearn2/</a></p>
+<p>Github网址：<a href="https://github.com/lisa-lab/pylearn2" target="_blank" rel="noopener">https://github.com/lisa-lab/pylearn2</a></p>
+<p>Pylearn2和Theano由同一个开发团队开发，Pylearn2是一个机器学习库，它把深度学习和人工智能研究许多常用的模型以及训练算法封装成一个单一的实验包，如随机梯度下降。</p>
+<p>你也可以很轻松的围绕你的类和算法编写一个封装程序，为了能让它在Pylearn2上运行，你需要在一个单独的YAML格式的配置文件中配置你整个神经网络模型的参数。</p>
+<p>除此之外，它还有很多数据集及其预编译好的软件包，所以，你现在就可以直接使用MNIST数据集开始做实验了！</p>
+<h3 id="Blocks"><a href="#Blocks" class="headerlink" title="Blocks"></a>Blocks</h3><p>Github网址：<a href="https://github.com/mila-udem/blocks" target="_blank" rel="noopener">https://github.com/mila-udem/blocks</a></p>
+<p>Blocks是一个非常模块化的框架，有助于你在Theano上建立神经网络。目前它支持并提供的功能有：</p>
+<p>构建参数化Theano运算，称之为“bricks”。<br>在大型模型中使用模式匹配来选择变量以及“bricks”。<br>使用算法优化模型。<br>训练模型的保存和恢复。<br>在训练过程中检测和分析值（训练集以及测试集）。<br>图形变换的应用，如dropout。</p>
+<h3 id="Keras"><a href="#Keras" class="headerlink" title="Keras"></a>Keras</h3><p>主页：<a href="http://keras.io/" target="_blank" rel="noopener">http://keras.io/</a></p>
+<p>Github网址：<a href="https://github.com/fchollet/keras" target="_blank" rel="noopener">https://github.com/fchollet/keras</a></p>
+<p>Keras是一个简约的、高度模块化的神经网络库，设计参考了Torch，基于Theano和Python语言编写，支持GPU和CPU。它的开发侧重于实现快速试验和创造新的深度学习模型。</p>
+<p>如果你需要具有以下功能的深度学习库，采用Keras就恰到好处：</p>
+<p>可以很容易地、快速地建立原型（通过总体模块化，极简化并且可扩展化）。<br>支持卷积网络和递归网络，以及两者的组合。<br>支持任意连接方式（包括多输入多输出训练）。<br>Keras库与其他采用Theano库的区别是Keras的编码风格非常简约、清晰。它把所有的要点使用小类封装起来，能够很容易地组合在一起并创造出一种全新的模型。</p>
+<h3 id="Lasagne"><a href="#Lasagne" class="headerlink" title="Lasagne"></a>Lasagne</h3><p>Github网址：<a href="https://github.com/Lasagne/Lasagne" target="_blank" rel="noopener">https://github.com/Lasagne/Lasagne</a></p>
+<p>Lasagne不只是一个美味的意大利菜，也是一个与Blocks和Keras有着相似功能的深度学习库，但其在设计上与它们有些不同。</p>
+<p>下面是Lasagne的一些设计目的：</p>
+<p>简单化：它应该是易于使用和扩展的机器学习库。每添加一个特征，就应该考虑其对易用性和扩展性的影响。每一个抽象概念的加入都应该仔细检查，以确定增加的复杂性是否合理。<br>小接口：尽可能少的类和方法。尽可能依赖Theano的功能和数据类型，遵循Theano的规定。如果没有严格的必要，不要在类中封装东西。这会使它更容易使用库并且扩展它（不需要有太多的认知）。<br>不碍事：未使用的功能应该是不可见的，用户不会考虑他们不使用的功能。尽可能单独的使用库文件中的组件。<br>透明性：不要试图掩盖Theano，尽量以Python或NumPy数据类型的形式将函数和方法返回给Theano表达式。<br>重点：遵循Unix哲学“做一件事，并把它做好”，重点集中在前馈神经网络。<br>实用主义：使普通用例更易于使用，这要比支持每一个可能的用例更为重要。</p>
+<p>译者简介： <a href="https://www.csuldw.com">刘帝伟</a>，中南大学软件学院在读研究生，关注机器学习、数据挖掘及生物信息领域。</p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/译文/" rel="tag">#译文</a>
+          
+            <a href="/tags/框架-库/" rel="tag">#框架&库</a>
+          
+            <a href="/tags/Theano/" rel="tag">#Theano</a>
+          
+            <a href="/tags/Lasagne/" rel="tag">#Lasagne</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/19/2015-08-19 GBDT/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Gradient Tree Boosting Algorithm
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/28/2015-07-28 crossvalidation/" rel="next">
+                机器学习-Cross Validation交叉验证Python实现 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel >
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">151</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python深度学习"><span class="nav-number">1.</span> <span class="nav-text">Python深度学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Theano"><span class="nav-number">1.1.</span> <span class="nav-text">Theano</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pylearn2"><span class="nav-number">1.2.</span> <span class="nav-text">Pylearn2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blocks"><span class="nav-number">1.3.</span> <span class="nav-text">Blocks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Keras"><span class="nav-number">1.4.</span> <span class="nav-text">Keras</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Lasagne"><span class="nav-number">1.5.</span> <span class="nav-text">Lasagne</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+  
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2015/08/12/2015-08-12-theano-to-lasagne/';
+      var disqus_title = '从Theano到Lasagne：基于Python的深度学习的框架和库（译文）';
+      var disqus_url = 'https://www.csuldw.com/2015/08/12/2015-08-12-theano-to-lasagne/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,2 @@
+node_modules/hexo-deployer-git/node_modules/highlight.js/docs/css-classes-reference.rst:479:VBScript ("vbscript", "vbs")
+node_modules/highlight.js/docs/css-classes-reference.rst:415:| VBScript                | vbscript, vbs                                     |

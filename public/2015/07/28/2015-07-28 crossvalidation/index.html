@@ -1,0 +1,911 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  
+    <link href='//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0" />
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2"/>
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域." />
+
+
+
+  <meta name="keywords" content="Machine Learning,交叉验证,Cross-Validation," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml" />
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2" />
+
+
+<meta name="description" content="1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted E">
+<meta name="keywords" content="Machine Learning,交叉验证,Cross-Validation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习-Cross Validation交叉验证Python实现">
+<meta property="og:url" content="https://www.csuldw.com/2015/07/28/2015-07-28 crossvalidation/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted E">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2016-03-13T10:22:17.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习-Cross Validation交叉验证Python实现">
+<meta name="twitter:description" content="1.原理1.1 概念交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted E">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 机器学习-Cross Validation交叉验证Python实现 | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                机器学习-Cross Validation交叉验证Python实现
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-07-28T15:40:00+08:00" content="2015-07-28">
+              2015-07-28 15:40
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/07/28/2015-07-28 crossvalidation/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/28/2015-07-28 crossvalidation/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/07/28/2015-07-28 crossvalidation/"class="leancloud_visitors"  data-flag-title="机器学习-Cross Validation交叉验证Python实现">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="1-原理"><a href="#1-原理" class="headerlink" title="1.原理"></a><strong>1.原理</strong></h2><h3 id="1-1-概念"><a href="#1-1-概念" class="headerlink" title="1.1 概念"></a><strong>1.1 概念</strong></h3><p>交叉验证(Cross-validation)主要用于模型训练或建模应用中，如分类预测、PCR、PLS回归建模等。在给定的样本空间中，拿出大部分样本作为训练集来训练模型，剩余的小部分样本使用刚建立的模型进行预测，并求这小部分样本的预测误差或者预测精度，同时记录它们的加和平均值。这个过程迭代K次，即K折交叉。其中，把每个样本的预测误差平方加和，称为PRESS(predicted Error Sum of Squares)。<br><a id="more"></a></p>
+<h3 id="1-2-目的"><a href="#1-2-目的" class="headerlink" title="1.2 目的"></a><strong>1.2 目的</strong></h3><p>用交叉验证的目的是为了得到可靠稳定的模型。在分类，建立PC 或PLS模型时，一个很重要的因素是取多少个主成分的问题。用cross validation校验每个主成分下的PRESS值，选择PRESS值小的主成分数。或PRESS值不再变小时的主成分数。</p>
+<p>常用的精度测试方法主要是交叉验证，例如10折交叉验证(10-fold cross validation)，将数据集分成十份，轮流将其中9份做训练1份做验证，10次的结果的均值作为对算法精度的估计，一般还需要进行多次10折交叉验证求均值，例如：10次10折交叉验证，以求更精确一点。<br>交叉验证有时也称为交叉比对，如：10折交叉比对</p>
+<h3 id="1-3-常见的交叉验证形式："><a href="#1-3-常见的交叉验证形式：" class="headerlink" title="1.3 常见的交叉验证形式："></a><strong>1.3 常见的交叉验证形式</strong>：</h3><p><strong>Holdout 验证</strong></p>
+<blockquote>
+<p>方法：将原始数据随机分为两组,一组做为训练集,一组做为验证集,利用训练集训练分类器,然后利用验证集验证模型,记录最后的分类准确率为此Hold-OutMethod下分类器的性能指标.。Hold-OutMethod相对于K-fold Cross Validation 又称Double cross-validation ，或相对K-CV称 2-fold cross-validation(2-CV)</p>
+</blockquote>
+<blockquote>
+<p>一般来说，Holdout 验证并非一种交叉验证，因为数据并没有交叉使用。 随机从最初的样本中选出部分，形成交叉验证数据，而剩余的就当做训练数据。 一般来说，少于原本样本三分之一的数据被选做验证数据。</p>
+</blockquote>
+<ul>
+<li>优点：好处的处理简单,只需随机把原始数据分为两组即可</li>
+<li>缺点：严格意义来说Hold-Out Method并不能算是CV,因为这种方法没有达到交叉的思想,由于是随机的将原始数据分组,所以最后验证集分类准确率的高低与原始数据的分组有很大的关系,所以这种方法得到的结果其实并不具有说服性.(主要原因是 训练集样本数太少，通常不足以代表母体样本的分布，导致 test 阶段辨识率容易出现明显落差。此外，2-CV 中一分为二的分子集方法的变异度大，往往无法达到「实验过程必须可以被复制」的要求。)</li>
+</ul>
+<p><strong>K-fold cross-validation</strong></p>
+<blockquote>
+<p>K折交叉验证，初始采样分割成K个子样本，一个单独的子样本被保留作为验证模型的数据，其他K-1个样本用来训练。交叉验证重复K次，每个子样本验证一次，平均K次的结果或者使用其它结合方式，最终得到一个单一估测。这个方法的优势在于，同时重复运用随机产生的子样本进行训练和验证，每次的结果验证一次，10折交叉验证是最常用的。</p>
+</blockquote>
+<ul>
+<li>优点：K-CV可以有效的避免过学习以及欠学习状态的发生,最后得到的结果也比较具有说服性.  </li>
+<li>缺点：K值选取上</li>
+</ul>
+<p><strong>留一验证</strong></p>
+<blockquote>
+<p>正如名称所建议， 留一验证（LOOCV）意指只使用原本样本中的一项来当做验证资料， 而剩余的则留下来当做训练资料。 这个步骤一直持续到每个样本都被当做一次验证资料。 事实上，这等同于 K-fold 交叉验证是一样的，其中K为原本样本个数。 在某些情况下是存在有效率的演算法，如使用kernel regression 和Tikhonov regularization。</p>
+</blockquote>
+<h2 id="2-深入"><a href="#2-深入" class="headerlink" title="2.深入"></a><strong>2.深入</strong></h2><p>使用交叉验证方法的目的主要有3个： </p>
+<ul>
+<li>（1）从有限的学习数据中获取尽可能多的有效信息； </li>
+<li>（2）交叉验证从多个方向开始学习样本的，可以有效的避免陷入局部最小值； </li>
+<li>（3）可以在一定程度上避免过拟合问题。</li>
+</ul>
+<p>采用交叉验证方法时需要将学习数据样本分为两部分：训练数据样本和验证数据样本。并且为了得到更好的学习效果，无论训练样本还是验证样本都要尽可能参与学习。一般选取10重交叉验证即可达到好的学习效果。下面在上述原则基础上设计算法，主要描述下算法步骤，如下所示。</p>
+<h2 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm  "></a>Algorithm  </h2><figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Step1: 	将学习样本空间 C 分为大小相等的 K 份  </span><br><span class="line">Step2: 	<span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span> to K ：</span><br><span class="line">			取第<span class="built_in">i</span>份作为测试集</span><br><span class="line">			<span class="keyword">for</span> <span class="built_in">j</span> = <span class="number">1</span> to K:</span><br><span class="line">				<span class="keyword">if</span> <span class="built_in">i</span> != <span class="built_in">j</span>:</span><br><span class="line">					将第<span class="built_in">j</span>份加到训练集中，作为训练集的一部分</span><br><span class="line">				<span class="keyword">end</span> <span class="keyword">if</span></span><br><span class="line">			<span class="keyword">end</span> <span class="keyword">for</span></span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">for</span></span><br><span class="line">Step3: 	<span class="keyword">for</span> <span class="built_in">i</span> in (K<span class="number">-1</span>训练集)：</span><br><span class="line">			训练第<span class="built_in">i</span>个训练集，得到一个分类模型</span><br><span class="line">			使用该模型在第N个数据集上测试，计算并保存模型评估指标</span><br><span class="line">		<span class="keyword">end</span> <span class="keyword">for</span></span><br><span class="line">Step4: 	计算模型的平均性能</span><br><span class="line">Step5: 	用这K个模型在最终验证集的分类准确率平均值作为此K-CV下分类器的性能指标.</span><br></pre></td></tr></table></figure>
+<h2 id="3-实现"><a href="#3-实现" class="headerlink" title="3.实现"></a><strong>3.实现</strong></h2><h3 id="3-1-scikit-learn交叉验证"><a href="#3-1-scikit-learn交叉验证" class="headerlink" title="3.1 scikit-learn交叉验证"></a><strong>3.1 scikit-learn交叉验证</strong></h3><p>在scikit-learn中有CrossValidation的实现代码，地址： <a href="http://scikit-learn.org/dev/modules/cross_validation.html#cross-validation" target="_blank" rel="noopener">scikit-learn官网crossvalidation文档</a></p>
+<p>使用方法：</p>
+<p>首先加载数据集</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> cross_validation</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> datasets</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> sklearn <span class="keyword">import</span> svm</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>iris = datasets.load_iris()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>iris.data.shape, iris.target.shape</span><br><span class="line">((<span class="number">150</span>, <span class="number">4</span>), (<span class="number">150</span>,))</span><br></pre></td></tr></table></figure>
+<p>通过上面代码，数据集特征和类标签分别为iris.data, iris.target，接着进行交叉验证</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; X_train, X_test, y_train, y_test = cross_validation.train_test_split(</span><br><span class="line">...     iris<span class="selector-class">.data</span>, iris<span class="selector-class">.target</span>, test_size=<span class="number">0.4</span>, random_state=<span class="number">0</span>)</span><br><span class="line">&gt;&gt;&gt; X_train<span class="selector-class">.shape</span>, y_train.shape</span><br><span class="line">((<span class="number">90</span>, <span class="number">4</span>), (<span class="number">90</span>,))</span><br><span class="line">&gt;&gt;&gt; X_test<span class="selector-class">.shape</span>, y_test.shape</span><br><span class="line">((<span class="number">60</span>, <span class="number">4</span>), (<span class="number">60</span>,))</span><br><span class="line">&gt;&gt;&gt; clf = svm.SVC(kernel=<span class="string">'linear'</span>, C=<span class="number">1</span>).fit(X_train, y_train)</span><br><span class="line">&gt;&gt;&gt; clf.score(X_test, y_test)                           </span><br><span class="line"><span class="number">0.96</span>...</span><br></pre></td></tr></table></figure>
+<p>上面的clf是分类器，可以自己替换，比如我可以使用RandomForest</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">clf</span> = RandomForestClassifier(n_estimators=<span class="number">400</span>)</span><br></pre></td></tr></table></figure>
+<p>一个比较有用的函数是train_test_split。功能是从样本中随机的按比例选取train data和test data。形式为</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">X_train, X_test, y_train, y_test = cross_validation.train_test_split(train_data,train_target, <span class="attribute">test_size</span>=0.4, <span class="attribute">random_state</span>=0)</span><br></pre></td></tr></table></figure>
+<p>test_size是样本占比。如果是整数的话就是样本的数量。random_state是随机数的种子。</p>
+<p>当然，也可以换成别的，具体算法可以参考 <a href="http://scikit-learn.org/dev/supervised_learning.html#supervised-learning" target="_blank" rel="noopener">scikit-learn官方文档</a></p>
+<hr>
+<h3 id="3-2-抽样与CV结合"><a href="#3-2-抽样与CV结合" class="headerlink" title="3.2 抽样与CV结合"></a><strong>3.2 抽样与CV结合</strong></h3><blockquote>
+<p>由于我跑的实验，数据是非均衡数据，不能直接套用，所以这里自己写了一个交叉验证的代码，仅供参考，如有问题，欢迎交流。</p>
+</blockquote>
+<p>首先有一个自适应的数据加载函数，主要用于加载本地文本数据，同时文本每行数据以”\t”隔开，最后一列为类标号，数据样例如下：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">A1001	<span class="number">708</span>	K	<span class="number">-4</span>	<span class="number">-3</span>	<span class="number">6</span>	<span class="number">2</span>	<span class="number">-13</span>	<span class="number">0</span>	<span class="number">2</span>	<span class="number">-4</span>	<span class="number">-4</span>	<span class="number">-10</span>	<span class="number">-9</span>	<span class="number">1</span></span><br><span class="line">A1002	<span class="number">709</span>	L	<span class="number">-4</span>	<span class="number">-4</span>	<span class="number">-1</span>	<span class="number">-2</span>	<span class="number">-11</span>	<span class="number">-1</span>	<span class="number">0</span>	<span class="number">-12</span>	<span class="number">-7</span>	<span class="number">-5</span>	<span class="number">-1</span>	<span class="number">-1</span></span><br><span class="line">A1003	<span class="number">710</span>	G	<span class="number">0</span>	<span class="number">-6</span>	<span class="number">-2</span>	<span class="number">-6</span>	<span class="number">-8</span>	<span class="number">-4</span>	<span class="number">-6</span>	<span class="number">-6</span>	<span class="number">-9</span>	<span class="number">-4</span>	<span class="number">0</span>	<span class="number">-1</span></span><br><span class="line">A1004	<span class="number">711</span>	R	<span class="number">0</span>	<span class="number">0</span>	<span class="number">1</span>	<span class="number">-3</span>	<span class="number">-10</span>	<span class="number">-1</span>	<span class="number">-3</span>	<span class="number">-4</span>	<span class="number">-6</span>	<span class="number">-9</span>	<span class="number">-6</span>	<span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p><strong>说明</strong>：前面三个不是特征，所以在加载数据集的时候，特征部分起始位置修改了下，loadDataSet函数如下：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def loadDataSet(fileName):</span><br><span class="line">    fr = open(fileName)</span><br><span class="line">    dataMat = []; labelMat = []</span><br><span class="line">    <span class="keyword">for</span> eachline <span class="keyword">in</span> fr:</span><br><span class="line">        lineArr = []</span><br><span class="line">        curLine = eachline.strip().<span class="built_in">split</span>('\t') #<span class="built_in">remove</span> '\n'</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>, len(curLine)-<span class="number">1</span>):</span><br><span class="line">            lineArr.<span class="built_in">append</span>(<span class="built_in">float</span>(curLine[i])) #<span class="built_in">get</span> all <span class="built_in">feature</span> from inpurfile</span><br><span class="line">        dataMat.<span class="built_in">append</span>(lineArr)</span><br><span class="line">        labelMat.<span class="built_in">append</span>(int(curLine[-<span class="number">1</span>])) #<span class="built_in">last</span> one <span class="built_in">is</span> class lable</span><br><span class="line">    fr.<span class="built_in">close</span>()</span><br><span class="line">    <span class="built_in">return</span> dataMat,labelMat</span><br></pre></td></tr></table></figure>
+<p>返回的dataMat为纯特征矩阵，labelMat为类别标号。</p>
+<p>下面的<strong>splitDataSet</strong>用来切分数据集，如果是十折交叉，则split_size取10，filename为整个数据集文件，outdir则是切分的数据集的存放路径。</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">def splitDataSet(fileName, split_size,outdir):</span><br><span class="line">    <span class="keyword">if</span> not os.path.exists(outdir): <span class="comment">#if not outdir,makrdir</span></span><br><span class="line">        os.makedirs(outdir)</span><br><span class="line">    <span class="attr">fr</span> = open(fileName,'r')<span class="comment">#open fileName to read</span></span><br><span class="line">    <span class="attr">num_line</span> = <span class="number">0</span></span><br><span class="line">    <span class="attr">onefile</span> = fr.readlines()</span><br><span class="line">    <span class="attr">num_line</span> = len(onefile)        </span><br><span class="line">    <span class="attr">arr</span> = np.arange(num_line) <span class="comment">#get a seq and set len=numLine</span></span><br><span class="line">    np.random.shuffle(arr) <span class="comment">#generate a random seq from arr</span></span><br><span class="line">    <span class="attr">list_all</span> = arr.tolist()</span><br><span class="line">    <span class="attr">each_size</span> = (num_line+<span class="number">1</span>) / split_size <span class="comment">#size of each split sets</span></span><br><span class="line">    <span class="attr">split_all</span> = []; <span class="attr">each_split</span> = []</span><br><span class="line">    <span class="attr">count_num</span> = <span class="number">0</span>; <span class="attr">count_split</span> = <span class="number">0</span>  <span class="comment">#count_num 统计每次遍历的当前个数</span></span><br><span class="line">                                    <span class="comment">#count_split 统计切分次数</span></span><br><span class="line">    for i <span class="keyword">in</span> range(len(list_all)): <span class="comment">#遍历整个数字序列</span></span><br><span class="line">        each_split.append(onefile[int(list_all[i])].strip()) </span><br><span class="line">        count_num += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> <span class="attr">count_num</span> == each_size:</span><br><span class="line">            count_split += <span class="number">1</span> </span><br><span class="line">            <span class="attr">array_</span> = np.array(each_split)</span><br><span class="line">            np.savetxt(outdir + <span class="string">"/split_"</span> + str(count_split) + '.txt',\</span><br><span class="line">                        array_,<span class="attr">fmt="%s",</span> <span class="attr">delimiter='\t')</span>  <span class="comment">#输出每一份数据</span></span><br><span class="line">            split_all.append(each_split) <span class="comment">#将每一份数据加入到一个list中</span></span><br><span class="line">            <span class="attr">each_split</span> = []</span><br><span class="line">            <span class="attr">count_num</span> = <span class="number">0</span></span><br><span class="line">    return split_all</span><br></pre></td></tr></table></figure>
+<p>underSample(datafile)方法为抽样函数，强正负样本比例固定为1:1，返回的是一个正负样本比例均等的数据集合。</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">def underSample(datafile): #只针对一个数据集的下采样</span><br><span class="line">    dataMat,labelMat = loadDataSet(datafile) #加载数据</span><br><span class="line">    pos_num = 0; pos_indexs = []; neg_indexs = []   </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(len(labelMat)):#统计正负样本的下标    </span><br><span class="line">        <span class="keyword">if</span> labelMat[i] == 1:</span><br><span class="line">            pos_num +=1</span><br><span class="line">            pos_indexs.<span class="keyword">append</span>(i)</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        neg_indexs.<span class="keyword">append</span>(i)</span><br><span class="line">    np.random.shuffle(neg_indexs)</span><br><span class="line">    neg_indexs = neg_indexs[0:pos_num]</span><br><span class="line">    fr = <span class="keyword">open</span>(datafile, 'r')</span><br><span class="line">    onefile = fr.readlines()</span><br><span class="line">    <span class="keyword">outfile</span> = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(pos_num):</span><br><span class="line">        pos_line = onefile[pos_indexs[i]]    </span><br><span class="line">        <span class="keyword">outfile</span>.<span class="keyword">append</span>(pos_line)</span><br><span class="line">        neg_line= onefile[neg_indexs[i]]      </span><br><span class="line">        <span class="keyword">outfile</span>.<span class="keyword">append</span>(neg_line)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">outfile</span> #输出单个数据集采样结果</span><br></pre></td></tr></table></figure>
+<p>下面的generateDataset(datadir,outdir)方法是从切分的数据集中留出一份作为测试集（无需抽样），对其余的进行抽样然后合并为一个作为训练集，代码如下：</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">def generateDataset(datadir,outdir): <span class="comment">#从切分的数据集中，对其中九份抽样汇成一个,\</span></span><br><span class="line">    <span class="comment">#剩余一个做为测试集,将最后的结果按照训练集和测试集输出到outdir中</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(outdir): <span class="comment">#if not outdir,makrdir</span></span><br><span class="line">        os.makedirs(outdir)</span><br><span class="line">    listfile = os.listdir(datadir)</span><br><span class="line">    train_all = []; test_all = [];cross_now = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> eachfile1 <span class="keyword">in</span> listfile:</span><br><span class="line">        train_sets = []; test_sets = []; </span><br><span class="line">        cross_now += <span class="number">1</span> <span class="comment">#记录当前的交叉次数</span></span><br><span class="line">        <span class="keyword">for</span> eachfile2 <span class="keyword">in</span> listfile:</span><br><span class="line">            <span class="keyword">if</span> eachfile2 != eachfile1:<span class="comment">#对其余九份欠抽样构成训练集</span></span><br><span class="line">                one_sample = underSample(datadir + <span class="string">'/'</span> + eachfile2)</span><br><span class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="built_in">len</span>(one_sample)):</span><br><span class="line">                    train_sets.append(one_sample[i])</span><br><span class="line">        <span class="comment">#将训练集和测试集文件单独保存起来</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(outdir +<span class="string">"/test_"</span>+str(cross_now)+<span class="string">".datasets"</span>,<span class="string">'w'</span>) <span class="keyword">as</span> fw_test:</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(datadir + <span class="string">'/'</span> + eachfile1, <span class="string">'r'</span>) <span class="keyword">as</span> fr_testsets:</span><br><span class="line">                <span class="keyword">for</span> each_testline <span class="keyword">in</span> fr_testsets:                </span><br><span class="line">                    test_sets.append(each_testline) </span><br><span class="line">            <span class="keyword">for</span> oneline_test <span class="keyword">in</span> test_sets:</span><br><span class="line">                fw_test.<span class="built_in">write</span>(oneline_test) <span class="comment">#输出测试集</span></span><br><span class="line">            test_all.append(test_sets)<span class="comment">#保存训练集</span></span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(outdir+<span class="string">"/train_"</span>+str(cross_now)+<span class="string">".datasets"</span>,<span class="string">'w'</span>) <span class="keyword">as</span> fw_train:</span><br><span class="line">            <span class="keyword">for</span> oneline_train <span class="keyword">in</span> train_sets:   </span><br><span class="line">                oneline_train = oneline_train</span><br><span class="line">                fw_train.<span class="built_in">write</span>(oneline_train)<span class="comment">#输出训练集</span></span><br><span class="line">            train_all.append(train_sets)<span class="comment">#保存训练集</span></span><br><span class="line">    <span class="literal">return</span> train_all,test_all</span><br></pre></td></tr></table></figure>
+<p>因为需要评估交叉验证，所以我写了一个performance方法根据真实类标签纸和预测值来计算SN和SP，当然如果需要其他的评估标准，继续添加即可。</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">def</span> performance(labelArr, predictArr):#类标签为int类型</span><br><span class="line">    <span class="symbol">#labelArr</span>[i] is actual value,predictArr[i] is predict value</span><br><span class="line">    TP = <span class="number">0</span>.<span class="comment">; TN = 0.; FP = 0.; FN = 0.   </span></span><br><span class="line">    for i in range(len(labelArr)):</span><br><span class="line">        <span class="meta">if</span> labelArr[i] == <span class="number">1</span> <span class="keyword">and </span>predictArr[i] == <span class="number">1</span>:</span><br><span class="line">            TP += <span class="number">1</span>.</span><br><span class="line">        <span class="meta">if</span> labelArr[i] == <span class="number">1</span> <span class="keyword">and </span>predictArr[i] == -<span class="number">1</span>:</span><br><span class="line">            <span class="meta">FN</span> += <span class="number">1</span>.</span><br><span class="line">        <span class="meta">if</span> labelArr[i] == -<span class="number">1</span> <span class="keyword">and </span>predictArr[i] == <span class="number">1</span>:</span><br><span class="line">            <span class="built_in">FP</span> += <span class="number">1</span>.</span><br><span class="line">        <span class="meta">if</span> labelArr[i] == -<span class="number">1</span> <span class="keyword">and </span>predictArr[i] == -<span class="number">1</span>:</span><br><span class="line">            TN += <span class="number">1</span>.</span><br><span class="line">    <span class="meta">SN</span> = TP/(TP + <span class="meta">FN</span>) <span class="symbol">#Sensitivity</span> = TP/P  <span class="keyword">and </span>P = TP + <span class="meta">FN</span> </span><br><span class="line">    <span class="built_in">SP</span> = TN/(<span class="built_in">FP</span> + TN) <span class="symbol">#Specificity</span> = TN/N  <span class="keyword">and </span>N = TN + <span class="built_in">FP</span></span><br><span class="line">    <span class="symbol">#MCC</span> = (TP*TN-<span class="built_in">FP</span>*<span class="meta">FN</span>)/math.sqrt((TP+<span class="built_in">FP</span>)*(TP+<span class="meta">FN</span>)*(TN+<span class="built_in">FP</span>)*(TN+<span class="meta">FN</span>))</span><br><span class="line">    return <span class="meta">SN</span>,<span class="built_in">SP</span></span><br></pre></td></tr></table></figure>
+<p> classifier(clf,train_X, train_y, test_X, test_y)方法是交叉验证中每次用的分类器训练过程以及测试过程，里面使用的分类器是scikit-learn自带的。该方法会将一些训练结果写入到文件中并保存到本地，同时在最后会返回ACC,SP,SN。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">def classifier(clf,train_X, train_y, test_X, test_y):#X:训练特征，y:训练标号</span><br><span class="line">    # train with randomForest </span><br><span class="line">    <span class="builtin-name">print</span> <span class="string">" training begin..."</span></span><br><span class="line">    clf = clf.fit(train_X,train_y)</span><br><span class="line">    <span class="builtin-name">print</span> <span class="string">" training end."</span></span><br><span class="line">    #==========================================================================</span><br><span class="line">    # test randomForestClassifier with testsets</span><br><span class="line">    <span class="builtin-name">print</span> <span class="string">" test begin."</span></span><br><span class="line">    predict_ = clf.predict(test_X) #return<span class="built_in"> type </span>is float64</span><br><span class="line">    proba = clf.predict_proba(test_X) #return<span class="built_in"> type </span>is float64</span><br><span class="line">    score_ = clf.score(test_X,test_y)</span><br><span class="line">    <span class="builtin-name">print</span> <span class="string">" test end."</span></span><br><span class="line">    #==========================================================================</span><br><span class="line">    # Modeal Evaluation</span><br><span class="line">    ACC = accuracy_score(test_y, predict_)</span><br><span class="line">    SN,SP = performance(test_y, predict_)</span><br><span class="line">    MCC = matthews_corrcoef(test_y, predict_)</span><br><span class="line">    #AUC = roc_auc_score(test_labelMat, proba)</span><br><span class="line">    #==========================================================================</span><br><span class="line">    #save output </span><br><span class="line">    eval_output = []</span><br><span class="line">    eval_output.append(ACC);eval_output.append(SN)  #eval_output.append(AUC)</span><br><span class="line">    eval_output.append(SP);eval_output.append(MCC)</span><br><span class="line">    eval_output.append(score_)</span><br><span class="line">    eval_output = np.array(eval_output,<span class="attribute">dtype</span>=float)</span><br><span class="line">    np.savetxt(<span class="string">"proba.data"</span>,proba,<span class="attribute">fmt</span>=<span class="string">"%f"</span>,delimiter="\t")</span><br><span class="line">    np.savetxt(<span class="string">"test_y.data"</span>,test_y,<span class="attribute">fmt</span>=<span class="string">"%f"</span>,delimiter="\t")</span><br><span class="line">    np.savetxt(<span class="string">"predict.data"</span>,predict_,<span class="attribute">fmt</span>=<span class="string">"%f"</span>,delimiter="\t") </span><br><span class="line">    np.savetxt(<span class="string">"eval_output.data"</span>,eval_output,<span class="attribute">fmt</span>=<span class="string">"%f"</span>,delimiter="\t")</span><br><span class="line">    <span class="builtin-name">print</span> <span class="string">"Wrote results to output.data...EOF..."</span></span><br><span class="line">    return ACC,SN,SP</span><br></pre></td></tr></table></figure>
+<p>下面的mean_fun用于求列表list中数值的平均值，主要是求ACC_mean,SP_mean,SN_mean，用来评估模型好坏。</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> mean_fun(onelist):</span><br><span class="line">    <span class="keyword">count</span> = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i in onelist:</span><br><span class="line">        <span class="keyword">count</span> += i</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">float</span>(<span class="keyword">count</span><span class="regexp">/len(onelist))</span></span><br></pre></td></tr></table></figure>
+<p>交叉验证代码</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">def crossValidation(clf, clfname, curdir,train_all, test_all):</span><br><span class="line">    os.<span class="built_in">chdir</span>(curdir)</span><br><span class="line">    #构造出纯数据型样本集</span><br><span class="line">    cur_path = curdir</span><br><span class="line">    ACCs = [];SNs = []; SPs =[]</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(len(train_all)):</span><br><span class="line">        os.<span class="built_in">chdir</span>(cur_path)</span><br><span class="line">        train_data = train_all[i];train_X = [];train_y = []</span><br><span class="line">        test_data = test_all[i];test_X = [];test_y = []</span><br><span class="line">        <span class="keyword">for</span> eachline_train <span class="keyword">in</span> train_data:</span><br><span class="line">            one_train = eachline_train.<span class="built_in">split</span>('\t') </span><br><span class="line">            one_train_format = []</span><br><span class="line">            <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>,len(one_train)-<span class="number">1</span>):</span><br><span class="line">                one_train_format.<span class="built_in">append</span>(<span class="built_in">float</span>(one_train[index]))</span><br><span class="line">            train_X.<span class="built_in">append</span>(one_train_format)</span><br><span class="line">            train_y.<span class="built_in">append</span>(int(one_train[-<span class="number">1</span>].strip()))</span><br><span class="line">        <span class="keyword">for</span> eachline_test <span class="keyword">in</span> test_data:</span><br><span class="line">            one_test = eachline_test.<span class="built_in">split</span>('\t')</span><br><span class="line">            one_test_format = []</span><br><span class="line">            <span class="keyword">for</span> index <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>,len(one_test)-<span class="number">1</span>):</span><br><span class="line">                one_test_format.<span class="built_in">append</span>(<span class="built_in">float</span>(one_test[index]))</span><br><span class="line">            test_X.<span class="built_in">append</span>(one_test_format)</span><br><span class="line">            test_y.<span class="built_in">append</span>(int(one_test[-<span class="number">1</span>].strip()))</span><br><span class="line">        #======================================================================</span><br><span class="line">        #classifier start here</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(clfname):#使用的分类器</span><br><span class="line">            os.<span class="built_in">mkdir</span>(clfname)</span><br><span class="line">        out_path = clfname + <span class="string">"/"</span> + clfname + <span class="string">"_00"</span> + str(i)#计算结果文件夹</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(out_path):</span><br><span class="line">            os.<span class="built_in">mkdir</span>(out_path)</span><br><span class="line">        os.<span class="built_in">chdir</span>(out_path)</span><br><span class="line">        ACC, SN, SP = classifier(clf, train_X, train_y, test_X, test_y)</span><br><span class="line">        ACCs.<span class="built_in">append</span>(ACC);SNs.<span class="built_in">append</span>(SN);SPs.<span class="built_in">append</span>(SP)</span><br><span class="line">        #======================================================================</span><br><span class="line">    ACC_mean = mean_fun(ACCs)</span><br><span class="line">    SN_mean = mean_fun(SNs)</span><br><span class="line">    SP_mean = mean_fun(SPs)</span><br><span class="line">    #==========================================================================</span><br><span class="line">    #output experiment result</span><br><span class="line">    os.<span class="built_in">chdir</span>(<span class="string">"../"</span>)</span><br><span class="line">    os.<span class="built_in">system</span>(<span class="string">"echo `date` '"</span> + str(clf) + <span class="string">"' &gt;&gt; log.out"</span>)</span><br><span class="line">    os.<span class="built_in">system</span>(<span class="string">"echo ACC_mean="</span> + str(ACC_mean) + <span class="string">" &gt;&gt; log.out"</span>)</span><br><span class="line">    os.<span class="built_in">system</span>(<span class="string">"echo SN_mean="</span> + str(SN_mean) + <span class="string">" &gt;&gt; log.out"</span>)</span><br><span class="line">    os.<span class="built_in">system</span>(<span class="string">"echo SP_mean="</span> + str(SP_mean) + <span class="string">" &gt;&gt; log.out"</span>)</span><br><span class="line">    <span class="built_in">return</span> ACC_mean, SN_mean, SP_mean</span><br></pre></td></tr></table></figure>
+<p><strong>测试：</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">	os.chdir(<span class="string">"your workhome"</span>) <span class="comment">#你的数据存放目录</span></span><br><span class="line">    datadir = <span class="string">"split10_1"</span> <span class="comment">#切分后的文件输出目录</span></span><br><span class="line">    splitDataSet(<span class="string">'datasets'</span>,<span class="number">10</span>,datadir)<span class="comment">#将数据集datasets切为十个保存到datadir目录中</span></span><br><span class="line">	<span class="comment">#==========================================================================</span></span><br><span class="line">    outdir = <span class="string">"sample_data1"</span>	<span class="comment">#抽样的数据集存放目录</span></span><br><span class="line">    train_all,test_all = generateDataset(datadir,outdir) <span class="comment">#抽样后返回训练集和测试集</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">"generateDataset end and cross validation start"</span></span><br><span class="line">    <span class="comment">#==========================================================================</span></span><br><span class="line">    <span class="comment">#分类器部分</span></span><br><span class="line">    <span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier</span><br><span class="line">    clf = RandomForestClassifier(n_estimators=<span class="number">500</span>) <span class="comment">#使用随机森林分类器来训练</span></span><br><span class="line">    clfname = <span class="string">"RF_1"</span></span><br><span class="line">    <span class="comment">#==========================================================================</span></span><br><span class="line">    curdir = <span class="string">"experimentdir"</span> <span class="comment">#工作目录</span></span><br><span class="line">	<span class="comment">#clf:分类器,clfname:分类器名称,curdir:当前路径,train_all:训练集,test_all:测试集</span></span><br><span class="line">    ACC_mean, SN_mean, SP_mean = crossValidation(clf, clfname, curdir, train_all,test_all)</span><br><span class="line">    <span class="keyword">print</span> ACC_mean,SN_mean,SP_mean	<span class="comment">#将ACC均值，SP均值，SN均值都输出到控制台</span></span><br></pre></td></tr></table></figure>
+<p>上面的代码主要用于抽样后的十倍交叉验证，该怎么设置参数，还得具体分析。</p>
+<p>总之，交叉验证在一定程度上能够避免陷入局部最小值。一般实际操作中使用的是十折交叉验证，单具体情况还得具体分析，并没有一个统一的标准固定十倍交叉的参数或者是算法的选择以及算法参数的选择。不同的数据使用不同的算法往往会的得到不同的最优分类器。So,just try it!Happy coding!</p>
+<hr>
+<p><br></p>
+</span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/交叉验证/" rel="tag">#交叉验证</a>
+          
+            <a href="/tags/Cross-Validation/" rel="tag">#Cross-Validation</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/12/2015-08-12-theano-to-lasagne/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 从Theano到Lasagne：基于Python的深度学习的框架和库（译文）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/23/2015-07-23 machine learning tips/" rel="next">
+                scikit-klean交叉验证 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel >
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image"/>
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">89</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">151</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-原理"><span class="nav-number">1.</span> <span class="nav-text">1.原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-目的"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 目的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-常见的交叉验证形式："><span class="nav-number">1.3.</span> <span class="nav-text">1.3 常见的交叉验证形式：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-深入"><span class="nav-number">2.</span> <span class="nav-text">2.深入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Algorithm"><span class="nav-number">3.</span> <span class="nav-text">Algorithm  </span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实现"><span class="nav-number">4.</span> <span class="nav-text">3.实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-scikit-learn交叉验证"><span class="nav-number">4.1.</span> <span class="nav-text">3.1 scikit-learn交叉验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-抽样与CV结合"><span class="nav-number">4.2.</span> <span class="nav-text">3.2 抽样与CV结合</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright" >
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+  
+</div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2015/07/28/2015-07-28 crossvalidation/';
+      var disqus_title = '机器学习-Cross Validation交叉验证Python实现';
+      var disqus_url = 'https://www.csuldw.com/2015/07/28/2015-07-28 crossvalidation/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="http://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>
