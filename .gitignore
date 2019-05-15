@@ -4,9 +4,9 @@ public
 scaffolds
 .deploy_git
 themes
-source/_draft/*
-source/_posts/*
-source/assets/*
-source/leetcode/*
-source/resume/*
+source/_draft
+source/_posts
+source/assets
+source/leetcode
+source/resume
 
