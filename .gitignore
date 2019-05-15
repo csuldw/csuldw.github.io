@@ -3,7 +3,7 @@ node_modules/*
 public/*
 scaffolds/*
 .deploy_git/*
-themes/*
+themes/*/*
 source/_draft/*
 source/_posts/*
 source/assets/*
