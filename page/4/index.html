@@ -198,6 +198,110 @@
             
             
               
+                <a class="post-title-link" href="/2016/08/28/2016-08-28-adaboost-algorithm-theory/" itemprop="url">
+                  Adaboost - 新的角度理解权值更新策略
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-08-28T19:24:00+08:00" content="2016-08-28">
+              2016-08-28 19:24
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/28/2016-08-28-adaboost-algorithm-theory/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/28/2016-08-28-adaboost-algorithm-theory/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2016/08/28/2016-08-28-adaboost-algorithm-theory/" class="leancloud_visitors" data-flag-title="Adaboost - 新的角度理解权值更新策略">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>关于Adaboost，在<a href="http://www.csuldw.com/2015/07/05/2015-07-05-ML-algorithm-Adaboost/">先前的一篇文章</a>里，也介绍过它的步骤与实现，但理论上的推导未曾涉及。虽然Adaboost算法思想通俗易懂，但权值更新公式的由来，想必并非人人皆知。本文着重于从理论层面进一步阐述Adaboost，最终推导出迭代时的样本权值更新公式。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/28/2016-08-28-adaboost-algorithm-theory/#more" rel="contents">
+              Read More &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
                 <a class="post-title-link" href="/2016/08/24/2016-08-24-internship-summary/" itemprop="url">
                   一段在京实习的日子
                 </a>
@@ -1640,111 +1744,6 @@
 
 
     
-      
-
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                <a class="post-title-link" href="/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/" itemprop="url">
-                  机器学习算法比较
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            Posted on
-            <time itemprop="dateCreated" datetime="2016-02-26T20:24:00+08:00" content="2016-02-26">
-              2016-02-26 20:24
-            </time>
-          </span>
-
-          
-            <span class="post-category">
-              &nbsp; | &nbsp; In
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/ML/" itemprop="url" rel="index">
-                    <span itemprop="name">ML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-              &nbsp; | &nbsp;
-              <a href="/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/#comments" itemprop="discussionUrl">
-                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/" itemprop="commentsCount"></span>
-              </a>
-            </span>
-            
-          
-
-          
-
-          
-            <span id="/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/" class="leancloud_visitors" data-flag-title="机器学习算法比较">
-            &nbsp; | &nbsp;   
-            views
-            </span>
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>本文主要回顾下几个常用算法的适应场景及其优缺点！（提示：部分内容摘自网络）。</p>
-<p>机器学习算法太多了，分类、回归、聚类、推荐、图像识别领域等等，要想找到一个合适算法真的不容易，所以在实际应用中，我们一般都是采用启发式学习方式来实验。通常最开始我们都会选择大家普遍认同的算法，诸如SVM，GBDT，Adaboost，现在深度学习很火热，神经网络也是一个不错的选择。假如你在乎精度（accuracy）的话，最好的方法就是通过交叉验证（cross-validation）对各个算法一个个地进行测试，进行比较，然后调整参数确保每个算法达到最优解，最后选择最好的一个。但是如果你只是在寻找一个“足够好”的算法来解决你的问题，或者这里有些技巧可以参考，下面来分析下各个算法的优缺点，基于算法的优缺点，更易于我们去选择它。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/02/26/2016-02-26-choosing-a-machine-learning-classifier/#more" rel="contents">
-              Read More &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1786,21 +1785,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">107</span>
+              <span class="site-state-item-count">108</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">categories</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">181</span>
+              <span class="site-state-item-count">182</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>

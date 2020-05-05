@@ -293,14 +293,14 @@
 <p>Boosting思想的一种改进型AdaBoost方法在邮件过滤、文本分类方面都有很好的性能。 </p>
 <p><strong>Gradient boosting（又叫Mart, Treenet)</strong>：Boosting是一种思想，Gradient Boosting是一种实现Boosting的方法，它主要的思想是，每一次建立模型是在之前建立模型<strong>损失函数的梯度下降方向</strong>。<strong>损失函数(loss function)描述的是模型的不靠谱程度，损失函数越大，则说明模型越容易出错。</strong>如果我们的模型能够让损失函数持续的下降，则说明我们的模型在不停的改进，而最好的方式就是<strong>让损失函数在其梯度（Gradient)的方向上下降</strong>。  </p>
 <p>使用scikit-learn测试adaboost算法</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from sklearn.cross_validation import cross_val_score</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from sklearn.datasets import load_iris</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from sklearn.ensemble import AdaBoostClassifier</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; iris = load_iris()</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; clf = AdaBoostClassifier(n_estimators=100)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; scores = cross_val_score(clf, iris.data, iris.target)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; scores.mean()                             </span></span><br><span class="line">0.9...</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.cross_validation import cross_val_score</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.datasets import load_iris</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.ensemble import AdaBoostClassifier</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; iris = load_iris()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf = AdaBoostClassifier(n_estimators=<span class="number">100</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; scores = cross_val_score(clf, iris.data, iris.target)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; scores.mean()                             </span><br><span class="line"><span class="number">0</span>.<span class="number">9</span>...</span><br></pre></td></tr></tbody></table></figure>
 
 <hr>
 <h3 id="4-Random-Forest"><a href="#4-Random-Forest" class="headerlink" title="4.Random Forest"></a><strong>4.Random Forest</strong></h3><p><strong>Random Forest</strong>： 随机森林，顾名思义，是用随机的方式建立一个森林，森林里面有很多的决策树组成，随机森林的每一棵决策树之间是没有关联的。在得到森林之后，当有一个新的输入样本进入的时候，就让森林中的每一棵决策树分别进行一下判断，看看这个样本应该属于哪一类（对于分类算法），然后看看哪一类被选择最多，就预测这个样本为那一类。 在建立每一棵决策树的过程中，有两点需要注意——<strong>采样</strong>与<strong>完全分裂</strong>。首先是两个随机采样的过程，random forest对输入的数据要进行行和列的采样。对于行采样，采用有放回的方式，也就是在采样得到的样本集合中，可能有重复的样本。假设输入样本为N个，那么采样的样本也为N个。这样使得在训练的时候，每一棵树的输入样本都不是全部的样本，使得相对不容易出现over-fitting。然后进行列采样，从M个feature中，选择m个(m &lt;&lt; M)。之后就是对采样之后的数据使用完全分裂的方式建立出决策树，这样决策树的某一个叶子节点要么是无法继续分裂的，要么里面的所有样本的都是指向的同一个分类。<strong>一般很多的决策树算法都一个重要的步骤——剪枝，但随机森林不这样做，由于之前的两个随机采样的过程保证了随机性，所以就算不剪枝，也不会出现over-fitting。</strong> 按这种算法得到的随机森林中的每一棵都是很弱的，但是大家组合起来就很厉害了。可以这样比喻随机森林算法：每一棵决策树就是一个精通于某一个窄领域的专家（因为我们从M个feature中选择m让每一棵决策树进行学习），这样在随机森林中就有了很多个精通不同领域的专家，对一个新的问题（新的输入数据），可以用不同的角度去看待它，最终由各个专家，投票得到结果。  </p>
 <p><strong>Random forest与bagging的区别</strong>：</p>
 <p>(1)Random forest是选与输入样本的数目相同多的次数（可能一个样本会被选取多次，同时也会造成一些样本不会被选取到），而bagging一般选取比输入样本的数目少的样本；<br>(2)bagging是用全部特征来得到分类器，而Random forest是需要从全部特征中选取其中的一部分来训练得到分类器； <strong>一般Random forest效果比bagging效果好！</strong></p>
 <p>使用scikit-learn测试随机森林算法</p>
-<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from sklearn.ensemble import RandomForestClassifier</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; X = [[0, 0], [1, 1]]</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; Y = [0, 1]</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; clf = RandomForestClassifier(n_estimators=10)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; clf = clf.fit(X, Y)</span></span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.ensemble import RandomForestClassifier</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X = [[<span class="number">0</span>, <span class="number">0</span>], [<span class="number">1</span>, <span class="number">1</span>]]</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; Y = [<span class="number">0</span>, <span class="number">1</span>]</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf = RandomForestClassifier(n_estimators=<span class="number">10</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf = clf.fit(X, Y)</span><br></pre></td></tr></tbody></table></figure>
 
 <h3 id="5-Gradient-boosting"><a href="#5-Gradient-boosting" class="headerlink" title="5.Gradient boosting"></a><strong>5.Gradient boosting</strong></h3><p>梯度提升树或者梯度提升回归树(GBRT)是任意一个不同损失函数的泛化。GBRT是一个灵敏的并且高效程序，可以用在回归和分类中。梯度提升树模型在许多领域中都有使用，如web搜索排行榜和社会生态学中。它主要的思想是，每一次建立模型是在之前建立模型损失函数的梯度下降方向。这句话有一点拗口，损失函数(loss function)描述的是模型的不靠谱程度，损失函数越大，则说明模型越容易出错（其实这里有一个方差、偏差均衡的问题，但是这里就假设损失函数越大，模型越容易出错）。如果我们的模型能够让损失函数持续的下降，则说明我们的模型在不停的改进，而最好的方式就是让损失函数在其梯度（Gradient)的方向上下降。</p>
 <p>GRBT的优势：</p>
@@ -429,21 +429,21 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">107</span>
+              <span class="site-state-item-count">108</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">15</span>
+              <span class="site-state-item-count">16</span>
               <span class="site-state-item-name">categories</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">181</span>
+              <span class="site-state-item-count">182</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
