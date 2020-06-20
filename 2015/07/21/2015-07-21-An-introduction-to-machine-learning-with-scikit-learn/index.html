@@ -312,10 +312,10 @@
 <figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">from</span> sklearn import svm</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">from</span> sklearn import datasets</span><br><span class="line">&gt;&gt;&gt; clf = svm.SVC()</span><br><span class="line">&gt;&gt;&gt; iris = datasets.load_iris()</span><br><span class="line">&gt;&gt;&gt; X, y = iris.data, iris.target</span><br><span class="line">&gt;&gt;&gt; clf.fit(X, y)  </span><br><span class="line">SVC(<span class="attribute">C</span>=1.0, <span class="attribute">cache_size</span>=200, <span class="attribute">class_weight</span>=None, <span class="attribute">coef0</span>=0.0,</span><br><span class="line">  <span class="attribute">decision_function_shape</span>=None, <span class="attribute">degree</span>=3, <span class="attribute">gamma</span>=<span class="string">'auto'</span>, <span class="attribute">kernel</span>=<span class="string">'rbf'</span>,</span><br><span class="line">  <span class="attribute">max_iter</span>=-1, <span class="attribute">probability</span>=<span class="literal">False</span>, <span class="attribute">random_state</span>=None, <span class="attribute">shrinking</span>=<span class="literal">True</span>,</span><br><span class="line">  <span class="attribute">tol</span>=0.001, <span class="attribute">verbose</span>=<span class="literal">False</span>)</span><br><span class="line">&gt;&gt;&gt; import pickle</span><br><span class="line">&gt;&gt;&gt; s = pickle.dumps(clf)</span><br><span class="line">&gt;&gt;&gt; clf2 = pickle.loads(s)</span><br><span class="line">&gt;&gt;&gt; clf2.predict(X[0])</span><br><span class="line">array([0])</span><br><span class="line">&gt;&gt;&gt; y[0]</span><br><span class="line">0</span><br></pre></td></tr></tbody></table></figure>
 
 <p>在scikit的特别情况下，使用joblib替换pickle(joblib.dump &amp; joblib.load)会更有趣,它在大数据上是更有效的，但是仅仅只能存入的是字典而不是字符串。</p>
-<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.externals import joblib</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; joblib.dump(clf, <span class="string">'filename.pkl'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from sklearn.externals import joblib</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; joblib.dump(clf, <span class="string">'filename.pkl'</span>)</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>然后你就可以读取上面的pickled模型使用了（通常是在其它的Python程序中）：</p>
-<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf = joblib.load(<span class="string">'filename.pkl'</span>)</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; clf = joblib.load(<span class="string">'filename.pkl'</span>)</span></span><br></pre></td></tr></tbody></table></figure>
 
 <h2 id="惯例"><a href="#惯例" class="headerlink" title="惯例"></a><strong>惯例</strong></h2><p>scikit-learn估计量有一些特定的规则是的分类器更具有预测性</p>
 <p><strong>Type casting 类型转换</strong></p>
@@ -452,7 +452,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">108</span>
+              <span class="site-state-item-count">109</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -466,7 +466,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">182</span>
+              <span class="site-state-item-count">185</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>

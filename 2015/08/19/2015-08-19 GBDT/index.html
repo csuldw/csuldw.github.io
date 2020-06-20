@@ -309,7 +309,7 @@
 <hr>
 <h2 id="scikit-learn中的GTB"><a href="#scikit-learn中的GTB" class="headerlink" title="scikit-learn中的GTB"></a><strong>scikit-learn中的GTB</strong></h2><p>在scikit-learn中对GTB算法有了很好的封装，对于分类可以选择的损失函数有逻辑回归和指数函数，对于回归的损失函数相对比较多，有最小二乘法、最小绝对偏差函数、huber以及分位数等。</p>
 <p>下面是sklearn中的一个分类原例：</p>
-<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.datasets import make_hastie_10_2</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.ensemble import GradientBoostingClassifier</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X, y = make_hastie_10_2(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X_train, X_test = X[<span class="symbol">:</span><span class="number">2000</span>], X[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; y_train, y_test = y[<span class="symbol">:</span><span class="number">2000</span>], y[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf = GradientBoostingClassifier(n_estimators=<span class="number">100</span>, learning_rate=<span class="number">1.0</span>,</span><br><span class="line">...     max_depth=<span class="number">1</span>, random_state=<span class="number">0</span>).fit(X_train, y_train)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf.score(X_test, y_test)                 </span><br><span class="line"><span class="number">0</span>.<span class="number">913</span>...</span><br></pre></td></tr></tbody></table></figure>
+<figure class="highlight shell"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from sklearn.datasets import make_hastie_10_2</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; from sklearn.ensemble import GradientBoostingClassifier</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; X, y = make_hastie_10_2(random_state=0)</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; X_train, X_test = X[:2000], X[2000:]</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; y_train, y_test = y[:2000], y[2000:]</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0,</span></span><br><span class="line">...     max_depth=1, random_state=0).fit(X_train, y_train)</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">&gt;&gt; clf.score(X_test, y_test)                 </span></span><br><span class="line">0.913...</span><br></pre></td></tr></tbody></table></figure>
 
 <p>其中$n_estimators$表示弱分类器的个数，$learning_rate$表示学习率，$max_depth$表示树的最大深度等。GTB的参数比较多，在实际应用中需要自己去调整合适的参数。</p>
 <h2 id="A-comparison-of-ensemble-algorithms"><a href="#A-comparison-of-ensemble-algorithms" class="headerlink" title="A comparison of ensemble algorithms"></a><strong>A comparison of ensemble algorithms</strong></h2><p>基于决策树的组合算法常用的有三个，分别是Adaboost、RandomFrest以及本文的GBRT。</p>
@@ -443,7 +443,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">108</span>
+              <span class="site-state-item-count">109</span>
               <span class="site-state-item-name">posts</span>
             </a>
           </div>
@@ -457,7 +457,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">182</span>
+              <span class="site-state-item-count">185</span>
               <span class="site-state-item-name">tags</span>
               </a>
           </div>
