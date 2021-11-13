@@ -1,0 +1,969 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.8.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,XGBoost,Boosting,XGoost,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="继前两篇文章Boosting模型：GBDT原理介绍和CTR预估经典模型：GBDT+LR之后，本文将继续探究下一个Boosting模型：XGBoost，全称eXtreme Gradient Boosting。XGBoost，听着名子就觉得特霸气，给人一种威风四面、震慑八方的实觉。事实上，其在实际比赛和项目实践中的效果也绝不含糊，名副其实呀！具体的数据这里就不展开了，明白就行。XGBoost本身是GB">
+<meta name="keywords" content="Machine Learning,XGBoost,Boosting,XGoost">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boosting模型：XGBoost原理剖析">
+<meta property="og:url" content="https://www.csuldw.com/2019/07/20/2019-07-20-xgboost-theory/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="继前两篇文章Boosting模型：GBDT原理介绍和CTR预估经典模型：GBDT+LR之后，本文将继续探究下一个Boosting模型：XGBoost，全称eXtreme Gradient Boosting。XGBoost，听着名子就觉得特霸气，给人一种威风四面、震慑八方的实觉。事实上，其在实际比赛和项目实践中的效果也绝不含糊，名副其实呀！具体的数据这里就不展开了，明白就行。XGBoost本身是GB">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/xgboost-tree-ensemble-model.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/xgboost-tree-structure.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/xgboost-algorithm1-exact-greddy-algorith-for-split-finding.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/xgboost-a2-approximate-algorithm-for-split-finding.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/xgboost-a3-sparsity-aware-split-finding.png">
+<meta property="og:updated_time" content="2019-10-29T15:24:34.486Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Boosting模型：XGBoost原理剖析">
+<meta name="twitter:description" content="继前两篇文章Boosting模型：GBDT原理介绍和CTR预估经典模型：GBDT+LR之后，本文将继续探究下一个Boosting模型：XGBoost，全称eXtreme Gradient Boosting。XGBoost，听着名子就觉得特霸气，给人一种威风四面、震慑八方的实觉。事实上，其在实际比赛和项目实践中的效果也绝不含糊，名副其实呀！具体的数据这里就不展开了，明白就行。XGBoost本身是GB">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/2019/xgboost-tree-ensemble-model.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Boosting模型：XGBoost原理剖析 | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Boosting模型：XGBoost原理剖析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2019-07-20T17:01:00+08:00" content="2019-07-20">
+              2019-07-20 17:01
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2019/07/20/2019-07-20-xgboost-theory/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/20/2019-07-20-xgboost-theory/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2019/07/20/2019-07-20-xgboost-theory/" class="leancloud_visitors" data-flag-title="Boosting模型：XGBoost原理剖析">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>继前两篇文章<a href="https://www.csuldw.com/2019/07/12/2019-07-12-an-introduction-to-gbdt/">Boosting模型：GBDT原理介绍</a>和<a href="https://www.csuldw.com/2019/07/15/2019-07-15-gbdt-lr-framework/">CTR预估经典模型：GBDT+LR</a>之后，本文将继续探究下一个Boosting模型：XGBoost，全称eXtreme Gradient Boosting。XGBoost，听着名子就觉得特霸气，给人一种威风四面、震慑八方的实觉。事实上，其在实际比赛和项目实践中的效果也绝不含糊，名副其实呀！具体的数据这里就不展开了，明白就行。XGBoost本身是GBDT的一个高性能的开源库，是陈天奇等人于2014年开发，即可用于分类，也可用于回归。本文主要是介绍XGBoost的原理，同时深入分析下其在GBDT的基础上做了哪些改进点。关于XGBoost的实践，可以参考<a href="https://towardsdatascience.com/a-beginners-guide-to-xgboost-87f5d4c30ed7" target="_blank" rel="noopener">A Beginner’s guide to XGBoost</a>，是一篇很好的入门级应用教程。</p>
+<a id="more"></a>
+
+<p>阅读本文之前如果对决策树相关算法不太了解，可以参考笔者以前写的文章（仅供参考）：</p>
+<ol>
+<li><a href="http://www.csuldw.com/2015/05/08/2015-05-08-decision%20tree/">机器学习算法-决策树理论</a></li>
+<li><a href="http://www.csuldw.com/2016/05/07/2016-05-07-feature-selection/">随机森林和mRMR特征选择</a></li>
+<li><a href="http://www.csuldw.com/2015/07/22/2015-07-22%20%20ensemble/">机器学习-组合算法总结</a></li>
+<li><a href="http://www.csuldw.com/2016/08/28/2016-08-28-adaboost-algorithm-theory/">Adaboost - 新的角度理解权值更新策略</a></li>
+<li><a href="https://www.csuldw.com/2019/07/12/2019-07-12-an-introduction-to-gbdt/">Boosting模型：GBDT原理介绍</a></li>
+</ol>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>XGBoost的原始paper将XGBoost的各个点都介绍的非常详细，有耐心的可以细细品味一下：<a href="https://arxiv.org/pdf/1603.02754" target="_blank" rel="noopener">XGBoost: A Scalable Tree Boosting System</a>。本文可以说是一篇paper读后小结，顺便为了内容实用点，顺便附上自己的小demo，便于后续回顾，如有杠精者，还请绕道而行哈。OK，下面进入正文吧！</p>
+<h2 id="原理剖析"><a href="#原理剖析" class="headerlink" title="原理剖析"></a>原理剖析</h2><p>本章节将从以下几个方面介绍XGBoost：</p>
+<ol>
+<li>Tree Ensemble Model： 提升树模型</li>
+<li>Object Function：XGBoost 目标函数及其求解</li>
+<li>Optimization：寻找最佳分裂点</li>
+</ol>
+<h3 id="Tree-Ensemble-Model"><a href="#Tree-Ensemble-Model" class="headerlink" title="Tree Ensemble Model"></a>Tree Ensemble Model</h3><p>首先，XGBoost与GBDT一样，也是boosting模型，对于boosting decision tree, 下面这张图片可以很好的表达出来（引自XGBoost paper）：</p>
+<img src="/assets/articleImg/2019/xgboost-tree-ensemble-model.png" width="70%" height="50%">
+<div class="caption">Tree Ensemble Model.输入样本的最终预测值等于各个树的预测值之和.</div>
+
+
+<p>给定$n$个样本，$m$个特征的数据集$D= \left \{ (X_i, y_i) \right \} (|D|=n, X_i \in \mathbb{R}^m, y_i \in \mathbb{R})$，提升树模型采用K次迭代的结果作为输出结果。对于$X_i$的输出为$\hat{y}_i$，表达式为：<br>$$<br>\hat{y}_i = \phi(X_i) = \sum_{k=1}^K f_{k}(X_i), \ \ \ f_k \in F<br>\tag{1}\label{1}<br>$$</p>
+<p>其中$F= \left \{ f(X)=w_{q(X)} \right \} (q:\mathbb{R} ^m \rightarrow T, w \in \mathbb{R}^T)$，表示提升树结构空间集，各个变量的含义如下：</p>
+<ul>
+<li>$q$表示树的结构，可以将样本映射到相应的叶子节点；</li>
+<li>$T$表示提升树叶子节点的数量；</li>
+<li>每个$f_k$都对应独立的树结构$q$和权重$w$，</li>
+</ul>
+<h3 id="Object-Function"><a href="#Object-Function" class="headerlink" title="Object Function"></a>Object Function</h3><p>XGBoost的目标函数表达式与GBDT不一样，有着进一步的优化，如下：</p>
+<p>$$<br>L(\phi) = \underbrace{\sum_{i} l(\hat{y}_i, y_i)}_{损失函数项} + \underbrace{\sum_k \Omega(f_k)}_{正则项}<br>\tag{2}\label{2}<br>$$</p>
+<p>上式看起来很简单，分两部分，第一部分为loss function，第二部分为regularization。各个变量的含义：$y_i$为true label，$\hat{y}_i$为predicted label，$l$为损失函数，$f_k$则表示第k颗树的结构，$\Omega$为正则项，表达式如下：</p>
+<p>$$<br>\Omega(f) = \gamma T + \frac{1}{2} \lambda \parallel w \parallel ^2<br>\tag{3}\label{3}<br>$$</p>
+<p>在XBGoost里面，正则项又包含两部分：一部分是提升树叶子节点的数量$T$，用于控制树的复杂度，可以达到剪枝的效果；另一部分为每颗树的叶子节点的权重$w$的平方和。正则项可以让学习器尽可能的避免over-fitting。    通过上面的目标函数，XGBoost的每颗子树就会倾向于学习比较简单的树，另外，<strong>当正则项参数为0时，目标表达式就会退化为传统的gradient tree boosting模型</strong>。</p>
+<h3 id="目标函数求解"><a href="#目标函数求解" class="headerlink" title="目标函数求解"></a>目标函数求解</h3><p>对于上面的目标函数，如何求取最优解呢？对于损失函数部分，XGBoost采用了二阶泰勒展开式。可能有的童鞋会问，二阶泰勒展开式是什么样的，大学学的都忘记差不多了。没关系，快速传送门进Wiki，仔细回顾下：<a href="https://en.wikipedia.org/wiki/Taylor%27s_theorem" target="_blank" rel="noopener">Taylor’s theorem</a>.</p>
+<p>对于XGBoost模型，对于第$t$次迭代，其表达式可扩展为：</p>
+<p>$$<br>L^{(t)} = \sum_{i}^{n} l(y_{i}, \hat{y_{i}}^{(t-1)}+f_{t}(X_{i})) + \Omega(f_k)<br>\tag{4}\label{4}<br>$$</p>
+<p>我们对上面的式子通过泰勒展开式展开，可以得到如下表达式：</p>
+<p>$$<br>L^{(t)} \simeq \sum_{i}^{n} \left [ \color{red}{l(y_{i}, \hat{y_i}^{(t-1)}) + g_i \ f_t(X_i) + h_i \ f_t^2(X_i))} \right ] +  \Omega(f_t)<br>\tag{5}\label{5}<br>$$</p>
+<p>红色部分为泰勒展开式部分，其中$g_i = \partial _{ \hat{y}^{(t-1)}} \ l(y_{i}, \ \hat{y}^{(t-1)})$, $h_i = \partial^2 _{ \hat{y}^{(t-1)}} \ \ l(y_{i}, \ \hat{y}^{(t-1)})$，分别为损失函数的一阶和二阶梯度。在计算过程中，我们还可以忽略常数项$l(y_i, \hat{y_i}^{(t-1)})$（表示的是目标值与$t-1$次迭代输出的预测值的差，第$t$并不会优化这一项，同时值也是固定的），因此，目标式子可以简化为：</p>
+<p>$$<br>\hat{L}^{(t)}<br>= \sum_{i}^{n} \left [ g_i \ f_t(X_i) + h_i \ f_t^2(X_i)) \right ] +  \Omega(f_t)<br>\tag{6}\label{6}<br>$$</p>
+<p>根据上式可以看出，目标函数会同时依赖每个数据点的在损失函数上的一阶导数和二阶导数。此外，我们看到右侧还有个正则部分，可以将正则项公式\eqref{3}代入进去，扩展公式可以进一步化解：</p>
+<p>$$<br>\begin{aligned}<br>\hat{L}^{(t)}<br>&amp;= \underbrace{\sum_{i}^{n} \left [ g_i \ f_t(X_i) + h_i \ f_t^2(X_i)) \right ]}_{对样本进行积累} +  \color{red}{ \gamma T + \frac{1}{2} \lambda \underbrace{\sum_{j=1}^{T} \parallel w_j \parallel ^2}_{对叶子节点进行积累}} \\<br>&amp;= \sum_{i}^{n} \left [ g_i \ \color{blue}{w_{q(X_i)}} + h_i \color{blue}{\ w_{q(X_i)}^2} \right ] +   \gamma T + \frac{1}{2} \lambda \sum_{j=1}^{T} \parallel w_j \parallel ^2 \\<br>&amp;= \sum_{j=1}^{T}\left[ (\sum_{i \in I_j} g_i) w_j + \frac{1}{2} (\sum_{i\in I_{j}} h_i + \lambda ) w_j^2 \right] + \gamma T<br>\end{aligned}<br>\tag{7}\label{7}<br>$$</p>
+<p>公式\eqref{7}第一行中的$f_t(X_i) 等于w_{q(X_i)}$，表示第$t$次迭代中(下标表示迭代次数)，样本$X_i$落在第$t$个树结构$f_t$中某个叶子节点的叶子权重值，代入后得到第二行，从第二行到第三行只是将各个样本的权重与一阶导和二阶导乘积之和，按照叶子节点进行分组，分组归并到各个叶子节点上的样本之和。最后化解得到第三行表达式，其为参数$w$的函数，为了求解它，我们可以通过求导并令导数等于0来求出$w$的极值点，然后将其回代到公式中，计算出目标表达式的值：</p>
+<p>$$<br>\frac{\partial \hat{L}^{(t)}}{\partial w_j} =  \sum_{i \in I_j} g_i  + (\sum_{i\in I_{j}} h_i + \lambda ) w_j =0<br>\tag{8}\label{8}<br>$$</p>
+<p>可以计算得到：</p>
+<p>$$<br>w_j^{*} = -\frac{\sum_{i \in I_j} g_i}{\sum_{i\in I_{j}} h_i + \lambda }<br>\tag{9}\label{9}<br>$$</p>
+<p>将公式\eqref{9}代入到公式\eqref{7}，可以推导出目标函数的表达式：</p>
+<p>$$<br>\begin{aligned}<br>\hat{L}^{(t)}<br>&amp;= \sum_{j=1}^{T}\left[ (\sum_{i \in I_j} g_i) \color{blue}{(-\frac{\sum_{i \in I_j} g_i}{\sum_{i\in I_{j}} h_i + \lambda })} + \frac{1}{2} (\sum_{i\in I_{j}} h_i + \lambda ) \color{blue}{(-\frac{\sum_{i \in I_j} g_i}{\sum_{i\in I_{j}} h_i + \lambda })^2} \right] + \gamma T \\<br>&amp;= \sum_{j=1}^{T}\left[ (-\frac{(\sum_{i \in I_j} g_i)^2}{\sum_{i\in I_{j}} h_i + \lambda }) + \frac{1}{2} (\frac{(\sum_{i \in I_j} g_i)^2}{\sum_{i\in I_{j}} h_i + \lambda }) \right] + \gamma T \\<br>&amp;= -\frac{1}{2} \sum_{j=1}^{T} \frac{(\sum_{i \in I_j} g_i)^2}{\sum_{i\in I_{j}} h_i + \lambda } + \gamma T \\<br>\end{aligned}<br>\tag{10}\label{10}<br>$$</p>
+<p>公式\eqref{10}表示的就是第$t$次迭代数的结构score，表示各个叶子节点上各个样本的一阶平方和与二阶加和之商的加和再加上树结构复杂度控制项$\gamma T$。应用公式\eqref{10}，只需要计算出每个叶子节点上各个样本的一阶梯度和二阶梯度的统计信息，就可以计算出整颗树的结构score，下图是XGBoost paper里面的图解：</p>
+<img src="/assets/articleImg/2019/xgboost-tree-structure.png" width="80%" height="60%">
+<div class="caption">树结构score计算图解.</div>
+
+<p>对公式\eqref{10}进行简化，就可以得到上图的结果：</p>
+<p>$$<br>obj=- \frac{1}{2}\sum_{j=1}^T \left[{\color{red}{\frac{G_j^2}{H_j+\lambda}} } \right] +\gamma T<br>$$</p>
+<p>那么对于决策树的单个节点，该如何进行划分呢？XGBoost与之前的GBDT、RF、ID3等树模型的计算方法都不一样，但是有一个共性就是计算分裂增益，通过比较分裂增益选择特征的切分点。分裂增益大小计算如下(对于单颗树而言，公式\eqref{10}中的$T=1$)，分裂增益值为$L - L_{left} - L_{right} $，推导步骤如下：</p>
+<p>$$<br>\begin{aligned}<br>L_split<br>&amp;= L - L_{left} - L_{right} \\<br>&amp;= \left [ -\frac{1}{2}  \frac{(\sum_{i \in I } g_i)^2}{\sum_{i \in I} h_i + \lambda }   + \gamma \right]  - \left[  -\frac{1}{2}  \frac{(\sum_{i \in I_{L} } g_i)^2}{\sum_{i \in I_{L}} h_i + \lambda }   + \gamma \right ] - \left [\frac{1}{2}  \frac{(\sum_{i \in I_{R} } g_i)^2}{\sum_{i \in I_{R}} h_i + \lambda }   + \gamma\right] \\<br>&amp;= \color{red}{\frac{1}{2}\left [ \frac{(\sum_{i \in I_{L} } g_i)^2}{\sum_{i \in I_{L}} h_i + \lambda } +  \frac{(\sum_{i \in I_{R} } g_i)^2}{\sum_{i \in I_{R}} h_i + \lambda } -  \frac{(\sum_{i \in I } g_i)^2}{\sum_{i \in I} h_i + \lambda } \right] - \gamma}<br>\end{aligned}<br>\tag{11}\label{11}<br>$$</p>
+<p>通过上式就可以计算出分裂的增益，然后确定分裂方式。关键是如何计算出最优分裂点呢？</p>
+<h3 id="寻找最佳分裂点"><a href="#寻找最佳分裂点" class="headerlink" title="寻找最佳分裂点"></a>寻找最佳分裂点</h3><p>第一种是Exact Greedy Algorithm，一种贪心算法，列举出每个特征每个切分点的增益，然后将增益最大的切分点作为分裂点，这种方法固然会寻找到最优点，但是计算量特别大：</p>
+<img src="/assets/articleImg/2019/xgboost-algorithm1-exact-greddy-algorith-for-split-finding.png" width="60%" height="50%">
+
+<p>第二种是Approximate Algorithm，近似算法，首先根据特征的百分位数获取候选的划分点（采用的是<a href="https://datascience.stackexchange.com/questions/10997/need-help-understanding-xgboosts-approximate-split-points-proposal" target="_blank" rel="noopener">Weighted Quantile Sketch</a>），然后将连续特征映射到采用候选值划分之后的若干个bucket中，然后基于划分数据数据的切分点采用上面的方式计算出最大的增益点，可在一定程度上提升算法的性能。 </p>
+<img src="/assets/articleImg/2019/xgboost-a2-approximate-algorithm-for-split-finding.png" width="60%" height="50%">
+
+<p>在XGBoost paper提到，采用的是样本的二阶梯度$h_i$作为样本的权重，关于Weighted Quantile Sketch为什么采用$h_i$作为权重，可以通过化解目标表达式子\eqref{6}得到(原paper符号有误，请注意)：</p>
+<!-- $$
+\begin{aligned}
+\sum_{i=1}^n\frac{1}{2}h_i[f_t(x_i) - (-g_i/h_i)]^2 + constant 
+&= \sum_{i=1}^n\frac{1}{2}h_i[f_t^2(x_i) + 2\frac{f_t(x_i)g_i}{h_i} + (g_i/h_i)^2] \\\\
+&= \sum_{i=1}^n[g_if_t(x_i) + \frac{1}{2}h_if_t^2(x_i) + \frac{gi^2}{2h_i}]
+\end{aligned}
+$$ -->
+
+
+<p>$$<br>\begin{aligned}<br>\sum_{i=1}^n[g_if_t(x_i) + \frac{1}{2}h_if_t^2(x_i) ]<br>&amp;= \sum_{i=1}^n\frac{1}{2}h_i[f_t^2(x_i) - 2f_t(x_i)(-\frac{g_i}{h_i}) + \underbrace{\color{blue}{(\frac{g_i}{h_i})^2 - (\frac{g_i}{h_i})^2}}_{构建平方项}] \\<br>&amp;=\sum_{i=1}^n\frac{1}{2}h_i[f_t(x_i) - (-\frac{g_i}{h_i})]^2 + \color{blue}{constant} \\<br>\end{aligned}<br>$$</p>
+<p>关于Weighted Quantile Sketch算法，的确有点复杂，有兴趣的可以参考这篇博文笔记：<a href="https://yxzf.github.io/2017/04/xgboost-v2/" target="_blank" rel="noopener">XGBoost解读(2)–近似分割算法</a>。</p>
+<p>第三种是针对稀疏特征的分裂方式，XGBoost可以自动学习稀疏特征的分裂方向：</p>
+<img src="/assets/articleImg/2019/xgboost-a3-sparsity-aware-split-finding.png" width="60%" height="50%">
+
+<p>Sparsity Aware Split Finding算法会对比将特征值为missing的样本分配到左叶子结点和右叶子结点的两种情形，还可以为缺失值或者指定的值指定默认分裂方向，这中方式可以大大提升算法的效率，原paper中给出了具体的量化：50倍。 这种方式对性能的提升确实是非常可观的。</p>
+<h2 id="XGBoost特点"><a href="#XGBoost特点" class="headerlink" title="XGBoost特点"></a>XGBoost特点</h2><p>上面介绍了XGBoost的原理，那么具体跟GBDT有哪些异同点呢？这里来归纳下XGBoost的模型特性：</p>
+<ol>
+<li>目标表达式：XGBoost优化了GBDT的目标函数。一方面，在GBDT的基础上加入了正则项，包括叶子节点的个数和每个叶子节点输出的L2模的平方和，正则项可以控制树的复杂度，让模型倾向于学习简单的模型，防止过拟合；另外，XGBoost还支持线性分类器，传统的GBDT是以CART算法作为基学习器。</li>
+<li>Shrinkage：对每棵树的预测结果采用了shrinkage，相当于学习率，降低模型对单颗树的依赖，提升模型的泛化能力。</li>
+<li>列采样：XGBoost借助了RF的优点，采用了列采样，进一步防止过拟合，加速训练过程，而传统的GBDT则没有列采样。</li>
+<li>优化方法：XGBoost对损失函数的展开采用了一阶梯度和二阶梯度，而传统的GBDT只采用了一阶梯度。</li>
+<li>增益计算：对分裂依据进行了优化。<strong>不同于CART算法</strong>，XGBoost采用了新的基于一阶导数和二阶导数的统计信息作为树的结构score，采用分列前的结构与分裂后的结构score的增益作为分裂依据，选择增益最大的特征值作为分裂点，替代了回归树的误差平方和。</li>
+<li>最佳增益节点查找：XGBoost在寻找最佳分离点的方式上采用了近似算法，基于权重的分位数划分方式（权重为二阶梯度$h_i$）：Weighted Quantile Sketch。主要是对特征取值进行分桶，然后基于桶的值计算增益。</li>
+<li>预排序。在寻找最佳增益节点时，将所有数据放入内存进行计算，得到预排序结果，然后在计算分裂增益的时候直接调用。</li>
+<li>稀疏值处理：XGBoost可以自动学习稀疏值的分裂方向，也可以指定默认方向，这种方式大大可以大大提升模型的性能。</li>
+<li>并行方式：XGBoost的并行在于特征层面，在训练每颗树之前，对特征进行预排序，后续的并行迭代过程中重复使用这个排序结果，可以大大减少计算量，并提升模型性能。在查找最佳分裂点的时候，需要选择增益最大的特征取值作为分裂点，那么各个特征的增益计算就可以采用并行的方式进行计算，采用的是多线程方式计算各个特征的各个值得分裂增益。</li>
+</ol>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>OK，针对XGBoost的原理解析就此结束了，也算是给XGBoost一个交代吧。整篇文章花了不少时间在公式的勘误上面，不过在仔细检查每个公式的过程中，对XGBoost的公式推导又加深了好多遍，并且对公式的推导也有了更进一步的理解。其中有一点是比较突出的，很多人误认为XGBoost的增益是分裂后的减去分裂前，这是不正确的，其实是分裂前减去分裂后，可以通过公式计算出来。回头看看，XGBoost在工程实现上面也花了很大的心思，着实令人佩服，失敬失敬！接下来，将花点时间整理下Boosting的下一个模型：lightGBM。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://towardsdatascience.com/a-beginners-guide-to-xgboost-87f5d4c30ed7" target="_blank" rel="noopener">A Beginner’s guide to XGBoost</a></li>
+<li><a href="https://datascience.stackexchange.com/questions/10997/need-help-understanding-xgboosts-approximate-split-points-proposal" target="_blank" rel="noopener">Need help understanding xgboost’s approximate split points proposal</a></li>
+<li><a href="https://www.rose-hulman.edu/~bryan/lottamath/mtaylor.pdf" target="_blank" rel="noopener">Taylor’s Theorem in One and Several Variables</a></li>
+<li><a href="https://yxzf.github.io/2017/04/xgboost-v2/" target="_blank" rel="noopener">XGBoost解读(2)–近似分割算法</a></li>
+<li><a href="https://www.csuldw.com/2019/07/12/2019-07-12-an-introduction-to-gbdt/">Boosting模型：GBDT原理介绍</a></li>
+<li><a href="http://www.csuldw.com/2015/05/08/2015-05-08-decision%20tree/">机器学习算法-决策树理论</a></li>
+<li><a href="https://arxiv.org/pdf/1603.02754" target="_blank" rel="noopener">Xgboost: A scalable tree boosting system.</a></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/XGBoost/" rel="tag">#XGBoost</a>
+          
+            <a href="/tags/Boosting/" rel="tag">#Boosting</a>
+          
+            <a href="/tags/XGoost/" rel="tag">#XGoost</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/24/2019-07-24-an-introduction-tolightGBM-explained/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Boosting模型：lightGBM 算法原理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/15/2019-07-15-gbdt-lr-framework/" rel="next">
+                CTR预估经典模型：GBDT+LR <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理剖析"><span class="nav-number">2.</span> <span class="nav-text">原理剖析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Tree-Ensemble-Model"><span class="nav-number">2.1.</span> <span class="nav-text">Tree Ensemble Model</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Object-Function"><span class="nav-number">2.2.</span> <span class="nav-text">Object Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#目标函数求解"><span class="nav-number">2.3.</span> <span class="nav-text">目标函数求解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找最佳分裂点"><span class="nav-number">2.4.</span> <span class="nav-text">寻找最佳分裂点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XGBoost特点"><span class="nav-number">3.</span> <span class="nav-text">XGBoost特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束语"><span class="nav-number">4.</span> <span class="nav-text">结束语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">5.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2019/07/20/2019-07-20-xgboost-theory/';
+      var disqus_title = 'Boosting模型：XGBoost原理剖析';
+      var disqus_url = 'https://www.csuldw.com/2019/07/20/2019-07-20-xgboost-theory/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

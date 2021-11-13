@@ -1,0 +1,931 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.8.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Python,爬虫,Spider,ZhiHu,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="最近突然对爬虫兴趣倍增，主要是自己想从网上爬点数据来玩玩。前阵子从某房屋出售网爬取了长沙地区的房价以及2016年的成交额，只有几千条数据，量较少，没劲o(╯□╰)o，因此将目标成功地转移到了社交网上，难度显然大了点。爬取社交网站比较鲜明的特点就是需要登录，否则很多东西都无法获取。做了几个小Demo之后发现，人人网的登录还比较简单，验证码的都不用就可以成功登录；知乎虽然携带验证码，但难度算是适中；微">
+<meta name="keywords" content="Python,爬虫,Spider,ZhiHu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小试牛刀：使用Python模拟登录知乎">
+<meta property="og:url" content="https://www.csuldw.com/2016/11/05/2016-11-05-simulate-zhihu-login/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="最近突然对爬虫兴趣倍增，主要是自己想从网上爬点数据来玩玩。前阵子从某房屋出售网爬取了长沙地区的房价以及2016年的成交额，只有几千条数据，量较少，没劲o(╯□╰)o，因此将目标成功地转移到了社交网上，难度显然大了点。爬取社交网站比较鲜明的特点就是需要登录，否则很多东西都无法获取。做了几个小Demo之后发现，人人网的登录还比较简单，验证码的都不用就可以成功登录；知乎虽然携带验证码，但难度算是适中；微">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/zhihu-login-page.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/src-input.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/login-email.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/login-email-detail.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/xsrf-info.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/captcha-link.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/run-example-password-error.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/run-example-captcha-error.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/run-example-success.png">
+<meta property="og:updated_time" content="2017-03-26T07:01:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="小试牛刀：使用Python模拟登录知乎">
+<meta name="twitter:description" content="最近突然对爬虫兴趣倍增，主要是自己想从网上爬点数据来玩玩。前阵子从某房屋出售网爬取了长沙地区的房价以及2016年的成交额，只有几千条数据，量较少，没劲o(╯□╰)o，因此将目标成功地转移到了社交网上，难度显然大了点。爬取社交网站比较鲜明的特点就是需要登录，否则很多东西都无法获取。做了几个小Demo之后发现，人人网的登录还比较简单，验证码的都不用就可以成功登录；知乎虽然携带验证码，但难度算是适中；微">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/zhihu-login-page.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 小试牛刀：使用Python模拟登录知乎 | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                小试牛刀：使用Python模拟登录知乎
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-11-05T16:10:00+08:00" content="2016-11-05">
+              2016-11-05 16:10
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Spider/" itemprop="url" rel="index">
+                    <span itemprop="name">Spider</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/11/05/2016-11-05-simulate-zhihu-login/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/11/05/2016-11-05-simulate-zhihu-login/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2016/11/05/2016-11-05-simulate-zhihu-login/" class="leancloud_visitors" data-flag-title="小试牛刀：使用Python模拟登录知乎">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>最近突然对爬虫兴趣倍增，主要是自己想从网上爬点数据来玩玩。前阵子从某房屋出售网爬取了长沙地区的房价以及2016年的成交额，只有几千条数据，量较少，没劲o(╯□╰)o，因此将目标成功地转移到了社交网上，难度显然大了点。爬取社交网站比较鲜明的特点就是需要登录，否则很多东西都无法获取。做了几个小Demo之后发现，人人网的登录还比较简单，验证码的都不用就可以成功登录；知乎虽然携带验证码，但难度算是适中；微博的登录难度稍微大点，因为不仅有验证码，还在传递参数的时候对用户名进行了base64加密。在这篇博文里，主要是以知乎为例，模拟知乎登录，至于数据爬取部分咱们就暂且不谈吧。</p>
+<a id="more"></a>
+
+<h2 id="环境与开发工具"><a href="#环境与开发工具" class="headerlink" title="环境与开发工具"></a>环境与开发工具</h2><p>模拟知乎登录前，先看看本次案例使用的环境及其工具：</p>
+<ul>
+<li>Windows 7 + Python 2.75</li>
+<li>Chrome + Fiddler: 用来监控客户端与服务器的通讯情况，以及查找相关参数的位置。</li>
+</ul>
+<p>Github源码下载：<a href="https://github.com/csuldw/WSpider" target="_blank" rel="noopener">https://github.com/csuldw/WSpider</a>.</p>
+<h2 id="模拟过程概述"><a href="#模拟过程概述" class="headerlink" title="模拟过程概述"></a>模拟过程概述</h2><ol>
+<li>使用Google浏览器结合Fiddler来监控客户端与服务端的通讯过程；</li>
+<li>根据监控结果，构造请求服务器过程中传递的参数；</li>
+<li>使用Python模拟参数传递过程。</li>
+</ol>
+<p>客户端与服务端通信过程的几个关键点：</p>
+<ul>
+<li>登录时的url地址。</li>
+<li>登录时提交的参数【params】，获取方式主要有两种：第一、分析页面源代码，找到表单标签及属性。适应比较简单的页面。第二、使用抓包工具，查看提交的url和参数，通常使用的是Chrome的开发者工具中的Network， Fiddler等。</li>
+<li>登录后跳转的url。</li>
+</ul>
+<p>在抓包的时候，开始使用的是Chrome开发工具中的Network，结果没有抓到，后来使用Fiddler成功抓取数据。下面逐步来细化上述过程。</p>
+<h2 id="参数探索"><a href="#参数探索" class="headerlink" title="参数探索"></a>参数探索</h2><p>首先看看这个登录页面(<a href="https//www.zhihu.com">https//www.zhihu.com</a>)，也就是我们登录时的url地址。</p>
+<p><img src="/assets/articleImg/zhihu-login-page.png" alt></p>
+<p>看到这个页面，我们也可以大概猜测下请求服务器时传递了几个字段，很明显有：用户名、密码、验证码以及“记住我”这几个值。那么实际上有哪些呢？下面来分分析下。</p>
+<p>首先查看一下HTML源码，Google里可以使用<code>CTRL+U</code>查看，然后使用<code>CTRL+F</code>输入input看看有哪些字段值，详情如下：</p>
+<p><img src="/assets/articleImg/src-input.png" alt></p>
+<p>通过源码，我们可以看到，在请求服务器的过程中还携带了一个隐藏字段”_xsrf”。那么现在的问题是：这些参数在传递时是以什么名字传递的呢？这就需要借用其他工具抓包进行分析了。笔者是Windows系统，这里使用的是<strong>Fiddler</strong>（当然，你也可以使用其他的）。</p>
+<p>抓包过程比较繁琐，因为抓到的东西比较多，很难快速的找到需要的信息。关于fiddler，很容易使用，有过不会，可以去百度搜一下。为了防止其他信息干扰，我们先将fiddler中的记录清除，然后输入用户名（笔者使用的是邮箱登录）、密码等信息登录，相应的在fiddler中会有如下结果:</p>
+<p><img src="/assets/articleImg/login-email.png" alt></p>
+<p>备注：如果是使用手机登录，则对应fiddler中的url是“/login/phone_num”。</p>
+<p>为了查看详细的请求参数，我们左键单机“/login/email”，可以看到下列信息：</p>
+<p><img src="/assets/articleImg/login-email-detail.png" alt></p>
+<p>请求方式为<code>POST</code>，请求的url为<a href="https://www.zhihu.com/login/email" target="_blank" rel="noopener">https://www.zhihu.com/login/email</a>。而从From Data可以看出，相应的字段名称如下：</p>
+<ul>
+<li>_xsrf</li>
+<li>captcha</li>
+<li>email</li>
+<li>password</li>
+<li>remember</li>
+</ul>
+<p>对于这五个字段，代码中email、password以及captcha都是手动输入的，remember初始化为true。剩下的_xsrf则可以根据登录页面的源文件，取input为_xsrf的value值即可。</p>
+<p><img src="/assets/articleImg/xsrf-info.png" alt></p>
+<p>对于验证码，则需要通过额外的请求，该链接可以通过定点查看源码看出：</p>
+<p><img src="/assets/articleImg/captcha-link.png" alt></p>
+<p>链接为<a href="https://www.zhihu.com/captcha.gif?type=login" target="_blank" rel="noopener">https://www.zhihu.com/captcha.gif?type=login</a>，这里省略了ts（经测试，可省略掉）。现在，可以使用代码进行模拟登录。</p>
+<p>温馨提示：<strong>如果使用的是手机号码进行登录，则请求的url为<a href="https://www.zhihu.com/login/phone_num" target="_blank" rel="noopener">https://www.zhihu.com/login/phone_num</a>，同时email字段名称将变成“phone_num”。</strong></p>
+<h2 id="模拟源码"><a href="#模拟源码" class="headerlink" title="模拟源码"></a>模拟源码</h2><p>在编写代码实现知乎登录的过程中，笔者将一些功能封装成了一个简单的类WSpider，以便复用，文件名称为<a href="https://github.com/csuldw/WSpider/blob/master/WSpider.py" target="_blank" rel="noopener">WSpider.py</a>。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Created on Thu Nov 02 14:01:17 2016</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@author: liudiwei</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> urllib2</span><br><span class="line"><span class="keyword">import</span> cookielib</span><br><span class="line"><span class="keyword">import</span> logging  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WSpider</span><span class="params">(object)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="comment">#init params</span></span><br><span class="line">        self.url_path = <span class="keyword">None</span></span><br><span class="line">        self.post_data = <span class="keyword">None</span></span><br><span class="line">        self.header = <span class="keyword">None</span></span><br><span class="line">        self.domain = <span class="keyword">None</span></span><br><span class="line">        self.operate = <span class="keyword">None</span></span><br><span class="line">        <span class="comment">#init cookie</span></span><br><span class="line">        self.cookiejar = cookielib.LWPCookieJar()</span><br><span class="line">        self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cookiejar))</span><br><span class="line">        urllib2.install_opener(self.opener)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setRequestData</span><span class="params">(self, url_path=None, post_data=None, header=None)</span>:</span></span><br><span class="line">        self.url_path = url_path</span><br><span class="line">        self.post_data = post_data</span><br><span class="line">        self.header = header</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getHtmlText</span><span class="params">(self, is_cookie=False)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.post_data == <span class="keyword">None</span> <span class="keyword">and</span> self.header == <span class="keyword">None</span>:</span><br><span class="line">            request = urllib2.Request(self.url_path)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            request = urllib2.Request(self.url_path, urllib.urlencode(self.post_data), self.header)</span><br><span class="line">        response = urllib2.urlopen(request)</span><br><span class="line">        <span class="keyword">if</span> is_cookie: </span><br><span class="line">            self.operate = self.opener.open(request)</span><br><span class="line">        resText = response.read()</span><br><span class="line">        <span class="keyword">return</span> resText </span><br><span class="line"></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    Save captcha to local    </span></span><br><span class="line"><span class="string">    """</span>    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">saveCaptcha</span><span class="params">(self, captcha_url, outpath, save_mode=<span class="string">'wb'</span>)</span>:</span></span><br><span class="line">        picture = self.opener.open(captcha_url).read() <span class="comment">#用openr访问验证码地址,获取cookie</span></span><br><span class="line">        local = open(outpath, save_mode)</span><br><span class="line">        local.write(picture)</span><br><span class="line">        local.close()    </span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getHtml</span><span class="params">(self, url)</span>:</span></span><br><span class="line">        page = urllib.urlopen(url)</span><br><span class="line">        html = page.read()</span><br><span class="line">        <span class="keyword">return</span> html</span><br><span class="line"></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    功能：将文本内容输出至本地</span></span><br><span class="line"><span class="string">    @params </span></span><br><span class="line"><span class="string">        content：文本内容</span></span><br><span class="line"><span class="string">        out_path: 输出路径</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">output</span><span class="params">(self, content, out_path, save_mode=<span class="string">"w"</span>)</span>:</span></span><br><span class="line">        fw = open(out_path, save_mode)</span><br><span class="line">        fw.write(content)</span><br><span class="line">        fw.close()</span><br><span class="line"></span><br><span class="line">    <span class="string">"""#EXAMPLE </span></span><br><span class="line"><span class="string">    logger = createLogger('mylogger', 'temp/logger.log')</span></span><br><span class="line"><span class="string">    logger.debug('logger debug message')  </span></span><br><span class="line"><span class="string">    logger.info('logger info message')  </span></span><br><span class="line"><span class="string">    logger.warning('logger warning message')  </span></span><br><span class="line"><span class="string">    logger.error('logger error message')  </span></span><br><span class="line"><span class="string">    logger.critical('logger critical message')  </span></span><br><span class="line"><span class="string">    """</span>    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">createLogger</span><span class="params">(self, logger_name, log_file)</span>:</span></span><br><span class="line">        <span class="comment"># 创建一个logger</span></span><br><span class="line">        logger = logging.getLogger(logger_name)  </span><br><span class="line">        logger.setLevel(logging.INFO)  </span><br><span class="line">        <span class="comment"># 创建一个handler，用于写入日志文件    </span></span><br><span class="line">        fh = logging.FileHandler(log_file)  </span><br><span class="line">        <span class="comment"># 再创建一个handler，用于输出到控制台    </span></span><br><span class="line">        ch = logging.StreamHandler()  </span><br><span class="line">        <span class="comment"># 定义handler的输出格式formatter    </span></span><br><span class="line">        formatter = logging.Formatter(<span class="string">'%(asctime)s | %(name)s | %(levelname)s | %(message)s'</span>)  </span><br><span class="line">        fh.setFormatter(formatter)  </span><br><span class="line">        ch.setFormatter(formatter)  </span><br><span class="line">        <span class="comment"># 给logger添加handler    </span></span><br><span class="line">        logger.addHandler(fh)  </span><br><span class="line">        logger.addHandler(ch)  </span><br><span class="line">        <span class="keyword">return</span> logger</span><br></pre></td></tr></tbody></table></figure>
+
+<p>关于模拟登录知乎的源码，保存在<a href="https://github.com/csuldw/WSpider/blob/master/zhiHuLogin.py" target="_blank" rel="noopener">zhiHuLogin.py</a>文件，内容如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: utf-8 -*-</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">Created on Thu Nov 02 17:07:17 2016</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">@author: liudiwei</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">from</span> WSpider <span class="keyword">import</span> WSpider</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup <span class="keyword">as</span> BS</span><br><span class="line"><span class="keyword">import</span> getpass</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> WLogger <span class="keyword">as</span> WLog</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">2016.11.03 由于验证码问题暂时无法正常登陆</span></span><br><span class="line"><span class="string">2016.11.04 成功登录，期间出现下列问题</span></span><br><span class="line"><span class="string">验证码错误返回：{ "r": 1, "errcode": 1991829, "data": {"captcha":"验证码错误"}, "msg": "验证码错误" }</span></span><br><span class="line"><span class="string">验证码过期：{ "r": 1, "errcode": 1991829, "data": {"captcha":"验证码回话无效 :(","name":"ERR_VERIFY_CAPTCHA_SESSION_INVALID"}, "msg": "验证码回话无效 :(" }</span></span><br><span class="line"><span class="string">登录：{"r":0, "msg": "登录成功"}</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">zhiHuLogin</span><span class="params">()</span>:</span></span><br><span class="line">    spy = WSpider()</span><br><span class="line">    logger = spy.createLogger(<span class="string">'mylogger'</span>, <span class="string">'temp/logger.log'</span>)</span><br><span class="line">    </span><br><span class="line">    homepage = <span class="string">r"https://www.zhihu.com/"</span>    </span><br><span class="line">    html = spy.opener.open(homepage).read()</span><br><span class="line">    soup = BS(html, <span class="string">"html.parser"</span>)</span><br><span class="line">    _xsrf = soup.find(<span class="string">"input"</span>, {<span class="string">'type'</span>:<span class="string">'hidden'</span>}).get(<span class="string">"value"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">#根据email和手机登陆得到的参数名不一样，email登陆传递的参数是‘email’，手机登陆传递的是‘phone_num’</span></span><br><span class="line">    username = raw_input(<span class="string">"Please input username: "</span>)</span><br><span class="line">    password = getpass.getpass(<span class="string">"Please input your password: "</span>)</span><br><span class="line">    account_name = <span class="keyword">None</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">"@"</span> <span class="keyword">in</span> username:</span><br><span class="line">        account_name = <span class="string">'email'</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        account_name = <span class="string">'phone_num'</span> </span><br><span class="line"></span><br><span class="line">    <span class="comment">#保存验证码</span></span><br><span class="line">    logger.info(<span class="string">"save captcha to local machine."</span>)</span><br><span class="line">    captchaURL = <span class="string">r"https://www.zhihu.com/captcha.gif?type=login"</span> <span class="comment">#验证码url</span></span><br><span class="line">    spy.saveCaptcha(captcha_url=captchaURL, outpath=<span class="string">"temp/captcha.jpg"</span>) <span class="comment">#temp目录需手动创建</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">#请求的参数列表</span></span><br><span class="line">    post_data = {</span><br><span class="line">        <span class="string">'_xsrf'</span>: _xsrf,</span><br><span class="line">        account_name: username,</span><br><span class="line">        <span class="string">'password'</span>: password,</span><br><span class="line">        <span class="string">'remember_me'</span>: <span class="string">'true'</span>,</span><br><span class="line">        <span class="string">'captcha'</span>:raw_input(<span class="string">"Please input captcha: "</span>)</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="comment">#请求的头内容</span></span><br><span class="line">    header ={</span><br><span class="line">        <span class="string">'Accept'</span>:<span class="string">'*/*'</span> ,</span><br><span class="line">        <span class="string">'Content-Type'</span>:<span class="string">'application/x-www-form-urlencoded; charset=UTF-8'</span>,</span><br><span class="line">        <span class="string">'X-Requested-With'</span>:<span class="string">'XMLHttpRequest'</span>,</span><br><span class="line">        <span class="string">'Referer'</span>:<span class="string">'https://www.zhihu.com/'</span>,</span><br><span class="line">        <span class="string">'Accept-Language'</span>:<span class="string">'en-GB,en;q=0.8,zh-CN;q=0.6,zh;q=0.4'</span>,</span><br><span class="line">        <span class="string">'Accept-Encoding'</span>:<span class="string">'gzip, deflate, br'</span>,</span><br><span class="line">        <span class="string">'User-Agent'</span>:<span class="string">'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36'</span>,</span><br><span class="line">        <span class="string">'Host'</span>:<span class="string">'www.zhihu.com'</span></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    url = <span class="string">r"https://www.zhihu.com/login/"</span> + account_name</span><br><span class="line">    spy.setRequestData(url, post_data, header)</span><br><span class="line">    resText = spy.getHtmlText()</span><br><span class="line">    jsonText = json.loads(resText)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> jsonText[<span class="string">"r"</span>] == <span class="number">0</span>:</span><br><span class="line">        logger.info(<span class="string">"Login success!"</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        logger.error(<span class="string">"Login Failed!"</span>)</span><br><span class="line">        logger.error(<span class="string">"Error info ---&gt; "</span> + jsonText[<span class="string">"msg"</span>])</span><br><span class="line">        </span><br><span class="line">    text = spy.opener.open(homepage).read() <span class="comment">#重新打开主页，查看源码可知此时已经处于登录状态</span></span><br><span class="line">    spy.output(text, <span class="string">"out/home.html"</span>) <span class="comment">#out目录需手动创建</span></span><br><span class="line">    </span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    zhiHuLogin()</span><br></pre></td></tr></tbody></table></figure>
+
+<p>关于源码的分析，可以参考代码中的注解。</p>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>在控制台中运行<code>python zhiHuLogin.py</code>，然后按提示输入相应的内容，最后可得到以下不同的结果（举了三个实例）：</p>
+<p>结果一：密码错误</p>
+<p><img src="/assets/articleImg/run-example-password-error.png" alt></p>
+<p>结果二：验证码错误</p>
+<p><img src="/assets/articleImg/run-example-captcha-error.png" alt></p>
+<p>结果三：成功登录</p>
+<p><img src="/assets/articleImg/run-example-success.png" alt></p>
+<p>通过代码，可以成功的登录到知乎，接着如果要爬取知乎里面的内容，就比较方便了。</p>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag">#Python</a>
+          
+            <a href="/tags/爬虫/" rel="tag">#爬虫</a>
+          
+            <a href="/tags/Spider/" rel="tag">#Spider</a>
+          
+            <a href="/tags/ZhiHu/" rel="tag">#ZhiHu</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/10/2016-11-10-simulate-sina-login/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 模拟新浪微博登录：从原理分析到实现
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/19/2016-09-19-logistic-regression-theory/" rel="next">
+                逻辑回归理论推导 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境与开发工具"><span class="nav-number">1.</span> <span class="nav-text">环境与开发工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟过程概述"><span class="nav-number">2.</span> <span class="nav-text">模拟过程概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数探索"><span class="nav-number">3.</span> <span class="nav-text">参数探索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟源码"><span class="nav-number">4.</span> <span class="nav-text">模拟源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行结果"><span class="nav-number">5.</span> <span class="nav-text">运行结果</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2016/11/05/2016-11-05-simulate-zhihu-login/';
+      var disqus_title = '小试牛刀：使用Python模拟登录知乎';
+      var disqus_url = 'https://www.csuldw.com/2016/11/05/2016-11-05-simulate-zhihu-login/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

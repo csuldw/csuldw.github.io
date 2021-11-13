@@ -1,0 +1,968 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.8.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,Adaboost,权值,boosting,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="关于Adaboost，在先前的一篇文章里，也介绍过它的步骤与实现，但理论上的推导未曾涉及。虽然Adaboost算法思想通俗易懂，但权值更新公式的由来，想必并非人人皆知。本文着重于从理论层面进一步阐述Adaboost，最终推导出迭代时的样本权值更新公式。">
+<meta name="keywords" content="Machine Learning,Adaboost,权值,boosting">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Adaboost - 新的角度理解权值更新策略">
+<meta property="og:url" content="https://www.csuldw.com/2016/08/28/2016-08-28-adaboost-algorithm-theory/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="关于Adaboost，在先前的一篇文章里，也介绍过它的步骤与实现，但理论上的推导未曾涉及。虽然Adaboost算法思想通俗易懂，但权值更新公式的由来，想必并非人人皆知。本文着重于从理论层面进一步阐述Adaboost，最终推导出迭代时的样本权值更新公式。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/adaboost-algorithm.png">
+<meta property="og:updated_time" content="2016-09-02T11:52:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Adaboost - 新的角度理解权值更新策略">
+<meta name="twitter:description" content="关于Adaboost，在先前的一篇文章里，也介绍过它的步骤与实现，但理论上的推导未曾涉及。虽然Adaboost算法思想通俗易懂，但权值更新公式的由来，想必并非人人皆知。本文着重于从理论层面进一步阐述Adaboost，最终推导出迭代时的样本权值更新公式。">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/adaboost-algorithm.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Adaboost - 新的角度理解权值更新策略 | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Adaboost - 新的角度理解权值更新策略
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-08-28T19:24:00+08:00" content="2016-08-28">
+              2016-08-28 19:24
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/28/2016-08-28-adaboost-algorithm-theory/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/28/2016-08-28-adaboost-algorithm-theory/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2016/08/28/2016-08-28-adaboost-algorithm-theory/" class="leancloud_visitors" data-flag-title="Adaboost - 新的角度理解权值更新策略">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>关于Adaboost，在<a href="http://www.csuldw.com/2015/07/05/2015-07-05-ML-algorithm-Adaboost/">先前的一篇文章</a>里，也介绍过它的步骤与实现，但理论上的推导未曾涉及。虽然Adaboost算法思想通俗易懂，但权值更新公式的由来，想必并非人人皆知。本文着重于从理论层面进一步阐述Adaboost，最终推导出迭代时的样本权值更新公式。</p>
+<a id="more"></a>
+
+<p>关于本文使用的数学符号的具体解释，见下表：</p>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>符号</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>训练数据</td>
+<td>$(X, Y)$</td>
+<td>第$i$个样本为$(x_i, y_i)$，其中$x_i =( x_{i1}, x_{i2}, \cdots, x_{id} )$，$y_i \in \lbrace +1, -1 \rbrace $</td>
+</tr>
+<tr>
+<td>错误率</td>
+<td>$e$</td>
+<td>第$m$个弱分类器的错误率为$e_m$</td>
+</tr>
+<tr>
+<td>分类器的系数</td>
+<td>$\alpha$</td>
+<td>第$m$个弱分类器的系数为$\alpha_m$</td>
+</tr>
+<tr>
+<td>样本权重向量</td>
+<td>$D$</td>
+<td>迭代至第$m$次时的第$i$个样本的权值为$D_{m,i}$，初始阶段，所有样本的权重值均为$\frac{1}{N}$</td>
+</tr>
+<tr>
+<td>归一化因子</td>
+<td>$Z$</td>
+<td>迭代至第$m$次的的归一化因子为$Z_m$</td>
+</tr>
+<tr>
+<td>组合分类器</td>
+<td>f(x)</td>
+<td>迭代至第$m$次的组合分类器为$f_m(x)$</td>
+</tr>
+<tr>
+<td>最终分类器</td>
+<td>G(X)</td>
+<td>最终分类器为$G(X) = sign(f_M(x))$</td>
+</tr>
+</tbody></table>
+<p>下面来看看Adaboost的算法思想与其权值的推导。</p>
+<h2 id="算法思想"><a href="#算法思想" class="headerlink" title="算法思想"></a>算法思想</h2><p>关于Adaboost，它是boosting算法，从bias-variance（偏差-方差）的角度来看，boosting算法主要关注的是降低偏差。仔细想想便可理解，因为boosting算法每个分类器都是弱分类器，而弱分类器的特性就是high-bias &amp; low variance（高偏差-低方差），其与生俱来的优点就是泛化性能好。因此，将多个算法组合起来之后，可以达到降偏差的效果，进而得到一个偏差小、方差小的泛化能力好的模型。另外，Adaboost的损失函数是指数损失$L(y, f(x)) = e^{-yf(x)}$。为了掌握Adaboost的整个流程，我将其思想通过下图简单的进行了一番总结（由于此图是我使用LaTex编辑的，所以如有表达不妥的地方，还请读者指出）：</p>
+<p><img src="/assets/articleImg/adaboost-algorithm.png" alt></p>
+<div class="caption">图一 Adaboost 算法</div>
+
+<p>Adaboost算法可以归纳至三步，如下：</p>
+<ul>
+<li>第一步：初始化每个样本的权重值为$\frac{1}{N}$；</li>
+<li>第二步：迭代$M$次，每次都根据错误率$e_m$不断修改训练数据的权值分布（此处需要确保弱学习器的错误率$e$小于$0.5$），样本权值更新规则为增加分类错误样本的权重，减少分类正确样本的权重；</li>
+<li>第三步：根据每个弱学习器的系数$\alpha_m$，将$M$个弱学习器组合到一起，共同决定最终的学习结果，即$G(X) = \sum_{m=1}^M \alpha_m G_m(x)$.</li>
+</ul>
+<p>对于上面给出的算法，可能会存在一些疑问，诸如：</p>
+<ol>
+<li>弱学习器的错误率$e$为何要小于$0.5$?</li>
+<li>弱学习器的系数$\alpha$这个等式如何得到的？</li>
+<li>归一化因子$Z_m$又有何寓意？</li>
+</ol>
+<p>对于第一点，应该比较容易理解，因为如果弱学习器的效果都没有随机猜测好，那么学习得到的模型毫无疑问肯定是无用的。事实上，在上面三个问题中，最让人不解的应该是这个$\alpha$的取值。<strong>为什么它会是这种$\eqref{1}$形式呢？</strong>下面我们一起来推导一下。</p>
+<h2 id="权值推导"><a href="#权值推导" class="headerlink" title="权值推导"></a>权值推导</h2><p>从图一我们可以看到，迭代至第$m$次时，分类器的系数计算公式为:</p>
+<p>$$<br>\alpha_m = \frac{1}{2} ln \left ( \frac{1 - e_m}{e_m} \right )<br>\tag{1}\label{1}$$</p>
+<p>然而，为何会是它呢？其推导方式有两种，第一种是最小化训练误差界进行推导；第二种是最小化损失函数进行推导。两者在本质上是一样的，都是为了求最小化某个式子时的$\alpha$值。在下面的篇章中，只涉及第一种。也就是为了确定$\alpha$的表达式，根据<strong>训练误差界</strong>来逐步推导。</p>
+<h3 id="训练误差界"><a href="#训练误差界" class="headerlink" title="训练误差界"></a>训练误差界</h3><p>从图一可知，最终得到的函数表达式是$G(x)$，然而，当$G(x_i) \neq y_i$时，$y_i f_M(x_i) &lt; 0$，从而得到$e^{-y_i f_M(x_i)} \geq 1$，进而可以得到：</p>
+<p>$$<br>\frac{1}{N} \sum_{i=1}^N I(G(x_i) \neq y_i)  \leq \frac{1}{N} \sum_i e^{ - y_i f_M(x_i)}<br>\tag{2}\label{2}$$ </p>
+<p>从图一中还可以看到，更新训练样本的权值分布公式如下：</p>
+<p>$$<br>D_{m+1, i} = \frac{D_{m,i}}{Z_m} \cdot exp \lbrace -\alpha_m y_i G_m(x_i) \rbrace<br>\tag{3}\label{3}$$</p>
+<p>现在，对权值更新公式$\eqref{3}$变形，得到下列式子：</p>
+<p>$$<br>Z_m D_{m+1, i} = D_{m,i} \cdot exp \lbrace -\alpha_m y_i G_m(x_i) \rbrace<br>\tag{4}\label{4}$$</p>
+<p>对于上面这个式子，非常重要，是下面这个推导的核心。对于公式$\eqref{2}$不等于的右式，我们可以做如下推导：</p>
+<p>$$<br>\begin{aligned}<br>\frac{1}{N}\sum_i e^{ - y_i f_M(x_i)}<br>&amp;= \frac{1}{N}\sum_i exp \left ( - \sum_{m=1}^M \alpha_m y_i G_m(x_i) \right )\\<br>&amp;\stackrel{\color{red}{D_{1,i} = \frac{1}{N}}}=  \sum_{i} D_{1,i} \prod_{m=1}^{M} exp \left ( -\alpha_m y_i G_m(x_i) \right ) \\<br>&amp;\stackrel{\color{red}{\eqref{4}}}=  \sum_i Z_1 D_{2,i} \prod_{m=2}^M exp \left ( -\alpha_m y_i G_m(x_i) \right ) \\<br>&amp;\stackrel{\color{red}{\eqref{4}}}= Z_1 \cdot \sum_i  Z_2 D_{3,i} \prod_{m=3}^M exp \left ( -\alpha_m y_i G_m(x_i) \right ) \\<br>&amp;\stackrel{\color{red}{\eqref{4}}}= Z_1 Z_2 \cdot \sum_i  Z_3 D_{4,i} \prod_{m=4}^M exp \left ( -\alpha_m y_i G_m(x_i) \right ) \\<br>&amp;= \prod_{m=1}^M Z_m
+\end{aligned}<br>$$</p>
+<p>因此可以得出，Adaboost的误差界为</p>
+<p>$$<br>\frac{1}{N} \sum_{i=1}^N I(G(x_i) \neq y_i)  \leq \frac{1}{N} \sum_i e^{ - y_i f_M(x_i)} = \prod_{m=1}^M Z_m
+\tag{5}\label{5}$$ </p>
+<p>从公式$\eqref{6}$可以看出，在每一轮生成弱分类器$G_m(x)$时，应使归一化因子$Z_m$尽可能的小，而最小化时的$\alpha$就是我们要求的$\alpha$， 即求优化表达式$\underset{\alpha_m}{min} \ Z_m(\alpha_m)$。</p>
+<h3 id="系数-alpha"><a href="#系数-alpha" class="headerlink" title="系数$\alpha$"></a>系数$\alpha$</h3><p>将问题转化为求最小值，这就比较简单了，只需要对$Z_m$求$\alpha_m$的导数，然后令导数为零，求出此时的$\alpha_m$就好了。OK，下面给出计算过程如下：</p>
+<p>$$<br>\begin{aligned}<br>Z_m &amp; = \sum_{i=1}^{N} D_{m,i} \cdot exp \lbrace - \alpha y_i G_m(x_i) \rbrace \\<br>&amp; = \sum_{G_{m}(x_i) =  y_i} D_{m,i} \cdot e^{-\alpha_m} +  \sum_{G_{m}(x_i) \neq y_i} D_{m,i} \cdot e^{\alpha_m} \\<br>&amp; = (1-e_m) \cdot e^{- \alpha_m} + e_m \cdot e^{\alpha_m} \\<br>\end{aligned}<br>\tag{6} \label{6}$$</p>
+<p>$$<br>\frac{\partial Z_m }{\partial \alpha_m} = -(1 - e_m) \cdot e^{-\alpha_m} + e_m \cdot e^{\alpha_m}<br>\tag{7} \label{7}$$</p>
+<p>然后令导数式$\eqref{7}$等于$0$，简单的进行化简即可求得$\eqref{1}$式。</p>
+<blockquote>
+<p>说明：对于$\eqref{6}$式的变形，从第一步变换为第二步时，应用的规则是，当样本被正确分类，$y_iG_m(x_i) = 1$；当样本被错误分类，$y_iG_m(x_i) = -1$。而从第二步到第三步，则可以理解为正确分类的样本所占比例为$1-e_m$，错误分类的样本占比$e_m$。</p>
+</blockquote>
+<h3 id="样本权值"><a href="#样本权值" class="headerlink" title="样本权值"></a>样本权值</h3><p>通过上面的推导，得到$\alpha$之后，根据$\eqref{1}$式，又可以化简得到正确分类时的$e^{-\alpha_m}$ 和错误分类时的$e^{\alpha_m}$ ，公式如下：</p>
+<p>$$<br>e^{-\alpha_{m}} = e^{ - \frac{1}{2} ln \left ( \frac{1 - e_m}{e_m}  \right )} = \sqrt {\frac{e_m}{1-e_m}} \<br>\tag{8} \label{8}$$</p>
+<p>$$<br>e^{\alpha_{m}} = e^{ \frac{1}{2} ln \left ( \frac{1 - e_m}{e_m}  \right )} = \sqrt {\frac{1-e_m}{e_m}}<br>\tag{9} \label{9}$$</p>
+<p>而对于归一化因子$Z_m$，又可以通过$\alpha$推导其与错误率$e$的关系，推导过程如下：</p>
+<p>$$<br>\begin{aligned}<br>Z_m &amp; = \sum_{i=1}^{N} D_{m,i} \cdot exp \lbrace - \alpha y_i G_m(x_i) \rbrace \\<br>&amp; = \sum_{G_{m}(x_i) =  y_i} D_{m,i} \cdot e^{-\alpha_m} +  \sum_{G_{m}(x_i) \neq y_i} D_{m,i} \cdot e^{\alpha_m} \\<br>&amp; = (1-e_m) \cdot e^{- \alpha_m} + e_m \cdot e^{\alpha_m} \\<br>&amp; \stackrel{\color{red}{\eqref{8}\eqref{9}}}= (1-e_m) \cdot \sqrt{\frac{e_m}{1-e_m}} + e_m \cdot \sqrt{\frac{1-e_m}{e_m}} \\<br>&amp; = 2 \sqrt{e_m (1-e_m)}<br>\end{aligned}<br>\tag{10} \label{10}$$</p>
+<p>因此，根据$\eqref{10}$式的推导结果，可以进一步得到，当样本被正确分类时，$y_iG_m(x_i) = 1$，权值公式可更新为：</p>
+<p>$$<br>\frac{exp \lbrace -\alpha_m y_i G_m(x_i) \rbrace}{Z_m} = \frac{e^{-\alpha_m}}{Z_m}  \stackrel{\color{red}{\eqref{9}\eqref{10}}}= \sqrt{\frac{ \color{blue}{e_m}}{1-e_m}} \cdot \frac{ 1}{2\sqrt{ \color{blue}{e_m} (1-e_m)}} = \frac{1}{2(1-e_m)}<br>\tag{11} \label{11}$$</p>
+<p>当样本被错误分类时，$y_iG_m(x_i) = -1$，权值公式可更新为：</p>
+<p>$$<br>\frac{exp \lbrace -\alpha_m y_i G_m(x_i) \rbrace}{Z_m} = \frac{e^{\alpha_m}}{Z_m} \stackrel{\color{red}{\eqref{9}\eqref{10}}}= \sqrt{\frac{ \color{blue}{1-e_m}}{e_m}} \cdot \frac{ 1}{2\sqrt{e_m (\color{blue}{1-e_m})}} = \frac{1}{2e_m}<br>\tag{12} \label{12}$$</p>
+<p>公式$\eqref{11}$与公式$\eqref{12}$就是最终的权值更新系数，只需将其带入到公式$\eqref{3}$即可求得新的样本权值。</p>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><p>本文主要侧重于权值的推导，而编写这篇博文的目的主要是为了弥补先前学习过程中的疏忽与不足，进而达到学习的目的。关于文章的实现，可去博主的github下载源码<a href="https://github.com/csuldw/MachineLearning/tree/master/Adaboost" target="_blank" rel="noopener">csuldw-Adaboost</a> （各位同学，记得给个star噢^_^），另外，也可参考先前的博文<a href="http://www.csuldw.com/2015/07/05/2015-07-05-ML-algorithm-Adaboost/">Machine Learning algorithm - Adaboost</a>。关于机器学习的其它文章，本博客将会持续更新。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li>Y Freund，R Schapire, A decision-theoretic generalization of on-line learning algorithms and an application to boosting, <em>Journal of Popular Culture</em>, 1997</li>
+<li>统计学习方法》 by 李航</li>
+<li><a href="https://en.wikipedia.org/wiki/AdaBoost" target="_blank" rel="noopener">Wikipedia-Adaboost </a></li>
+<li>《机器学习 Machine Learning》 by 周志华</li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/Adaboost/" rel="tag">#Adaboost</a>
+          
+            <a href="/tags/权值/" rel="tag">#权值</a>
+          
+            <a href="/tags/boosting/" rel="tag">#boosting</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/09/14/2016-09-14-maximum-sum-of-a-sub-matrix-in-2d-matrix/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Dynamic Programming Example：Maximum Sum Submatrix in Matrix
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/24/2016-08-24-internship-summary/" rel="next">
+                一段在京实习的日子 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法思想"><span class="nav-number">1.</span> <span class="nav-text">算法思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权值推导"><span class="nav-number">2.</span> <span class="nav-text">权值推导</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#训练误差界"><span class="nav-number">2.1.</span> <span class="nav-text">训练误差界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系数-alpha"><span class="nav-number">2.2.</span> <span class="nav-text">系数$\alpha$</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#样本权值"><span class="nav-number">2.3.</span> <span class="nav-text">样本权值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Summary"><span class="nav-number">3.</span> <span class="nav-text">Summary</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2016/08/28/2016-08-28-adaboost-algorithm-theory/';
+      var disqus_title = 'Adaboost - 新的角度理解权值更新策略';
+      var disqus_url = 'https://www.csuldw.com/2016/08/28/2016-08-28-adaboost-algorithm-theory/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

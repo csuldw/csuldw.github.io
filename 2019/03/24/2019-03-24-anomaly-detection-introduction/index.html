@@ -1,0 +1,997 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.8.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="异常检测,机器学习,无监督学习,anomaly,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="原文链接：http://www.csuldw.com/2019/03/24/2019-03-24-anomaly-detection-introduction/ “黑中有白，白中有黑，没有绝对的白，也没有绝对的黑，黑可衬白，白可映黑。万物皆可转换”。本文是笔者首篇关于异常检测类的文章，主要介绍了八种不同的无监督异常检测方法，篇幅较长，实验部分仅供参考。全文表述中如有不明之处，读者可在下方留言。">
+<meta name="keywords" content="异常检测,机器学习,无监督学习,anomaly">
+<meta property="og:type" content="article">
+<meta property="og:title" content="八大无监督异常检测技术">
+<meta property="og:url" content="https://www.csuldw.com/2019/03/24/2019-03-24-anomaly-detection-introduction/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="原文链接：http://www.csuldw.com/2019/03/24/2019-03-24-anomaly-detection-introduction/ “黑中有白，白中有黑，没有绝对的白，也没有绝对的黑，黑可衬白，白可映黑。万物皆可转换”。本文是笔者首篇关于异常检测类的文章，主要介绍了八种不同的无监督异常检测方法，篇幅较长，实验部分仅供参考。全文表述中如有不明之处，读者可在下方留言。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/3-sigma-all.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/iforest.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/autoencoder.png">
+<meta property="og:updated_time" content="2019-06-05T15:22:50.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="八大无监督异常检测技术">
+<meta name="twitter:description" content="原文链接：http://www.csuldw.com/2019/03/24/2019-03-24-anomaly-detection-introduction/ “黑中有白，白中有黑，没有绝对的白，也没有绝对的黑，黑可衬白，白可映黑。万物皆可转换”。本文是笔者首篇关于异常检测类的文章，主要介绍了八种不同的无监督异常检测方法，篇幅较长，实验部分仅供参考。全文表述中如有不明之处，读者可在下方留言。">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/2019/3-sigma-all.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 八大无监督异常检测技术 | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                八大无监督异常检测技术
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2019-03-24T02:31:00+08:00" content="2019-03-24">
+              2019-03-24 02:31
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2019/03/24/2019-03-24-anomaly-detection-introduction/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/24/2019-03-24-anomaly-detection-introduction/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2019/03/24/2019-03-24-anomaly-detection-introduction/" class="leancloud_visitors" data-flag-title="八大无监督异常检测技术">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>原文链接：<a href="http://www.csuldw.com/2019/03/24/2019-03-24-anomaly-detection-introduction/">http://www.csuldw.com/2019/03/24/2019-03-24-anomaly-detection-introduction/</a></p>
+<p>“黑中有白，白中有黑，没有绝对的白，也没有绝对的黑，黑可衬白，白可映黑。万物皆可转换”。<br>本文是<a href="https:///www.csuldw.com" target="_blank" rel="noopener">笔者</a>首篇关于异常检测类的文章，主要介绍了八种不同的无监督异常检测方法，篇幅较长，实验部分仅供参考。全文表述中如有不明之处，读者可在下方留言。</p>
+<a id="more"></a>
+
+
+
+<h2 id="何为异常"><a href="#何为异常" class="headerlink" title="何为异常"></a>何为异常</h2><p>在仙侠剧中，有正魔之分，然何为正道，何为魔道，实属难辨。自称正道的人也许某一天会堕入魔道，被众人称为魔头的人，或许内心自始至终都充溢着正义感！所以说，没有绝对的黑，也没有绝对的白。话说回来，对于“异常”这个词，每个人的心里大概都有一个衡量标准，扩展起来的确很广（如异常点、异常交易、异常行为、异常用户、异常事故等等），那么究竟何为异常呢？异常是相对于其他观测数据而言有明显偏离的，以至于怀疑它与正常点不属于同一个数据分布。异常检测是一种<strong>用于识别不符合预期行为的异常模式的技术</strong>，又称之为异常值检测。在商业中也有许多应用，如网络入侵检测（识别可能发出黑客攻击的网络流量中的特殊模式）、系统健康性监测、信用卡交易欺诈检测、设备故障检测、风险识别等。这里，将异常分为三种：</p>
+<ol>
+<li><strong>数据点异常</strong>：如果样本点与其他数据相距太远，则单个数据实例是异常的。业务用例：根据“支出金额”检测信用卡欺诈。</li>
+<li><strong>上下文异常</strong>：在时间序列数据中的异常行为。业务用例：旅游购物期间信用卡的花费比平时高出好多倍属于正常情况，但如果是被盗刷卡，则属于异常。</li>
+<li><strong>集合异常</strong>：单个数据难以区分，只能根据一组数据来确定行为是否异常。业务用例：蚂蚁搬家式的拷贝文件，这种异常通常属于潜在的网络攻击行为。</li>
+</ol>
+<p>异常检测类似于<strong>噪声消除</strong>和<strong>新颖性检测</strong>。<strong>噪声消除（NR）</strong>是从不需要的观察发生中免疫分析的过程; 换句话说，从其他有意义的信号中去除噪声。<strong>新颖性检测</strong>涉及在未包含在训练数据中的新观察中识别未观察到的模式。</p>
+<h2 id="异常检测的难点"><a href="#异常检测的难点" class="headerlink" title="异常检测的难点"></a>异常检测的难点</h2><p>在面对真实的业务场景时，我们往往都是满腹激情、豪情壮志，心里默念着终于可以进入实操，干一番大事业了。然而事情往往都不是那么美好，业务通常比较特殊、背景复杂，对于业务的熟悉过程也会耗掉你大部分的时间。然后在你绞尽脑汁将其转化为异常检测场景后，通常又面临着以下几大挑战：</p>
+<ul>
+<li>不能明确定义何为正常，何为异常，在某些领域正常和异常并没有明确的界限；</li>
+<li>数据本身存在噪声，致使噪声和异常难以区分；</li>
+<li>正常行为并不是一成不变，也会随着时间演化，如正常用户被盗号之后，进行一系列的非法操作； </li>
+<li>标记数据获取难：没有数据，再好的算法也是无用。</li>
+</ul>
+<p>针对上述挑战，下面我们来看看具体的场景和用于异常检测的算法。</p>
+<h2 id="基于统计的异常值检测"><a href="#基于统计的异常值检测" class="headerlink" title="基于统计的异常值检测"></a>基于统计的异常值检测</h2><p>这里将基于统计的作为一类异常检测技术，方法比如多，下面主要介绍MA和3-Sigma。</p>
+<h3 id="MA滑动平均法"><a href="#MA滑动平均法" class="headerlink" title="MA滑动平均法"></a>MA滑动平均法</h3><p>识别数据不规则性的最简单的方法是标记偏离分布的数据点，包括平均值、中值、分位数和模式。假定异常数据点是偏离平均值的某个标准偏差，那么我们可以计算时间序列数据滑动窗口下的局部平均值，通过平均值来确定偏离程度。这被技术称为<strong>滑动平均法</strong>(moving average，MA)，旨在平滑短期波动并突出长期波动。滑动平均还包括累加移动平均、加权移动平均、指数加权移动平均、双指数平滑、三指数平滑等，在数学上，$n$周期简单移动平均也可以定义为“低通滤波器”。</p>
+<p>缺点：</p>
+<ul>
+<li>数据中可能存在与异常行为类似的噪声数据，所以正常行为和异常行为之间的界限通常不明显；</li>
+<li>异常或正常的定义可能经常发生变化，因为恶意攻击者不断适应自己。因此，基于移动平均值的阈值可能并不总是适用。</li>
+</ul>
+<h3 id="3-Sigma"><a href="#3-Sigma" class="headerlink" title="3-Sigma"></a>3-Sigma</h3><p>3-Sigma原则又称为拉依达准则，该准则定义如下：</p>
+<blockquote>
+<p>假设一组检测数据只含有随机误差，对原始数据进行计算处理得到标准差，然后按一定的概率确定一个区间，认为误差超过这个区间的就属于异常值。</p>
+</blockquote>
+<p><img src="/assets/articleImg/2019/3-sigma-all.png" alt></p>
+<div class="caption">『source: [Explaining the 68-95-99.7 rule for a Normal Distribution](https://towardsdatascience.com/understanding-the-68-95-99-7-rule-for-a-normal-distribution-b7b7cbf760c2
+)』</div>
+
+
+
+<p>使用3-Sigma的前提是数据服从正态分布（当然如果x不服从正态分布，可以使用log将其转为正态分布，详细参阅<a href="https://en.wikipedia.org/wiki/Log-normal_distribution" target="_blank" rel="noopener">Log Normal Distribution</a>），满足这个条件之后，在3-Sigma范围$(μ-3σ,μ+3σ)$内<code>99.73%</code>的为正常数据，其中$\sigma$代表标准差,$\mu$代表均值，$x=μ$为图形的对称轴。下面是3-Sigma的Python实现。</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#3-sigma识别异常值</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">three_sigma</span><span class="params">(df_col)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    df_col：DataFrame数据的某一列</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    rule = (df_col.mean() - <span class="number">3</span> * df_col.std() &gt; df_col) | (df_col.mean() + <span class="number">3</span> * df_col.std() &lt; df_col)</span><br><span class="line">    index = np.arange(df_col.shape[<span class="number">0</span>])[rule]</span><br><span class="line">    outrange = df_col.iloc[index]</span><br><span class="line">    <span class="keyword">return</span> outrange</span><br></pre></td></tr></tbody></table></figure>
+
+<p>对于异常值检测出来的结果，有多种处理方式，如果是时间序列中的值，那么我们可以认为这个时刻的操作属于异常的；如果是将异常值检测用于数据预处理阶段，处理方法有以下四种：</p>
+<ol>
+<li>删除带有异常值的数据；</li>
+<li>将异常值视为缺失值，交给缺失值处理方法来处理；</li>
+<li>用平均值进行修正；</li>
+<li>当然我们也可以选择不处理。</li>
+</ol>
+<h2 id="基于密度的异常检测"><a href="#基于密度的异常检测" class="headerlink" title="基于密度的异常检测"></a>基于密度的异常检测</h2><p>基于密度的异常检测有一个先决条件，即正常的数据点呈现“物以类聚”的聚合形态，正常数据出现在密集的邻域周围，而异常点偏离较远。对于这种场景，我们可以计算得分来评估最近的数据点集，这种得分可以使用Eucledian距离或其它的距离计算方法，具体情况需要根据数据类型来定：类别型或是数字型。</p>
+<h3 id="局部异常因子算法"><a href="#局部异常因子算法" class="headerlink" title="局部异常因子算法"></a>局部异常因子算法</h3><h4 id="Local-Outlier-Factor原理"><a href="#Local-Outlier-Factor原理" class="headerlink" title="Local Outlier Factor原理"></a>Local Outlier Factor原理</h4><p>局部异常因子算法，全称Local Outlier Factor（简写LOF)。LOF算法是一种无监督的异常检测方法，它计算给定数据点相对于其邻居的局部密度偏差。每个样本的异常分数称为局部异常因子。异常分数是局部的，取决于样本相对于周围邻域的隔离程度。确切地说，局部性由<code>k</code>近邻给出，并使用距离估计局部密度。通过将样本的局部密度与其邻居的局部密度进行比较，可以识别密度明显低于其邻居的样本,，这些样本就被当做是异常样本点。</p>
+<p><strong>算法原理如下</strong>：</p>
+<ol>
+<li>计算k-distance of p：计算点<code>p</code>的第<code>k</code>距离，也就距离样本点<code>p</code>第<code>k</code>远的点的距离，不包括<code>p</code>;</li>
+<li>计算k-distance neighborhood of p：计算点<code>p</code>的第<code>k</code>邻域距离，就是<code>p</code>的第<code>k</code>距离以内的所有点，包括第<code>k</code>距离;</li>
+<li>计算reach-distance：可达距离，若小于第<code>k</code>距离，则可达距离为第<code>k</code>距离，若大于第k距离，则可达距离为真实距离，公式如下(说明:$d(p,o)$为<code>p</code>到<code>o</code>的距离)：<br> $$<br> reach-distance_k(p,o)=max\{k−distance(o),d(p,o)\}
+ \tag{1}\label{1}<br> $$<br> 点<code>o</code>到点<code>p</code>的第<code>k</code>可达距离，至少是点<code>o</code>的第<code>k</code>距离，或者为<code>o</code>与<code>p</code>间的真实距离。</li>
+<li>计算local reachability density：局部可达密度<br> $$<br> lrd_k(p)=\frac{1}{ \frac{1}{|Nk(p)|} \sum _{o \in Nk(p)}reach−distance_k(p,o)}<br> \tag{2}\label{2}<br> $$<br> 表示点<code>p</code>的第<code>k</code>邻域内点到点<code>p</code>的平均可达距离的倒数。</li>
+<li>计算local outlier factor:局部离群因子.<br> $$<br> LOF_k(p)=\frac{1}{ |Nk(p)|} ∑_{o\in Nk(p)} \frac{lrd_k(o) }{lrd_k(p)} = \frac{∑ _{o\in Nk(p)} lrd_k(o)}{|Nk(p)| } \cdot \frac{1}{lrd_k(p)}<br> \tag{3}\label{3}<br> $$<br> 表示点<code>p</code>的邻域点<code>Nk(p)</code>的局部可达密度与点<code>p</code>的局部可达密度之比的平均数。 </li>
+</ol>
+<h4 id="实例Demo"><a href="#实例Demo" class="headerlink" title="实例Demo"></a>实例Demo</h4><p><strong>Step1: 导入数据集</strong>。为了方便起见，这里采用了Kaggle里面的<a href="https://www.kaggle.com/mlg-ulb/creditcardfraud/version/3" target="_blank" rel="noopener">Credit Card Fraud Detection</a>作为实验数据集，其中包含492个正样本（异常样本），284315个正常样本（负样本）。首先，我们先导入数据集（注意：<code>creditcard.csv</code>文件在<a href="https://www.kaggle.com/mlg-ulb/creditcardfraud/version/3" target="_blank" rel="noopener">这里</a>下载)。</p>
+<figure class="highlight elm"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="title">creditcard_data</span> = pd.read_csv(<span class="string">"creditcard.csv"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>Step2：数据集转换</strong>。加载数据集，我们需要将数据集中的特征数据X提取出来，Y作为类别标签，在无监督算法的训练过程中不需要用到，在模型评估阶段再使用。这里不得不吹捧一下pandas，操作起来真的特别方便，代码如下：</p>
+<figure class="highlight pf"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.metrics import classification_report, accuracy_score</span><br><span class="line"><span class="keyword">from</span> sklearn.neighbors import LocalOutlierFactor</span><br><span class="line"></span><br><span class="line"><span class="keyword">state</span> = np.<span class="keyword">random</span>.RandomState(<span class="number">42</span>)</span><br><span class="line">columns = creditcard_data.columns.tolist()</span><br><span class="line">columns = [c <span class="keyword">for</span> c <span class="keyword">in</span> columns if c not <span class="keyword">in</span> [<span class="string">"Class"</span>]]</span><br><span class="line">target = <span class="string">"Class"</span></span><br><span class="line"><span class="keyword">state</span> = np.<span class="keyword">random</span>.RandomState(<span class="number">42</span>)</span><br><span class="line">X = creditcard_data[columns]</span><br><span class="line">Y = creditcard_data[target]</span><br><span class="line">X_outliers = <span class="keyword">state</span>.uniform(low=<span class="number">0</span>, high=<span class="number">1</span>, size=(X.shape[<span class="number">0</span>], X.shape[<span class="number">1</span>]))</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Step3: <strong>模型训练与预测。</strong>得到了训练数据之后，下面我们通过条用sklearn的算法库来实现模型的训练和预测。</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">classifiers = {</span><br><span class="line">    <span class="string">"Local Outlier Factor"</span>:LocalOutlierFactor(<span class="attribute">n_neighbors</span>=20, <span class="attribute">algorithm</span>=<span class="string">'auto'</span>, </span><br><span class="line">                                       <span class="attribute">leaf_size</span>=30, <span class="attribute">metric</span>=<span class="string">'minkowski'</span>,</span><br><span class="line">                                       <span class="attribute">p</span>=2, <span class="attribute">metric_params</span>=None, <span class="attribute">contamination</span>=0.01)</span><br><span class="line">}</span><br><span class="line">def train_model(clf, train_X):</span><br><span class="line">    #Fit the train data <span class="keyword">and</span> <span class="builtin-name">find</span> outliers</span><br><span class="line">    y_pred = clf.fit_predict(X)</span><br><span class="line">    scores_prediction = clf.negative_outlier_factor_</span><br><span class="line">    return y_pred, clf</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">y_pred, clf = train_model(<span class="attribute">clf</span>=classifiers[<span class="string">"Local Outlier Factor"</span>], <span class="attribute">train_X</span>=X)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Step4: <strong>模型评估。</strong>为了验证LOF算法的准确度，我们可以采用预测的异常数据和真实的异常数据进行比对。注意，通过上述模型预测的结果为<code>1</code>（正常样本）和<code>-1</code>（异常样本），所以在模型评估的时候，需要对预测的label进行转换，具体实现如下：</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">evaluation_model</span><span class="params">(y_pred, y_label, clf_name)</span>:</span></span><br><span class="line">    <span class="string">'''</span></span><br><span class="line"><span class="string">    y_pred: prediction label</span></span><br><span class="line"><span class="string">    y_label: true lable</span></span><br><span class="line"><span class="string">    clf_name: string</span></span><br><span class="line"><span class="string">    '''</span></span><br><span class="line">    <span class="comment">#transform anomaly label</span></span><br><span class="line">    y_rebuild = [<span class="number">0</span> <span class="keyword">if</span> y == <span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span> <span class="keyword">for</span> y <span class="keyword">in</span> y_pred ]   </span><br><span class="line">    n_errors = (y_rebuild != Y).sum()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">#Classification Metrics</span></span><br><span class="line">    print(<span class="string">"{}: {}"</span>.format(clf_name, n_errors))</span><br><span class="line">    print(<span class="string">"Accuracy Score :"</span>, accuracy_score(Y, y_rebuild))</span><br><span class="line">    print(<span class="string">"Classification Report :"</span>)</span><br><span class="line">    print(classification_report(Y, y_rebuild))</span><br><span class="line"></span><br><span class="line">s = y_pred</span><br><span class="line">evaluation_model(y_pred, Y, clf_name=<span class="string">"LOF"</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>当然，基于密度的还有KNN算法（有监督），kNN是一种简单的非参数化机器学习算法，使用距离来度量相似性进而对数据进行分类，例如Eucledian，Manhattan，Minkowski或Hamming distance等。关于KNN算法，可以参考笔者的另一篇文章：<a href="https://www.csuldw.com/2015/05/21/2015-05-21-KNN/">机器学习算法-K最近邻从原理到实现</a>。那么，怎么将KNN应用到异常检测中呢？比较简单的做法是计算预测数据与最近的K个样本点的距离和，然后根据阈值进行异常样本的判别。这类方法有一种明显的缺点，如果异常样本数据较多，并且单独成簇的话，最后得到的结果则不太乐观。</p>
+<h2 id="基于聚类的异常检测"><a href="#基于聚类的异常检测" class="headerlink" title="基于聚类的异常检测"></a>基于聚类的异常检测</h2><p>通常，类似的数据点往往属于相似的组或簇，由它们与局部簇心的距离决定。正常数据距离簇中心的距离要进，而异常数据要原理簇的中心点。聚类属于无监督学习领域中最受欢迎的算法之一，关于聚类异常检测可分为两步：</p>
+<ol>
+<li>利用聚类算法聚类;</li>
+<li>计算各个样本点的异常程度：每个点的异常程度等于到最近类中心点的距离。</li>
+</ol>
+<p>缺点：</p>
+<ul>
+<li>如果异常数据自己成簇，将难以区分异常；</li>
+</ul>
+<h3 id="基于K-Means聚类的异常检测"><a href="#基于K-Means聚类的异常检测" class="headerlink" title="基于K-Means聚类的异常检测"></a>基于K-Means聚类的异常检测</h3><p>K-Means是一种广泛使用的聚类算法，它创建了<code>k</code>个类似的数据点群体，不属于这些簇（远离簇心）的数据样例则有可能被标记为异常数据。关于聚类的原理，可参考笔者以前的文章<a href="https://www.csuldw.com/2015/06/03/2015-06-03-ml-algorithm-K-means/">机器学习算法-K-means聚类</a>。</p>
+<p>聚类算法较多，如DBSCAN、层次聚类等，这里就不一一介绍了。</p>
+<h2 id="OneClassSVM的异常检测"><a href="#OneClassSVM的异常检测" class="headerlink" title="OneClassSVM的异常检测"></a>OneClassSVM的异常检测</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>SVM（支持向量机）是一种用于检测异常的另一种有效的技术。SVM通常与监督学习相关联，但是存在可以用于将异常识别为无监督问题（其中训练数据未被标记）的扩展（OneClassCVM）。算法学习软边界以便使用训练集对正常数据实例进行聚类，然后，使用测试实例，它调整自身以识别落在学习区域之外的异常。根据使用情况，异常检测器的输出可以是数字标量值，用于过滤特定于域的阈值或文本标签（如二进制/多标签）。</p>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>本实例使用的数据与Local Outlier Factor一样，这里暂且不重复写入了。下面，简单介绍下OneClassSVM算法模型训练部分，其余的与上述类似。代码如下：</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">classifiers = {</span><br><span class="line">    <span class="string">"Support Vector Machine"</span>:OneClassSVM(<span class="attribute">kernel</span>=<span class="string">'rbf'</span>, <span class="attribute">degree</span>=3, <span class="attribute">gamma</span>=0.1,nu=0.05, </span><br><span class="line">                                         <span class="attribute">max_iter</span>=-1, <span class="attribute">random_state</span>=state)</span><br><span class="line">}</span><br><span class="line">def train_model(clf, train_X):</span><br><span class="line">    #Fit the train data <span class="keyword">and</span> <span class="builtin-name">find</span> outliers</span><br><span class="line">    clf.fit(X)</span><br><span class="line">    y_pred = clf.predict(X)</span><br><span class="line">    return y_pred,clf</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">y_pred,clf = train_model(<span class="attribute">clf</span>=classifiers[<span class="string">"Support Vector Machine"</span>], <span class="attribute">train_X</span>=X)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>SVM训练时间较长，具体效果需要看算法与数据集的拟合程度。</p>
+<h2 id="iForest异常检测"><a href="#iForest异常检测" class="headerlink" title="iForest异常检测"></a>iForest异常检测</h2><h3 id="原理-1"><a href="#原理-1" class="headerlink" title="原理"></a>原理</h3><p>iForest（isolation forest，孤立森林）算法是一种基于Ensemble的快速异常检测方法，具有线性时间复杂度和高精准度，该算法是刘飞博士在莫纳什大学就读期间由陈开明(Kai-Ming Ting)教授和周志华(Zhi-Hua Zhou)教授指导发表的，与LOF、OneClassSVM相比，其占用的内存更小、速度更快。算法原理如下：</p>
+<p><img src="/assets/articleImg/2019/iforest.png" alt></p>
+<div class="caption">『source: [http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/icdm08b.pdf
+](http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/icdm08b.pdf)』</div>
+
+
+<p>异常score计算公式如下：</p>
+<p>$$<br>s(x, n) = 2^{-\frac{E(h(x))}{c(n)}}<br>\tag{4}\label{4}<br>$$</p>
+<p>其中$ h(x)$ 为路径长度，可以通过公式 $ H(k) = ln(k) + \xi $来估计，$\xi$是欧拉常数，其值为<code>0.5772156649</code>。$E(h(x))$是iForest中$x$在不同树中的路径长度$h(x)$的平均值，$c(n)$是样本点为$n$时BST的平均路径长度，$c(n) = 2H(n − 1) − \frac{2(n − 1)}{n}$,用来对结果进行归一化处理.</p>
+<ul>
+<li>当$E(h(x))$趋近于$0$时,s趋近于1，异常的概率越大；</li>
+<li>当$E(h(x))$趋近于$n − 1$时, s趋近于0，正常的概率越大.</li>
+<li>当$E(h(x))$趋近于$c(n)$时, s趋近于0.5；</li>
+</ul>
+<h3 id="实例-1"><a href="#实例-1" class="headerlink" title="实例"></a>实例</h3><p>这里简单介绍下iForest模型训练部分，数据加载和模型评估的方法与上述类似。算法部分的代码如下：</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">classifiers = {</span><br><span class="line">    <span class="string">"Isolation Forest"</span>:IsolationForest(<span class="attribute">n_estimators</span>=100, <span class="attribute">max_samples</span>=len(X), </span><br><span class="line">                                       <span class="attribute">contamination</span>=0.005,random_state=state, <span class="attribute">verbose</span>=0)</span><br><span class="line">}</span><br><span class="line">def train_model(clf, train_X):</span><br><span class="line">    #Fit the train data <span class="keyword">and</span> <span class="builtin-name">find</span> outliers</span><br><span class="line">    clf.fit(X)</span><br><span class="line">    #scores_prediction = clf.decision_function(X)</span><br><span class="line">    y_pred = clf.predict(X)</span><br><span class="line">    return y_pred, clf</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">y_pred,clf = train_model(<span class="attribute">clf</span>=classifiers[<span class="string">"Isolation Forest"</span>], <span class="attribute">train_X</span>=X)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>使用上面的参数在笔者的笔记本上训练时间只花了1min 12s，相比于SVM的确要快很多。</p>
+<h2 id="PCA-MD异常检测"><a href="#PCA-MD异常检测" class="headerlink" title="PCA+MD异常检测"></a>PCA+MD异常检测</h2><p>PCA（主成分分析）是一种常用的线性降维方法，通过计算数据（中心化后的数据）协方差矩阵的特征值和特征向量来得到数据的主要成分，<strong>最大特征值$\lambda_k$对应的特征向量$\alpha_k$为数据方差最大的方向</strong>，相信很多人都用过，笔者先前的文章<a href="http://www.csuldw.com/2016/02/28/2016-02-28-pca/">PCA主成分分析Python实现</a>中也有介绍，那么如何使用PCA进行异常检测呢？方法如下：</p>
+<ol>
+<li>通过PCA将数据映射到低维特征空间之后，在各个特征空间不同维度上查看每个数据点跟其它数据的偏差，如果数据距离该超平面很远，那么该数据可能属于异常数据.</li>
+<li>对于降维后的数据，通过观察各样本点到样本中心的MD距离来衡量，如果距离太大（可根据实际情况设置阈值），就可以判断是异常值。</li>
+</ol>
+<blockquote>
+<p>对于一个均值为$\mu =(\mu_{1},\mu_{2},\mu_{3},\dots ,\mu_{p})^{T}$，协方差矩阵为$\Sigma$的多变量向量$x=(x_{1},x_{2},x_{3},\dots ,x_{p})^{T}$，其马氏距离为：<br>    $$<br>        D_M(x) = \sqrt{(x-\mu)^T)\Sigma^{-1} (x-\mu)}<br>    $$</p>
+</blockquote>
+<h2 id="AutoEncoder异常检测"><a href="#AutoEncoder异常检测" class="headerlink" title="AutoEncoder异常检测"></a>AutoEncoder异常检测</h2><p>AutoEncoder（自编码器，简称AE）是一种无监督的深度学习模型，原理比较简单：对于输入样本$x$，首先通过encoder编码器$f$将其压缩为维度较低的$y$，然后通过decoder解码器$g$对每个样本点进行重建，还原到原来的维度，得到$z$。整个训练模型的目的就是减少重构error，得到的hidden层的$y$，相当于降维后的数据。整个framework如下：</p>
+<p><img src="/assets/articleImg/2019/autoencoder.png" alt></p>
+<div class="caption">『source: [Part 5. An Introduction to Neural Networks and Autoencoders](https://www.alanzucconi.com/2018/03/14/an-introduction-to-autoencoders/)』</div>
+
+
+<p>AutoEncoder本质上与PCA类似，AutoEncoder可以用作降维，区别在于PCA属于线性变换，而AutoEncoder属于非线性变换。在异常检测应用上，AE通过计算重建数据与输入数据的重建误差作为异常的衡量，如果样本都是数值型，可以用MSE或MAE作为衡量指标，样本的重建误差越大，则表明异常的可能性越大。关于如何使用autoEncoder，这里暂且不介绍了，后续可能会单独写一篇。</p>
+<h2 id="Conclusion"><a href="#Conclusion" class="headerlink" title="Conclusion"></a>Conclusion</h2><p>本文介绍了八种常用的无监督异常检测方法，主要偏向于理论的说明，对于有label标记的数据，我们还可以采用分类算法进行训练和预测，这里就不横向扩宽了。实际项目中，前期标注数据比较少，我们可以采用无监督方式，随着标注数据的增多，后面可以使用监督学习方法，并将无监督与有监督进行结合。OK，这篇文章暂且到此为止，后续相关的实践，笔者也会逐步分享出来，感谢光顾。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li><a href="https://towardsdatascience.com/understanding-the-68-95-99-7-rule-for-a-normal-distribution-b7b7cbf760c2" target="_blank" rel="noopener">Explaining the 68-95-99.7 rule for a Normal Distribution</a></li>
+<li><a href="https://towardsdatascience.com/how-to-use-machine-learning-for-anomaly-detection-and-condition-monitoring-6742f82900d7" target="_blank" rel="noopener">how-to-use-machine-learning-for-anomaly-detection-and-condition-monitoring</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mahalanobis_distance" target="_blank" rel="noopener">WIKI：Mahalanobis_distance</a></li>
+<li><a href="https://medium.com/@curiousily/credit-card-fraud-detection-using-autoencoders-in-keras-tensorflow-for-hackers-part-vii-20e0c85301bd" target="_blank" rel="noopener">credit-card-fraud-detection-using-autoencoders-in-keras-tensorflow-for-hackers-part-vii</a></li>
+<li><a href="https://www.kaggle.com/mlg-ulb/creditcardfraud/kernels" target="_blank" rel="noopener">creditcardfraud/kernels</a></li>
+<li><a href="http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/icdm08b.pdf" target="_blank" rel="noopener">Isolation Forest</a></li>
+<li><a href="http://cs.nju.edu.cn/zhouzh/zhouzh.files/publication/tkdd11.pdf" target="_blank" rel="noopener">Isolation-based Anomaly Detection</a></li>
+<li><a href="https://towardsdatascience.com/outlier-detection-with-isolation-forest-3d190448d45e" target="_blank" rel="noopener">Outlier Detection with Isolation Forest</a></li>
+<li><a href="http://charuaggarwal.net/outlierbook.pdf" target="_blank" rel="noopener">Outlier Analysis-pdf</a></li>
+<li><a href="https://www.jeremyjordan.me/autoencoders/" target="_blank" rel="noopener">Introduction to autoencoders</a></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/异常检测/" rel="tag">#异常检测</a>
+          
+            <a href="/tags/机器学习/" rel="tag">#机器学习</a>
+          
+            <a href="/tags/无监督学习/" rel="tag">#无监督学习</a>
+          
+            <a href="/tags/anomaly/" rel="tag">#anomaly</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/26/2019-05-26-activation-function/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 神经网络之激活函数
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/16/2019-02-16-theme-fixed-notes/" rel="next">
+                FreeSky主题访问量统计修复 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#何为异常"><span class="nav-number">1.</span> <span class="nav-text">何为异常</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常检测的难点"><span class="nav-number">2.</span> <span class="nav-text">异常检测的难点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于统计的异常值检测"><span class="nav-number">3.</span> <span class="nav-text">基于统计的异常值检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MA滑动平均法"><span class="nav-number">3.1.</span> <span class="nav-text">MA滑动平均法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Sigma"><span class="nav-number">3.2.</span> <span class="nav-text">3-Sigma</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于密度的异常检测"><span class="nav-number">4.</span> <span class="nav-text">基于密度的异常检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#局部异常因子算法"><span class="nav-number">4.1.</span> <span class="nav-text">局部异常因子算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Local-Outlier-Factor原理"><span class="nav-number">4.1.1.</span> <span class="nav-text">Local Outlier Factor原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例Demo"><span class="nav-number">4.1.2.</span> <span class="nav-text">实例Demo</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于聚类的异常检测"><span class="nav-number">5.</span> <span class="nav-text">基于聚类的异常检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于K-Means聚类的异常检测"><span class="nav-number">5.1.</span> <span class="nav-text">基于K-Means聚类的异常检测</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OneClassSVM的异常检测"><span class="nav-number">6.</span> <span class="nav-text">OneClassSVM的异常检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">6.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例"><span class="nav-number">6.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iForest异常检测"><span class="nav-number">7.</span> <span class="nav-text">iForest异常检测</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原理-1"><span class="nav-number">7.1.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例-1"><span class="nav-number">7.2.</span> <span class="nav-text">实例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PCA-MD异常检测"><span class="nav-number">8.</span> <span class="nav-text">PCA+MD异常检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AutoEncoder异常检测"><span class="nav-number">9.</span> <span class="nav-text">AutoEncoder异常检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Conclusion"><span class="nav-number">10.</span> <span class="nav-text">Conclusion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">11.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2019/03/24/2019-03-24-anomaly-detection-introduction/';
+      var disqus_title = '八大无监督异常检测技术';
+      var disqus_url = 'https://www.csuldw.com/2019/03/24/2019-03-24-anomaly-detection-introduction/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

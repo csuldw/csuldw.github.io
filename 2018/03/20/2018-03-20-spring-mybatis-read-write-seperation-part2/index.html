@@ -1,0 +1,922 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.8.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="读写分离,主从分离,Spring,MySql,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="背景介绍在上一篇文章中已经介绍过读写分离，并且通过代码也已实现局部的读写分离。为什么说是局部的呢？首先，来分析下，针对上一篇文章中提到的方法，如果在service层没有配置事务，那么当程序走到Dao层时，就可以根据自己定义的规则进行读写分离；倘若在service层配置了事物，那么在Dao切换数据库key的时候，是无法正真的进行读写分离的。因此，通过进一步的研究和尝试，找到了一种新的方法来实现真正意">
+<meta name="keywords" content="读写分离,主从分离,Spring,MySql">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring+Mybatis+Mysql接口层读写分离(应用篇)">
+<meta property="og:url" content="https://www.csuldw.com/2018/03/20/2018-03-20-spring-mybatis-read-write-seperation-part2/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="背景介绍在上一篇文章中已经介绍过读写分离，并且通过代码也已实现局部的读写分离。为什么说是局部的呢？首先，来分析下，针对上一篇文章中提到的方法，如果在service层没有配置事务，那么当程序走到Dao层时，就可以根据自己定义的规则进行读写分离；倘若在service层配置了事物，那么在Dao切换数据库key的时候，是无法正真的进行读写分离的。因此，通过进一步的研究和尝试，找到了一种新的方法来实现真正意">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-04-09T13:49:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring+Mybatis+Mysql接口层读写分离(应用篇)">
+<meta name="twitter:description" content="背景介绍在上一篇文章中已经介绍过读写分离，并且通过代码也已实现局部的读写分离。为什么说是局部的呢？首先，来分析下，针对上一篇文章中提到的方法，如果在service层没有配置事务，那么当程序走到Dao层时，就可以根据自己定义的规则进行读写分离；倘若在service层配置了事物，那么在Dao切换数据库key的时候，是无法正真的进行读写分离的。因此，通过进一步的研究和尝试，找到了一种新的方法来实现真正意">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Spring+Mybatis+Mysql接口层读写分离(应用篇) | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Spring+Mybatis+Mysql接口层读写分离(应用篇)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2018-03-20T23:22:00+08:00" content="2018-03-20">
+              2018-03-20 23:22
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2018/03/20/2018-03-20-spring-mybatis-read-write-seperation-part2/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/03/20/2018-03-20-spring-mybatis-read-write-seperation-part2/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2018/03/20/2018-03-20-spring-mybatis-read-write-seperation-part2/" class="leancloud_visitors" data-flag-title="Spring+Mybatis+Mysql接口层读写分离(应用篇)">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>在<a href="http://www.csuldw.com/2018/03/13/2018-03-13-spring-mybatis-read-write-seperation/">上一篇文章</a>中已经介绍过读写分离，并且通过代码也已实现局部的读写分离。为什么说是局部的呢？首先，来分析下，针对上一篇文章中提到的方法，如果在service层没有配置事务，那么当程序走到Dao层时，就可以根据自己定义的规则进行读写分离；倘若在service层配置了事物，那么在Dao切换数据库key的时候，是无法正真的进行读写分离的。因此，通过进一步的研究和尝试，找到了一种新的方法来实现真正意义上的Dao层读写分离，该方法可以在事务内部直接切换数据库，达到读写分库的功能。</p>
+<a id="more"></a>
+
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>上一篇文章中介绍的方法，对存在事务的方法使用分库功能，无法成功，主要是因为Service层进入事务之后，在内部切换数据库Key无法正确。因此，继续深入，发现另一种方法是切换SqlSessionFactory，可以达到分库的效果。Spring整合MyBatis切换SqlSessionFactory有两种方法，第一种是继承SqlSessionDaoSupport，然后重写获取SqlSessionFactory的方法；第二中是继承SqlSessionTemplate，然后重写getSqlSessionFactory、getConfiguration 和SqlSessionInterceptor 这个拦截器。其中最为关键还是继承SqlSessionTemplate 并重写里面的方法。整个读写分离可归纳为以下三个步骤：</p>
+<ul>
+<li>Step 1：实现动态切换数据源：配置两个DataSource，配置两个SqlSessionFactory指向两个不同的DataSource，两个SqlSessionFactory都用一个SqlSessionTemplate，同时重写Mybatis提供的SqlSessionTemplate类，最后配置Mybatis自动扫描。</li>
+<li>Step 2：利用aop切面，拦截dao层所有方法，因为dao层方法命名的特点，比如所有查询sql都是select开头，或者get开头等等，拦截这些方法，并把当前数据源切换至从库。</li>
+<li>Step 3：由于在事务内部进行了分库，所以需要引入atomikos进行多事务分布式管理。</li>
+</ul>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><h3 id="重写SqlSessionTemplate"><a href="#重写SqlSessionTemplate" class="headerlink" title="重写SqlSessionTemplate"></a>重写SqlSessionTemplate</h3><p>DynamicSqlSessionTemplate类继承SqlSessionTemplate，并重写getSqlSessionFactory、getConfiguration和SqlSessionInterceptor这个拦截器。代码如下：</p>
+<ol>
+<li>DynamicSqlSessionTemplate.java</li>
+</ol>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test.dlab.aop.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.reflect.Proxy.newProxyInstance;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.apache.ibatis.reflection.ExceptionUtil.unwrapThrowable;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mybatis.spring.SqlSessionUtils.closeSqlSession;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mybatis.spring.SqlSessionUtils.getSqlSession;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> org.mybatis.spring.SqlSessionUtils.isSqlSessionTransactional;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationHandler;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.sql.Connection;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Map;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.exceptions.PersistenceException;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.executor.BatchResult;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.ExecutorType;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.ResultHandler;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.RowBounds;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSession;</span><br><span class="line"><span class="keyword">import</span> org.apache.ibatis.session.SqlSessionFactory;</span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.MyBatisExceptionTranslator;</span><br><span class="line"><span class="keyword">import</span> org.mybatis.spring.SqlSessionTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.dao.support.PersistenceExceptionTranslator;</span><br><span class="line"><span class="keyword">import</span> org.springframework.util.Assert;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> liudiwei</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicSqlSessionTemplate</span> <span class="keyword">extends</span> <span class="title">SqlSessionTemplate</span> </span>{</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SqlSessionFactory sqlSessionFactory;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ExecutorType executorType;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SqlSession sqlSessionProxy;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PersistenceExceptionTranslator exceptionTranslator;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">private</span> Map&lt;Object, SqlSessionFactory&gt; targetSqlSessionFactorys;</span><br><span class="line">    <span class="keyword">private</span> SqlSessionFactory defaultTargetSqlSessionFactory;</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setTargetSqlSessionFactorys</span><span class="params">(Map&lt;Object, SqlSessionFactory&gt; targetSqlSessionFactorys)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.targetSqlSessionFactorys = targetSqlSessionFactorys;</span><br><span class="line">    }</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> Map&lt;Object, SqlSessionFactory&gt; <span class="title">getTargetSqlSessionFactorys</span><span class="params">()</span></span>{</span><br><span class="line">        <span class="keyword">return</span> targetSqlSessionFactorys;</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setDefaultTargetSqlSessionFactory</span><span class="params">(SqlSessionFactory defaultTargetSqlSessionFactory)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.defaultTargetSqlSessionFactory = defaultTargetSqlSessionFactory;</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicSqlSessionTemplate</span><span class="params">(SqlSessionFactory sqlSessionFactory)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>(sqlSessionFactory, sqlSessionFactory.getConfiguration().getDefaultExecutorType());</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicSqlSessionTemplate</span><span class="params">(SqlSessionFactory sqlSessionFactory, ExecutorType executorType)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>(sqlSessionFactory, executorType, <span class="keyword">new</span> MyBatisExceptionTranslator(sqlSessionFactory.getConfiguration()</span><br><span class="line">                .getEnvironment().getDataSource(), <span class="keyword">true</span>));</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DynamicSqlSessionTemplate</span><span class="params">(SqlSessionFactory sqlSessionFactory, ExecutorType executorType,</span></span></span><br><span class="line"><span class="function"><span class="params">            PersistenceExceptionTranslator exceptionTranslator)</span> </span>{</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">super</span>(sqlSessionFactory, executorType, exceptionTranslator);</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.sqlSessionFactory = sqlSessionFactory;</span><br><span class="line">        <span class="keyword">this</span>.executorType = executorType;</span><br><span class="line">        <span class="keyword">this</span>.exceptionTranslator = exceptionTranslator;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">this</span>.sqlSessionProxy = (SqlSession) newProxyInstance(</span><br><span class="line">                SqlSessionFactory.class.getClassLoader(),</span><br><span class="line">                <span class="keyword">new</span> Class[] { SqlSession.class }, </span><br><span class="line">                <span class="keyword">new</span> SqlSessionInterceptor());</span><br><span class="line"> </span><br><span class="line">        <span class="keyword">this</span>.defaultTargetSqlSessionFactory = sqlSessionFactory;</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">getSqlSessionFactory</span><span class="params">()</span> </span>{</span><br><span class="line"> </span><br><span class="line">        SqlSessionFactory targetSqlSessionFactory = targetSqlSessionFactorys.get(SqlSessionContentHolder.getContextType());</span><br><span class="line">        <span class="keyword">if</span> (targetSqlSessionFactory != <span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">return</span> targetSqlSessionFactory;</span><br><span class="line">        } <span class="keyword">else</span> <span class="keyword">if</span> (defaultTargetSqlSessionFactory != <span class="keyword">null</span>) {</span><br><span class="line">            <span class="keyword">return</span> defaultTargetSqlSessionFactory;</span><br><span class="line">        } <span class="keyword">else</span> {</span><br><span class="line">            Assert.notNull(targetSqlSessionFactorys, <span class="string">"Property 'targetSqlSessionFactorys' or 'defaultTargetSqlSessionFactory' are required"</span>);</span><br><span class="line">            Assert.notNull(defaultTargetSqlSessionFactory, <span class="string">"Property 'defaultTargetSqlSessionFactory' or 'targetSqlSessionFactorys' are required"</span>);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionFactory;</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Configuration <span class="title">getConfiguration</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.getSqlSessionFactory().getConfiguration();</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> ExecutorType <span class="title">getExecutorType</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.executorType;</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> PersistenceExceptionTranslator <span class="title">getPersistenceExceptionTranslator</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.exceptionTranslator;</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">selectOne</span><span class="params">(String statement)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;T&gt; selectOne(statement);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">selectOne</span><span class="params">(String statement, Object parameter)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;T&gt; selectOne(statement, parameter);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;K, V&gt; <span class="function">Map&lt;K, V&gt; <span class="title">selectMap</span><span class="params">(String statement, String mapKey)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;K, V&gt; selectMap(statement, mapKey);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;K, V&gt; <span class="function">Map&lt;K, V&gt; <span class="title">selectMap</span><span class="params">(String statement, Object parameter, String mapKey)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;K, V&gt; selectMap(statement, parameter, mapKey);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;K, V&gt; <span class="function">Map&lt;K, V&gt; <span class="title">selectMap</span><span class="params">(String statement, Object parameter, String mapKey, RowBounds rowBounds)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;K, V&gt; selectMap(statement, parameter, mapKey, rowBounds);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">selectList</span><span class="params">(String statement)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;E&gt; selectList(statement);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">selectList</span><span class="params">(String statement, Object parameter)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;E&gt; selectList(statement, parameter);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;E&gt; <span class="function">List&lt;E&gt; <span class="title">selectList</span><span class="params">(String statement, Object parameter, RowBounds rowBounds)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.&lt;E&gt; selectList(statement, parameter, rowBounds);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">select</span><span class="params">(String statement, ResultHandler handler)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.sqlSessionProxy.select(statement, handler);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">select</span><span class="params">(String statement, Object parameter, ResultHandler handler)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.sqlSessionProxy.select(statement, parameter, handler);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">select</span><span class="params">(String statement, Object parameter, RowBounds rowBounds, ResultHandler handler)</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.sqlSessionProxy.select(statement, parameter, rowBounds, handler);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(String statement)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.insert(statement);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">insert</span><span class="params">(String statement, Object parameter)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.insert(statement, parameter);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">update</span><span class="params">(String statement)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.update(statement);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">update</span><span class="params">(String statement, Object parameter)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.update(statement, parameter);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(String statement)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.delete(statement);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">delete</span><span class="params">(String statement, Object parameter)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.delete(statement, parameter);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> &lt;T&gt; <span class="function">T <span class="title">getMapper</span><span class="params">(Class&lt;T&gt; type)</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> getConfiguration().getMapper(type, <span class="keyword">this</span>);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">commit</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Manual commit is not allowed over a Spring managed SqlSession"</span>);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">commit</span><span class="params">(<span class="keyword">boolean</span> force)</span> </span>{</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Manual commit is not allowed over a Spring managed SqlSession"</span>);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rollback</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Manual rollback is not allowed over a Spring managed SqlSession"</span>);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">rollback</span><span class="params">(<span class="keyword">boolean</span> force)</span> </span>{</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Manual rollback is not allowed over a Spring managed SqlSession"</span>);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> UnsupportedOperationException(<span class="string">"Manual close is not allowed over a Spring managed SqlSession"</span>);</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clearCache</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">this</span>.sqlSessionProxy.clearCache();</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Connection <span class="title">getConnection</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.getConnection();</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * {<span class="doctag">@inheritDoc</span>}</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@since</span> 1.0.2</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;BatchResult&gt; <span class="title">flushStatements</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.sqlSessionProxy.flushStatements();</span><br><span class="line">    }</span><br><span class="line"> </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Proxy needed to route MyBatis method calls to the proper SqlSession got from Spring's Transaction Manager It also</span></span><br><span class="line"><span class="comment">     * unwraps exceptions thrown by {<span class="doctag">@code</span> Method#invoke(Object, Object...)} to pass a {<span class="doctag">@code</span> PersistenceException} to</span></span><br><span class="line"><span class="comment">     * the {<span class="doctag">@code</span> PersistenceExceptionTranslator}.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlSessionInterceptor</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>{</span><br><span class="line">        <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>{</span><br><span class="line">            <span class="keyword">final</span> SqlSession sqlSession = getSqlSession(</span><br><span class="line">                    DynamicSqlSessionTemplate.<span class="keyword">this</span>.getSqlSessionFactory(),</span><br><span class="line">                    DynamicSqlSessionTemplate.<span class="keyword">this</span>.executorType, </span><br><span class="line">                    DynamicSqlSessionTemplate.<span class="keyword">this</span>.exceptionTranslator);</span><br><span class="line">            <span class="keyword">try</span> {</span><br><span class="line">                Object result = method.invoke(sqlSession, args);</span><br><span class="line">                <span class="keyword">if</span> (!isSqlSessionTransactional(sqlSession, DynamicSqlSessionTemplate.<span class="keyword">this</span>.getSqlSessionFactory())) {</span><br><span class="line">                    <span class="comment">// force commit even on non-dirty sessions because some databases require</span></span><br><span class="line">                    <span class="comment">// a commit/rollback before calling close()</span></span><br><span class="line">                    sqlSession.commit(<span class="keyword">true</span>);</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">return</span> result;</span><br><span class="line">            } <span class="keyword">catch</span> (Throwable t) {</span><br><span class="line">                Throwable unwrapped = unwrapThrowable(t);</span><br><span class="line">                <span class="keyword">if</span> (DynamicSqlSessionTemplate.<span class="keyword">this</span>.exceptionTranslator != <span class="keyword">null</span> &amp;&amp; unwrapped <span class="keyword">instanceof</span> PersistenceException) {</span><br><span class="line">                    Throwable translated = DynamicSqlSessionTemplate.<span class="keyword">this</span>.exceptionTranslator</span><br><span class="line">                        .translateExceptionIfPossible((PersistenceException) unwrapped);</span><br><span class="line">                    <span class="keyword">if</span> (translated != <span class="keyword">null</span>) {</span><br><span class="line">                        unwrapped = translated;</span><br><span class="line">                    }</span><br><span class="line">                }</span><br><span class="line">                <span class="keyword">throw</span> unwrapped;</span><br><span class="line">            } <span class="keyword">finally</span> {</span><br><span class="line">                closeSqlSession(sqlSession, DynamicSqlSessionTemplate.<span class="keyword">this</span>.getSqlSessionFactory());</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>下面定义SqlSessionContentHolder类，使用ThreadLocal技术来记录当前线程中的sessionFactory的key。</p>
+<ol start="2">
+<li>SqlSessionContentHolder.java</li>
+</ol>
+<p>SqlSessionContentHolder主要用于设置SqlSessionFactory的类型.</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test.dlab.aop.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">SqlSessionContentHolder</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String SESSION_FACTORY_MASTER = <span class="string">"master"</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">static</span> String SESSION_FACTORY_SLAVE = <span class="string">"slave"</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;String&gt; contextHolder = <span class="keyword">new</span> ThreadLocal&lt;String&gt;();  </span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">setContextType</span><span class="params">(String contextType)</span> </span>{  </span><br><span class="line">        contextHolder.set(contextType);  </span><br><span class="line">    }  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getContextType</span><span class="params">()</span> </span>{  </span><br><span class="line">        <span class="keyword">return</span> contextHolder.get();  </span><br><span class="line">    }  </span><br><span class="line">      </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">clearContextType</span><span class="params">()</span> </span>{  </span><br><span class="line">        contextHolder.remove();  </span><br><span class="line">    } </span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="定义数据源的AOP切面"><a href="#定义数据源的AOP切面" class="headerlink" title="定义数据源的AOP切面"></a>定义数据源的AOP切面</h2><p>定义数据源的AOP切面，通过该Dao的方法名判断是应该走读库还是写库。</p>
+<h3 id="DynamicDataSourceAspect-java"><a href="#DynamicDataSourceAspect-java" class="headerlink" title="DynamicDataSourceAspect.java"></a>DynamicDataSourceAspect.java</h3><figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.test.dlab.aop.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.apache.commons.lang3.StringUtils;</span><br><span class="line"><span class="keyword">import</span> org.apache.log4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.JoinPoint;</span><br><span class="line"><span class="keyword">import</span> org.aspectj.lang.annotation.Aspect;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DynamicDataSourceAspect</span></span></span><br><span class="line"><span class="class"></span>{</span><br><span class="line"></span><br><span class="line">    Logger log = Logger.getLogger(DynamicDataSourceAspect.class);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] slaveMethodPrefixList = <span class="keyword">new</span> String[]</span><br><span class="line">            { <span class="string">"quer"</span>, <span class="string">"find"</span>, <span class="string">"get"</span>, <span class="string">"check"</span>, <span class="string">"sum"</span>, <span class="string">"list"</span>, <span class="string">"is"</span>, <span class="string">"count"</span>, <span class="string">"load"</span> };</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">pointCut</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>{</span><br><span class="line"></span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">before</span><span class="params">(JoinPoint jp)</span></span></span><br><span class="line"><span class="function">    </span>{</span><br><span class="line">        String methodName = jp.getSignature().getName();</span><br><span class="line">        </span><br><span class="line">        log.info(<span class="string">"当前方法名为 | MethodName: "</span> + methodName);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// dao方法查询走从库</span></span><br><span class="line">        <span class="keyword">if</span>(StringUtils.startsWithAny(methodName, slaveMethodPrefixList))</span><br><span class="line">        <span class="comment">//if (methodName.startsWith("query") || methodName.startsWith("get") || methodName.startsWith("count") || methodName.startsWith("list"))</span></span><br><span class="line">        {</span><br><span class="line">            log.info(<span class="string">"设置sessionFactory："</span> + SqlSessionContentHolder.SESSION_FACTORY_SLAVE);</span><br><span class="line">            SqlSessionContentHolder.setContextType(SqlSessionContentHolder.SESSION_FACTORY_SLAVE);</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        {</span><br><span class="line">            log.info(<span class="string">"设置sessionFactory："</span> + SqlSessionContentHolder.SESSION_FACTORY_MASTER);</span><br><span class="line">            SqlSessionContentHolder.setContextType(SqlSessionContentHolder.SESSION_FACTORY_MASTER);</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="修改配置文件"><a href="#修改配置文件" class="headerlink" title="修改配置文件"></a>修改配置文件</h2><h3 id="配置db-properties"><a href="#配置db-properties" class="headerlink" title="配置db.properties"></a>配置db.properties</h3><p>在db.properties配置文件中增加主库和从库的信息，这里master为主库，slave为从库，具体内容如下：</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">jdbc.master.driver=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.master.url=jdbc:mysql://10.88.184.156:3306/resource_manage?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true</span><br><span class="line">jdbc.master.username=root</span><br><span class="line">jdbc.master.password=test</span><br><span class="line"></span><br><span class="line">jdbc.slave01.driver=com.mysql.jdbc.Driver</span><br><span class="line">jdbc.slave01.url=jdbc:mysql://127.0.0.1:3306/resource_manage?useUnicode=true&amp;characterEncoding=utf8&amp;allowMultiQueries=true</span><br><span class="line">jdbc.slave01.username=root</span><br><span class="line">jdbc.slave01.password=123456</span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="添加主从数据库连接池"><a href="#添加主从数据库连接池" class="headerlink" title="添加主从数据库连接池"></a>添加主从数据库连接池</h3><p>修改applicationContext.xml，masterDataSource和slaveDataSource。</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 主从数据库配置  part1 start --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置连接池 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"masterDataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 数据库驱动 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"${jdbc.master.driver}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 相应驱动的jdbcUrl --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"${jdbc.master.url}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 数据库的用户名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"${jdbc.master.username}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 数据库的密码 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"${jdbc.master.password}"</span> /&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span> <span class="attr">value</span>=<span class="string">"${jdbc.initialPoolSize}"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--连接池中保留的最大连接数。Default: 15 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span> <span class="attr">value</span>=<span class="string">"${jdbc.maxPoolSize}"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--连接池中保留的最小连接数。 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span> <span class="attr">value</span>=<span class="string">"${jdbc.minPoolSize}"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdleTime"</span> <span class="attr">value</span>=<span class="string">"${jdbc.maxIdleTime}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireIncrement"</span> <span class="attr">value</span>=<span class="string">"${jdbc.acquireIncrement}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--每0秒检查所有连接池中的空闲连接。Default: 0 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"idleConnectionTestPeriod"</span> <span class="attr">value</span>=<span class="string">"${jdbc.idleConnectionTestPeriod}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireRetryAttempts"</span> <span class="attr">value</span>=<span class="string">"${jdbc.acquireRetryAttempts}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--如果设为true那么在取得连接的同时将校验连接的有效性。Default: false --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"testConnectionOnCheckin"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"preferredTestQuery"</span> <span class="attr">value</span>=<span class="string">"SELECT CURRENT_DATE"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置连接池 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"slaveDataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span>  <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 数据库驱动 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"${jdbc.slave01.driver}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 相应驱动的jdbcUrl --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"${jdbc.slave01.url}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 数据库的用户名 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"${jdbc.slave01.username}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 数据库的密码 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"${jdbc.slave01.password}"</span> /&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!--初始化时获取三个连接，取值应在minPoolSize与maxPoolSize之间。Default: 3 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span> <span class="attr">value</span>=<span class="string">"${jdbc.initialPoolSize}"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--连接池中保留的最大连接数。Default: 15 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span> <span class="attr">value</span>=<span class="string">"${jdbc.maxPoolSize}"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--连接池中保留的最小连接数。 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span> <span class="attr">value</span>=<span class="string">"${jdbc.minPoolSize}"</span>/&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--最大空闲时间,1800秒内未使用则连接被丢弃。若为0则永不丢弃。Default: 0 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdleTime"</span> <span class="attr">value</span>=<span class="string">"${jdbc.maxIdleTime}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--当连接池中的连接耗尽的时候c3p0一次同时获取的连接数。Default: 3 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireIncrement"</span> <span class="attr">value</span>=<span class="string">"${jdbc.acquireIncrement}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--每0秒检查所有连接池中的空闲连接。Default: 0 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"idleConnectionTestPeriod"</span> <span class="attr">value</span>=<span class="string">"${jdbc.idleConnectionTestPeriod}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--定义在从数据库获取新连接失败后重复尝试的次数。Default: 30 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireRetryAttempts"</span> <span class="attr">value</span>=<span class="string">"${jdbc.acquireRetryAttempts}"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--如果设为true那么在取得连接的同时将校验连接的有效性。Default: false --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"testConnectionOnCheckin"</span> <span class="attr">value</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"preferredTestQuery"</span> <span class="attr">value</span>=<span class="string">"SELECT CURRENT_DATE"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 主从数据库配置 part1 end --&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="配置两个sessionFactory"><a href="#配置两个sessionFactory" class="headerlink" title="配置两个sessionFactory"></a>配置两个sessionFactory</h3><p>两个sessionFactory内容大致一样，唯一不同的就是dataSource数据源。</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置 mybatis 的 sqlsession 的工厂 ， 设置mapper location--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"masterSqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:config/mybatis.xml"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"masterDataSource"</span> /&gt;</span>  </span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperLocations"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>classpath:com/test/dlab/mappers/***/*Mapper.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>classpath:com/test/dlab/mappers/***/***/*Mapper.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"typeAliasesPackage"</span> <span class="attr">value</span>=<span class="string">"com.test.dlab.entity"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- PageHelper 分页插件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"plugins"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.github.pagehelper.PageHelper"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"properties"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">                dialect=mysql</span><br><span class="line">                pageSizeZero=true</span><br><span class="line">                reasonable=false</span><br><span class="line">                <span class="comment">&lt;!-- supportMethodsArguments=false --&gt;</span></span><br><span class="line">                returnPageInfo=always </span><br><span class="line">              <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span>            </span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span>  </span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"slaveSqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:config/mybatis.xml"</span> /&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"slaveDataSource"</span> /&gt;</span>  </span><br><span class="line">    </span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperLocations"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>classpath:com/test/dlab/mappers/***/*Mapper.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>classpath:com/test/dlab/mappers/***/***/*Mapper.xml<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"typeAliasesPackage"</span> <span class="attr">value</span>=<span class="string">"com.test.dlab.entity"</span> /&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- PageHelper 分页插件 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"plugins"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.github.pagehelper.PageHelper"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"properties"</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">value</span>&gt;</span></span><br><span class="line">                dialect=mysql</span><br><span class="line">                pageSizeZero=true</span><br><span class="line">                reasonable=false</span><br><span class="line">                <span class="comment">&lt;!-- supportMethodsArguments=false --&gt;</span></span><br><span class="line">                returnPageInfo=always </span><br><span class="line">              <span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">array</span>&gt;</span>            </span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span>  </span><br><span class="line">    </span><br><span class="line"><span class="comment">&lt;!-- 两个SqlSessionFactory使用同一个SqlSessionTemplate配置 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"MasterAndSlaveSqlSessionTemplate"</span> <span class="attr">class</span>=<span class="string">"com.test.dlab.aop.core.DynamicSqlSessionTemplate"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">constructor-arg</span> <span class="attr">index</span>=<span class="string">"0"</span> <span class="attr">ref</span>=<span class="string">"masterSqlSessionFactory"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"targetSqlSessionFactorys"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">map</span>&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">value-ref</span>=<span class="string">"masterSqlSessionFactory"</span> <span class="attr">key</span>=<span class="string">"master"</span>/&gt;</span>  </span><br><span class="line">            <span class="tag">&lt;<span class="name">entry</span> <span class="attr">value-ref</span>=<span class="string">"slaveSqlSessionFactory"</span> <span class="attr">key</span>=<span class="string">"slave"</span>/&gt;</span>  </span><br><span class="line">        <span class="tag">&lt;/<span class="name">map</span>&gt;</span>  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="配置mapper"><a href="#配置mapper" class="headerlink" title="配置mapper"></a>配置mapper</h3><p>这里采用sqlSessionTemplateBeanName进行mapper的配置，与之前sqlSessionFactoryBeanName有点区别。</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">&lt;!-- 一次性配置所有Mapper,替代MapperScannerConfigurer,指定要扫描包： 多个包用逗号隔开   --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperScannerConfigurer"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"basePackage"</span> <span class="attr">value</span>=<span class="string">"com.test.dlab.dao"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSessionTemplateBeanName"</span> <span class="attr">value</span>=<span class="string">"MasterAndSlaveSqlSessionTemplate"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="引入jta-atomikos实现分布式事务管理"><a href="#引入jta-atomikos实现分布式事务管理" class="headerlink" title="引入jta/atomikos实现分布式事务管理"></a>引入jta/atomikos实现分布式事务管理</h3><p>由于Service层的事务不能更改，所以当我们引入多个库的时候，需要引入atomikos来进行分布式事务管理。</p>
+<p>首先引入以下六个jar包</p>
+<ul>
+<li>atomikos-util-4.0.4.jar</li>
+<li>jta-1.1.jar </li>
+<li>transactions-4.0.4.jar</li>
+<li>transactions-api-4.0.4.jar</li>
+<li>transactions-jdbc-4.0.4.jar</li>
+<li>transactions-jta-4.0.4.jar</li>
+</ul>
+<p>然后配置全局的事务管理，并声明注解事务即可。</p>
+<figure class="highlight java"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置事务管理器bean --&gt;</span><br><span class="line">&lt;bean id=<span class="string">"atomikosTransactionManager"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.atomikos.icatch.jta.UserTransactionManager"</span> init-method=<span class="string">"init"</span> destroy-method=<span class="string">"close"</span>&gt;  </span><br><span class="line">    &lt;property name=<span class="string">"forceShutdown"</span>&gt;  </span><br><span class="line">        &lt;value&gt;true&lt;/value&gt;  </span><br><span class="line">    &lt;/property&gt;  </span><br><span class="line">&lt;/bean&gt;  </span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"atomikosUserTransaction"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"com.atomikos.icatch.jta.UserTransactionImp"</span>&gt;  </span><br><span class="line">    &lt;property name=<span class="string">"transactionTimeout"</span> value=<span class="string">"300"</span> /&gt;  </span><br><span class="line">&lt;/bean&gt;  </span><br><span class="line">&lt;!-- spring 事务管理器 --&gt;    </span><br><span class="line">&lt;bean id=<span class="string">"springTransactionManager"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.transaction.jta.JtaTransactionManager"</span>&gt;  </span><br><span class="line">    &lt;property name=<span class="string">"transactionManager"</span> ref=<span class="string">"atomikosTransactionManager"</span> /&gt;  </span><br><span class="line">    &lt;property name=<span class="string">"userTransaction"</span> ref=<span class="string">"atomikosUserTransaction"</span> /&gt;  </span><br><span class="line">    &lt;!-- 必须设置，否则程序出现异常 JtaTransactionManager does not support custom isolation levels by <span class="keyword">default</span> --&gt;  </span><br><span class="line">    &lt;property name=<span class="string">"allowCustomIsolationLevels"</span> value=<span class="string">"true"</span>/&gt;   </span><br><span class="line">&lt;/bean&gt;  </span><br><span class="line">&lt;!-- 声明注解事务 --&gt;</span><br><span class="line">&lt;tx:annotation-driven transaction-manager=<span class="string">"springTransactionManager"</span>/&gt;</span><br></pre></td></tr></tbody></table></figure>
+
+
+
+<h3 id="配置事务属性"><a href="#配置事务属性" class="headerlink" title="配置事务属性"></a>配置事务属性</h3><figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置事务属性 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"springTransactionManager"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 增删改查方法  配置事务 --&gt;</span>        </span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"save*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"add*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"create*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"insert*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"update*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"merge*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"del*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"remove*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"put*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"use*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"batch*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"bind*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">rollback-for</span>=<span class="string">"java.lang.Exception"</span>/&gt;</span> </span><br><span class="line"></span><br><span class="line">        <span class="comment">&lt;!-- 查询方法 配置只读属性 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"get*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"count*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"find*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"list*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> <span class="attr">read-only</span>=<span class="string">"true"</span> /&gt;</span>    </span><br><span class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> /&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span>    </span><br><span class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h3 id="配置事务切面"><a href="#配置事务切面" class="headerlink" title="配置事务切面"></a>配置事务切面</h3><p>为了让之前配置的Aspect作用域Dao方法上，我们需要在Dao层面加入一些配置，使数据源分库功能作用于Dao方法上，实现动态的读写分离。</p>
+<figure class="highlight xml"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 配置数据库注解aop --&gt;</span></span><br><span class="line"><span class="comment">&lt;!--     &lt;bean id="dynamicDataSourceAspect" class="com.test.dlab.aop.spring.DynamicDataSourceAspect" /&gt;</span></span><br><span class="line"><span class="comment">&lt;bean class="com.test.dlab.aop.aspect.DataSourceAspect2" id="dynamicDataSourceAspect" /&gt; --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.test.dlab.aop.core.DynamicDataSourceAspect"</span> <span class="attr">id</span>=<span class="string">"dynamicDataSourceAspect"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">aop:config</span> &gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"txPointcut"</span> <span class="attr">expression</span>=<span class="string">"execution(* com.test.dlab.service..*.*(..))"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"txPointcut"</span>/&gt;</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">&lt;!-- 将切面应用到自定义的切面处理器上，-9999保证该切面优先级最高执行 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">aop:aspect</span> <span class="attr">ref</span>=<span class="string">"dynamicDataSourceAspect"</span> <span class="attr">order</span>=<span class="string">"-9999"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"tx"</span> <span class="attr">expression</span>=<span class="string">"execution(* com.test.dlab.dao..*.*(..))"</span>/&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">aop:before</span> <span class="attr">method</span>=<span class="string">"before"</span> <span class="attr">pointcut-ref</span>=<span class="string">"tx"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">aop:aspect</span>&gt;</span> </span><br><span class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></span><br></pre></td></tr></tbody></table></figure>
+
+<p>OK，启动项目，访问一切ok！</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li><a href="http://blog.csdn.net/zl3450341/article/details/20150687" target="_blank" rel="noopener">关于Spring3 + Mybatis3整合时，多数据源动态切换的问题</a></li>
+<li><a href="https://www.cnblogs.com/FlyHeLanMan/p/6744171.html" target="_blank" rel="noopener">Spring + Mybatis 项目实现动态切换数据源</a></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/读写分离/" rel="tag">#读写分离</a>
+          
+            <a href="/tags/主从分离/" rel="tag">#主从分离</a>
+          
+            <a href="/tags/Spring/" rel="tag">#Spring</a>
+          
+            <a href="/tags/MySql/" rel="tag">#MySql</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/01/2018-05-01-backpropagation-algorithm/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Deep Learning - 神经网络与BP算法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/13/2018-03-13-spring-mybatis-read-write-seperation/" rel="next">
+                Spring+Mybatis+Mysql数据库读写分离 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#背景介绍"><span class="nav-number">1.</span> <span class="nav-text">背景介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现"><span class="nav-number">3.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重写SqlSessionTemplate"><span class="nav-number">3.1.</span> <span class="nav-text">重写SqlSessionTemplate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义数据源的AOP切面"><span class="nav-number">4.</span> <span class="nav-text">定义数据源的AOP切面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DynamicDataSourceAspect-java"><span class="nav-number">4.1.</span> <span class="nav-text">DynamicDataSourceAspect.java</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置文件"><span class="nav-number">5.</span> <span class="nav-text">修改配置文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置db-properties"><span class="nav-number">5.1.</span> <span class="nav-text">配置db.properties</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加主从数据库连接池"><span class="nav-number">5.2.</span> <span class="nav-text">添加主从数据库连接池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置两个sessionFactory"><span class="nav-number">5.3.</span> <span class="nav-text">配置两个sessionFactory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置mapper"><span class="nav-number">5.4.</span> <span class="nav-text">配置mapper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引入jta-atomikos实现分布式事务管理"><span class="nav-number">5.5.</span> <span class="nav-text">引入jta/atomikos实现分布式事务管理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置事务属性"><span class="nav-number">5.6.</span> <span class="nav-text">配置事务属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置事务切面"><span class="nav-number">5.7.</span> <span class="nav-text">配置事务切面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2018/03/20/2018-03-20-spring-mybatis-read-write-seperation-part2/';
+      var disqus_title = 'Spring+Mybatis+Mysql接口层读写分离(应用篇)';
+      var disqus_url = 'https://www.csuldw.com/2018/03/20/2018-03-20-spring-mybatis-read-write-seperation-part2/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

@@ -1,0 +1,931 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.8.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,概率,分布,共轭,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="D.W's Notes - Machine Learning" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="在机器学习领域，概率分布对于数据的认识有着非常重要的作用。不管是有效数据还是噪声数据，如果知道了数据的分布，那么在数据建模过程中会得到很大的启示。本文总结了几种常见的概率分布，比如离散型随机变量的分布代表伯努利分布以及连续型随机变量的分布代表高斯分布。对于每种分布，不仅给出它的概率密度函数，还会对其期望和方差等几个主要的统计量进行分析。目前文章的内容还比较简洁，后续再不断进行完善。">
+<meta name="keywords" content="Machine Learning,概率,分布,共轭">
+<meta property="og:type" content="article">
+<meta property="og:title" content="概率分布 Probability Distributions">
+<meta property="og:url" content="https://www.csuldw.com/2016/08/19/2016-08-19-probability-distributions/index.html">
+<meta property="og:site_name" content="D.W&#39;s Notes - Machine Learning">
+<meta property="og:description" content="在机器学习领域，概率分布对于数据的认识有着非常重要的作用。不管是有效数据还是噪声数据，如果知道了数据的分布，那么在数据建模过程中会得到很大的启示。本文总结了几种常见的概率分布，比如离散型随机变量的分布代表伯努利分布以及连续型随机变量的分布代表高斯分布。对于每种分布，不仅给出它的概率密度函数，还会对其期望和方差等几个主要的统计量进行分析。目前文章的内容还比较简洁，后续再不断进行完善。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2016-08-21T02:48:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="概率分布 Probability Distributions">
+<meta name="twitter:description" content="在机器学习领域，概率分布对于数据的认识有着非常重要的作用。不管是有效数据还是噪声数据，如果知道了数据的分布，那么在数据建模过程中会得到很大的启示。本文总结了几种常见的概率分布，比如离散型随机变量的分布代表伯努利分布以及连续型随机变量的分布代表高斯分布。对于每种分布，不仅给出它的概率密度函数，还会对其期望和方差等几个主要的统计量进行分析。目前文章的内容还比较简洁，后续再不断进行完善。">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 概率分布 Probability Distributions | D.W's Notes - Machine Learning </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                概率分布 Probability Distributions
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2016-08-19T10:24:00+08:00" content="2016-08-19">
+              2016-08-19 10:24
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2016/08/19/2016-08-19-probability-distributions/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/19/2016-08-19-probability-distributions/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2016/08/19/2016-08-19-probability-distributions/" class="leancloud_visitors" data-flag-title="概率分布 Probability Distributions">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在机器学习领域，概率分布对于数据的认识有着非常重要的作用。不管是有效数据还是噪声数据，如果知道了数据的分布，那么在数据建模过程中会得到很大的启示。本文总结了几种常见的概率分布，比如离散型随机变量的分布代表伯努利分布以及连续型随机变量的分布代表高斯分布。对于每种分布，不仅给出它的概率密度函数，还会对其期望和方差等几个主要的统计量进行分析。目前文章的内容还比较简洁，后续再不断进行完善。</p>
+<a id="more"></a>
+
+<p>本文主要从三个方面进行阐述：</p>
+<ol>
+<li>一个函数：Gamma函数</li>
+<li>六大分布：伯努利分布、二项分布、多项式分布、Beta分布、Dirichlet分布、高斯分布</li>
+<li>一个理论：共轭先验</li>
+</ol>
+<h2 id="一个函数：Gamma函数"><a href="#一个函数：Gamma函数" class="headerlink" title="一个函数：Gamma函数"></a>一个函数：Gamma函数</h2><p>Gamma函数是阶乘在实数上的推广，其公式如下：</p>
+<p>$$\Gamma(k) = \int_0^\infty x^{k-1} e^{-x} , dx, \quad k \in (0, \infty)$$</p>
+<p>Gamma函数有着一个特别的性质，即：</p>
+<p>$$\Gamma(n) = (n-1)!$$</p>
+<h2 id="六大分布"><a href="#六大分布" class="headerlink" title="六大分布"></a>六大分布</h2><h3 id="伯努利分布"><a href="#伯努利分布" class="headerlink" title="伯努利分布"></a>伯努利分布</h3><p>伯努利分布（Bernoulli distribution）是关于布尔变量$x \epsilon  \lbrace 0,1  \rbrace $的概率分布，其连续参数$\mu \epsilon [0,1] $表示变量$x=1$的概率。其概率分布可以写成如下形式：</p>
+<p>$$p(x | \mu) = B(x | \mu) = \mu ^{x} (1-\mu)^{1-x}$$</p>
+<p>对于伯努利分布，它的期望和方差如下：</p>
+<p>$$E(x) = \mu$$</p>
+<p>$$var(x) = \mu(1-\mu)$$</p>
+<h3 id="二项分布"><a href="#二项分布" class="headerlink" title="二项分布"></a>二项分布</h3><p>二项分布（binomial distribution）描述的是$n$次独立的伯努利分布中有$m$次成功（即$x=1$）的概率，其中每次伯努利实验成功的概率都是$\mu \epsilon [0,1] $.</p>
+<p>$$p(m|n,\mu) = Bin(m | n,\mu) = C_{n} ^{m} \mu^{m}(1-\mu)^{n-m}$$</p>
+<p>对于二项分布，它是伯努利分布的推广，而对于独立事件，加和的均值等于均值的加和，加和的方差等于方差的加和。因此其期望和方差如下：</p>
+<p>$$E(x) = n\mu$$</p>
+<p>$$var(x) = n\mu(1-\mu)$$</p>
+<p>当$n=1$时，二项分布退化为伯努利分布.</p>
+<h3 id="多项式分布"><a href="#多项式分布" class="headerlink" title="多项式分布"></a>多项式分布</h3><p>将伯努利分布的单变量扩展到$d$维向量$\vec{x}$，其中 $ x_i \epsilon  \lbrace 0,1 \rbrace $，且$\sum_{i=1}^{d} x_i =1$，假设$x_i =1$的概率为 $\mu \epsilon [0, 1] $, </p>
+<p>并且$\sum_{i=1}^{d} \mu_i= 1$，则将得到离散分布</p>
+<p>$$p(x| \mu) = \prod_{i=1}^{d} \mu_{i}^{x_{i}} $$</p>
+<p>在此基础上扩展二项分布得到多项式分布（multinomial distribution），该分布描述的是在$n$次独立实验中有$m_i$次$x_i = 1$的概率,其密度函数可以表达为如下形式：</p>
+<p>$$p(m_1, m_2, \cdots , m_d | n, \mu) =  \frac{n!}{m_1!m_2!…m_d !} \prod_{i=1}^{d} \mu_{i}^{m_{i}}$$</p>
+<p>多项式分布的期望、方差、协方差如下：</p>
+<p>$$E(x) = n\mu_i$$</p>
+<p>$$var(x) = n\mu_i (1-\mu_i)$$</p>
+<p>$$cov(m_i, m_j) = -n \mu_i \mu_j$$</p>
+<h3 id="Beta分布"><a href="#Beta分布" class="headerlink" title="Beta分布"></a>Beta分布</h3><p><strong>Beta分布是二项分布的共轭先验分布</strong>，下面先介绍两个函数，Beta函数和Gamma函数（直接贴公式吧）：</p>
+<p>$$B(a, b) = \frac{\Gamma(a) \Gamma(b)}{\Gamma(a + b)}; \quad a, , b \in (0, \infty)$$</p>
+<p>$$\Gamma(k) = \int_0^\infty x^{k-1} e^{-x} , dx, \quad k \in (0, \infty)$$</p>
+<p>贝塔分布（Beta distribution）是关于连续变量$\mu \epsilon [0, 1]$的概率分布，它由两个参数$a$和$b$共同确定，概率密度函数如下：</p>
+<p>$$Beta(\mu | a,b) = \frac{1}{B(a, b)} \mu^{a-1} (1 - \mu)^{b-1}, \quad 0 &lt;  x &lt;  1$$</p>
+<p>Beta分布的期望和方差如下：</p>
+<p>$$E(\mu) = \frac{a}{a+b}$$</p>
+<p>$$var(\mu) = \frac{ab}{(a+b)^2 (a+b+1)}$$</p>
+<h3 id="狄利克雷分布"><a href="#狄利克雷分布" class="headerlink" title="狄利克雷分布"></a>狄利克雷分布</h3><p>狄利克雷分布（Dirichlet distribution）是Beta分布在高维度上的推广，它是关于一组$d$个连续变量$\mu_i \epsilon [0, 1]$ 的概率分布.</p>
+<p>$$\sum_{i=1}^d \mu_i = 1$$</p>
+<p>令$\mu = (\mu_i, \mu_2, …, \mu_d)$, 其中参数为:</p>
+<p>$$\alpha = (\alpha_1, \alpha_2, \cdots, \alpha_d)$, $\alpha_i&gt;0, \tilde{\alpha} = \sum_{i=1}^d \alpha_i$$ </p>
+<p>则狄利克雷分布的概率密度函数为：</p>
+<p>$$p(\mu; \alpha) = D(\mu; \alpha) = \frac{\Gamma(\tilde{\alpha})}{\Gamma(\alpha_1)…\Gamma(\alpha_i)} \prod_{i=1}^{d} \mu_{i}^{\alpha_{i}-1} $$</p>
+<p>Dirichlet 分布的期望和方差如下：</p>
+<p>$$E(\mu_{i}) = \frac{\alpha_{i}}{\tilde{\alpha}}$$</p>
+<p>$$var(\mu_{i}) = \frac{\alpha_{i}(\tilde{\alpha - \alpha_{i}})}{\tilde{\alpha}^{2}(\tilde{\alpha} + 1)}$$</p>
+<p>$$cov(\mu_{i}, \mu_{j}) = \frac{\alpha_{i}\alpha_{j}}{\tilde{\alpha}^{2}(\tilde{\alpha} + 1)}$$</p>
+<p>当$d=2$时，狄利克雷分布退化为Beta分布.</p>
+<h3 id="高斯分布"><a href="#高斯分布" class="headerlink" title="高斯分布"></a>高斯分布</h3><p>高斯分布又称正态分布，在实际应用中最为广泛。对于单变量$x \epsilon (-\infty , +\infty )$,高斯分布的参数有两个，分别是均值$\mu \epsilon (-\infty , +\infty )$和方差$\sigma^2 &gt;0$，其概率密度函数为</p>
+<p>$$N(x | \mu, \sigma^2) = \frac{1}{\sqrt{2\pi}\sigma} exp  \lbrace - \frac{(x-\mu)^2}{2\sigma^2}  \rbrace $$</p>
+<p>期望方差如下：</p>
+<p>$$E(x) = \mu $$</p>
+<p>$$var(x) = \sigma^2$$</p>
+<p>对于D维向量$x$,多元高斯分布的概率密度函数为：</p>
+<p>$$N(x | \mu, \Sigma) = \frac{1}{\sqrt{(2\pi)^D } \left | \Sigma \right | ^{1/2}} exp \lbrace - \frac{1}{2} (x-\mu)^T \Sigma^{-1} (x-\mu)  \rbrace $$</p>
+<p>其中， $µ$是$D$维均值向量， $Σ$是$D × D$的协方差矩阵， $|Σ|$是$Σ$的行列式。多元高斯分布的期望为$\mu$, 方差为$\Sigma$.</p>
+<h2 id="共轭先验"><a href="#共轭先验" class="headerlink" title="共轭先验"></a>共轭先验</h2><p>先验分布反映了某种先验信息，后验分布既反映了先验分布提供的信息，又反映了样本提供的信息。<strong>若先验分布和抽样分布决定的后验分布与先验分布是同类型分布，则称先验分布为抽样分布的共轭分布</strong>。当先验分布与抽样分布共轭时，后验分布与先验分布属于同一种类型，这意味着先验信息和样本信息提供的信息具有一定的同一性。</p>
+<ul>
+<li>Beta的共轭分布是伯努利分布；</li>
+<li>多项式分布的共轭分布是狄利克雷分布；</li>
+<li>高斯分布的共轭分布是高斯分布。</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="http://www.math.uah.edu/stat/special/index.html" target="_blank" rel="noopener">special distribution</a></li>
+<li><a href="http://www.math.uah.edu/stat/special/Gamma.html#gam" target="_blank" rel="noopener">Gamma distribution</a></li>
+<li><a href="http://www.math.uah.edu/stat/special/Beta.html" target="_blank" rel="noopener">Beta distribution</a></li>
+</ul>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/概率/" rel="tag">#概率</a>
+          
+            <a href="/tags/分布/" rel="tag">#分布</a>
+          
+            <a href="/tags/共轭/" rel="tag">#共轭</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/08/23/2016-08-23-vc-dimentions/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Computational Learning Theory - VC Dimension
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/30/2016-07-30-inverted-index-example/" rel="next">
+                Inverted Index（倒排索引） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一个函数：Gamma函数"><span class="nav-number">1.</span> <span class="nav-text">一个函数：Gamma函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六大分布"><span class="nav-number">2.</span> <span class="nav-text">六大分布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伯努利分布"><span class="nav-number">2.1.</span> <span class="nav-text">伯努利分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二项分布"><span class="nav-number">2.2.</span> <span class="nav-text">二项分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多项式分布"><span class="nav-number">2.3.</span> <span class="nav-text">多项式分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Beta分布"><span class="nav-number">2.4.</span> <span class="nav-text">Beta分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#狄利克雷分布"><span class="nav-number">2.5.</span> <span class="nav-text">狄利克雷分布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高斯分布"><span class="nav-number">2.6.</span> <span class="nav-text">高斯分布</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共轭先验"><span class="nav-number">3.</span> <span class="nav-text">共轭先验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2016/08/19/2016-08-19-probability-distributions/';
+      var disqus_title = '概率分布 Probability Distributions';
+      var disqus_url = 'https://www.csuldw.com/2016/08/19/2016-08-19-probability-distributions/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>
