@@ -406,9 +406,9 @@
       <category term="知识图谱" scheme="https://www.csuldw.com/categories/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/"/>
     
     
-      <category term="豆瓣电影" scheme="https://www.csuldw.com/tags/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1/"/>
-    
       <category term="知识图谱" scheme="https://www.csuldw.com/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/"/>
+    
+      <category term="豆瓣电影" scheme="https://www.csuldw.com/tags/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1/"/>
     
       <category term="知识库问答" scheme="https://www.csuldw.com/tags/%E7%9F%A5%E8%AF%86%E5%BA%93%E9%97%AE%E7%AD%94/"/>
     
@@ -434,11 +434,11 @@
       <category term="知识图谱" scheme="https://www.csuldw.com/categories/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/"/>
     
     
-      <category term="数据分析" scheme="https://www.csuldw.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
+      <category term="知识图谱" scheme="https://www.csuldw.com/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/"/>
     
       <category term="豆瓣电影" scheme="https://www.csuldw.com/tags/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1/"/>
     
-      <category term="知识图谱" scheme="https://www.csuldw.com/tags/%E7%9F%A5%E8%AF%86%E5%9B%BE%E8%B0%B1/"/>
+      <category term="数据分析" scheme="https://www.csuldw.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
     
       <category term="Neo4j" scheme="https://www.csuldw.com/tags/Neo4j/"/>
     
@@ -462,9 +462,9 @@
       <category term="ML" scheme="https://www.csuldw.com/categories/ML/"/>
     
     
-      <category term="数据分析" scheme="https://www.csuldw.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
-    
       <category term="豆瓣电影" scheme="https://www.csuldw.com/tags/%E8%B1%86%E7%93%A3%E7%94%B5%E5%BD%B1/"/>
+    
+      <category term="数据分析" scheme="https://www.csuldw.com/tags/%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/"/>
     
       <category term="数据挖掘" scheme="https://www.csuldw.com/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
     
