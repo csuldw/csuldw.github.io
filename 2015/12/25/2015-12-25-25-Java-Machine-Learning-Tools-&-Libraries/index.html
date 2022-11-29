@@ -1,0 +1,891 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,译文,框架&库,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="机器学习算法技术分享" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="本列表总结了25个Java机器学习工具&amp;amp;库：  原文地址：25 Java Machine Learning Tools &amp;amp; Libraries CSDN译文链接：http://www.csdn.net/article/2015-12-25/2826560">
+<meta name="keywords" content="Machine Learning,译文,框架&amp;库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="25个Java机器学习工具&amp;库(译)">
+<meta property="og:url" content="https://www.csuldw.com/2015/12/25/2015-12-25-25-Java-Machine-Learning-Tools-&-Libraries/index.html">
+<meta property="og:site_name" content="机器学习算法技术分享">
+<meta property="og:description" content="本列表总结了25个Java机器学习工具&amp;amp;库：  原文地址：25 Java Machine Learning Tools &amp;amp; Libraries CSDN译文链接：http://www.csdn.net/article/2015-12-25/2826560">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2016-03-08T09:04:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="25个Java机器学习工具&amp;库(译)">
+<meta name="twitter:description" content="本列表总结了25个Java机器学习工具&amp;amp;库：  原文地址：25 Java Machine Learning Tools &amp;amp; Libraries CSDN译文链接：http://www.csdn.net/article/2015-12-25/2826560">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 25个Java机器学习工具&库(译) | 机器学习算法技术分享 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                25个Java机器学习工具&库(译)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-12-25T22:24:00+08:00" content="2015-12-25">
+              2015-12-25 22:24
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/12/25/2015-12-25-25-Java-Machine-Learning-Tools-&-Libraries/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/12/25/2015-12-25-25-Java-Machine-Learning-Tools-&-Libraries/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/12/25/2015-12-25-25-Java-Machine-Learning-Tools-&-Libraries/" class="leancloud_visitors" data-flag-title="25个Java机器学习工具&库(译)">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>本列表总结了25个Java机器学习工具&amp;库：</p>
+<ul>
+<li>原文地址：<a href="http://bigdataanalyticsnews.com/25-java-machine-learning-tools-libraries/" target="_blank" rel="noopener">25 Java Machine Learning Tools &amp; Libraries</a></li>
+<li>CSDN译文链接：<a href="http://www.csdn.net/article/2015-12-25/2826560" target="_blank" rel="noopener">http://www.csdn.net/article/2015-12-25/2826560</a></li>
+</ul>
+<a id="more"></a>
+
+<p>1.<a href="http://www.cs.waikato.ac.nz/ml/weka/" target="_blank" rel="noopener">Weka</a>集成了数据挖掘工作的机器学习算法。这些算法可以直接应用于一个数据集上或者你可以自己编写代码来调用。Weka包括一系列的工具，如数据预处理、分类、回归、聚类、关联规则以及可视化。</p>
+<p>2.<a href="http://moa.cms.waikato.ac.nz/" target="_blank" rel="noopener">Massive Online Analysis</a>（MOA）是一个面向数据流挖掘的流行开源框架，有着非常活跃的成长社区。它包括一系列的机器学习算法（分类、回归、聚类、异常检测、概念漂移检测和推荐系统）和评估工具。关联了WEKA项目，MOA也是用Java编写的，其扩展性更强。</p>
+<p>3.<a href="http://meka.sourceforge.net/" target="_blank" rel="noopener">MEKA</a>项目提供了一个面向多标签学习和评价方法的开源实现。在多标签分类中，我们要预测每个输入实例的多个输出变量。这与“普通”情况下只涉及一个单一目标变量的情形不同。此外，MEKA基于WEKA的机器学习工具包。</p>
+<p>4.<a href="https://adams.cms.waikato.ac.nz/" target="_blank" rel="noopener">Advanced Data mining And Machine learning System</a>（ADAMS）是一种新型的柔性工作流引擎，旨在迅速建立并保持真实世界的复杂知识流，它是基于GPLv3发行的。</p>
+<p>5.<a href="http://elki.dbs.ifi.lmu.de/" target="_blank" rel="noopener">Environment for Developing KDD-Applications Supported by Index-Structure</a>（ELKI）是一款基于Java的开源（AGPLv3）数据挖掘软件。ELKI主要集中于算法研究，重点研究聚类分析中的无监督方法和异常检测。</p>
+<p>6.<a href="http://mallet.cs.umass.edu/" target="_blank" rel="noopener">Mallet</a>是一个基于Java的面向文本文件的机器学习工具包。Mallet支持分类算法，如最大熵、朴素贝叶斯和决策树分类。</p>
+<p>7.<a href="http://www.heatonresearch.com/encog" target="_blank" rel="noopener">Encog</a>是一个先进的机器学习框架，集成了支持向量机（SVM）、人工神经网络、遗传算法、贝叶斯网络、隐马尔可夫模型（HMM）、遗传编程和遗传算法。</p>
+<p>8.<a href="http://www.datumbox.com/" target="_blank" rel="noopener">Datumbox</a>机器学习框架是一个用Java编写的开源框架，允许快速地开发机器学习和统计应用。该框架的核心重点包括大量的机器学习算法以及统计测试，能够处理中等规模的数据集。</p>
+<p>9.<a href="http://deeplearning4j.org/" target="_blank" rel="noopener">Deeplearning4j</a>是使用Java和Scala编写的第一个商业级的、开源的、分布式深入学习库。其设计的目的是用于商业环境中，而不是作为一个研究工具。</p>
+<p>10.<a href="http://mahout.apache.org/" target="_blank" rel="noopener">Mahout</a>是一个内置算法的机器学习框架。Mahout-Samsara帮助人们创建他们自己的数学，并提供了一些现成的算法实现。</p>
+<p>11<a href="https://rapidminer.com/" target="_blank" rel="noopener">Rapid Miner</a>是德国多特蒙特技术大学开发的。它为开发者开发应用程序提供了一个GUI（图形用户界面）和Java API。它还提供了一些机器学习算法，用来做数据处理、可视化以及建模。</p>
+<p>12.<a href="http://samoa.incubator.apache.org/" target="_blank" rel="noopener">Apache SAMOA</a>是一个机器学习（ML）框架，内嵌面向分布式流ML算法的编程抽象，并且允许在没有直接处理底层分布式流处理引擎（DSPEe，如Apache Storm、Apache S4和Apache samza）复杂性的情况下，开发新的ML算法。用户可以开发分布式流ML算法，而且可以在多个DSPEs上执行。</p>
+<p>13.<a href="http://neuroph.sourceforge.net/" target="_blank" rel="noopener">Neuroph</a>通过提供支持创建、训练和保存神经网络的Java网络库和GUI工具，简化了神经网络开发。</p>
+<p>14.<a href="http://oryx.io/" target="_blank" rel="noopener">Oryx 2</a>是一个建立在Apache Spark和Apache Kafka的Lambda架构实现，但随着实时大规模机器学习而逐渐开始专业化。这是一个用于构建应用程序的框架，但也包括打包，以及面向协同过滤、分类、回归和聚类的端到端的应用程序。</p>
+<p>15.<a href="http://nlp.stanford.edu/software/classifier.shtml" target="_blank" rel="noopener">Stanford Classifier</a>是一个机器学习工具，它可以将数据项归置到一个类别。一个概率分类器，比如这个，它可以对一个数据项给出类分配的概率分布。该软件是最大熵分类器的一个Java实现。</p>
+<p>16<a href="http://www.cortical.io/" target="_blank" rel="noopener">io</a>是一个Retina API，有着快速精确的类似大脑的自然语言处理算法。</p>
+<p>17.<a href="https://github.com/EdwardRaff/JSAT/tree/master" target="_blank" rel="noopener">JSAT</a>是一个快速入门的机器学习库。该库是我在业余时间开发的，基于GPL3发行的。库中的一部分内容可自主学习，例如所有的代码都是独立的。JSAT没有外部依赖，而且是纯Java编写的。</p>
+<p>18.<a href="http://nd4j.org/" target="_blank" rel="noopener">N-Dimensional Arrays for Java(ND4J)</a>是一个用于JVM的科学计算库。它们是用来在生产环境中使用的，这表明例程的设计是以最小的内存需求来运行的。</p>
+<p>19.<a href="https://www.openhub.net/p/8582" target="_blank" rel="noopener">Java Machine Learning Library</a>（Java机器学习库）是一系列机器学习算法的相关实现。这些算法，无论是源代码还是文档，都编写的很出色。其主要语言是Java。</p>
+<p>20.<a href="http://java-ml.sourceforge.net/" target="_blank" rel="noopener">Java-ML</a>是一个使用Java编写的一系列机器学习算法的Java API。它只提供了一个标准的算法接口。</p>
+<p>21.<a href="http://spark.apache.org/mllib/" target="_blank" rel="noopener">MLlib(Spark)</a> 是Apache Spark的可扩展机器学习库。虽然是Java，但该库与平台还支持Java，Scala和Python绑定。此库是最新的，并且算法很多。</p>
+<p>22.<a href="https://github.com/h2oai/h2o-3" target="_blank" rel="noopener">H2O</a>是用于智能应用的机器学习API。它在大数据上对统计学、机器学习和数学进行了规模化。H2O可扩展，开发者可以在核心部分使用简单的数学知识。</p>
+<p>23.<a href="https://github.com/WalnutiQ/wAlnut" target="_blank" rel="noopener">WalnutiQ</a>是人脑部分面向对象模型，有着理论常用的学习算法（正在向简单强烈的情感人工智能模型方向研究）。</p>
+<p>24.<a href="http://sourceforge.net/p/lemur/wiki/RankLib/" target="_blank" rel="noopener">RankLib</a>是一个排名学习算法库。目前已经实现八种流行的算法。</p>
+<p>25.<a href="https://github.com/numenta/htm.java" target="_blank" rel="noopener">htm.java</a>（基于Java的Hierarchical Temporal Memory算法实现）是一个面向智能计算的Numenta平台的Java接口。<a href="http://www.demnag.com/b/java-machine-learning-tools-libraries-cm570/" target="_blank" rel="noopener">源码</a></p>
+<hr>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/译文/" rel="tag">#译文</a>
+          
+            <a href="/tags/框架-库/" rel="tag">#框架&库</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/12/31/2015-12-31-annual-summary/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 2015，稳稳地幸福
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/12/2015-12-12-LeetCode-ans/" rel="next">
+                LeetCode部分题解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">This post does not have a Table Of Contents</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2015/12/25/2015-12-25-25-Java-Machine-Learning-Tools-&-Libraries/';
+      var disqus_title = '25个Java机器学习工具&库(译)';
+      var disqus_url = 'https://www.csuldw.com/2015/12/25/2015-12-25-25-Java-Machine-Learning-Tools-&-Libraries/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

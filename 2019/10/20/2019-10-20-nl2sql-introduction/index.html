@@ -1,0 +1,936 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="NLP,NL2SQL,文本分析 - CUI,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="机器学习算法技术分享" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="对于NL2SQL，也许在以前很多人会比较陌生。自从今年6月天池出现首届中文NL2SQL挑战赛之后，算是掀起了一股浪潮，中文NL2SQL也可以说是得到了进一步的发展。NL2SQL是CUI（Conversation User Interface）的新兴研究热点，其研究目的是将用户输入的自然语言转为可用的SQL语句，提高用户查询数据的效率。笔者接触NL2SQL方向并不长，所以也不敢在各位大神面前班门弄斧">
+<meta name="keywords" content="NLP,NL2SQL,文本分析 - CUI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NL2SQL概述：一文了解NL2SQL">
+<meta property="og:url" content="https://www.csuldw.com/2019/10/20/2019-10-20-nl2sql-introduction/index.html">
+<meta property="og:site_name" content="机器学习算法技术分享">
+<meta property="og:description" content="对于NL2SQL，也许在以前很多人会比较陌生。自从今年6月天池出现首届中文NL2SQL挑战赛之后，算是掀起了一股浪潮，中文NL2SQL也可以说是得到了进一步的发展。NL2SQL是CUI（Conversation User Interface）的新兴研究热点，其研究目的是将用户输入的自然语言转为可用的SQL语句，提高用户查询数据的效率。笔者接触NL2SQL方向并不长，所以也不敢在各位大神面前班门弄斧">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/brief-illustration-of-nl2sql.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/three-tier-architecture-of-nl2sql.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/google-analyza-system.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/analyza-suggestion-in-user-interface.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/system-overview-of-DBPal.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/illustration-of-nl2sql-approach.png">
+<meta property="og:updated_time" content="2019-10-20T10:46:16.610Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NL2SQL概述：一文了解NL2SQL">
+<meta name="twitter:description" content="对于NL2SQL，也许在以前很多人会比较陌生。自从今年6月天池出现首届中文NL2SQL挑战赛之后，算是掀起了一股浪潮，中文NL2SQL也可以说是得到了进一步的发展。NL2SQL是CUI（Conversation User Interface）的新兴研究热点，其研究目的是将用户输入的自然语言转为可用的SQL语句，提高用户查询数据的效率。笔者接触NL2SQL方向并不长，所以也不敢在各位大神面前班门弄斧">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/2019/brief-illustration-of-nl2sql.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> NL2SQL概述：一文了解NL2SQL | 机器学习算法技术分享 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                NL2SQL概述：一文了解NL2SQL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2019-10-20T18:10:00+08:00" content="2019-10-20">
+              2019-10-20 18:10
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2019/10/20/2019-10-20-nl2sql-introduction/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/10/20/2019-10-20-nl2sql-introduction/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2019/10/20/2019-10-20-nl2sql-introduction/" class="leancloud_visitors" data-flag-title="NL2SQL概述：一文了解NL2SQL">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>对于NL2SQL，也许在以前很多人会比较陌生。自从今年6月天池出现首届中文NL2SQL挑战赛之后，算是掀起了一股浪潮，中文NL2SQL也可以说是得到了进一步的发展。NL2SQL是CUI（Conversation User Interface）的新兴研究热点，其研究目的是将用户输入的自然语言转为可用的SQL语句，提高用户查询数据的效率。笔者接触NL2SQL方向并不长，所以也不敢在各位大神面前班门弄斧。比起情感分析、推荐系统、知识图谱这些领域，NL2SQL的文章真是少到可怜。本文也是出于学习目的对NL2SQL方向进行概括和总结，要是相关童鞋也在做这个方向，我们不妨一起交流交流。</p>
+<a id="more"></a>
+
+<h2 id="什么是NL2SQL？"><a href="#什么是NL2SQL？" class="headerlink" title="什么是NL2SQL？"></a>什么是NL2SQL？</h2><p>NL2SQL(Natural Language to SQL)， 顾名思义，是将自然语言转为SQL语句。它可以充当数据库的智能接口，让不熟悉数据库的用户能够快速地找到自己想要的数据。举个例子来说吧，在某个周五的晚上，业务人员小李想写份工作报告，总结下这个月的工作情况。在内容上，有一处需要查看某个产品本月的销售总额，但公司却没有这方面的具体报表数据。小李心里琢磨着，好歹自己也学过数据库，要是知道这个数据在那张表里面就好了。为此，他给开发人员小王打了个电话，本想让他帮忙从后台数据库里查一下，可谁知小王已经趁着周末去度蜜月去了，然后又给另一个开发小夏打了个电话，结果无人接听，真是让小李愁的寝食难安呀！这时候，如果能够有一个搜索框，小李只需要输入”我想查看A产品9月份的销售总额”，最后返回给小李一个SQL语句或是查询结果，岂不大快人心哇。</p>
+<p>上面这个例子就是NL2SQL的一个应用场景，无论结果是返回数字，还是将其以报表的形式展示给用户，都要经过NL2SQL这一过程。其实基于图谱的QA问答，本质上也与其类似，知识图谱问答是将用户的query转化为SPARQL，然后从图谱中搜索结果返回给用户。举个栗子，如图Fig 1所示，用户以文本的形式提出Question：“what ‘s the total number of songs originally performed by anna nalick？”，经过开发的系统解析之后，最后返回给用户的是一串SQL语句“𝑆𝐸𝐿𝐸𝐶𝑇 𝐶𝑂𝑈𝑁𝑇 𝑆𝑜𝑛𝑔 𝑐h𝑜𝑖𝑐𝑒 𝑊𝐻𝐸𝑅𝐸 𝑂𝑟𝑖𝑔𝑖𝑛𝑎𝑙 𝑎𝑟𝑡𝑖𝑠𝑡 = 𝑎𝑛𝑛𝑎 𝑐h𝑟𝑖𝑠𝑡𝑖𝑛𝑒 𝑛𝑎𝑙𝑖𝑐𝑘”，或是返回执行结果：1。</p>
+<p><img src="/assets/articleImg/2019/brief-illustration-of-nl2sql.png" alt></p>
+<div class="caption">Fig 1.NL2SQL图示[3]</div>
+
+
+<h2 id="NL2SQL发展史"><a href="#NL2SQL发展史" class="headerlink" title="NL2SQL发展史"></a>NL2SQL发展史</h2><p>NL2SQL的历史悠久，早在1973年，Woods等人就开发了一个名为LUNAR的系统，可以回答关于从月球带回的岩石样本的问题。到了1978年，Hendrix设计了一个连接美国海军舰艇信息数据库的自然语言接口，名为LIFER/LADDER。这些系统仅仅支持特定数据库的单表操作。</p>
+<p>近年来，研究人员也在尝试开发一个能够生成不同查询语句的复杂系统。在2008年，Siasar等人基于句法和语义知识的基本概念提出了专家系统，并提出一个能够从多个结果中选择一个合适查询语句的算法。随后，在2010年，Rao等人提出了一个包含简单和隐式查询的系统。2013年，Chaudhari使用原型技术实现了一个能够处理简单查询和聚合函数的系统。这两个系统也尚未发展到多表关联操作。2014年，Ghosh等人基于Chaudhari的研究成果，在其基础上又开发了一个自动查询生成器，它采用语音或自然语言文本作为输入，支持简单的嵌套查询和聚合操作，同时系统还能够处理那些明确指出的属性。同年，Reinaldha和Widagdo使用了不同的方法来研究用户不同形式的输入，他们采用语义规则来找出问题中出现的词与数据库中的属性之间的关系。2015年，Palakurthi等人提供了与属性类型和分类特征相关的信息，描述了不同属性出现在句子中的处理方式也是不一样的。2016年，Ghosal等人提出了一个系统，能够很好地处理多表简单查询，不过系统使用的数据字典有限。同年，Kaur and J, Jan 强化了系统的简单查询和连接操作，但不支持聚合函数、GROUPBY和HAVING等高级子句。Singh and Solanki也提出了一种将自然语言转为sql查询的算法。他们使用动词表、名词表和规则将属性和表映射到句子中的单词，系统还灵巧地处理了文本的模糊输入。2017年，Google开发了Analyza系统，一个以自然语言为人机交互的接口的系统，支持用户用自然语言做数据探索与数据分析。该系统已在Google两个产品中投入使用，一是Online Sheet产品的QA问答模块，二是提供了一个库存和收入数据数据库的一个访问入口。同年，Sukthankar, Nandan等人开发了nQuery系统，一个自然语言到SQL的查询生成器，支持聚合函数，以及where子句中的多个条件、高级子句（如order by、group by和having）操作。2018年，Utama, Prasetya等人开发了DBPal工具，一个面向数据库的端到端的自然语言接口。DBPal主要有两大特性，一是采用深度模型将自然语言语句转为SQL，二是在用户不知道数据库模式和查询特性的情况下，支持短语提问，同时支持用户查询扩展提示，有助于提高查询效果。</p>
+<p>上述研究都是基于英文句子进行分析，中文NL2SQL的研究一直未有公开的进展。直到2019年6月，追一科技在天池平台举行中文NL2SQL比赛，这才有了中文NL2SQL的一席之地。</p>
+<h2 id="业界数据集介绍"><a href="#业界数据集介绍" class="headerlink" title="业界数据集介绍"></a>业界数据集介绍</h2><p>关于数据集，目前比较火的英文数据集有WikiSQL、Spider、WikiTableQuestions、ATIS等，各个数据集都有各自的特点，下面简单介绍下这几个数据集。</p>
+<ul>
+<li>WikiSQL：该数据集是Salesforce在2017年提出的大型标注NL2SQL数据集，也是目前规模最大的NL2SQL数据集。它包含了 24,241张表，80,645条自然语言问句及相应的SQL语句。目前学术界的预测准确率可达91.8%。</li>
+<li>Spider：Spider数据集是耶鲁大学于2018年新提出的一个较大规模的NL2SQL数据集。该数据集包含了10,181条自然语言问句，分布在200个独立数据库中的5,693条SQL，内容覆盖了138个不同的领域。虽然在数据数量上不如WikiSQL，但Spider引入了更多的SQL用法，例如Group By、Order By、Having等高阶操作，甚至需要Join不同表，更贴近真实场景，所以难度也更大。目前准确率最高只有54.7%。</li>
+<li>WikiTableQuestions：该数据集是斯坦福大学于2015年提出的一个针对维基百科中那些半结构化表格问答的数据集，内部包含22,033条真实问句以及2,108张表格。由于数据的来源是维基百科，因此表格中的数据是真实且没有经过归一化的，一个cell内可能包含多个实体或含义，比如「Beijing, China」或「200 km」；同时，为了很好地泛化到其它领域的数据，该数据集测试集中的表格主题和实体之间的关系都是在训练集中没有见到过的。</li>
+<li>The Air Travel Information System (ATIS)：ATIS是一个年代较为久远的经典数据集，由德克萨斯仪器公司在1990年提出。该数据集获取自关系型数据库Official Airline Guide (OAG, 1990)，包含27张表以及不到2,000次的问询，每次问询平均7轮，93%的情况下需要联合3张以上的表才能得到答案，问询的内容涵盖了航班、费用、城市、地面服务等信息。</li>
+</ul>
+<p>Github地址：</p>
+<ul>
+<li>WikiSQL：<a href="https://github.com/salesforce/WikiSQL" target="_blank" rel="noopener">https://github.com/salesforce/WikiSQL</a></li>
+<li>Spider：<a href="https://yale-lily.github.io/spider" target="_blank" rel="noopener">https://yale-lily.github.io/spider</a></li>
+<li>ATIS：<a href="https://www.kaggle.com/siddhadev/ms-cntk-atis" target="_blank" rel="noopener">https://www.kaggle.com/siddhadev/ms-cntk-atis</a></li>
+<li>WikiTableQuestions：<a href="https://github.com/ppasupat/WikiTableQuestions" target="_blank" rel="noopener">https://github.com/ppasupat/WikiTableQuestions</a></li>
+</ul>
+<p>中文数据集目前只有追一科技在天池发布的比赛数据集，包括4万条有标签数据作为训练集，1万条无标签数据作为测试集。目前比赛第一名的成绩，准确率达到了92%。</p>
+<h2 id="NL2SQL三层架构"><a href="#NL2SQL三层架构" class="headerlink" title="NL2SQL三层架构"></a>NL2SQL三层架构</h2><p>在学术界，NL2SQL技术已经形成了一套模式，Fig 2就是NL2SQL经典的三层架构。</p>
+<!-- ![](/assets/articleImg/2019/three-tier-architecture-of-nl2sql.png) -->
+<img src="/assets/articleImg/2019/three-tier-architecture-of-nl2sql.png" width="90%">
+<div class="caption">Fig 2.NL2SQL三层架构[9]</div>
+
+<p>如上图所示，NL2SQL分为User query interface、Processing Unit、Database三部分，其中Processing Unit是整个架构的中心，也是语义解析的核心所在，打通了User与Database的交互通道，囊括智能分词、实体识别、知识检索等各个技术要点。在上述研究中，Processing Unit的内部算法也在逐步朝着深度学习的方向进展。下面，我们一起来看看几个经典的NL2SQL系统结构。</p>
+<h2 id="Analyza系统结构"><a href="#Analyza系统结构" class="headerlink" title="Analyza系统结构"></a>Analyza系统结构</h2><p>Google在2017年，针对自身的业务特点开发了Analyza系统，整个系统结构如Fig 3所示。</p>
+<!-- ![](/assets/articleImg/2019/google-analyza-system.png) -->
+<img src="/assets/articleImg/2019/google-analyza-system.png" width="60%">
+<div class="caption">Fig 3.Google Analyza系统[7]</div>
+
+<p>Analyza系统由四个组成部分：用户UI、Parser、Answering Engine和Storage。将三层架构的Processing Unit划分成Parser和Answering Engine两部分。下面我们来看看各个部分的作用。</p>
+<ol>
+<li>用户UI：用户交互界面，包括问句自动提示（如Fig 4所示）、可视化选择等功能。</li>
+<li>Storage：Storage是数据存储中心，对应的是图中的Metadata，包括了Knowledge Graph、Intent words以及database schema信息。同时也会将用户的搜索log存储起来。</li>
+<li>Parser：主要负责对user query进行parsing，包括了annotator(字符串匹配+NER+意图识别等一系列操作)、grammar（语法检测）、semantic predict（语义预测）、ranking（评分排序）。这部分会调用借助图谱来提高实体和关系识别精度。</li>
+<li>Answering Engine：用于将语义解析的结果转换成SQL，包括表识别、查询语句生成器等，最终将结果（数据、可视化结果、SQL等）返回给user。</li>
+</ol>
+<p><img src="/assets/articleImg/2019/analyza-suggestion-in-user-interface.png" alt></p>
+<div class="caption">Fig 4. The use of suggestions in a prototype user interface.[7]</div>
+
+
+<h2 id="DBPal系统结构"><a href="#DBPal系统结构" class="headerlink" title="DBPal系统结构"></a>DBPal系统结构</h2><p>DBPal与Analyza的系统结构都有着NL2SQL三层架构的影子，只是细节上略微不同。与Analyza不同的是，DBPal主要由两部分组成，分别是神经查询翻译器（Neural Query Translator）和交互式的自动完成特性(Interactive Auto-Completion)。</p>
+<img src="/assets/articleImg/2019/system-overview-of-DBPal.png" width="90%">
+<div class="caption">Fig 5.DBPal系统[4]</div>
+
+<p>如Fig 5所示，左上部分集成了Query Suggestion &amp; Auto-Completion自动问句提示功能，不仅给用户提供更好的体验，更是引导用户得到更精确的回答。在Fig 4右侧，即Server-side，是DBPal的核心，它的主要目的是将用户query转为SQL，实现上将其看做是翻译任务，采用的是sequence-to-sequence 深度学习模型，数据也是通过RNN模型训练生成的，并在模型前后增加了许多预处理和后处理操作。</p>
+<h2 id="NL2SQL实现简述"><a href="#NL2SQL实现简述" class="headerlink" title="NL2SQL实现简述"></a>NL2SQL实现简述</h2><p>对于NL2SQL的各个系统，在内部实现上，整体结构都大同小异，只是技术不同罢了。Fig 5描述了从Question到SQL生成的核心细节，简单来说，整个系统将NL2SQL分成了SQL几个子句的识别，包括SELECT clause、WHERE clause,当然可能还有group by、limit等等。每个部分又会牵扯很多的细节，比如table识别，属性识别，适当的添加索引等等。Fig 5是采用深度学习方法，通过encoder-decoder的方式进行NL2SQL的实现。Google的Analyza采用的则是语义解析和规则的方式构建的，paper中解释主要还是因为数据的问题。</p>
+<p><img src="/assets/articleImg/2019/illustration-of-nl2sql-approach.png" alt></p>
+<div class="caption">Fig 5.NL2SQL实现图示[3]</div>
+
+
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>对于NL2SQL，笔者在工作中也深深感受到它的难度，通过这些Paper的指引，大致做出了一个NL2SQL的雏形，后续还需要不断提升。本文主要是对NL2SQL做一个大致的总结，内容比较随性，浅尝辄止，如果针对相关的内容有疑问，可以看看对应的论文。最后，各位看官如是对NL2SQL感兴趣或是正在研究这方面的东西，不妨加个微信，一起探讨下中文NL2SQL的工业实践!</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>Dar, Hafsa Shareef, et al. “Frameworks for Querying Databases Using Natural Language: A Literature Review.” arXiv preprint arXiv:1909.01822 (2019).</li>
+<li>Hiregoudar, Shravankumar, Manjunath Gonal, and K. G. Karibasappa. “Speech to SQL Generator-A Voice Based Approach.”</li>
+<li>Sun, Yibo, et al. “Semantic parsing with syntax-and table-aware sql generation.” arXiv preprint arXiv:1804.08338 (2018).</li>
+<li>Utama, Prasetya, et al. “An End-to-end Neural Natural Language Interface for Databases.” arXiv preprint arXiv:1804.00401 (2018).</li>
+<li>Xu, Xiaojun, Chang Liu, and Dawn Song. “Sqlnet: Generating structured queries from natural language without reinforcement learning.” arXiv preprint arXiv:1711.04436 (2017).</li>
+<li>Sukthankar, Nandan, et al. “nQuery-A Natural Language Statement to SQL Query Generator.” Proceedings of ACL 2017, Student Research Workshop. 2017.</li>
+<li>Dhamdhere, Kedar, et al. “Analyza: Exploring data with conversation.” Proceedings of the 22nd International Conference on Intelligent User Interfaces. ACM, 2017.</li>
+<li>Liang, Percy. “Learning executable semantic parsers for natural language understanding.” arXiv preprint arXiv:1603.06677 (2016).</li>
+<li>Singh, Garima, and Arun Solanki. “An algorithm to transform natural language into SQL queries for relational databases.” Selforganizology 3.3 (2016): 100-116.</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag">#NLP</a>
+          
+            <a href="/tags/NL2SQL/" rel="tag">#NL2SQL</a>
+          
+            <a href="/tags/文本分析-CUI/" rel="tag">#文本分析 - CUI</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/11/10/2019-11-10-nginx-reverse-proxy/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 关于域名与Nginx反向代理的一些事儿
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/19/2019-10-19-comment-analysis/" rel="next">
+                电影短评情感分析：各大模型江湖再见 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是NL2SQL？"><span class="nav-number">1.</span> <span class="nav-text">什么是NL2SQL？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NL2SQL发展史"><span class="nav-number">2.</span> <span class="nav-text">NL2SQL发展史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#业界数据集介绍"><span class="nav-number">3.</span> <span class="nav-text">业界数据集介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NL2SQL三层架构"><span class="nav-number">4.</span> <span class="nav-text">NL2SQL三层架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Analyza系统结构"><span class="nav-number">5.</span> <span class="nav-text">Analyza系统结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DBPal系统结构"><span class="nav-number">6.</span> <span class="nav-text">DBPal系统结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NL2SQL实现简述"><span class="nav-number">7.</span> <span class="nav-text">NL2SQL实现简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束语"><span class="nav-number">8.</span> <span class="nav-text">结束语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">9.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2019/10/20/2019-10-20-nl2sql-introduction/';
+      var disqus_title = 'NL2SQL概述：一文了解NL2SQL';
+      var disqus_url = 'https://www.csuldw.com/2019/10/20/2019-10-20-nl2sql-introduction/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

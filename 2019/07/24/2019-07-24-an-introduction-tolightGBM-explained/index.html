@@ -1,0 +1,938 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="排序,Machine Learning,推荐系统,lightGBM,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="机器学习算法技术分享" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="在上篇文章Boosting模型：XGBoost原理剖析一文中，详细介绍了陈天奇等人于2014年发布的XGBoost的内在原理，同时阐述了其特有的几大优点。然时代变化之迅速，新技术如春笋般应运而生，与日俱进。继xgboost之后，2016年微软进一步发布了GBDT的另一个实现：lightGBM。据悉，与XGBoost相比，在相同的运行时间下能够得到更好的预测性能。同时，在multi-class cl">
+<meta name="keywords" content="排序,Machine Learning,推荐系统,lightGBM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boosting模型：lightGBM 算法原理">
+<meta property="og:url" content="https://www.csuldw.com/2019/07/24/2019-07-24-an-introduction-tolightGBM-explained/index.html">
+<meta property="og:site_name" content="机器学习算法技术分享">
+<meta property="og:description" content="在上篇文章Boosting模型：XGBoost原理剖析一文中，详细介绍了陈天奇等人于2014年发布的XGBoost的内在原理，同时阐述了其特有的几大优点。然时代变化之迅速，新技术如春笋般应运而生，与日俱进。继xgboost之后，2016年微软进一步发布了GBDT的另一个实现：lightGBM。据悉，与XGBoost相比，在相同的运行时间下能够得到更好的预测性能。同时，在multi-class cl">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/histogram-and-goss.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/greedy-bundling.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/merge-exclusive-feature.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/level-wise-and-leaf-wise.png">
+<meta property="og:updated_time" content="2019-10-22T12:46:30.777Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Boosting模型：lightGBM 算法原理">
+<meta name="twitter:description" content="在上篇文章Boosting模型：XGBoost原理剖析一文中，详细介绍了陈天奇等人于2014年发布的XGBoost的内在原理，同时阐述了其特有的几大优点。然时代变化之迅速，新技术如春笋般应运而生，与日俱进。继xgboost之后，2016年微软进一步发布了GBDT的另一个实现：lightGBM。据悉，与XGBoost相比，在相同的运行时间下能够得到更好的预测性能。同时，在multi-class cl">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/2019/histogram-and-goss.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Boosting模型：lightGBM 算法原理 | 机器学习算法技术分享 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Boosting模型：lightGBM 算法原理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2019-07-24T23:01:00+08:00" content="2019-07-24">
+              2019-07-24 23:01
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2019/07/24/2019-07-24-an-introduction-tolightGBM-explained/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/24/2019-07-24-an-introduction-tolightGBM-explained/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2019/07/24/2019-07-24-an-introduction-tolightGBM-explained/" class="leancloud_visitors" data-flag-title="Boosting模型：lightGBM 算法原理">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在上篇文章<a href="https://www.csuldw.com/2019/07/20/2019-07-20-xgboost-theory/">Boosting模型：XGBoost原理剖析</a>一文中，详细介绍了陈天奇等人于2014年发布的XGBoost的内在原理，同时阐述了其特有的几大优点。然时代变化之迅速，新技术如春笋般应运而生，与日俱进。继xgboost之后，2016年微软进一步发布了GBDT的另一个实现：lightGBM。据悉，与XGBoost相比，在相同的运行时间下能够得到更好的预测性能。同时，在multi-class classification、click prediction和排序（learning to rank）都有很好的效果。本文将基于lightGBM的原始paper，对其原理进行归纳总结，以供后续参详，温习之用。</p>
+<a id="more"></a>
+
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为了确保文章的连续性，读者需对Boosting系列有一定的理解，在阅读本文核心内容之前，还读者预先在心里回答下下面几个问题：</p>
+<ol>
+<li>XGBoost的目标函数表达式？</li>
+<li>XGBoost在GBDT的基础上做了哪些优化？</li>
+<li>XGBoost的exact greedy Algorithm for split finding是什么？</li>
+<li>XGBoost寻找分裂点的增益计算方法？</li>
+<li>XGBoost的近似算法原理？</li>
+<li>解释下Weighted Quantile Sketch原理？</li>
+</ol>
+<p>如果对上面的问题模棱两可的，可前往上一篇文章:<a href="http://www.csuldw.com/2019/07/20/2019-07-20-xgboost-theory/">Boosting模型：XGBoost原理剖析</a>，回顾一下。接下来将会针对XGBoost的不足进一步探讨lightGBM模型，相对于GBDT，lightGBM的精度与它相差不大，但是速度可以提升20倍。By the way，在学习lightGBM的时候，可以思考下下面几个问题（本文不会直接给出结论，读完之后，读者自然就明白了）：</p>
+<ol>
+<li>Adaboost、GBDT、XGBoost的样本梯度都是什么？</li>
+<li>XGBoost的不足之处在哪里（lightGBM因何诞生，解决了什么问题）？</li>
+<li>XGBoost的近似算法与lightGBM的histogram-based方法的区别？</li>
+<li>什么是lightGBM？</li>
+<li>lightGBM与XGBoost的结构有什么区别？</li>
+</ol>
+<p>不管是XGBoost还是lightGBM，模型的优化方向上必不可少的就是决策树的分裂上。下面，将重点介绍lightGBM算法在寻找最佳切分点上所做出的努力。</p>
+<h2 id="寻找最佳分裂点"><a href="#寻找最佳分裂点" class="headerlink" title="寻找最佳分裂点"></a>寻找最佳分裂点</h2><p>lightGBM引入的核心思想包括两个方面：</p>
+<ol>
+<li>Histogram: 基于特征的数值进行分bin，然后基于bin的值寻找最佳分裂的bin值。</li>
+<li>GOSS(Gradient based One Side Sampling): 移除小梯度样本，使用余留的样本做增益计算；</li>
+<li>EFB(exclusive Feature Bundling)：bundle不会同时为零的特征（互斥），达到减少特征数量的目的。</li>
+</ol>
+<h3 id="Histogram分桶策略"><a href="#Histogram分桶策略" class="headerlink" title="Histogram分桶策略"></a>Histogram分桶策略</h3><p>GBDT是以决策树为基学习器的ensemble模型，在每次迭代中，GBDT都通过拟合负梯度来学习决策树，其中代价最大最耗时的就是寻找最佳切分点过程。一种方法是采用了预排序的算法，然后枚举所有可能的切分点，再寻找到增益最大的分裂点；另一中方法是基于histogram的算法，如下图所示。histogram算法并不是在预排序的特征值当中寻找最佳切分点，而是将连续的特征值进行离散化bin并放入不同的bucket，在训练的时候基于这些bin来构建特征histogram。这种做法效率更高，速度更快。如Algorithm 1所示，构建histogram的时间复杂度为O(#data $\times$ #feature)，寻找最佳分裂点的时间复杂度O(#bin $\times$ #feature)。</p>
+<img src="/assets/articleImg/2019/histogram-and-goss.png" width="95%" height="50%">
+<div class="caption">左侧为histogram分桶策略，右侧为GOSS采样方法</div>
+
+
+<h3 id="GOSS采样策略"><a href="#GOSS采样策略" class="headerlink" title="GOSS采样策略"></a>GOSS采样策略</h3><p>样本的梯度越小，则样本的训练误差越小，表示样本已经训练的很好了。最直接的做法就是丢掉这部分样本，然而直接扔掉会影响数据的分布，因此lightGBM采用了one-side 采样的方式来适配：GOSS。GOSS保留了所有的大梯度样本，对小梯度样本进行随机采样，同时为了保证分布的一致性，在计算信息增益的时候，将采样的小梯度样本乘以一个常量：$\frac{1-a}{b}$，$a$表示Top $a \times 100\%$的大梯度样本比例值，$b$表示小梯度样本的采样比值（很多文章里面理解成从省下的小梯度样本中采样b%的比例，其实是有误解的，这里的百分比是相对于全部样本而言的，即$b \% \times N$）。例如：100个样本中，大梯度样本有20个，小梯度样本80个，小梯度样本量是大梯度样本数据量的$4$倍，则大样本采样比率$a$等于$0.2$，假设小梯度样本的采样率为$30\%$，则$b=0.3$，那么小梯度样本的采样数目等于$b \times 100=30$个，为了保证采样前后样本的分布保持一致，最后小梯度样本采样得到的数据在计算梯度时需要乘以$\frac{1-a}{b}=\frac{1-0.2}{0.3}=\frac{8}{3}$(解释一下，乘以$1-a$是因为大梯度样本采样的整体是整个样本集$N$，小梯度样本采样的候选样本集为$(1-a)N$，除以$b$是因为采样导致小梯度样本的整体分布减少，为此需要将权重放大$\frac{1}{b}$倍)。整个过程如上图Algorithm 2所示。</p>
+<p>原始情况下，在第$j$个特征，值为$d$处进行分裂带来的增益可以定义为：</p>
+<p>$$<br>V_{j|O}(d) = \frac{1}{n_O}\left(\frac{(\sum_{x_i\in O:x_{ij} \le d}g_i)^2}{n_{l|O}^j(d)} + \frac{(\sum_{x_i\in O:x_{ij} \gt d}g_i)^2}{n_{r|O}^j(d)} \right)<br>\tag{1}\label{1}<br>$$</p>
+<p>其中O为在决策树待分裂节点的训练集，$n_o = \sum I(x_i \in O)$，$n_{l|O}^j(d) = \sum I[x_i \in O: x_{ij} \le d]\ $ 并且$\ n_{r|O}^j(d) = \sum I[x_i \in O: x_{ij} \gt d]$。</p>
+<p>采用GOSS之后，分裂的增益可表示为为：</p>
+<p>$$<br>V_{j|O}(d) = \frac{1}{n_O}\left(\frac{(\sum_{x_i\in A_l} g_i + \frac{1-a}{b} \sum_{x_i\in B_l} g_i)^2 }{n_{l}^j(d)} + \frac{(\sum_{x_i\in A_r} g_i + \frac{1-a}{b} \sum_{x_i\in B_l} g_r)^2 }{n_{r}^j(d)} \right)<br>\tag{2}\label{2}<br>$$</p>
+<p>其中$A_l = {x_i \in A: x_{ij} \le d}, A_r = {x_i \in A: x_{ij} \gt d}$，$B_l = {x_i \in B: x_{ij} \le d}, B_r = {x_i \in B: x_{ij} \gt d}$.</p>
+<h3 id="EFB特征合并"><a href="#EFB特征合并" class="headerlink" title="EFB特征合并"></a>EFB特征合并</h3><p>高维数据通常是非常稀疏的，而且很多特征是互斥的（即两个或多个特征列不会同时为0），lightGBM对这类数据采用了名为EFB（exclusive feature bundling）的优化策略，将这些互斥特征分组合并为#bundle个维度。通过这种方式，可以将特征的维度降下来，相应的，构建histogram所耗费的时间复杂度也从O(#data $\times$ #feature)变为O(#data $\times$ #bundle)，其中#feature &lt;&lt; #bundle。方法说起来虽然简单，但是实现起来将面临两大难点：</p>
+<ol>
+<li>哪些特征可以bundle在一起；</li>
+<li>如何构建bundle，实现特征降维。</li>
+</ol>
+<p>针对这两个问题，paper里面提到了两种算法：Greedy Bundling和Merge Exclusive feature。</p>
+<p>对于第一个问题，将特征划分为最少数量的Bundle本质上属于NP-hard problem。原理与图着色相同，给定一个图G，定点为$V$，表示特征，边为$E$，表示特征之间的互斥关系，接着采用贪心算法对图进行着色，以此来生成bundle。不过论文中指出，对于特征值得互斥在一定程度上是可以容忍的，具体的读者可以参考下原paper(文献1)。具体的算法流程如Algorithm 3所示。</p>
+<ol>
+<li>首先构建一张带权重的图，权重为特征间的总冲突数；</li>
+<li>对特征按照在图内的度进行降序排序；</li>
+<li>检查排好序的特征，并将其划分到一个冲突较小的bundle里，如果没有就创建一个bundle。</li>
+</ol>
+<p>采用这种方法对于特征数目不大的数据，还算OK，但是对于超大规模的特征将会出现性能瓶颈。一个优化的方向就是：采用非0值得个数作为排序的值，因为非零值越多通常冲突就越大。</p>
+<img src="/assets/articleImg/2019/greedy-bundling.png" width="50%" height="50%">
+
+<p>对于第二个问题：应该如何如何构建bundle？关键在于<strong>构建前的特征的值在构建后的bundle中能够识别</strong>。由于基于histogram的方法存储的是离散的bin而不是连续的数值，因此我们可以将不同特征的bin值设定为不同的区间即可。例如，特征A的bin值为[0,10)，特征B的bin值为[0,20)，要想将两个特征bin合并，我们可以将特征B的特征bin的值加上10，其取值区间将变为[0,30)。整个方法描述如下图所示。</p>
+<img src="/assets/articleImg/2019/merge-exclusive-feature.png" width="50%" height="50%">
+
+<h3 id="leaf-wise生长策略"><a href="#leaf-wise生长策略" class="headerlink" title="leaf-wise生长策略"></a>leaf-wise生长策略</h3><p>另外，在树的生成方式上，lightGBM与XGBoost也是有区别的。lightGBM的生长策略是leaf-wise，XGBoost中决策树的生长策略是level-wise。对比之下，level-wise策略维持的是一颗平衡树，leaf-wise策略以降低模型损失最大化为目的，对当前level中切分增益最大的leaf节点进行切分。不过leaf-wise存在一个弊端，就是最后会得到一颗非常深的决策树，为了防止过拟合，可以在模型参数中设置决策树的深度。</p>
+<img src="/assets/articleImg/2019/level-wise-and-leaf-wise.png" width="80%" height="50%">
+<div class="caption">左侧为level-wise（XGBoost），右侧为leaf-wise（lightGBM）</div>
+
+
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>lightGBM主要提出了两个新颖的方法：GOSS和EFB。两者都对算法性能的提升有着重要的贡献，其中GOSS是针对分裂时样本的数目进行采样优化（行优化），EFB是针对特征进行合并，达到特征减少的目的（列优化）。实际上，XGBoost和lightGBM都属于GBDT的一种实现，旨在优化算法的性能，提升算法的训练速度，与XGBoost相比，lightGBM更适应于数据量更大的场景。从GBDT-&gt;XGBoost-&gt;lightGBM，在模型训练阶段，是不能百分百地断定lightGBM就比GBDT和XGBoost好，因为数据量的大小也决定了模型的可行性。所以实际场景中，还是建议一一尝试之后再做抉择，因为训练一个XGBoost或lightGBM，都是非常简单的事情。OK，基于Boosting模型的学习终于告一段落，后续将对基于深度学习的排序方法或CTR预估方法进行探讨，感谢读者耐心读完本文。</p>
+<h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ol>
+<li>Ke, Guolin, et al. “<a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2017/11/lightgbm.pdf" target="_blank" rel="noopener">Lightgbm: A highly efficient gradient boosting decision tree.</a>“ Advances in Neural Information Processing Systems. 2017.</li>
+<li>Chen, Tianqi, and Carlos Guestrin. “<a href="https://arxiv.org/pdf/1603.02754" target="_blank" rel="noopener">Xgboost: A scalable tree boosting system.</a>“ Proceedings of the 22nd acm sigkdd international conference on knowledge discovery and data mining. ACM, 2016.</li>
+<li><a href="https://mlexplained.com/2018/01/05/lightgbm-and-xgboost-explained/" target="_blank" rel="noopener">LightGBM and XGBoost Explained</a></li>
+<li><a href="https://xgboost.readthedocs.io/en/latest/" target="_blank" rel="noopener">xgboost docs</a></li>
+<li><a href="https://lightgbm.readthedocs.io/en/latest/Features.html" target="_blank" rel="noopener">lightGBM docs</a></li>
+<li><a href="http://www.csuldw.com/2019/07/20/2019-07-20-xgboost-theory/">Boosting模型：XGBoost原理剖析</a></li>
+<li><a href="https://www.csuldw.com/2019/07/12/2019-07-12-an-introduction-to-gbdt/">Boosting模型：GBDT原理介绍</a></li>
+<li><a href="https://towardsdatascience.com/lightgbm-vs-xgboost-which-algorithm-win-the-race-1ff7dd4917d" target="_blank" rel="noopener">XGBOOST vs LightGBM: Which algorithm wins the race</a></li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/排序/" rel="tag">#排序</a>
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/推荐系统/" rel="tag">#推荐系统</a>
+          
+            <a href="/tags/lightGBM/" rel="tag">#lightGBM</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/26/2019-07-25-introduction-of-deepFM/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Wide & Deep与DeepFM模型
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/20/2019-07-20-xgboost-theory/" rel="next">
+                Boosting模型：XGBoost原理剖析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#寻找最佳分裂点"><span class="nav-number">2.</span> <span class="nav-text">寻找最佳分裂点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Histogram分桶策略"><span class="nav-number">2.1.</span> <span class="nav-text">Histogram分桶策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GOSS采样策略"><span class="nav-number">2.2.</span> <span class="nav-text">GOSS采样策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EFB特征合并"><span class="nav-number">2.3.</span> <span class="nav-text">EFB特征合并</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#leaf-wise生长策略"><span class="nav-number">2.4.</span> <span class="nav-text">leaf-wise生长策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束语"><span class="nav-number">3.</span> <span class="nav-text">结束语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#References"><span class="nav-number">4.</span> <span class="nav-text">References</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2019/07/24/2019-07-24-an-introduction-tolightGBM-explained/';
+      var disqus_title = 'Boosting模型：lightGBM 算法原理';
+      var disqus_url = 'https://www.csuldw.com/2019/07/24/2019-07-24-an-introduction-tolightGBM-explained/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

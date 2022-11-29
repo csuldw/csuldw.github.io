@@ -1,0 +1,935 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,scikit-learn,译文,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="机器学习算法技术分享" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html 章节内容 在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。 机器学习：问题设置通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据）">
+<meta name="keywords" content="Machine Learning,scikit-learn,译文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习scikit-learn入门教程（译）">
+<meta property="og:url" content="https://www.csuldw.com/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/index.html">
+<meta property="og:site_name" content="机器学习算法技术分享">
+<meta property="og:description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html 章节内容 在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。 机器学习：问题设置通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据）">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2016-03-08T08:57:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习scikit-learn入门教程（译）">
+<meta name="twitter:description" content="原文链接：http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html 章节内容 在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。 机器学习：问题设置通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据）">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 机器学习scikit-learn入门教程（译） | 机器学习算法技术分享 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                机器学习scikit-learn入门教程（译）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-07-21T21:31:00+08:00" content="2015-07-21">
+              2015-07-21 21:31
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/" class="leancloud_visitors" data-flag-title="机器学习scikit-learn入门教程（译）">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>原文链接：<a href="http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html" target="_blank" rel="noopener">http://scikit-learn.github.io/dev/tutorial/basic/tutorial.html</a></p>
+<p><strong>章节内容</strong></p>
+<p>在这个章节中，我们主要介绍关于scikit-learn机器学习词库，并且将给出一个学习样例。</p>
+<h2 id="机器学习：问题设置"><a href="#机器学习：问题设置" class="headerlink" title="机器学习：问题设置"></a><strong>机器学习：问题设置</strong></h2><p>通常，一个学习问题是通过一系列的n个样本数据来学习然后尝试预测未知数据的属性。如果每一个样本超过一个单一的数值，例如多维输入（也叫做多维数据），那么它就拥有了多个特征。</p>
+<a id="more"></a>
+<p>我们可以把学习问题划分为几个大的来别：</p>
+<ul>
+<li>监督学习: 在监督学习中，这些数据自带了我们想要预测的附加属性（<a href="http://scikit-learn.github.io/dev/supervised_learning.html#supervised-learning" target="_blank" rel="noopener">scikit-learn监督学习链接</a>），这个问题包括：<ul>
+<li>分类：样本属于属于两类或者多类，我们想从已经被标记的数据中来预测未知数据的类别。一个分类问题的例子就是手写字识别。这个例子的目的是从有些的类别中识别出输入向量的类别。对于分类的另一种想法是作为监督学习的一种分离的表格(不是连续的)，在这个表格中，一个是被限制的类别数量，而且对于每个类别都有N个样例被提供；一个是尝试用正确的类别或者类来标记他们。</li>
+<li>回归：如果期望的输出是由一个或者更多的连续的变量组成，那么就叫做回归。回归问题的例子将通过一条鲑鱼的年龄和重量预测它的长度。</li>
+</ul>
+</li>
+<li>无监督学习：在无监督学习里面，训练数据是由一组没有任何类别标签值的一系列输入向量组成。这种问题的目的是可能可以在这些数据里发现相似的样例组，这些相似的样例被称作聚类。或者在输入空间里决定数据分布，称之为密度估算；或者将数据从高维空间映射到二维或三维空间中，称之为数据可视化问题。（<a href="http://scikit-learn.github.io/dev/unsupervised_learning.html#unsupervised-learning" target="_blank" rel="noopener">无监督学习链接</a>）</li>
+</ul>
+<p><strong>训练集和测试集</strong></p>
+<p>机器学习是关于学习数据集的一些属性然后将它们应用到新的数据上。这就是为什么在机器学习中评价一个算法的通常惯例是把数据集切分为两个数据集，其中一个叫做训练集，用来学习数据的属性；另一个叫做测试集，在测试集上测试那些属性。</p>
+<h2 id="加载样本数据集"><a href="#加载样本数据集" class="headerlink" title="加载样本数据集"></a><strong>加载样本数据集</strong></h2><p>scikit-learn带有一些标准的数据集，例如用于分类的<a href="http://en.wikipedia.org/wiki/Iris_flower_data_set" target="_blank" rel="noopener">iris</a>和<a href="http://archive.ics.uci.edu/ml/datasets/Pen-Based+Recognition+of+Handwritten+Digits" target="_blank" rel="noopener">digit</a>数据集和用于回归的<a href="http://archive.ics.uci.edu/ml/datasets/Housing" target="_blank" rel="noopener"> boston house prices dataset </a>.</p>
+<p>下面，我们打开Python编译器，然后载入<strong>iris</strong>和digits数据集。我们的符号’$’表示shell提示，’&gt;&gt;&gt;’表示Python编译器提示</p>
+<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn import datasets</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; iris = datasets.load_iris()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; digits = datasets.load_digits()</span><br></pre></td></tr></tbody></table></figure>
+
+<p> 数据集是一个类似字典的对象，包含所有的数据和一些和数据有关的元数据。数据存储在.data中，是个n_samples,n_features的数组。在监督问题的情况下，一个或多个类别变量存储在.target成员中。更多有关的不同数据集的细节可以在<a href="http://scikit-learn.github.io/dev/datasets/index.html#datasets" target="_blank" rel="noopener">dedicated section</a>查找。</p>
+<p> 例如，在digits数据集情况下，digits.data 提供了可用于分类数字样本。</p>
+<figure class="highlight lsl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print(digits.data)  </span><br><span class="line">[[  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">5.</span> ...,   <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">0.</span>]</span><br><span class="line"> [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">0.</span> ...,  <span class="number">10.</span>   <span class="number">0.</span>   <span class="number">0.</span>]</span><br><span class="line"> [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">0.</span> ...,  <span class="number">16.</span>   <span class="number">9.</span>   <span class="number">0.</span>]</span><br><span class="line"> ...,</span><br><span class="line"> [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">1.</span> ...,   <span class="number">6.</span>   <span class="number">0.</span>   <span class="number">0.</span>]</span><br><span class="line"> [  <span class="number">0.</span>   <span class="number">0.</span>   <span class="number">2.</span> ...,  <span class="number">12.</span>   <span class="number">0.</span>   <span class="number">0.</span>]</span><br><span class="line"> [  <span class="number">0.</span>   <span class="number">0.</span>  <span class="number">10.</span> ...,  <span class="number">12.</span>   <span class="number">1.</span>   <span class="number">0.</span>]]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>并且digits.target给出了digit数据集的真实结果，这些数字是和我们正在学习的每个数字图像相关的数字。</p>
+<figure class="highlight lsl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; digits.target</span><br><span class="line">array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, ..., <span class="number">8</span>, <span class="number">9</span>, <span class="number">8</span>])</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>数组的形状</strong></p>
+<p>数据总是一些2D数组，shape(n_samples,n_features),尽管原始数据也许有一个不同的形状，就这个digits而言，每一个原始样例是一个shape(8,8)的图像，并且能被访问使用:</p>
+<figure class="highlight lsl"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; digits.images[<span class="number">0</span>]</span><br><span class="line">array([[  <span class="number">0.</span>,   <span class="number">0.</span>,   <span class="number">5.</span>,  <span class="number">13.</span>,   <span class="number">9.</span>,   <span class="number">1.</span>,   <span class="number">0.</span>,   <span class="number">0.</span>],</span><br><span class="line">       [  <span class="number">0.</span>,   <span class="number">0.</span>,  <span class="number">13.</span>,  <span class="number">15.</span>,  <span class="number">10.</span>,  <span class="number">15.</span>,   <span class="number">5.</span>,   <span class="number">0.</span>],</span><br><span class="line">       [  <span class="number">0.</span>,   <span class="number">3.</span>,  <span class="number">15.</span>,   <span class="number">2.</span>,   <span class="number">0.</span>,  <span class="number">11.</span>,   <span class="number">8.</span>,   <span class="number">0.</span>],</span><br><span class="line">       [  <span class="number">0.</span>,   <span class="number">4.</span>,  <span class="number">12.</span>,   <span class="number">0.</span>,   <span class="number">0.</span>,   <span class="number">8.</span>,   <span class="number">8.</span>,   <span class="number">0.</span>],</span><br><span class="line">       [  <span class="number">0.</span>,   <span class="number">5.</span>,   <span class="number">8.</span>,   <span class="number">0.</span>,   <span class="number">0.</span>,   <span class="number">9.</span>,   <span class="number">8.</span>,   <span class="number">0.</span>],</span><br><span class="line">       [  <span class="number">0.</span>,   <span class="number">4.</span>,  <span class="number">11.</span>,   <span class="number">0.</span>,   <span class="number">1.</span>,  <span class="number">12.</span>,   <span class="number">7.</span>,   <span class="number">0.</span>],</span><br><span class="line">       [  <span class="number">0.</span>,   <span class="number">2.</span>,  <span class="number">14.</span>,   <span class="number">5.</span>,  <span class="number">10.</span>,  <span class="number">12.</span>,   <span class="number">0.</span>,   <span class="number">0.</span>],</span><br><span class="line">       [  <span class="number">0.</span>,   <span class="number">0.</span>,   <span class="number">6.</span>,  <span class="number">13.</span>,  <span class="number">10.</span>,   <span class="number">0.</span>,   <span class="number">0.</span>,   <span class="number">0.</span>]])</span><br></pre></td></tr></tbody></table></figure>
+
+<p><a href="http://scikit-learn.github.io/dev/auto_examples/classification/plot_digits_classification.html#example-classification-plot-digits-classification-py" target="_blank" rel="noopener">simple example on this dataset </a>这个数据集表明了在scikit-learn中怎样从原始问题开始着手制作数据。</p>
+<h2 id="学习和预测"><a href="#学习和预测" class="headerlink" title="学习和预测"></a><strong>学习和预测</strong></h2><p>在digits数据集中，给定一幅手写数字的数字图像，任务是预测结果。我们给定的样本有10种类别（是数字0到9），基于此我们建立一个估计方法能够预测我们没有见过的样本属于哪一类。</p>
+<p>在scikit-learn中，用于分类的估计模型是一个实现了fit(x,y)方法和predict(T)方法的Python对象。</p>
+<p>估计模型的例子是在实现了<a href="http://en.wikipedia.org/wiki/Support_vector_machine" target="_blank" rel="noopener">support vector classification支持向量机</a>的类 sklearn.svm.SVC。估计模型的构造函数带有模型参数，但是目前，我们将估计模型当做一个黑盒子。</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">from</span> sklearn import svm  </span><br><span class="line">&gt;&gt;&gt; clf = svm.SVC(<span class="attribute">gamma</span>=0.001, <span class="attribute">C</span>=100.)</span><br></pre></td></tr></tbody></table></figure>
+
+<p><strong>选择模型参数</strong></p>
+<p>在这个例子中，我们这设定了gamma值。可以通过使用<a href="http://scikit-learn.github.io/dev/modules/grid_search.html#grid-search" target="_blank" rel="noopener">网格搜索</a>和<a href="http://scikit-learn.github.io/dev/modules/cross_validation.html#cross-validation" target="_blank" rel="noopener">交叉验证</a>自动的找出最好的参数值</p>
+<p>我们把我们的评估模型命名为clf，作为一个分类器，它现在必须拟合这个模型，也就是它必须从这个模型学习。我们通过将数据集传递给fit函数完成。作为训练集，除了最后一个样本，我们选择其余的所有样本。通过python语句[:-1]选择样本，这条语句将从digits.data中产生一个除了最后一个样本的新数组。</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">clf.fit(digits.data[:-1], digits.target[:-1])    </span><br><span class="line">SVC(<span class="attribute">C</span>=100.0, <span class="attribute">cache_size</span>=200, <span class="attribute">class_weight</span>=None, <span class="attribute">coef0</span>=0.0, <span class="attribute">degree</span>=3,  </span><br><span class="line">  <span class="attribute">gamma</span>=0.001, <span class="attribute">kernel</span>=<span class="string">'rbf'</span>, <span class="attribute">max_iter</span>=-1, <span class="attribute">probability</span>=<span class="literal">False</span>,  </span><br><span class="line">  <span class="attribute">random_state</span>=None, <span class="attribute">shrinking</span>=<span class="literal">True</span>, <span class="attribute">tol</span>=0.001, <span class="attribute">verbose</span>=<span class="literal">False</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>现在，我们可以预测新值，尤其是我们可以问分类器在digits数据集中的用来训练分类器时没有使用的最后一个数据是数字几：</p>
+<p>相应的图像如下所示:</p>
+<center>
+![这里写图片描述](http://img.blog.csdn.net/20150720185355481)
+</center>
+
+<p>正如你看到的，这是一个具有挑战性的任务：图象的分辨率很低。你认同这个分类器吗？</p>
+<p>一个完整的分类问题实例可以通过下面的链接下载，用来作为你运行并且学习的例子 <a href="http://scikit-learn.github.io/dev/auto_examples/classification/plot_digits_classification.html#example-classification-plot-digits-classification-py" target="_blank" rel="noopener">Recognizing hand-written digits</a></p>
+<h2 id="模型持久化"><a href="#模型持久化" class="headerlink" title="模型持久化"></a><strong>模型持久化</strong></h2><p>可以通过使用python的built-in持久化模型在scikit中保存一个模型，命名<a href="http://docs.python.org/library/pickle.html" target="_blank" rel="noopener">pickle</a>:</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">from</span> sklearn import svm</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">from</span> sklearn import datasets</span><br><span class="line">&gt;&gt;&gt; clf = svm.SVC()</span><br><span class="line">&gt;&gt;&gt; iris = datasets.load_iris()</span><br><span class="line">&gt;&gt;&gt; X, y = iris.data, iris.target</span><br><span class="line">&gt;&gt;&gt; clf.fit(X, y)  </span><br><span class="line">SVC(<span class="attribute">C</span>=1.0, <span class="attribute">cache_size</span>=200, <span class="attribute">class_weight</span>=None, <span class="attribute">coef0</span>=0.0,</span><br><span class="line">  <span class="attribute">decision_function_shape</span>=None, <span class="attribute">degree</span>=3, <span class="attribute">gamma</span>=<span class="string">'auto'</span>, <span class="attribute">kernel</span>=<span class="string">'rbf'</span>,</span><br><span class="line">  <span class="attribute">max_iter</span>=-1, <span class="attribute">probability</span>=<span class="literal">False</span>, <span class="attribute">random_state</span>=None, <span class="attribute">shrinking</span>=<span class="literal">True</span>,</span><br><span class="line">  <span class="attribute">tol</span>=0.001, <span class="attribute">verbose</span>=<span class="literal">False</span>)</span><br><span class="line">&gt;&gt;&gt; import pickle</span><br><span class="line">&gt;&gt;&gt; s = pickle.dumps(clf)</span><br><span class="line">&gt;&gt;&gt; clf2 = pickle.loads(s)</span><br><span class="line">&gt;&gt;&gt; clf2.predict(X[0])</span><br><span class="line">array([0])</span><br><span class="line">&gt;&gt;&gt; y[0]</span><br><span class="line">0</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在scikit的特别情况下，使用joblib替换pickle(joblib.dump &amp; joblib.load)会更有趣,它在大数据上是更有效的，但是仅仅只能存入的是字典而不是字符串。</p>
+<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.externals import joblib</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; joblib.dump(clf, <span class="string">'filename.pkl'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>然后你就可以读取上面的pickled模型使用了（通常是在其它的Python程序中）：</p>
+<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf = joblib.load(<span class="string">'filename.pkl'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<h2 id="惯例"><a href="#惯例" class="headerlink" title="惯例"></a><strong>惯例</strong></h2><p>scikit-learn估计量有一些特定的规则是的分类器更具有预测性</p>
+<p><strong>Type casting 类型转换</strong></p>
+<p>除非特别指定，否则输入格式是float64</p>
+<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; import numpy as np</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn import random_projection</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; rng = np.random.RandomState(<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X = rng.rand(<span class="number">10</span>, <span class="number">2000</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X = np.array(X, dtype=<span class="string">'float32'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X.dtype</span><br><span class="line">dtype(<span class="string">'float32'</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; transformer = random_projection.GaussianRandomProjection()</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X_new = transformer.fit_transform(X)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X_new.dtype</span><br><span class="line">dtype(<span class="string">'float64'</span>)</span><br></pre></td></tr></tbody></table></figure>
+
+<p>在这个例子中，X是float32，通过fit_transform(X)把它转为float64</p>
+<p>回归的输出值是float64，分类的也是：</p>
+<figure class="highlight routeros"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; <span class="keyword">from</span> sklearn import datasets</span><br><span class="line">&gt;&gt;&gt; <span class="keyword">from</span> sklearn.svm import SVC</span><br><span class="line">&gt;&gt;&gt; iris = datasets.load_iris()</span><br><span class="line">&gt;&gt;&gt; clf = SVC()</span><br><span class="line">&gt;&gt;&gt; clf.fit(iris.data, iris.target)  </span><br><span class="line">SVC(<span class="attribute">C</span>=1.0, <span class="attribute">cache_size</span>=200, <span class="attribute">class_weight</span>=None, <span class="attribute">coef0</span>=0.0,</span><br><span class="line">  <span class="attribute">decision_function_shape</span>=None, <span class="attribute">degree</span>=3, <span class="attribute">gamma</span>=<span class="string">'auto'</span>, <span class="attribute">kernel</span>=<span class="string">'rbf'</span>,</span><br><span class="line">  <span class="attribute">max_iter</span>=-1, <span class="attribute">probability</span>=<span class="literal">False</span>, <span class="attribute">random_state</span>=None, <span class="attribute">shrinking</span>=<span class="literal">True</span>,</span><br><span class="line">  <span class="attribute">tol</span>=0.001, <span class="attribute">verbose</span>=<span class="literal">False</span>)</span><br><span class="line">&gt;&gt;&gt; list(clf.predict(iris.data[:3]))</span><br><span class="line">[0, 0, 0]</span><br><span class="line">&gt;&gt;&gt; clf.fit(iris.data, iris.target_names[iris.target])  </span><br><span class="line">SVC(<span class="attribute">C</span>=1.0, <span class="attribute">cache_size</span>=200, <span class="attribute">class_weight</span>=None, <span class="attribute">coef0</span>=0.0,</span><br><span class="line">  <span class="attribute">decision_function_shape</span>=None, <span class="attribute">degree</span>=3, <span class="attribute">gamma</span>=<span class="string">'auto'</span>, <span class="attribute">kernel</span>=<span class="string">'rbf'</span>,</span><br><span class="line">  <span class="attribute">max_iter</span>=-1, <span class="attribute">probability</span>=<span class="literal">False</span>, <span class="attribute">random_state</span>=None, <span class="attribute">shrinking</span>=<span class="literal">True</span>,</span><br><span class="line">  <span class="attribute">tol</span>=0.001, <span class="attribute">verbose</span>=<span class="literal">False</span>)</span><br><span class="line">&gt;&gt;&gt; list(clf.predict(iris.data[:3]))  </span><br><span class="line">[<span class="string">'setosa'</span>, <span class="string">'setosa'</span>, <span class="string">'setosa'</span>]</span><br></pre></td></tr></tbody></table></figure>
+
+<p>这里，第一次predict()返回的是一个整数数组，因为在拟合中用到了iris.target（一个整数数组），第二个predict返回的是一个字符串数组，因为用来拟合的是iris.target_names。</p>
+<h2 id="Supplementary"><a href="#Supplementary" class="headerlink" title="Supplementary"></a>Supplementary</h2><p>推介一个好用的python IDE：</p>
+<blockquote>
+<p>winPython下载地址：<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="noopener">WinPython_2.7</a></p>
+</blockquote>
+<hr>
+<br>
+
+
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/scikit-learn/" rel="tag">#scikit-learn</a>
+          
+            <a href="/tags/译文/" rel="tag">#译文</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/07/22/2015-07-22  ensemble/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 机器学习-组合算法总结
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/16/2015-07-16 Python timer/" rel="next">
+                一个简单的Python函数运行时间计时器 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#机器学习：问题设置"><span class="nav-number">1.</span> <span class="nav-text">机器学习：问题设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载样本数据集"><span class="nav-number">2.</span> <span class="nav-text">加载样本数据集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习和预测"><span class="nav-number">3.</span> <span class="nav-text">学习和预测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型持久化"><span class="nav-number">4.</span> <span class="nav-text">模型持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#惯例"><span class="nav-number">5.</span> <span class="nav-text">惯例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Supplementary"><span class="nav-number">6.</span> <span class="nav-text">Supplementary</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/';
+      var disqus_title = '机器学习scikit-learn入门教程（译）';
+      var disqus_url = 'https://www.csuldw.com/2015/07/21/2015-07-21-An-introduction-to-machine-learning-with-scikit-learn/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

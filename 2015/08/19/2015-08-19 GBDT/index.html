@@ -1,0 +1,926 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,组合算法,GBDT,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="机器学习算法技术分享" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="在机器学习各大算法中，决策树这种算法有着很多良好的特性，其现有的特点就有训练的时间复杂度$Omega$较低，对新样本预测的过程比较快，同时模型容易展示（容易将得到的决策树做成图片展示出来）等。但与此同时，单决策树又有一些不好的地方，比如说容易over-fitting。虽然目前有一些方法，比如剪枝可以减少这种over-fitting的程度，但结果还是不太理想。">
+<meta name="keywords" content="Machine Learning,组合算法,GBDT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradient Tree Boosting Algorithm">
+<meta property="og:url" content="https://www.csuldw.com/2015/08/19/2015-08-19 GBDT/index.html">
+<meta property="og:site_name" content="机器学习算法技术分享">
+<meta property="og:description" content="在机器学习各大算法中，决策树这种算法有着很多良好的特性，其现有的特点就有训练的时间复杂度$Omega$较低，对新样本预测的过程比较快，同时模型容易展示（容易将得到的决策树做成图片展示出来）等。但与此同时，单决策树又有一些不好的地方，比如说容易over-fitting。虽然目前有一些方法，比如剪枝可以减少这种over-fitting的程度，但结果还是不太理想。">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24%20r_%7Bmi%7D%20%3D%20-%20%5CBigg%20%5B%20%5Cfrac%20%7B%5Cpartial%20L%28y_i%2C%20f%20%28x_i%29%29%7D%7B%5Cpartial%20f%20%28x_i%29%7D%5CBigg%20%5D%20_%7Bf%20%28x%29%20%3D%20f%20_%7Bm-1%7D%28x%29%7D%24%24">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24f_0%28x%29%3D%5Carg%20%5C%20%5Cmin_c%20%5Csum_%7Bi%3D1%7D%5E%7BN%7DL%28y_i%2C%20c%29%24%24">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24%20r_%7Bmi%7D%20%3D%20-%20%5CBigg%20%5B%20%5Cfrac%20%7B%5Cpartial%20L%28y_i%2C%20f%20%28x_i%29%29%7D%7B%5Cpartial%20f%20%28x_i%29%7D%5CBigg%20%5D%20_%7Bf%20%28x%29%20%3D%20f%20_%7Bm-1%7D%28x%29%7D%24%24">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24c_%7Bmj%7D%20%3D%20arg%20min_c%20%5Csum_%7Bx_i%5Cepsilon%20R_%7Bmj%7D%7DL%28y_i%2Cf_%7Bm-1%7D%28x_i%29+c%29%24%24">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24f_%7Bm%7D%28x%29%20%3D%20f_%7Bm-1%7D%28x%29%20+%20%5Csum_%7Bj%3D1%7D%5EJc_%7Bmj%7DI%28x%20%5Cepsilon%20R_%7Bmj%7D%29%24%24">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?%24%24%5Ctilde%7Bf%7D%28x%29%3Df_M%28x%29%3D%5Csum_%7Bm%3D1%7D%5EM%5Csum_%7Bj%3D1%7D%5EJc_%7Bmj%7DI%28x%20%5Cepsilon%20R_%7Bmj%7D%29%24%24">
+<meta property="og:updated_time" content="2017-05-13T02:35:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradient Tree Boosting Algorithm">
+<meta name="twitter:description" content="在机器学习各大算法中，决策树这种算法有着很多良好的特性，其现有的特点就有训练的时间复杂度$Omega$较低，对新样本预测的过程比较快，同时模型容易展示（容易将得到的决策树做成图片展示出来）等。但与此同时，单决策树又有一些不好的地方，比如说容易over-fitting。虽然目前有一些方法，比如剪枝可以减少这种over-fitting的程度，但结果还是不太理想。">
+<meta name="twitter:image" content="http://latex.codecogs.com/gif.latex?%24%24%20r_%7Bmi%7D%20%3D%20-%20%5CBigg%20%5B%20%5Cfrac%20%7B%5Cpartial%20L%28y_i%2C%20f%20%28x_i%29%29%7D%7B%5Cpartial%20f%20%28x_i%29%7D%5CBigg%20%5D%20_%7Bf%20%28x%29%20%3D%20f%20_%7Bm-1%7D%28x%29%7D%24%24">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Gradient Tree Boosting Algorithm | 机器学习算法技术分享 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Gradient Tree Boosting Algorithm
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-08-19T10:54:00+08:00" content="2015-08-19">
+              2015-08-19 10:54
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/08/19/2015-08-19 GBDT/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/08/19/2015-08-19 GBDT/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/08/19/2015-08-19 GBDT/" class="leancloud_visitors" data-flag-title="Gradient Tree Boosting Algorithm">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>在机器学习各大算法中，决策树这种算法有着很多良好的特性，其现有的特点就有训练的时间复杂度$Omega$较低，对新样本预测的过程比较快，同时模型容易展示（容易将得到的决策树做成图片展示出来）等。但与此同时，单决策树又有一些不好的地方，比如说容易over-fitting。虽然目前有一些方法，比如剪枝可以减少这种over-fitting的程度，但结果还是不太理想。</p>
+<a id="more"></a>
+
+<p>与决策树相关的ensemble model（比如说有Boosting，Bagging等）算法比较多，比如RandomForest、Adaboost、GBRT等，这些算法最终的结果是生成$N$($N$的取值有可能成百上千）棵树，这样得到的最终模型可以大大减少单个决策树带来的缺陷。换言之，集成算法有点类似于“三个臭皮匠赛过一个诸葛亮”的做法。虽然这几百棵决策树中的每一棵都很简单（相对于C4.5这种单决策树而言），但将他们组合起来之后就能达到非常不错的模型。另外，值得注意的是，虽然这些算法都是由决策树演变而来，但不同的集成模型在训练的细节上伴有一些差异，在文章后面会对这些算法做一个本质的对比。下面先来讲解下本文的核心内容——Gradient Tree Boosting。</p>
+<h2 id="Introduction-to-Gradient-Tree-Boosting"><a href="#Introduction-to-Gradient-Tree-Boosting" class="headerlink" title="Introduction to Gradient Tree Boosting"></a><strong>Introduction to Gradient Tree Boosting</strong></h2><p>Gradient Tree Boosting 算法最初是FreidMan在2000年提出来的，是一种集成算法（或是组合算法）。该算法的名字可以说是千奇百态，有叫GBRT（gradient boosting regression tree），也有说成GBM、GBDT的。它的base learners是决策树，既可以用来训练regression model，也可以用做classification。在分类性能上，能够和random forest媲美，甚至在有的dataset上表现的有过之而无不及。如今，Gradient Tree Boosting模型还广泛地运用在Web搜索排行榜以及生态学上，所以值得我们去花点时间认真学习。根据scikit-learn官网的介绍，GTB的优势有以下三大点：</p>
+<ul>
+<li>自然而然地处理混合类型的数据；</li>
+<li>预测能力强；</li>
+<li>在输出空间对于异常值的鲁棒性强（通过强大的损失函数）。</li>
+</ul>
+<p>然而，也存在一些劣势：</p>
+<ul>
+<li>可扩展性方面，由于提升的时序性，不能进行并行处理。</li>
+</ul>
+<p>尽管如此，由于gradient tree boosting algorithm的表现性能很好，所以受到广大业界人士的青睐。下面来介绍下梯度提升树的算法原理。</p>
+<h2 id="算法原理"><a href="#算法原理" class="headerlink" title="算法原理"></a><strong>算法原理</strong></h2><p>gradient tree boosting 算法的核心在于，它的每棵树都是从上一次训练的所有树的残差中进行学习，进而拟合一棵回归（分类）树。<br>。在训练的时候，残差近似等于当前模型中损失函数的负梯度值，公式如下：</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24%20r_%7Bmi%7D%20%3D%20-%20%5CBigg%20%5B%20%5Cfrac%20%7B%5Cpartial%20L%28y_i%2C%20f%20%28x_i%29%29%7D%7B%5Cpartial%20f%20%28x_i%29%7D%5CBigg%20%5D%20_%7Bf%20%28x%29%20%3D%20f%20_%7Bm-1%7D%28x%29%7D%24%24" alt></p>
+<p>gradient boosting是boosting算法的一种，也可以说是Boosting算法的一种改进，原始的Boosting算法（Adaboost）是：在算法初始化阶段，为每一个样本赋予一个相等的weight，换言之，每个样本在开始都是一样重要的。接下来，每一次训练后得到的模型，对数据点的估计会有所差异，所以在每一步结束后，我们需要对weight进行处理，而处理的方式就是通过增加错分类的样本点的weight，同时减少分类正确的样本点的weight。这样能够确保，如果某些点经常被分错，那么就会被“严重关注”，也就会被赋予一个很高的weight。然后等进行了$N$次迭代（迭代次数由用户指定），将会得到$N$个简单的base learner，最后将它们组合起来，可以对它们进行加权（错误率越大的base learner 其权重值越小，错误率越小的基分类器权重值越大）、或者让它们进行投票等得到一个最终的模型。</p>
+<p>gradient boosting与传统的boosting有着很大的区别，它的每一次计算都是为了减少上一次的 residual，而为了减少这些residual，它会在residual减少的gradient方向上建立一个新的 model。所以说，在gradient boosting algorithm中，新model建立的目的是为了使先前模型的残差往梯度方向减少，与传统的boosting算法对正错样本赋予不同加权的做法有着极大的区别。</p>
+<p>gtb算法理论的核心包括三大点：</p>
+<ol>
+<li>regression tree</li>
+<li>gradient descent</li>
+<li>boosting - Shrinkage</li>
+</ol>
+<h3 id="gradient-tree-boosting-algorithm-Regression"><a href="#gradient-tree-boosting-algorithm-Regression" class="headerlink" title="gradient tree boosting algorithm - Regression"></a><strong>gradient tree boosting algorithm - Regression</strong></h3><p>对于给定的输入：训练数据集 $T={(x_1,y_1),(x_2,y_2),…,(x_n,y_n)},损失函数$L(y,f(x))$;<br>输出结果：一棵回归树$\tilde{f}(x)$</p>
+<p>（1）首先初始化</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24f_0%28x%29%3D%5Carg%20%5C%20%5Cmin_c%20%5Csum_%7Bi%3D1%7D%5E%7BN%7DL%28y_i%2C%20c%29%24%24" alt="$$f_0(x)=\arg \ \min_c \sum_{i=1}^{N}L(y_i, c)$$"></p>
+<p>建立一个model，估计一个使loss function 极小化的常数值，此时的model是一个只有一个节点的树；</p>
+<p>（2）迭代的建立M棵boosting tree</p>
+<p>$for m=1 to M:$（第一层循环开始）<br>$for i=1 to N:$（第二层循环1） 计算loss function 的negative gradient在当前model的值，并将它作为residual的估计值。</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24%20r_%7Bmi%7D%20%3D%20-%20%5CBigg%20%5B%20%5Cfrac%20%7B%5Cpartial%20L%28y_i%2C%20f%20%28x_i%29%29%7D%7B%5Cpartial%20f%20%28x_i%29%7D%5CBigg%20%5D%20_%7Bf%20%28x%29%20%3D%20f%20_%7Bm-1%7D%28x%29%7D%24%24" alt></p>
+<p>接着，对于$r_{mi}$拟合一棵回归树，得到第$m$棵树的叶节点区域 $c_{mj} ,j=1,2,…,J$</p>
+<p>$for j=1 to J:$（第二层循环2）,计算：</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24c_%7Bmj%7D%20%3D%20arg%20min_c%20%5Csum_%7Bx_i%5Cepsilon%20R_%7Bmj%7D%7DL%28y_i%2Cf_%7Bm-1%7D%28x_i%29+c%29%24%24" alt></p>
+<p>利用线性搜索估计叶节点区域的值，使损失函数极小化；</p>
+<p>然后，更新</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24f_%7Bm%7D%28x%29%20%3D%20f_%7Bm-1%7D%28x%29%20+%20%5Csum_%7Bj%3D1%7D%5EJc_%7Bmj%7DI%28x%20%5Cepsilon%20R_%7Bmj%7D%29%24%24" alt></p>
+<p>（3）最后得到的$f_{m}(x)$就是我们最终的模型</p>
+<p><img src="http://latex.codecogs.com/gif.latex?%24%24%5Ctilde%7Bf%7D%28x%29%3Df_M%28x%29%3D%5Csum_%7Bm%3D1%7D%5EM%5Csum_%7Bj%3D1%7D%5EJc_%7Bmj%7DI%28x%20%5Cepsilon%20R_%7Bmj%7D%29%24%24" alt></p>
+<p>从式子中可以看出，gradient tree boosting algorithm 本质上是一个加和模型，并在推导中结合了前向分步算法。</p>
+<hr>
+<h2 id="scikit-learn中的GTB"><a href="#scikit-learn中的GTB" class="headerlink" title="scikit-learn中的GTB"></a><strong>scikit-learn中的GTB</strong></h2><p>在scikit-learn中对GTB算法有了很好的封装，对于分类可以选择的损失函数有逻辑回归和指数函数，对于回归的损失函数相对比较多，有最小二乘法、最小绝对偏差函数、huber以及分位数等。</p>
+<p>下面是sklearn中的一个分类原例：</p>
+<figure class="highlight ruby"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.datasets import make_hastie_10_2</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; from sklearn.ensemble import GradientBoostingClassifier</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X, y = make_hastie_10_2(random_state=<span class="number">0</span>)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; X_train, X_test = X[<span class="symbol">:</span><span class="number">2000</span>], X[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; y_train, y_test = y[<span class="symbol">:</span><span class="number">2000</span>], y[<span class="number">2000</span><span class="symbol">:</span>]</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf = GradientBoostingClassifier(n_estimators=<span class="number">100</span>, learning_rate=<span class="number">1.0</span>,</span><br><span class="line">...     max_depth=<span class="number">1</span>, random_state=<span class="number">0</span>).fit(X_train, y_train)</span><br><span class="line"><span class="meta">&gt;&gt;</span>&gt; clf.score(X_test, y_test)                 </span><br><span class="line"><span class="number">0</span>.<span class="number">913</span>...</span><br></pre></td></tr></tbody></table></figure>
+
+<p>其中$n_estimators$表示弱分类器的个数，$learning_rate$表示学习率，$max_depth$表示树的最大深度等。GTB的参数比较多，在实际应用中需要自己去调整合适的参数。</p>
+<h2 id="A-comparison-of-ensemble-algorithms"><a href="#A-comparison-of-ensemble-algorithms" class="headerlink" title="A comparison of ensemble algorithms"></a><strong>A comparison of ensemble algorithms</strong></h2><p>基于决策树的组合算法常用的有三个，分别是Adaboost、RandomFrest以及本文的GBRT。</p>
+<p>Adaboost是通过迭代的学习每一个基分类器，每次迭代中，把上一次错分类的数据权值增大，正确分类的数据权值减小，然后将基分类器的线性组合作为一个强分类器，同时给分类误差率较小的基本分类器以大的权值，给分类误差率较大的基分类器以小的权重值。Adaboost使用的是自适应的方法，其中概率分布式变化的，关注的是难分类的样本。详细内容请参考之前的文章：<a href="http://www.csuldw.com/2015/07/05/2015-07-05-ML-algorithm-Adaboost/">机器学习算法-Adaboost</a>。</p>
+<p>Random Forest与adaboost有些区别，可以说一种改进的bagging算法。Random Forest不仅对样本进行sampling，还对feature进行sampling。它通过随机的方式建立一个森林，森林里面有许多棵决策树，并且每一棵树之间是没有联系的。在得到森林之后，当有一个新的input sample进来的时候，就让森林中的每一棵决策树分别对其进行判断，看这个样本应该属于哪一类（就分类算法而言），然后看看哪一类选择最多（随机森林使用到的是 vote方式），就预测这个样本为该class。在建立每一棵决策树的过程中，有两点需要注意，即<strong>采样</strong>与<strong>完全分裂</strong>。首先是两个随机采样的过程，random forest对输入的数据要进<strong>行采样</strong>和<strong>列采样</strong>。对于行采样，是采用有放回的方式，即bootstrap sampling，也就是在采样得到的样本集合中，可能有重复的样本。举个例子，假设输入样本为$N$个，那么采样的样本也为$N$个。这样使得在训练的时候，每一棵树的输入样本都不是全部的样本，从某种程度上讲，相对不容易出现over-fitting。其次就是列采样，这个过程是从$M$个feature中，选择$m$个($m &lt;&lt; M$)。之后就是对采样之后的数据使用<strong>完全分裂</strong>的方式建立决策树模型。最后得到的决策树，它的某一个叶子节点要么是无法继续分裂的，要么里面的所有样本的都是指向的同一类别。一般很多的决策树算法都一个重要的步骤-Pruning（剪枝），但是random forest并不这样干，由于之前的两个随机采样的过程保证了样本的随机性，所以替代了Pruning这个工作，也不太容易出现over-fitting。按照这种算法得到的random forest中的每一棵决策树都是非常弱的，但是当你把它们组合在一起的时候，就得对它刮目相看了。random forest可以这样来形容：每一棵决策树就是一个精通于某一领域的专家（因为我们从$M$个feature set中选择$m$个sub set让每一棵决策树进行学习），这样在random forest中就有了很多个精通不同领域的专家，对一个新的问题（input data），可以用不同的角度去看待它，最终由各个专家投票得到结果。random forest的分类准确率可以与adaboost媲美，但它对<a href="http://sci2s.ugr.es/noisydata" target="_blank" rel="noopener">noise data</a>更加鲁棒，运行速度比adaboost也快得多。</p>
+<p>另外，random forest是可以实现并行化的，而adaboost无法并行。同时，random forest等bagging算法其本质是降variance的，而adaboost等boosting算法其实降的是bias。</p>
+<p>最后，<strong>对于gradient tree boosting algorithm，它的每一次计算都是为了减少上一次训练模型的residual，而为了减少这些残差，可以在残差减少的梯度(Gradient)方向上建立一个新模型。</strong>这与adaboost和随机森林还是有很大区别的。</p>
+<h3 id="References"><a href="#References" class="headerlink" title="References"></a>References</h3><ul>
+<li><a href="https://statweb.stanford.edu/~jhf/ftp/trebst.pdf" target="_blank" rel="noopener">Greedy Function Approximation: A Gradient Boosting Machine</a></li>
+<li><a href="http://scikit-learn.org/stable/modules/ensemble.html#gradient-boosting" target="_blank" rel="noopener">Scikit-learn - GRADIENT BOOSTING</a></li>
+<li><a href="https://www.quora.com/What-is-the-basic-difference-between-noise-and-outliers-in-Data-mining" target="_blank" rel="noopener">What-is-the-basic-difference-between-noise-and-outliers-in-Data-mining</a></li>
+<li><a href="http://www.ccs.neu.edu/home/vip/teach/MLcourse/4_boosting/slides/gradient_boosting.pdf" target="_blank" rel="noopener">PPT - A Gentle Introduction to Gradient Boosting</a></li>
+<li><a href="https://www.cs.princeton.edu/courses/archive/spring12/cos598A/slides/intro.pdf" target="_blank" rel="noopener">PPT - Boosting: Foundations and Algorithms</a></li>
+<li><a href="http://people.csail.mit.edu/torralba/courses/6.869/lectures/lecture6/boosting.pdf" target="_blank" rel="noopener">Additive Logistic Regression: a Statistical View of<br>Boosting</a></li>
+</ul>
+<hr>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/组合算法/" rel="tag">#组合算法</a>
+          
+            <a href="/tags/GBDT/" rel="tag">#GBDT</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/09/23/2015-09-23 Machine learning materials/" rel="prev">
+                <i class="fa fa-chevron-left"></i> 机器学习-个人资料整理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/12/2015-08-12-theano-to-lasagne/" rel="next">
+                从Theano到Lasagne：基于Python的深度学习的框架和库（译文） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-to-Gradient-Tree-Boosting"><span class="nav-number">1.</span> <span class="nav-text">Introduction to Gradient Tree Boosting</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法原理"><span class="nav-number">2.</span> <span class="nav-text">算法原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gradient-tree-boosting-algorithm-Regression"><span class="nav-number">2.1.</span> <span class="nav-text">gradient tree boosting algorithm - Regression</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#scikit-learn中的GTB"><span class="nav-number">3.</span> <span class="nav-text">scikit-learn中的GTB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-comparison-of-ensemble-algorithms"><span class="nav-number">4.</span> <span class="nav-text">A comparison of ensemble algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#References"><span class="nav-number">4.1.</span> <span class="nav-text">References</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2015/08/19/2015-08-19 GBDT/';
+      var disqus_title = 'Gradient Tree Boosting Algorithm';
+      var disqus_url = 'https://www.csuldw.com/2015/08/19/2015-08-19 GBDT/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

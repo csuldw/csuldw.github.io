@@ -1,0 +1,995 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,GBDT,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="机器学习算法技术分享" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="说到GBDT，很多人都熟悉，那么我为什么还要在这里编写这篇文章呢？原因很简单，对我来说，在算法学习过程中，喜欢探究算法背后的公式推导，有时候自己也是一头雾水，但目的就是把每个步骤弄清楚，而每次重新回顾算法的时候，或多或少都会领悟到一些与之前不一样的东西，然后惊叹：噢，原来这里是这样，之前怎么就没领悟到，“书读百遍其义自见”大概就是这个道理！这篇文章其实很早之前就写了一部分，只是一直没有完整的整理出">
+<meta name="keywords" content="Machine Learning,GBDT">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boosting模型：GBDT原理介绍">
+<meta property="og:url" content="https://www.csuldw.com/2019/07/12/2019-07-12-an-introduction-to-gbdt/index.html">
+<meta property="og:site_name" content="机器学习算法技术分享">
+<meta property="og:description" content="说到GBDT，很多人都熟悉，那么我为什么还要在这里编写这篇文章呢？原因很简单，对我来说，在算法学习过程中，喜欢探究算法背后的公式推导，有时候自己也是一头雾水，但目的就是把每个步骤弄清楚，而每次重新回顾算法的时候，或多或少都会领悟到一些与之前不一样的东西，然后惊叹：噢，原来这里是这样，之前怎么就没领悟到，“书读百遍其义自见”大概就是这个道理！这篇文章其实很早之前就写了一部分，只是一直没有完整的整理出">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/gbdt-algorithm1-gradient-boost.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/gbdt-algorithm2-LS_Boost.png">
+<meta property="og:image" content="https://www.csuldw.com/assets/articleImg/2019/gbdt-algorithm3-LAD_TreeBoost.png">
+<meta property="og:updated_time" content="2019-07-25T16:59:31.709Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Boosting模型：GBDT原理介绍">
+<meta name="twitter:description" content="说到GBDT，很多人都熟悉，那么我为什么还要在这里编写这篇文章呢？原因很简单，对我来说，在算法学习过程中，喜欢探究算法背后的公式推导，有时候自己也是一头雾水，但目的就是把每个步骤弄清楚，而每次重新回顾算法的时候，或多或少都会领悟到一些与之前不一样的东西，然后惊叹：噢，原来这里是这样，之前怎么就没领悟到，“书读百遍其义自见”大概就是这个道理！这篇文章其实很早之前就写了一部分，只是一直没有完整的整理出">
+<meta name="twitter:image" content="https://www.csuldw.com/assets/articleImg/2019/gbdt-algorithm1-gradient-boost.png">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> Boosting模型：GBDT原理介绍 | 机器学习算法技术分享 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Boosting模型：GBDT原理介绍
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2019-07-12T23:50:00+08:00" content="2019-07-12">
+              2019-07-12 23:50
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2019/07/12/2019-07-12-an-introduction-to-gbdt/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/07/12/2019-07-12-an-introduction-to-gbdt/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2019/07/12/2019-07-12-an-introduction-to-gbdt/" class="leancloud_visitors" data-flag-title="Boosting模型：GBDT原理介绍">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>说到GBDT，很多人都熟悉，那么我为什么还要在这里编写这篇文章呢？原因很简单，对我来说，在算法学习过程中，喜欢探究算法背后的公式推导，有时候自己也是一头雾水，但目的就是把每个步骤弄清楚，而每次重新回顾算法的时候，或多或少都会领悟到一些与之前不一样的东西，然后惊叹：噢，原来这里是这样，之前怎么就没领悟到，“书读百遍其义自见”大概就是这个道理！这篇文章其实很早之前就写了一部分，只是一直没有完整的整理出来，每次看到这篇文章放到draft里面，就总觉得有种有始无终的感觉。这回，在文章后面引入了实例解析部分，主要是希望后续回来温习的时候，能够快速地理解。</p>
+<a id="more"></a>
+
+
+<h2 id="引文"><a href="#引文" class="headerlink" title="引文"></a>引文</h2><p>在李航博士的《统计学习方法》里面讲到统计学习方法由三要素组成：模型、策略和算法。细的来讲，模型就是所要学习的条件概率分布或决策函数；策略指的是按照什么样的准则进行学习或者选择最优的模型；算法是学习模型的具体计算方法，本质上属于最优化问题。那么，对于GBDT算法来说，三要素又是什么呢？笔者的理解是（此处请读者保留自己的观点，如有误导，还请大神赐教）：模型表示的是Boosting模型，加法模型；策略指的是通过迭代来近似拟合残差以达到降低模型偏差的目的，算法则是基于梯度（一阶倒数）进行优化。</p>
+<p>GBDT是基于决策树的，各类算法的大致时间线如下（从CART开始）：</p>
+<ul>
+<li>1984：CART “Classification &amp; Regression Trees” (Breiman)</li>
+<li>1986：ID3（Quinlan）</li>
+<li>1993：C4.5（Quinlan）</li>
+<li>1995：Adaboost（Freund and Schapire）</li>
+<li>1996：Bagging（Freund and Schapire）</li>
+<li>2001：Random Forests（Breiman）</li>
+<li>2001：Freund 在“Greedy function approximation: A gradient boosting machine”中，提出了Gradient Boosting 思想。</li>
+<li>2014: XGBoost是陈天奇于2014年提出的一套并行boost算法工具库，2016年发表论文“XGBoost: A Scalable Tree Boosting System”。</li>
+<li>2016：LightGBM是微软推出的boosting框架，并与2017年发表论文“LightGBM: A Highly Efficient Gradient Boosting Decision Tree”。</li>
+</ul>
+<p>从CART算法到boosting思想的提出，历时约11年，而从boosting思想到现在的lightGBM转眼又是21年，加起来都超出了我的年纪了呐。好了，闲话少说，直奔主题吧，这篇文章介绍的就是GBDT，对于xgboost和lightGBM，暂且不表。说到底，GBDT也是xgboost和lightGBM的基础中的基础，核心中的核心。</p>
+<h2 id="GBDT三大核心"><a href="#GBDT三大核心" class="headerlink" title="GBDT三大核心"></a>GBDT三大核心</h2><p>GBDT这个名字非常有深意：G-gradient（表示该算法是基于梯度的），B-Boosting（表示该算法是boosting模型），DT-decision tree（表示算法内部使用的是决策树）。在这篇文章，主要也是从这三个要点进行细化：</p>
+<ol>
+<li>提升方法（加法模型+前向分步算法）；</li>
+<li>梯度提升：梯度与残差；</li>
+<li>决策树：CART回归树。</li>
+</ol>
+<h3 id="Boosting"><a href="#Boosting" class="headerlink" title="Boosting"></a>Boosting</h3><p>在进入GBDT理论推导之前，必须得聊聊Boosting思想。Boosting方法本质上属于加法模型$\eqref{1}$（各个基分类器的线性组合），同时属于前向分步算法，它每轮训练的模型都是在上一个模型的基础上进行进一步优化，通过不断迭代来降低整个模型的偏差，所以Boosting模型的一个特点就是低偏差、高方差，最典型的代表就是Adaboost算法。与其相反的就是Bagging算法，最典型的代表就是RF。Bagging模型的各个子模型之间互不影响，最后通过加权的方式组合到一起，以达到降低方差的效果，所以说Bagging是高偏差、低方差的模型。</p>
+<p>$$<br>f_M(x)=\sum^M_{m=1}T(x,θ_m)<br>\tag{1}\label{1}<br>$$</p>
+<p>对Boosting和Bagging模型原理模糊的童鞋可以参阅下笔者几年前的文章<a href="http://www.csuldw.com/2015/07/22/2015-07-22%20%20ensemble/">机器学习-组合算法总结</a>。</p>
+<p>下面来看看梯度提升过程中的梯度和残差。</p>
+<h3 id="梯度与残差"><a href="#梯度与残差" class="headerlink" title="梯度与残差"></a>梯度与残差</h3><p>在RF、Adaboost等加法模型中，都是通过直接拟合真实值来构建模型的，而在GBDT里面（下面这句话是重点，认真理解，并且多读几遍）：非首轮迭代的模型拟合的目标值不再是真实值，而是一个梯度值，主要是<strong>通过拟合损失函数的负梯度值在当前模型的值</strong>来构建模型。其梯度值表达式如下：</p>
+<p>$$<br>\large {r_{mi}} = -\left[\frac{\partial L(y_i,f(x_i))}{\partial f(x_i)} \right]_{f(x)=f_{m-1}(x)}<br>\tag{2}\label{2}<br>$$</p>
+<p>当损失函数为平方损失的时候，损失函数可以表示为：$L(y_i,f(x_i)) = \frac{1}{2}(y_i - f(x_i))^2$，此时当前模型下损失函数的负梯度值正好等于残差：$r_{mi} = y_i - f(x_i)$。了解到GBDT的这一特性之后，下面我们来看看第三个要点：CART决策树。</p>
+<h3 id="DT：CART"><a href="#DT：CART" class="headerlink" title="DT：CART"></a>DT：CART</h3><p>GBDT属于Boosting模型，对于boosting模型而言，都存在基模型，那么GBDT的基模型是什么呢？CART。CART分类回归树，是决策树的一种，它即可用于分类也可用于回归。在分类任务中，树的分裂准则采用Gini index（基尼指数），而在回归任务中采用MSE（均方误差）。关于Gini Index的描述如下：</p>
+<blockquote>
+<p>在分类任务中，假设当前样本集中有$k$个类别，样本点属于第$k$类的概率为$p_k$,那么样本概率分布的基尼指数为：<br>$$<br>Gini(p) = 1-\sum_{k=1} p_{k}^2<br>\label{3}\tag{3}<br>$$</p>
+</blockquote>
+<h2 id="原理剖析"><a href="#原理剖析" class="headerlink" title="原理剖析"></a>原理剖析</h2><p>在2001年的论文<a href="https://statweb.stanford.edu/~jhf/ftp/trebst.pdf" target="_blank" rel="noopener">Greedy function approximation: A gradient boosting machine</a>中，介绍了梯度提升的基本思想，本文仅仅摘录了论文gradient boosting思想部分（如果想要全面了解GBDT，还请读者移步到原始paper中），梯度提升的算法流程如下：</p>
+<p><img src="/assets/articleImg/2019/gbdt-algorithm1-gradient-boost.png" alt></p>
+<p><strong>算法解析</strong>：</p>
+<ol>
+<li>第1行初始化模型，估计损失函数极小化的常数值；</li>
+<li>第2行迭代的训练M个子模型；</li>
+<li>第3-6行为子模型的训练细节，<ul>
+<li>首先第3行是计算损失函数$L(y_i, F(x_i))$在当前模型$F(x_i)$的负梯度值，将其作为残差的估计值；</li>
+<li>第4行是使用负梯度值$\hat{y}_i$作为目标值，拟合一颗回归树模型$h(x_i;a)$，从而得到当前模型的参数$a_m$。</li>
+<li>第5行是一个线性搜索过程，论文中将其成为Shrinkage($ρ_m$,学习率)。</li>
+<li>第6行是利用加法模型，更新回归树，得到$F_m(x)$；</li>
+</ul>
+</li>
+</ol>
+<p>对于上面的算法，损失函数不一样就会产生不同变形算法，具体内容读者可以参考原paper，这里暂且举一个例子来说明一下。当损失函数为平方损失时，各个阶段的变换为：</p>
+<p>当$L(y,F) = \frac{1}{2}(y-F)^2$，Algorithm 1中第3行的$\hat{y}_i = y_i - F_{m-1}(x_i)$，即残差（真实值-当前模型的值）。那么，第4行就相当于用一个回归树模型来拟合残差。第5行的参数$ρ_m$即为第4行的$\beta$，即$ρ_m=\beta_m$。由此，便得出基于平方损失函数的gradient boosting算法模型。</p>
+<p><img src="/assets/articleImg/2019/gbdt-algorithm2-LS_Boost.png" alt></p>
+<p>Algorithm 2只提及了整个算法的过程，细节如何呢？前面说到GBDT采用的是CART算法来拟合模型（损失函数在当前模型的负梯度值），既然如此，<strong>每次拟合之后每颗树叶子节点的取值是多少呢</strong>？Algorithm 3中展示的是LAD（Least-absolute-deviation）回归的regression tree的具体原理。在LAD_TreeBoost里面，算法的第4行表示的是以$(\hat{y}_i,x_i)^N_1$为训练样本来拟合一颗回归树模型，最终得到叶子节点区域。第5行则表示如何计算第$m$轮迭代中，第$j$个叶子节点的值$\gamma_{jm}$。其值与损失函数有关，不同的损失函数，会致使叶子节点的值也不一样。当损失函数为MSE时，$\gamma_{jm}=ave_{x_i \in R_{jm}} \hat{y}_i$，其中$\hat{y}_i$为负梯度值。下图为LAD损失函数的梯度提升回归树模型算法思想。</p>
+<p><img src="/assets/articleImg/2019/gbdt-algorithm3-LAD_TreeBoost.png" alt></p>
+<h2 id="实例解析"><a href="#实例解析" class="headerlink" title="实例解析"></a>实例解析</h2><p>上面对原理进行了分析之后，大致对GBDT有了进一步的认识，为了更加形象的解释GBDT的内部执行过程，这里引用《统计学习方法》里面的数据来进行进一步分析。</p>
+<p>假设有数据集如下：</p>
+<table>
+<thead>
+<tr>
+<th>$xi$</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$y_i$</td>
+<td>5.56</td>
+<td>5.7</td>
+<td>5.91</td>
+<td>6.4</td>
+<td>6.8</td>
+<td>7.05</td>
+<td>8.9</td>
+<td>8.7</td>
+<td>9.</td>
+<td>9.05</td>
+</tr>
+</tbody></table>
+<p>采用GBDT进行训练，为了方便，我们采用MSE作为损失函数，并且将树的深度置为1</p>
+<p>根据Algorithm 2，首先初始化$F_{0}(x)$,可以计算出$F_{0}(x)=7.307$.其次，计算出损失函数在当前模型的负梯度值: $\hat{y}_i = y_i - F_{m-1}(x_i)$，结果如下：</p>
+<table>
+<thead>
+<tr>
+<th>$xi$</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+<th>10</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$y_i$</td>
+<td>-1.747</td>
+<td>-1.607</td>
+<td>-1.397</td>
+<td>-0.907</td>
+<td>-0.507</td>
+<td>-0.257</td>
+<td>1.593</td>
+<td>1.393</td>
+<td>1.693</td>
+<td>1.743</td>
+</tr>
+</tbody></table>
+<p>接下来，通过构建回归树来拟合损失函数在当前模型的负梯度值$\hat{y}_i$。</p>
+<p>对于决策树来说，最关键的步骤就是如何选择最优的划分标准，在回归树里面，我们采用MSE来进行评估，通过对比不同切分点两个分支的MSE加和，来选择最优的切分点（加和MSE最小的点）。根据所给的数据，可以考虑的切分点为1.5、2.5、3.5、4.5、5.5、6.5、7.5、8.5、9.5.分别计算$y_i - F_{0}(x_i)$的值，并计算出切分后的左右两侧加和MSE最小的切分，最后得到的是6.5，此时的MSE=0.3276.找到最佳的切分点之后，我们可以得到各个叶子节点区域，并计算出$R_{jm}$和$\gamma_{jm}$.此时，$R_{11}$为x小于6.5的数据，$R_{21}$为x大于6.5的数据。同时，</p>
+<p>$$r_{11} = \frac{1}{6} \sum_{x_i \in R_{11}} y_{i}=−1.0703$$</p>
+<p>$$r_{21} = \frac{1}{4} \sum_{x_i \in R_{21}} y_{i}=1.6055$$</p>
+<p>最后，更新$F_{1}(x_i)$的值，$F_1(x_i)=F_{0}(x_i)+ \rho_m \sum^2_{j=1} \gamma_{j1} I(x_i \in R_{j1})$，其中$\rho_m$为学习率，或称shrinkage，目的是防止预测结果发生过拟合。</p>
+<p>至此第一轮迭代便完成，后面的迭代方式与上面一样，迭代$m$次后，第$m$次的$F_{m}(x)$即为最终的预测结果。</p>
+<p>$$<br>F_{m}(x) = F_{m-1}(x) + \rho_{m} h(x; a_m)<br>\label{4}\tag{4}<br>$$</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>写到这里，关于GBDT的文章也算结束了，在RS或者CTR预估中，GBDT也曾占据一席之地，至今也留有使用GBDT+LR来构建排序模型。感兴趣的可以看看Facebook发出的这篇paper: <a href="https://quinonero.net/Publications/predicting-clicks-facebook.pdf" target="_blank" rel="noopener">Practical lessons from predicting clicks on ads at facebook</a>。</p>
+<p>最后的最后，小小的感叹一下，对于工作后的自己来说，写一片质量略好的文章真的并非一朝一夕之事。从最初的构思到组织语言，每个句子每行公式都离不开精心的编纂和检查。读者如果觉得这篇文章对您有作用，欢迎多来光顾；如果觉得文章中理解不对，存在误人子弟之处，还望能在评论区中指出文中不足，笔者在此深表感谢。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ol>
+<li>统计学习方法，第二版，李航</li>
+<li>Friedman, Jerome H. “Greedy function approximation: a gradient boosting machine.” Annals of statistics (2001): 1189-1232.</li>
+<li>Freund, Yoav, and Robert E. Schapire. “Experiments with a new boosting algorithm.” icml. Vol. 96. 1996.</li>
+<li>Yoav Freund and Robert E. Schapire. A decision-theoretic generalization of on-line learningand an application to boosting. Journal of Computer and System Sciences, 55(1):119–139, August 1997.</li>
+<li>2001：Random Forests（Breiman），Breiman, L. (2001). Random forests. Machine learning, 45(1), 5-32.</li>
+<li>He, Xinran, et al. “Practical lessons from predicting clicks on ads at facebook.” Proceedings of the Eighth International Workshop on Data Mining for Online Advertising. ACM, 2014.</li>
+</ol>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+            <a href="/tags/GBDT/" rel="tag">#GBDT</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/15/2019-07-15-gbdt-lr-framework/" rel="prev">
+                <i class="fa fa-chevron-left"></i> CTR预估经典模型：GBDT+LR
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/26/2019-05-26-activation-function/" rel="next">
+                神经网络之激活函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#引文"><span class="nav-number">1.</span> <span class="nav-text">引文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GBDT三大核心"><span class="nav-number">2.</span> <span class="nav-text">GBDT三大核心</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Boosting"><span class="nav-number">2.1.</span> <span class="nav-text">Boosting</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度与残差"><span class="nav-number">2.2.</span> <span class="nav-text">梯度与残差</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DT：CART"><span class="nav-number">2.3.</span> <span class="nav-text">DT：CART</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原理剖析"><span class="nav-number">3.</span> <span class="nav-text">原理剖析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例解析"><span class="nav-number">4.</span> <span class="nav-text">实例解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2019/07/12/2019-07-12-an-introduction-to-gbdt/';
+      var disqus_title = 'Boosting模型：GBDT原理介绍';
+      var disqus_url = 'https://www.csuldw.com/2019/07/12/2019-07-12-an-introduction-to-gbdt/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>

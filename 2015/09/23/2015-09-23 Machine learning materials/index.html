@@ -1,0 +1,967 @@
+<!doctype html>
+<html class="theme-next use-motion ">
+<head><meta name="generator" content="Hexo 3.9.0">
+  
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/others/fancybox/source/jquery.fancybox.css?v=2.1.5">
+
+
+
+  
+    <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+<link rel="stylesheet" type="text/css" href="/others/font-awesome/css/font-awesome.min.css?v=4.4.0">
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.5.2">
+
+
+    <meta name="description" content="中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.">
+
+
+
+  <meta name="keywords" content="Machine Learning,">
+
+
+
+  <link rel="alternate" href="/atom.xml" title="机器学习算法技术分享" type="application/atom+xml">
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=0.4.5.2">
+
+
+<meta name="description" content="学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习-个人资料整理">
+<meta property="og:url" content="https://www.csuldw.com/2015/09/23/2015-09-23 Machine learning materials/index.html">
+<meta property="og:site_name" content="机器学习算法技术分享">
+<meta property="og:description" content="学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2016-03-13T05:56:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="机器学习-个人资料整理">
+<meta name="twitter:description" content="学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧">
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: '',
+    sidebar: 'post'
+  };
+</script>
+
+
+
+  <title> 机器学习-个人资料整理 | 机器学习算法技术分享 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+  
+
+
+
+
+
+
+  <div id="container" class="container one-column page-post-detail">
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+  
+    <ul id="menu" class="menu ">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user"></i> <br>
+            
+            About
+          </a>
+        </li>
+      
+
+      
+      
+	  	<span style="font-size:14px;float:right;padding:39px 40px 0 0;">——悄悄是别离的笙箫，沉默是今晚的康桥.</span>
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+
+        	<div id="content" class="content"> 
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                机器学习-个人资料整理
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            Posted on
+            <time itemprop="dateCreated" datetime="2015-09-23T22:22:22+08:00" content="2015-09-23">
+              2015-09-23 22:22
+            </time>
+          </span>
+
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; In
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/ML/" itemprop="url" rel="index">
+                    <span itemprop="name">ML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              &nbsp; | &nbsp;
+              <a href="/2015/09/23/2015-09-23 Machine learning materials/#comments" itemprop="discussionUrl">
+                <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/09/23/2015-09-23 Machine learning materials/" itemprop="commentsCount"></span>
+              </a>
+            </span>
+            
+          
+
+          
+
+          
+            <span id="/2015/09/23/2015-09-23 Machine learning materials/" class="leancloud_visitors" data-flag-title="机器学习-个人资料整理">
+            &nbsp; | &nbsp;   
+            views
+            </span>
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <span itemprop="articleBody"><p>学习Machine Learning也有很长一段时间了，前段时间在paper中应用了GTB（Gradient Tree Boosting）算法。在我的数据集上GTB的performance比Random Forest要稍微强一点，整个experiment做完之后，有许多东西都来不及及时整理，很多都遗忘了。打算接下来的时间里，好好整理下自己的学习资料，这份资料绝对不是一时半会就整理得完的，先开个头吧，以后会间断性更新该blog的。</p>
+<p>下面来做个资料整理吧。</p>
+<a id="more"></a>
+
+<h2 id="书籍推荐"><a href="#书籍推荐" class="headerlink" title="书籍推荐"></a><strong>书籍推荐</strong></h2><p>机器学习的书籍很多，下面推荐几本本人用过而且觉得还不错的书籍。优于机器学习是一门跨领域的学科，所以在书籍上并非全是机器学习的书籍:</p>
+<ul>
+<li>1.《机器学习实战》<strong>Machine Learning in Action [美] Peter Harington 著</strong>。该书贯穿了10个最受欢迎的机器学习算法，提供了案例研究问题并用Python代码实例来解决。我本人比较喜欢这本书，因为里面的代码给了我很大的帮助，自己在学习机器学习算法的时候，理论上很多东西不太理解透，通过该书实践之后，在算法层面又有了进一步的提高。</li>
+<li>2.《统计学习方法》 李航著。该书比较详细地介绍了算法的原理，只从理论层面来研究算法。通过这本书和《机器学习实战》两本书相结合，一本讲理论，一本着手实践，加在一起会有事半功倍的效果。</li>
+<li>3.《数据挖掘概念与技术》 韩家炜著。该书介绍了数据挖掘的常用技术，比较详实，但本人觉得不太适合初学者，当时自己初学的时候看的就是这本书，结果最后很多地方理解的不是很好，后来通过《统计学习方法》和算法实践之后，再回头看《数据挖掘概念与技术》，感觉就轻松多了。</li>
+<li>4.《数学之美》 吴军著。本书可以当做业余书籍来看，可以在无聊的时候看看，不过里面讲的东西还是挺有用的。</li>
+<li>5.《Python科学计算》该书可以当做Python编程参考书籍，但前提是你喜欢使用Python，并爱上了它，不然这本书还是蛮贵的，我自己也是通过“研究生自由探索项目”才买的这本书，因为可以报销嘛。</li>
+</ul>
+<h2 id="学习工具"><a href="#学习工具" class="headerlink" title="学习工具"></a><strong>学习工具</strong></h2><p>机器学习的tools很多，这里只列出几个参考工具。</p>
+<ul>
+<li><a href="http://scikit-learn.org/stable/user_guide.html" target="_blank" rel="noopener">Scikit-learn</a>.基于Python语言的<a href="http://scikit-learn.org/stable/user_guide.html" target="_blank" rel="noopener">scikit-learn</a>库，里面涵盖了分类、聚类、回归的大部分算法，并且有常用的评估指标以及预处理数据的方法，是一个不错的学习库，强力推荐。附一篇博文：<a href="http://www.erogol.com/broad-view-machine-learning-libraries/" target="_blank" rel="noopener">SOME USEFUL MACHINE LEARNING LIBRARIES</a>.</li>
+<li><a href="http://www.r-project.org/" target="_blank" rel="noopener">R</a>语言，语言就是一门工具，R语言现在在商业界是用的最多的，在统计方面功能强大，而且也有封装好的算法库可以直接使用。附：<a href="https://cran.r-project.org/doc/contrib/Liu-R-refcard.pdf" target="_blank" rel="noopener">R语言参考卡片</a>.</li>
+<li><a href="http://www.cs.waikato.ac.nz/ml/weka/" target="_blank" rel="noopener">Weka</a>，是一个基于java开发的数据挖掘工具，可以尝试一下。它为用户提供了一系列据挖掘API、命令行和图形化用户接口。你可以准备数据、可视化、建立分类、进行回归分析、建立聚类模型，同时可以通过第三方插件执行其他算法。除了WEKA之外， <a href="http://mahout.apache.org/" target="_blank" rel="noopener">Mahout</a>是Hadoop中为机器学习提供的一个很好的JAVA框架，你可以自行学习。如果你是机器学习和大数据学习的新手，那么坚持学习WEKA，并且全心全意地学习一个库。</li>
+<li>Matlab，里面有很多的工具包，不过本人不怎么用过。参考：<a href="http://www.cad.zju.edu.cn/home/dengcai/Data/data.html" target="_blank" rel="noopener">Matlab Codes and Datasets for Feature Learning</a>和<a href="http://cn.mathworks.com/products/statistics/" target="_blank" rel="noopener">Statistics and Machine Learning Toolbox</a>。此外matlab中的<a href="http://www.gnu.org/software/octave/" target="_blank" rel="noopener">Octave</a>可以很方便地解决线性和非线性问题，比如机器学习算法底层涉及的问题。如果你有工程背景，那么你可以由此入手。</li>
+<li><a href="https://bigml.com/" target="_blank" rel="noopener">BigML</a>:可能你并不想进行编程工作。你完全可以不通过代码，来使用 WEKA那样的工具。你通过使用BigMLS的服务来进行更加深入的工作。BigML通过Web页面，提供了机器学习的接口，因此你可以通过浏览器来建立模型。</li>
+<li>如果你使用Python，这里推荐一个IDE，<a href="http://sourceforge.net/projects/winpython/files/WinPython_2.7/2.7.10.1/" target="_blank" rel="noopener">WinPython</a>,IDE版本就是Python的版本，自行选择！</li>
+</ul>
+<p>下面给出一个比较图，具体想要学什么，还需自己抉择。</p>
+<center>
+![这里写图片描述](http://img.blog.csdn.net/20150918075645450)
+</center>
+
+
+<h2 id="学习视频"><a href="#学习视频" class="headerlink" title="学习视频"></a><strong>学习视频</strong></h2><p>由于本人比较崇拜Andrew Ng，所以关于视频，首先推荐的便是Andrew Ng的斯坦福大学的机器学习课程。这套视频在网上有两个网址，国外和国内的都有，全程英语教学，内容很好，有时间建议你去听听：</p>
+<ul>
+<li>一个是国外的Coursera公开课，该课程在机器学习领域很火，是很多入门学者的首选。地址：<a href="https://www.coursera.org/；讲义地址：[Stanford" target="_blank" rel="noopener">https://www.coursera.org/；讲义地址：[Stanford</a> CS229 course下载讲义和笔记](<a href="http://cs229.stanford.edu/)；" target="_blank" rel="noopener">http://cs229.stanford.edu/)；</a></li>
+<li>一个是国内的网易公开课，链接地址：<a href="http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html" target="_blank" rel="noopener">http://open.163.com/movie/2008/1/U/O/M6SGF6VB4_M6SGJURUO.html</a></li>
+</ul>
+<p>下面是一个机器学习视频库，由加州理工学院（Caltech）出品。</p>
+<ul>
+<li>机器学习视频库，地址：<a href="http://work.caltech.edu/library/" target="_blank" rel="noopener">http://work.caltech.edu/library/</a></li>
+</ul>
+<p>其它的视频库</p>
+<ul>
+<li><a href="http://videolectures.net/Top/Computer_Science/Machine_Learning/" target="_blank" rel="noopener">Machine Learning Category on VideoLectures</a>，这个网站的视频比较多。你可以找出比较感兴趣的资源，然后深入学习。</li>
+</ul>
+<p><font color="#008B00">机器学习最近在国内比较火，许多培训机构都相应的开了该门课程，如果想要听中文教程的，可以去网上搜索下，这里就不给培训机构打广告了。</font></p>
+<h2 id="博客和文章推荐"><a href="#博客和文章推荐" class="headerlink" title="博客和文章推荐"></a><strong>博客和文章推荐</strong></h2><p>大牛们的博客，会让你感到兴奋，让你觉得你不是一个人在奋斗，让你时刻记住你的前方已经有很多的学者正在等着你，你要加油。他们的经验会让我们少走些冤枉路，能让我们在他们的基础上进一步理解。下面推荐几个我所知道的或者说我了解到的几位牛人博客和几篇文章：</p>
+<ul>
+<li><strong>pluskid</strong>，真名张弛原，一位技术大牛，毕业于浙江大学，后来出国深造。他的博文质量非常高，深入浅出，其SVM三层境界的讲解让人茅塞顿开，应该给了很多人启发吧，很值得学习。现在的博客网址：<a href="http://pluskid.org/about.html" target="_blank" rel="noopener">Chiyuan Zhang</a>，原博客网址：<a href="http://blog.pluskid.org/" target="_blank" rel="noopener">Chiyuan Zhang</a></li>
+<li><strong>Rachel Zhang</strong>，真名张睿卿，很有气质的一位软妹纸，目前是百度深度学习实验室研发工程师，在CSDN中的博客人气绝对屈指可数，算是IT界的一位女中豪杰。博客网址：<a href="http://blog.csdn.net/abcjennifer" target="_blank" rel="noopener">CSDN博客-Rachel Zhang</a></li>
+<li><strong>July</strong>，对算法研究独具一格，目前是七月在线科技创始人兼CEO。博客网址：<a href="http://blog.csdn.net/v_JULY_v" target="_blank" rel="noopener">July</a></li>
+<li><strong>Jason</strong>，一位国外机器学习爱好者，其博客内容详实，多篇文章被国内机器学习者翻译。博客网址：<a href="http://machinelearningmastery.com/blog/" target="_blank" rel="noopener">http://machinelearningmastery.com/blog/</a></li>
+<li>一个国外很好的机器学习博客，里面介绍了详细的算法知识，很全面，从感知机、神经网络、决策树、SVM、Adaboost到随机森林、Deep Learning.网址：<a href="http://www.erogol.com/machine-learning/" target="_blank" rel="noopener">A Blog From a Human-engineer-being</a></li>
+<li>一篇涵盖许多机器学习资料的文章：<a href="http://www.open-open.com/lib/view/open1428112201271.html" target="_blank" rel="noopener">机器学习(Machine Learning)&amp;深度学习(Deep Learning)资料</a></li>
+<li><strong>Edwin Chen</strong>    ，机器学习爱好者，博客内容涵盖数学、机器学习和数据科学。分享其中一篇博文：<a href="http://blog.echen.me/2011/04/27/choosing-a-machine-learning-classifier/" target="_blank" rel="noopener">Choosing a Machine Learning Classifier</a>    </li>
+<li>一篇以前的博文：<a href="http://conductrics.com/data-science-resources/" target="_blank" rel="noopener">A List of Data Science and Machine Learning Resources</a>，有时间好好阅读阅读，对你绝对有帮助。</li>
+<li><a href="http://homes.cs.washington.edu/~pedrod/papers/cacm12.pdf" target="_blank" rel="noopener">A Few Useful Things to Know about Machine Learning</a>,一篇很有帮助的机器学习文章，里面包括了特征选择与模型的简化。</li>
+<li><a href="http://www.cs.cmu.edu/~tom/pubs/MachineLearning.pdf" target="_blank" rel="noopener">The Discipline of Machine Learning</a>机器学习规则。该文章比较老，2006年发布的，作者是Tom Mitchell，但很有参考价值，其中定义了机器学习的规则。Mitchell在说服CMU总裁为一个百年内都存在的问题建立一个独立的机器学习部门时，也用到了这本书中的观点。希望能对你也有所帮助。</li>
+<li>分享一个网站：<a href="http://www.jianshu.com/" target="_blank" rel="noopener">简书</a>。</li>
+</ul>
+<h2 id="国外网站"><a href="#国外网站" class="headerlink" title="国外网站"></a><strong>国外网站</strong></h2><p>如果你想搜索比较新颖的机器学习资料或是文章，可以到以下网站中搜索，里面不仅包括了机器学习的内容，还有许多其它相关领域内容，如数据科学和云计算等。</p>
+<ul>
+<li>InfoWord：<a href="http://www.infoworld.com/reviews/" target="_blank" rel="noopener">http://www.infoworld.com/reviews/</a></li>
+<li>Kdnuggets：<a href="http://www.kdnuggets.com" target="_blank" rel="noopener">http://www.kdnuggets.com</a></li>
+<li>Datasciencecentral：<a href="http://www.datasciencecentral.com/" target="_blank" rel="noopener">http://www.datasciencecentral.com/</a></li>
+<li>Datascienceplus：<a href="http://datascienceplus.com" target="_blank" rel="noopener">http://datascienceplus.com</a></li>
+</ul>
+<h2 id="数据科学竞赛"><a href="#数据科学竞赛" class="headerlink" title="数据科学竞赛"></a><strong>数据科学竞赛</strong></h2><p>关于数据分析的竞赛，国内国外都有，下面推荐几个比较火的竞赛网站 ：</p>
+<ul>
+<li>Kaggle比赛，网址：<a href="https://www.kaggle.com/" target="_blank" rel="noopener">https://www.kaggle.com/</a></li>
+<li>DataCastle比赛，网站：<a href="http://www.pkbigdata.com/" target="_blank" rel="noopener">http://www.pkbigdata.com/</a></li>
+<li>阿里大数据竞赛，目前没有消息了，2015年有个【2015天池大数据竞赛】</li>
+</ul>
+<h2 id="ML相关算法参考"><a href="#ML相关算法参考" class="headerlink" title="ML相关算法参考"></a><strong>ML相关算法参考</strong></h2><ul>
+<li>决策树-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/45965463" target="_blank" rel="noopener">decision Tree（Python实现）</a></li>
+<li>SVM支持向量机-参考：<a href="http://blog.pluskid.org/?page_id=683" target="_blank" rel="noopener">pluskid支持向量机三重境界</a></li>
+<li>Adaboost-参考：<a href="http://www.csuldw.com/2015/07/05/2015-07-12-Adaboost/">组合算法-Adaboost</a></li>
+<li>Random Forest-参考：<a href="http://www.cnblogs.com/wentingtu/archive/2011/12/22/2297405.html" target="_blank" rel="noopener">随机森林算法</a></li>
+<li>朴素贝叶斯算法-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/46120867" target="_blank" rel="noopener">Naive Bayes算法实现</a></li>
+<li>人工神经网络-参考：<a href="http://www.cnblogs.com/luxiaoxun/archive/2012/12/10/2811309.html" target="_blank" rel="noopener">http://www.cnblogs.com/luxiaoxun/archive/2012/12/10/2811309.html</a></li>
+<li>Apriori算法-参考地址：<a href="http://www.csuldw.com/2015/06/04/2015-06-04-Apriori/">Apriori关联分析</a></li>
+<li>K最近邻算法-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/45896449" target="_blank" rel="noopener">KNN从原理到实现</a></li>
+<li>梯度树提升GTB算法-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/48085889" target="_blank" rel="noopener">Gradient Tree Boosting（或GBRT）</a></li>
+<li>K-means聚类-参考：<a href="http://blog.csdn.net/dream_angel_z/article/details/46343597" target="_blank" rel="noopener">K-means cluster</a></li>
+<li>组合算法总结-参考：<a href="http://www.csuldw.com/2015/07/22/2015-07-22%20%20ensemble/">Ensemble算法总结</a></li>
+<li>EM期望最大算法-参考：<a href="http://blog.csdn.net/zouxy09/article/details/8537620" target="_blank" rel="noopener">EM算法</a></li>
+<li>Logistic回归-参考：<a href="http://blog.csdn.net/wangran51/article/details/8892923" target="_blank" rel="noopener">逻辑回归</a></li>
+<li>HMM隐马尔可夫模型，参考:<a href="http://blog.csdn.net/likelet/article/details/7056068" target="_blank" rel="noopener">HMM</a></li>
+<li>条件随机场，参考：<a href="http://www.tanghuangwhu.com/archives/162" target="_blank" rel="noopener">CRF</a></li>
+<li>随机森林和GBDT，参考：<a href="http://www.cnblogs.com/LeftNotEasy/archive/2011/03/07/1976562.html" target="_blank" rel="noopener">决策树模型组合之随机森林与GBDT</a></li>
+<li>特征选择和特征提取，参考：<a href="http://blog.csdn.net/lanbing510/article/details/40488787" target="_blank" rel="noopener">特征提取与特征选择</a></li>
+<li>梯度下降法，参考:<a href="http://blog.csdn.net/woxincd/article/details/7040944" target="_blank" rel="noopener">gradient descent</a></li>
+<li>牛顿法，参考：<a href="http://blog.csdn.net/luoleicn/article/details/6527049" target="_blank" rel="noopener">牛顿法</a></li>
+<li>线性判别分析，参考：<a href="http://www.cnblogs.com/jerrylead/archive/2011/04/21/2024384.html" target="_blank" rel="noopener">线性判别</a></li>
+<li>深度学习-<a href="http://www.cnblogs.com/xiaowanyer/p/3701944.html" target="_blank" rel="noopener">深度学习概述：从感知机到深度网络</a></li>
+</ul>
+<h2 id="个人译文"><a href="#个人译文" class="headerlink" title="个人译文"></a><strong>个人译文</strong></h2><p>下面是本人在CSDN云计算栏目发布的翻译文章，如有翻译不准确的地方，还望多多包涵，希望能给大家带来点帮助，译文列表如下：</p>
+<ul>
+<li>2015-09-14 <a href="http://www.csdn.net/article/2015-09-14/2825693" target="_blank" rel="noopener">LSTM实现详解</a></li>
+<li>2015-09-10 <a href="http://www.csdn.net/article/2015-09-08/2825646" target="_blank" rel="noopener">从零实现来理解机器学习算法：书籍推荐及障碍的克服</a></li>
+<li>2015-08-31  <a href="http://www.csdn.net/article/2015-08-27/2825551" target="_blank" rel="noopener">机器学习开发者的现代化路径：不需要从统计学微积分开始</a></li>
+<li>2015-08-27 <a href="http://www.csdn.net/article/2015-08-27/2825549" target="_blank" rel="noopener">基于Python的卷积神经网络和特征提取</a></li>
+<li>2015-08-20 <a href="http://www.csdn.net/article/2015-08-19/2825492" target="_blank" rel="noopener">你应该掌握的七种回归技术</a></li>
+<li>2015-08-11 <a href="http://www.csdn.net/article/2015-08-10/2825430" target="_blank" rel="noopener">机器学习API Top 10：AT&amp;T Speech、IBM Watson和Google Prediction</a></li>
+<li>2015-08-03 <a href="http://www.csdn.net/article/2015-08-01/2825362" target="_blank" rel="noopener">从Theano到Lasagne：基于Python的深度学习的框架和库</a></li>
+<li>2015-07-15 <a href="http://www.csdn.net/article/2015-07-13/2825188" target="_blank" rel="noopener">Airbnb欺诈预测机器学习模型设计：准确率和召回率的故事</a></li>
+<li>2015-07-13 <a href="http://www.csdn.net/article/2015-07-13/2825187" target="_blank" rel="noopener">开发者成功使用机器学习的十大诀窍</a></li>
+</ul>
+<p>下面是相关译者的译文，仅供参考：</p>
+<ul>
+<li>2015-09-16 <a href="http://www.csdn.net/article/2015-09-15/2825714" target="_blank" rel="noopener">各种编程语言的深度学习库整理</a></li>
+<li>2015-09-11 <a href="http://www.csdn.net/article/2015-09-08/2825647" target="_blank" rel="noopener">机器学习温和指南</a></li>
+<li>2015-09-10 <a href="http://www.csdn.net/article/2015-09-10/2825668" target="_blank" rel="noopener">关于数据科学，书上不曾提及的三点经验</a></li>
+</ul>
+<hr>
+<p><font color="#CD3333">从这些牛人的博客中，你能学到很多。慢慢地你会体会到，不是你一个人在战斗，还有很多人，所以你不用害怕孤独。</font></p>
+<p>最后，关于机器学习资料的整理，先到此为止吧，如果你有什么好的资料，欢迎在评论中给出推荐或网址链接。</p>
+<hr>
+<script>
+        document.querySelectorAll('.github-emoji')
+          .forEach(el => {
+            if (!el.dataset.src) { return; }
+            const img = document.createElement('img');
+            img.style = 'display:none !important;';
+            img.src = el.dataset.src;
+            img.addEventListener('error', () => {
+              img.remove();
+              el.style.color = 'inherit';
+              el.style.backgroundImage = 'none';
+              el.style.background = 'none';
+            });
+            img.addEventListener('load', () => {
+              img.remove();
+            });
+            document.body.appendChild(img);
+          });
+      </script></span>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag">#Machine Learning</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/10/21/2015-10-21 Windows git push no password/" rel="prev">
+                <i class="fa fa-chevron-left"></i> Windows下使用 git push 命令的无密码设置
+              </a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/19/2015-08-19 GBDT/" rel="next">
+                Gradient Tree Boosting Algorithm <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+ </div>
+
+        
+
+        
+          <div class="comments" id="comments">
+            
+              <div id="disqus_thread">
+                <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+              </div>
+            
+          </div>
+        
+      
+
+        
+          
+  
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+      
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview" sidebar-panel>
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="刘帝伟" itemprop="image">
+          <p class="site-author-name" itemprop="name">刘帝伟</p>
+        </div>
+        <p class="site-description motion-element" itemprop="description">中南大学硕士，关注机器学习、深度学习、自然语言处理与人工智能领域.</p>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">110</span>
+              <span class="site-state-item-name">posts</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">categories</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">186</span>
+              <span class="site-state-item-name">tags</span>
+              </a>
+          </div>
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="menu-item-icon icon-next-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/csuldw" target="_blank">
+                  <i class="fa fa-github"></i> GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/liudiwei210" target="_blank">
+                  <i class="fa fa-weibo"></i> WeiBo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://blog.csdn.net/dream_angel_z" target="_blank">
+                  <i class="fa fa-csdn"></i> CSDN
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#书籍推荐"><span class="nav-number">1.</span> <span class="nav-text">书籍推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习工具"><span class="nav-number">2.</span> <span class="nav-text">学习工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#学习视频"><span class="nav-number">3.</span> <span class="nav-text">学习视频</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#博客和文章推荐"><span class="nav-number">4.</span> <span class="nav-text">博客和文章推荐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#国外网站"><span class="nav-number">5.</span> <span class="nav-text">国外网站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据科学竞赛"><span class="nav-number">6.</span> <span class="nav-text">数据科学竞赛</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ML相关算法参考"><span class="nav-number">7.</span> <span class="nav-text">ML相关算法参考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#个人译文"><span class="nav-number">8.</span> <span class="nav-text">个人译文</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+	  </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner"> <div class="copyright">
+  
+  &copy;  2014 - 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="icon-next-heart fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘帝伟</span>
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
+</div>
+
+<div class="theme-info">
+  Theme -
+  <a class="theme-link" href="#">
+    FreeSky
+  </a>(Reserved)
+
+  
+  <span id="busuanzi_container_site_uv">
+     &nbsp; | &nbsp;  用户量: <span id="busuanzi_value_site_uv"></span>
+  </span>
+  <span id="busuanzi_container_site_pv">
+    &nbsp; | &nbsp;  总访问量: <span id="busuanzi_value_site_pv"></span>
+  </span>
+
+</div>
+      <div style="width:800px;margin:0 auto; padding:0px 0; font-size: 1em">
+        <span><a href="https://beian.miit.gov.cn" target="_blank">粤ICP备19116962号</a></span>
+        <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=44030702002575" style="display:inline-block;text-decoration:none;height:18px;line-height:20px;">
+        <img src="/images/beian.png" style="float:left;"><p style="float:left;height:17px;line-height:20px;margin: 0px 0px 0px 4px; color:#939393;">粤公网安备 44030702002575号</p></a>
+      </div>
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+ </div>
+    </footer>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/others/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+  
+    
+    
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'csuldw';
+      var disqus_identifier = '2015/09/23/2015-09-23 Machine learning materials/';
+      var disqus_title = '机器学习-个人资料整理';
+      var disqus_url = 'https://www.csuldw.com/2015/09/23/2015-09-23 Machine learning materials/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript" src="/others/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.5.2"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.5.2"></script>
+  
+
+  <script type="text/javascript" src="/others/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/others/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.5.2" id="motion.global"></script>
+
+
+
+
+  <script type="text/javascript" src="/js/nav-toggle.js?v=0.4.5.2"></script>
+  <script type="text/javascript" src="/others/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.5.2" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 0.4 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    var $tocContent = $('.post-toc-content');
+    var $aboutContent = $('#posts-about');
+    if (isDesktop() && CONFIG.sidebar === 'post') {
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && $aboutContent.length === 0) {
+        displaySidebar();
+      }
+    }
+  });
+</script>
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+      if (isMobile()) {
+        FastClick.attach(document.body);
+      }
+
+      motionIntegrator.bootstrap();
+    });
+  </script>
+
+  
+  
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+      processEscapes: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for (i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+  
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+  
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+  <script type="text/javascript">
+    $(function () {
+      $("#posts").find('img').lazyload({
+        placeholder: "/images/loading.gif",
+        effect: "fadeIn"
+      });
+    });
+  </script>
+  
+     <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+<script>AV.initialize("VmAcWiBwF1SdavvjD8vkHJLn-gzGzoHsz", "cmuscA82gXyC9N1tgjH1m8bK");</script>
+<script>
+function showTime(Counter) {
+  var query = new AV.Query(Counter);
+  $(".leancloud_visitors").each(function() {
+    var url = $(this).attr("id").trim();
+    query.equalTo("url", url);
+    query.find({
+      success: function(results) {
+        if (results.length == 0) {
+          var content = $(document.getElementById(url)).text() + ': 0';
+          $(document.getElementById(url)).text(content);
+          return;
+        }
+        for (var i = 0; i < results.length; i++) {
+          var object = results[i];
+          var content = $(document.getElementById(url)).text() + ': ' + object.get('time');
+          $(document.getElementById(url)).text(content);
+        }
+      },
+      error: function(object, error) {
+        console.log("Error: " + error.code + " " + error.message);
+      }
+    });
+
+  });
+}
+
+function addCount(Counter) {
+  var Counter = AV.Object.extend("Counter");
+  url = $(".leancloud_visitors").attr('id').trim();
+  title = $(".leancloud_visitors").attr('data-flag-title').trim();
+  var query = new AV.Query(Counter);
+  query.equalTo("url", url);
+  query.find({
+    success: function(results) {
+      if (results.length > 0) {
+        var counter = results[0];
+        counter.fetchWhenSave(true);
+        counter.increment("time");
+        counter.save(null, {
+          success: function(counter) {
+            var content = $(document.getElementById(url)).text() + ': ' + counter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(counter, error) {
+            console.log('Failed to save Visitor num, with error message: ' + error.message);
+          }
+        });
+      } else {
+        var newcounter = new Counter();
+        newcounter.set("title", title);
+        newcounter.set("url", url);
+        newcounter.set("time", 1);
+        newcounter.save(null, {
+          success: function(newcounter) {
+              console.log("newcounter.get('time')="+newcounter.get('time'));
+            var content = $(document.getElementById(url)).text() + ': ' + newcounter.get('time');
+            $(document.getElementById(url)).text(content);
+          },
+          error: function(newcounter, error) {
+            console.log('Failed to create');
+          }
+        });
+      }
+    },
+    error: function(error) {
+      console.log('Error:' + error.code + " " + error.message);
+    }
+  });
+}
+$(function() {
+  var Counter = AV.Object.extend("Counter");
+  if ($('.leancloud_visitors').length == 1) {
+    addCount(Counter);
+  } else if ($('.post-title-link').length > 1) {
+    showTime(Counter);
+  }
+}); 
+</script>
+  
+</body>
+</html>
